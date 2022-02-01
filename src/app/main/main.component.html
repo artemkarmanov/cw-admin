@@ -1,0 +1,8 @@
+<ng-container [ngSwitch]="isLoggedIn$ | async">
+    <ng-container *ngSwitchCase="true">
+        <router-outlet></router-outlet>
+    </ng-container>
+    <ng-container *ngSwitchDefault>
+        <cwb-login></cwb-login>
+    </ng-container>
+</ng-container>

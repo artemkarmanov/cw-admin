@@ -8,4 +8,5 @@
 
 # IDEs and editors
 /.idea
+/.angular
 package-lock.json
