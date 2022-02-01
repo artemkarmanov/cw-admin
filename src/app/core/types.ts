@@ -1,3 +1,5 @@
+import {InjectionToken} from '@angular/core';
+
 export interface SocketMessagesConfig {
     host: string;
     reconnectionInterval?: number[];
@@ -32,12 +34,13 @@ export interface IWsIncident {
 }
 
 export interface IWsPacket<T> {
-    msg: string;
+    type: string;
     data?: T;
-    id: number;
+    p: number;
     code?: number;
     info?: string;
     error?: string;
 }
 
 export type SocketInMessage = string;
+export const WS_CONFIG_TOKEN = new InjectionToken<SocketMessagesConfig>('WS_CONFIG');

@@ -2,8 +2,7 @@ import {Inject, Injectable} from '@angular/core';
 import {EMPTY, Observable, Subject, timer} from 'rxjs';
 import {webSocket, WebSocketSubject} from 'rxjs/webSocket';
 import {catchError, filter, first, map, switchAll, switchMap, tap} from 'rxjs/operators';
-import {IWsIncident, IWsPacket, SocketMessagesConfig, WSError} from './types';
-import {WS_CONFIG_TOKEN} from './di';
+import {IWsIncident, IWsPacket, SocketMessagesConfig, WS_CONFIG_TOKEN, WSError} from './types';
 
 const DEFAULT_RECONNECTION_INTERVALS = [1, 2, 5, 10, 30, 60];
 type SocketInMessage = string;
@@ -71,11 +70,11 @@ export class SocketMessagesService {
         this.packets$$.asObservable().pipe(
             switchAll(),
             tap(packet => {
-                if (packet.msg !== 'event') {
-                    this.messages$$.next(packet);
-                } else {
-                    this.events$$.next(packet);
-                }
+                //if (packet.msg !== 'event') {
+                this.messages$$.next(packet);
+                // } else {
+                //     this.events$$.next(packet);
+                // }
             })
         ).subscribe();
         this.messages$ = this.messages$$.asObservable().pipe(
@@ -125,17 +124,17 @@ export class SocketMessagesService {
 
     /**
      * Send a request using web socket, wait for response and send it to user
-     * @param msg
+     * @param type
      * @param data
      */
-    request$<T>(msg: SocketInMessage, data?: unknown): Observable<T> {
+    request$<T>(type: SocketInMessage, data?: unknown): Observable<T> {
         if (!this.isConnected()) {
             throw new Error('No connection');
         }
-        const id = ++messageId;
+        const p = ++messageId;
         const packet = {
-            id,
-            msg
+            p,
+            type
         };
         if (data) {
             Object.assign(packet, {data});
@@ -144,12 +143,12 @@ export class SocketMessagesService {
         (this.socket$$ as WebSocketSubject<IWsPacket<T>>).next(packet);
 
         return (this.messages$ as Observable<IWsPacket<T>>).pipe(
-            filter((p: IWsPacket<T>) => {
-                return p.id === id;
+            filter((packet: IWsPacket<T>) => {
+                return packet.p === p;
             }),
             map(_ => _.data as T),
             first(),
-            tap((_) => console.debug('Request %o; Response %o', {msg, data}, _)),
+            tap((_) => console.debug('Request %o; Response %o', {msg: type, data}, _)),
         );
     }
 
