@@ -9,7 +9,7 @@ import {Observable} from 'rxjs';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MainComponent implements OnInit {
-    public isLoggedIn$: Observable<boolean> = this.authService.isLoggedIn$();
+    public isAuthorized$: Observable<boolean> = this.authService.isAuthorized$;
 
     constructor(private authService: AuthService) {
     }

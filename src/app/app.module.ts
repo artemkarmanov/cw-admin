@@ -1,11 +1,12 @@
-import {NgModule} from '@angular/core';
+import {ErrorHandler, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {WS_CONFIG_TOKEN} from './core/di';
 import {environment} from '../environments/environment';
 import {CoreModule} from './core/core.module';
+import {ApplicationErrorHandler} from './core/application-error-handler';
+import {WS_CONFIG_TOKEN} from './core/types';
 
 @NgModule({
     declarations: [
@@ -22,7 +23,8 @@ import {CoreModule} from './core/core.module';
             useValue: {
                 host: environment.backend
             }
-        }
+        },
+        {provide: ErrorHandler, useClass: ApplicationErrorHandler},
     ],
     bootstrap: [AppComponent]
 })

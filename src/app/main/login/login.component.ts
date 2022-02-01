@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     constructor(private authService: AuthService) {
         this.loginClick$$.asObservable().pipe(
             switchMap(() => {
-                return this.authService.login$('', '');
+                return this.authService.login$('test@example.org', 'test321');
             })
         ).subscribe();
     }

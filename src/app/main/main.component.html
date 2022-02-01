@@ -1,4 +1,4 @@
-<ng-container [ngSwitch]="isLoggedIn$ | async">
+<ng-container [ngSwitch]="isAuthorized$ | async">
     <ng-container *ngSwitchCase="true">
         <router-outlet></router-outlet>
     </ng-container>
