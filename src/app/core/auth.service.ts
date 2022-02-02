@@ -1,8 +1,14 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject, EMPTY, Observable} from 'rxjs';
-import {catchError, tap} from 'rxjs/operators';
+import {Inject, Injectable} from '@angular/core';
+import {BehaviorSubject, EMPTY, Observable, of} from 'rxjs';
+import {catchError, map, tap} from 'rxjs/operators';
 import {SocketMessagesService} from './socket-messages.service';
 import {ErrorHandlerService} from './error-handler.service';
+import {LOCAL_STORAGE, StorageService} from 'ngx-webstorage-service';
+import {USER_INFO} from './const';
+import {ILoginResponse, IReLoginResponse} from './types';
+
+const TOKEN_KEY = 'token';
+const USER_KEY = 'user';
 
 @Injectable()
 export class AuthService {
@@ -11,32 +17,20 @@ export class AuthService {
 
     constructor(
         private messages: SocketMessagesService,
-        private errorHandlerService: ErrorHandlerService
+        private errorHandlerService: ErrorHandlerService,
+        @Inject(LOCAL_STORAGE) private tokenStorage: StorageService,
+        @Inject(USER_INFO) private userStorage: StorageService,
     ) {
     }
 
 
     public login$(email: string, password: string): Observable<unknown> {
 
-        return this.messages.request$<any>('login', {email, password}).pipe(
+        return this.messages.request$<ILoginResponse>('login', {email, password}).pipe(
             tap((data) => {
-                console.log(data);
-                // if (!bookeng_app_token) {
-                //     //throw new LoginError('No app_token provided');
-                //     throw new Error('No app_token provided');
-                // }
-                //this.token.set(bookeng_app_token);
-                // this.user.set({
-                //     billing_entity_id,
-                //     email,
-                //     first_name,
-                //     last_name,
-                //     org_id,
-                //     sys_admin,
-                //     time_zone,
-                //     theme
-                //
-                // });
+                const {Token: token} = data;
+                this.setAppToken(token);
+                this.userStorage.set(USER_KEY, {email});
             }),
             tap(() => this.authorization$$.next(true)),
 
@@ -50,29 +44,39 @@ export class AuthService {
         );
     }
 
-    // public reLogin$(): Observable<boolean> {
-    //     if (!this.hasAppToken()) {
-    //         return of(false);
-    //     }
-    //
-    //     const bookeng_app_token = this.token.get() as string;
-    //     return this.messages.request$<IAuthResponse>('reLogin', {bookeng_app_token}).pipe(
-    //         tap((data: IAuthResponse) => this.user.set(data)),
-    //         map(() => true),
-    //         catchError(() => {
-    //             this.token.empty();
-    //             return of(false);
-    //         }),
-    //         tap((result) => {
-    //             this.authorization$$.next(result);
-    //         }),
-    //         tap(() => {
-    //             this.progress.stop();
-    //         })
-    //     );
-    // }
+    public reLogin$(): Observable<boolean> {
+        const token = this.getAppToken();
+        if (!token) {
+            return of(false);
+        }
 
-    private hasAppToken(): boolean {
-        return false;
+        return this.messages.request$<IReLoginResponse>('reLogin', {token}).pipe(
+            map(() => true),
+            catchError(() => {
+                this.clearLocalData();
+                return of(false);
+            }),
+            tap((result) => {
+                this.authorization$$.next(result);
+            }),
+            tap(() => {
+
+            })
+        );
     }
+
+    private getAppToken(): string | null {
+        const hasToken = this.tokenStorage.has(TOKEN_KEY);
+        return hasToken ? this.tokenStorage.get(TOKEN_KEY) : null;
+    }
+
+    private setAppToken(token: string): void {
+        this.tokenStorage.set(TOKEN_KEY, token);
+    }
+
+    private clearLocalData(): void {
+        this.tokenStorage.clear();
+        this.userStorage.clear();
+    }
+
 }

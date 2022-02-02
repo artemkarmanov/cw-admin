@@ -7,6 +7,8 @@ import {environment} from '../environments/environment';
 import {CoreModule} from './core/core.module';
 import {ApplicationErrorHandler} from './core/application-error-handler';
 import {WS_CONFIG_TOKEN} from './core/types';
+import {LOCAL_STORAGE, SESSION_STORAGE} from 'ngx-webstorage-service';
+import {TOKEN_SERVICE, USER_INFO} from './core/const';
 
 @NgModule({
     declarations: [
@@ -25,6 +27,8 @@ import {WS_CONFIG_TOKEN} from './core/types';
             }
         },
         {provide: ErrorHandler, useClass: ApplicationErrorHandler},
+        {provide: TOKEN_SERVICE, useExisting: LOCAL_STORAGE},
+        {provide: USER_INFO, useExisting: SESSION_STORAGE},
     ],
     bootstrap: [AppComponent]
 })
