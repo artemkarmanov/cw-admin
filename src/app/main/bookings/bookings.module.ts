@@ -3,11 +3,13 @@ import {CommonModule} from '@angular/common';
 
 import {BookingsRoutingModule} from './bookings-routing.module';
 import {BookingsComponent} from './bookings.component';
+import {CreateButtonComponent} from './create-button/create-button.component';
 
 
 @NgModule({
   declarations: [
-    BookingsComponent
+    BookingsComponent,
+    CreateButtonComponent
   ],
   imports: [
     CommonModule,

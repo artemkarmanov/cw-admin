@@ -1,1 +1,9 @@
-<p>create works!</p>
+<ng-container [ngSwitch]="step">
+    <cwb-general-booking-information *ngSwitchCase="1"></cwb-general-booking-information>
+    <cwb-in-out-booking-information *ngSwitchCase="2"></cwb-in-out-booking-information>
+    <cwb-booking-details *ngSwitchCase="3"></cwb-booking-details>
+</ng-container>
+
+<button (click)="back()" *ngIf="step>1">Back</button>
+<button (click)="next()" *ngIf="step<3" [disabled]="!isReadyForNextStep">Next</button>
+<button (click)="save()" *ngIf="step===3" [disabled]="!isReadyForNextStep">Save</button>

@@ -50,3 +50,26 @@ export interface ILoginResponse {
     connectionId?: number | string;
 }
 
+interface ISession {
+    sessionId: number;
+    startEpoch: number;
+    sessionDurationMins: number;
+    audioDetailsOverride?: 0 | 1;
+    captionDispOverride?: 0 | 1;
+}
+
+export interface IBooking {
+    title: string;
+    bookingToken: string;
+    bookingPasscode: string;
+    bookingCaptionerPasscode: string;
+    bookingPasscodeHash: string;
+    audioDetails: string;
+    captionDispDetails: string;
+    bookingTimeZone: string;
+    sessions: ISession[];
+}
+
+export interface INewBooking {
+
+}

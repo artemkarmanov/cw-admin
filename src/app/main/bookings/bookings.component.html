@@ -1,1 +1,17 @@
-<p>bookings works!</p>
+<cwb-create-button></cwb-create-button>
+<ng-container *ngIf="bookings$ | async as bookings">
+    <table *ngIf="bookings.length;else empty">
+        <thead>
+        <th></th>
+        </thead>
+        <tr *ngFor="let booking of bookings">
+            <td>{{booking | json}}</td>
+        </tr>
+    </table>
+    <ng-template #empty>
+        <div>
+            You don't have any bookings for captioning yet.
+            Press the New booking button to get started
+        </div>
+    </ng-template>
+</ng-container>
