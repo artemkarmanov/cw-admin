@@ -5,7 +5,7 @@ import {SocketMessagesService} from './socket-messages.service';
 import {ErrorHandlerService} from './error-handler.service';
 import {LOCAL_STORAGE, StorageService} from 'ngx-webstorage-service';
 import {USER_INFO} from './const';
-import {ILoginResponse, IReLoginResponse} from './types';
+import {ILoginResponse} from './types';
 
 const TOKEN_KEY = 'token';
 const USER_KEY = 'user';
@@ -50,7 +50,7 @@ export class AuthService {
             return of(false);
         }
 
-        return this.messages.request$<IReLoginResponse>('reLogin', {token}).pipe(
+        return this.messages.request$<ILoginResponse>('reLogin', {token}).pipe(
             map(() => true),
             catchError(() => {
                 this.clearLocalData();

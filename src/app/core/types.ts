@@ -50,6 +50,3 @@ export interface ILoginResponse {
     connectionId?: number | string;
 }
 
-export interface IReLoginResponse extends ILoginResponse {
-
-}
