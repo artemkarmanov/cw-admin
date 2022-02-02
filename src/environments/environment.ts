@@ -2,6 +2,8 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+//test1@gmail.com / abc123
+// test2@gmail.com / abc123
 export const environment = {
     production: false,
     backend: 'wss://testmain.captionworks.com:3000/socket'

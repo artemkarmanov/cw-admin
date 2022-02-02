@@ -1,5 +1,5 @@
 import {Inject, Injectable} from '@angular/core';
-import {BehaviorSubject, EMPTY, Observable, of} from 'rxjs';
+import {BehaviorSubject, EMPTY, Observable, of, switchMap} from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
 import {SocketMessagesService} from './socket-messages.service';
 import {ErrorHandlerService} from './error-handler.service';
@@ -62,6 +62,24 @@ export class AuthService {
             tap(() => {
 
             })
+        );
+    }
+
+    public logout$(): Observable<void> {
+        return this.isAuthorized$.pipe(
+            switchMap(isAuthorized => {
+                if (!isAuthorized) {
+                    return of(void 0);
+                }
+                return this.messages.request$('logout');
+            }),
+            tap(() => {
+                this.clearLocalData();
+            }),
+            tap(() => {
+                this.authorization$$.next(false);
+            }),
+            map(() => void 0)
         );
     }
 

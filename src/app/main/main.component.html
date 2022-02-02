@@ -1,5 +1,8 @@
 <ng-container [ngSwitch]="isAuthorized$ | async">
     <ng-container *ngSwitchCase="true">
+        <section>
+            <cwb-logout-button></cwb-logout-button>
+        </section>
         <router-outlet></router-outlet>
     </ng-container>
     <ng-container *ngSwitchDefault>

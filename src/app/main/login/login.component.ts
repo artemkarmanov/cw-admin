@@ -2,6 +2,12 @@ import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/co
 import {Subject} from 'rxjs';
 import {AuthService} from '../../core/auth.service';
 import {switchMap} from 'rxjs/operators';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+
+interface IUserCredentials {
+    email: string;
+    password: string;
+}
 
 @Component({
     selector: 'cwb-login',
@@ -13,11 +19,16 @@ export class LoginComponent implements OnInit, OnDestroy {
     private destroy$$: Subject<void> = new Subject<void>();
 
     private loginClick$$: Subject<void> = new Subject<void>();
+    public form: FormGroup = new FormGroup({
+        email: new FormControl(null, [Validators.required, Validators.email]),
+        password: new FormControl(null, Validators.required)
+    });
 
     constructor(private authService: AuthService) {
         this.loginClick$$.asObservable().pipe(
             switchMap(() => {
-                return this.authService.login$('test1@gmail.com', 'abc123');
+                const {email, password} = this.form.value as IUserCredentials;
+                return this.authService.login$(email, password);
             })
         ).subscribe();
     }
@@ -31,7 +42,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 
     public login(): void {
-        this.loginClick$$.next();
+        if (this.form.valid) {
+            this.loginClick$$.next();
+        }
+
     }
 
 }
