@@ -46,7 +46,7 @@ export type SocketInMessage = string;
 export const WS_CONFIG_TOKEN = new InjectionToken<SocketMessagesConfig>('WS_CONFIG');
 
 export interface ILoginResponse {
-    Token: string;
+    token: string;
     connectionId?: number | string;
 }
 
@@ -54,8 +54,8 @@ interface ISession {
     sessionId: number;
     startEpoch: number;
     sessionDurationMins: number;
-    audioDetailsOverride?: 0 | 1;
-    captionDispOverride?: 0 | 1;
+    audioDetailsOverride?: string;
+    captionDispOverride?: string;
 }
 
 export interface IBooking {
@@ -70,6 +70,29 @@ export interface IBooking {
     sessions: ISession[];
 }
 
-export interface INewBooking {
+export interface INewSession {
+    day: number;//Day of week, 0 == Monday
+    startHour: number;//Hour of start time 0-23
+    startMin: number;//Minute of start time 0-59
+    durationMins: number;//Minutes duration 0-1440
+}
 
+export interface INewBooking {
+    title: string;
+    startDate: string; //ISO 8601 date
+    sessionList: INewSession[];
+    timeZoneOverride?: string;
+    countWeeks: number; //Number of weeks’ worth of sessionList     sessions to process. 1 indicates no     recurrences.
+    audioDetails: string;
+    captionDispDetails: string;
+    requirePasscode?: 0 | 1;
+    requireLogin?: 0 | 1;
+    viewerEmails?: string;
+}
+
+export interface ICreateBookingResponse {
+    bookingToken: string;
+    bookingPasscode: string;
+    bookingPasscodeHash: string;
+    bookingCaptionerPasscode: string;
 }

@@ -28,7 +28,7 @@ export class AuthService {
 
         return this.messages.request$<ILoginResponse>('login', {email, password}).pipe(
             tap((data) => {
-                const {Token: token} = data;
+                const {token} = data;
                 this.setAppToken(token);
                 this.userStorage.set(USER_KEY, {email});
             }),

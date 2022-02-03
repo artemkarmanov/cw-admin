@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {SocketMessagesService} from '../../core/socket-messages.service';
-import {Observable} from 'rxjs';
-import {IBooking, INewBooking} from '../../core/types';
-import {map} from 'rxjs/operators';
+import {EMPTY, Observable} from 'rxjs';
+import {IBooking, ICreateBookingResponse, INewBooking} from '../../core/types';
+import {catchError, map} from 'rxjs/operators';
+import {ErrorHandlerService} from '../../core/error-handler.service';
 
 interface IGetBookingRequest {
     bookingToken?: string;
@@ -17,7 +18,10 @@ interface IGetBookingRequest {
 })
 export class BookingService {
 
-    constructor(private socketMessagesService: SocketMessagesService) {
+    constructor(
+        private socketMessagesService: SocketMessagesService,
+        private errorHandler: ErrorHandlerService
+    ) {
     }
 
     public getBookings$(count?: number, start?: number, bookingToken?: string, includePast?: boolean): Observable<IBooking[]> {
@@ -29,7 +33,12 @@ export class BookingService {
         );
     }
 
-    public createBooking$(data: INewBooking) {
-        return this.socketMessagesService.request$('createBooking', data);
+    public createBooking$(data: INewBooking): Observable<ICreateBookingResponse> {
+        return this.socketMessagesService.request$<ICreateBookingResponse>('createBooking', data).pipe(
+            catchError((err) => {
+                this.errorHandler.handle(err);
+                return EMPTY;
+            })
+        );
     }
 }

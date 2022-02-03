@@ -7,20 +7,22 @@ import {CreateServiceProviderModule} from './create-service-provider.module';
 import {GeneralBookingInformationComponent} from './general-booking-information/general-booking-information.component';
 import {InOutBookingInformationComponent} from './in-out-booking-information/in-out-booking-information.component';
 import {BookingDetailsComponent} from './booking-details/booking-details.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
-  declarations: [
-    CreateComponent,
-    GeneralBookingInformationComponent,
-    InOutBookingInformationComponent,
-    BookingDetailsComponent
-  ],
-  imports: [
-    CommonModule,
-    CreateRoutingModule,
-    CreateServiceProviderModule
-  ]
+    declarations: [
+        CreateComponent,
+        GeneralBookingInformationComponent,
+        InOutBookingInformationComponent,
+        BookingDetailsComponent
+    ],
+    imports: [
+        CommonModule,
+        CreateRoutingModule,
+        CreateServiceProviderModule,
+        ReactiveFormsModule
+    ]
 })
 export class CreateModule {
 }

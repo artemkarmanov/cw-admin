@@ -1,1 +1,10 @@
-<p>in-out-booking-information works!</p>
+<form [formGroup]="form">
+    <div>
+        <label for="audioDetails">Audio details</label>
+        <textarea formControlName="audioDetails" id="audioDetails" required></textarea>
+    </div>
+    <div>
+        <label for="captionDispDetails">Caption display</label>
+        <textarea formControlName="captionDispDetails" id="captionDispDetails" required></textarea>
+    </div>
+</form>

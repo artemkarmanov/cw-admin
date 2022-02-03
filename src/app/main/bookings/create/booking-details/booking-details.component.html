@@ -1,1 +1,14 @@
-<p>booking-details works!</p>
+<form [formGroup]="form">
+    <div>
+        <input formControlName="requirePasscode" id="requirePasscode" type="checkbox">
+        <label for="requirePasscode">Require passcode</label>
+    </div>
+    <div>
+        <input formControlName="requireLogin" id="requireLogin" type="checkbox">
+        <label for="requirePasscode">Require login</label>
+    </div>
+    <div>
+        <label for="viewerEmails">Authorized viewers</label>
+        <textarea formControlName="viewerEmails" id="viewerEmails"></textarea>
+    </div>
+</form>
