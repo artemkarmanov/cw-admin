@@ -1,8 +1,9 @@
 <cwb-create-button></cwb-create-button>
 <ng-container *ngIf="bookings$ | async as bookings">
-    <table *ngIf="bookings.length;else empty">
+
+    <table *ngIf="bookings.length;else empty" border="1">
         <thead>
-        <th></th>
+        <th>Booking data</th>
         </thead>
         <tr *ngFor="let booking of bookings">
             <td>{{booking | json}}</td>

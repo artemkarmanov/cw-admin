@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {CreateService} from './create.service';
-import {Observable, Subject, switchMap, takeUntil} from 'rxjs';
+import {from, Observable, Subject, switchMap, takeUntil} from 'rxjs';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'cwb-create',
@@ -13,7 +14,7 @@ export class CreateComponent implements OnInit, OnDestroy {
     private saveClick$$: Subject<void> = new Subject<void>();
     public isReadyForNextStep$: Observable<boolean> = this.createService.isReadyForNextStep$();
 
-    constructor(private createService: CreateService) {
+    constructor(private createService: CreateService, private router: Router) {
     }
 
     get step() {
@@ -26,6 +27,9 @@ export class CreateComponent implements OnInit, OnDestroy {
             takeUntil(this.destroy$$.asObservable()),
             switchMap(() => {
                 return this.createService.create$();
+            }),
+            switchMap((result) => {
+                return from(this.router.navigate(['bookings']));
             })
         ).subscribe();
     }

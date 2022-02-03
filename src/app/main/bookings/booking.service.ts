@@ -25,11 +25,14 @@ export class BookingService {
     }
 
     public getBookings$(count?: number, start?: number, bookingToken?: string, includePast?: boolean): Observable<IBooking[]> {
-        return this.socketMessagesService.request$<{ bookings?: IBooking[] }>('getBookings').pipe(
+        return this.socketMessagesService.request$</*{ bookings?: */IBooking[]/* }*/>('getBookings').pipe(
             //pluck('bookings'),
             map(response => {
-                return !response ? [] : (!response.bookings) ? [] : response.bookings;
+                return !response ? [] : response;
             })
+            // map(response => {
+            //     return !response ? [] : (!response.bookings) ? [] : response.bookings;
+            // })
         );
     }
 

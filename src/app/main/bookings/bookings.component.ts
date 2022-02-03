@@ -23,8 +23,9 @@ export class BookingsComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.bookingService.getBookings$().pipe(
-            takeUntil(this.destroy$$.asObservable())
-        ).subscribe(this.bookings$$);
+            takeUntil(this.destroy$$.asObservable()),
+            tap(this.bookings$$.next.bind(this.bookings$$))
+        ).subscribe();
     }
 
     ngOnDestroy(): void {

@@ -3,8 +3,10 @@ import {CreateServiceProviderModule} from './create-service-provider.module';
 import {BookingService} from '../booking.service';
 import {INewBooking, INewSession} from '../../../core/types';
 import {BehaviorSubject, Observable} from 'rxjs';
+import {DateTime} from 'luxon';
 
-const MINIMUM_SESSION_DURATION = 10;
+const MINIMUM_SESSION_DURATION = 10; //minutes
+const MINIMUM_BOOKING_OFFSET = 48; //hours
 
 @Injectable({
     providedIn: CreateServiceProviderModule
@@ -17,19 +19,19 @@ export class CreateService {
     };
 
     private _startTime?: string;
+    private _durationMins: number = MINIMUM_SESSION_DURATION;
+
+    constructor(private bookingService: BookingService) {
+    }
 
     get startTime(): string {
         return this._startTime || '';
-    }
-
-    constructor(private bookingService: BookingService) {
     }
 
     set startTime(time) {
         this._startTime = time;
     }
 
-    private _durationMins: number = MINIMUM_SESSION_DURATION;
 
     get durationMins(): number {
         return this._durationMins || MINIMUM_SESSION_DURATION;
@@ -72,11 +74,11 @@ export class CreateService {
     }
 
     get captionDispDetails(): string {
-        return this.data.captionDispDetails || '';
+        return this.data.captionDistDetails || '';
     }
 
     set captionDispDetails(details: string) {
-        this.data.captionDispDetails = details;
+        this.data.captionDistDetails = details;
     }
 
     get timeZone(): string | undefined {
@@ -130,7 +132,6 @@ export class CreateService {
     }
 
     public create$() {
-
         return this.bookingService.createBooking$(this.getData());
     }
 
@@ -143,7 +144,17 @@ export class CreateService {
     }
 
     private buildSessionList(): INewSession[] {
-        return [];
+        const date = DateTime.fromISO(this.startDate);
+        const time = DateTime.fromISO(this.startTime);
+
+        return [
+            {
+                startHour: time.get('hour'),
+                startMin: time.get('minute'),
+                day: date.get('weekday') - 1,
+                durationMins: this.durationMins
+            }
+        ];
     }
 
     private getData(): INewBooking {
@@ -153,7 +164,7 @@ export class CreateService {
             countWeeks: this.countWeeks,
             sessionList: this.buildSessionList(),
             audioDetails: this.audioDetails,
-            captionDispDetails: this.captionDispDetails,
+            captionDistDetails: this.captionDispDetails,
             requirePasscode: this.requirePasscode,
             requireLogin: this.requireLogin,
             viewerEmails: this.viewerEmails
