@@ -1,1 +1,13 @@
-<p>view works!</p>
+<a routerLink="/bookings">Back</a>
+<ng-container
+        *ngTemplateOutlet="asyncTemplate;context:{ booking:booking$ | async }">
+</ng-container>
+<ng-template #asyncTemplate let-booking="booking">
+    <ng-container *ngIf="booking;else empty">
+        {{booking | json}}
+    </ng-container>
+</ng-template>
+
+<ng-template #empty>
+    No booking with this identifier exists
+</ng-template>

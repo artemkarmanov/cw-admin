@@ -31,6 +31,18 @@ export class BookingService {
         );
     }
 
+    public getBooking$(bookingToken: string): Observable<IBooking | undefined> {
+        return this.socketMessagesService.request$<{ bookings?: IBooking[] }>('getBookings', {bookingToken}).pipe(
+            pluck('bookings'),
+            map(_ => {
+                if (_ && Array.isArray(_)) {
+                    return _.shift();
+                }
+                return;
+            })
+        );
+    }
+
     public createBooking$(data: INewBooking): Observable<ICreateBookingResponse> {
         return this.socketMessagesService.request$<ICreateBookingResponse>('createBooking', data).pipe(
             catchError((err) => {
