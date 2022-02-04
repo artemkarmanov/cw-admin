@@ -3,11 +3,11 @@
         *ngTemplateOutlet="asyncTemplate;context:{ booking:booking$ | async }">
 </ng-container>
 <ng-template #asyncTemplate let-booking="booking">
-    <ng-container *ngIf="booking;else empty">
+    <div *ngIf="booking;else empty">
         {{booking | json}}
-    </ng-container>
+    </div>
 </ng-template>
 
 <ng-template #empty>
-    No booking with this identifier exists
+    <div>No booking with this identifier exists</div>
 </ng-template>

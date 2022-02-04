@@ -3,7 +3,6 @@ import {BookingService} from '../booking.service';
 import {INewBooking, INewSession} from '../../../core/types';
 import {BehaviorSubject, distinctUntilChanged, Observable} from 'rxjs';
 import {DateTime} from 'luxon';
-import {tap} from 'rxjs/operators';
 
 const MINIMUM_SESSION_DURATION = 10; //minutes
 const MINIMUM_BOOKING_OFFSET = 48; //hours
@@ -14,7 +13,6 @@ export class CreateService {
     private readyForNextStep$$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     public isReadyForNextStep$: Observable<boolean> = this.readyForNextStep$$.asObservable().pipe(
         distinctUntilChanged(),
-        tap(console.log.bind(console, '->'))
     );
     private data: Partial<INewBooking> = {
         countWeeks: 1
@@ -126,9 +124,7 @@ export class CreateService {
     }
 
     public nextStep() {
-        //this.currentStepFormIsValid(false);
         this.step++;
-        console.log('next step')
     }
 
     public previousStep() {

@@ -3,20 +3,21 @@
 </div>
 <ng-container
         *ngTemplateOutlet="asyncTemplate; context:{
-            disableNext: disableNext$ | async
+            disableNext: disableNext$ | async,
+            step:getStep()
         }">
 </ng-container>
-<ng-template #asyncTemplate let-disabledNext="disableNext">
-    <ng-container [ngSwitch]="step">
+
+<ng-template #asyncTemplate let-disabledNext="disableNext" let-s=step>
+    <ng-container [ngSwitch]="s">
         <cwb-general-booking-information *ngSwitchCase="1"></cwb-general-booking-information>
         <cwb-in-out-booking-information *ngSwitchCase="2"></cwb-in-out-booking-information>
         <cwb-booking-details *ngSwitchCase="3"></cwb-booking-details>
     </ng-container>
 
-    <button (click)="back()" *ngIf="step>1">Back</button>
-    {{disabledNext}}
-    <button (click)="next()" *ngIf="step<3" [disabled]="disabledNext">Next</button>
-    <button (click)="save()" *ngIf="step===3" [disabled]="disabledNext">Save</button>
+    <button (click)="back()" *ngIf="s>1">Back</button>
+    <button (click)="next()" *ngIf="s<3" [disabled]="disabledNext">Next</button>
+    <button (click)="save()" *ngIf="s===3" [disabled]="disabledNext">Save</button>
 
 </ng-template>
 

@@ -23,16 +23,10 @@ export class GeneralBookingInformationComponent implements OnInit, OnDestroy {
     });
 
     constructor(private createService: CreateService) {
-
-
-        // this.form.valueChanges.pipe(
-        //     takeUntil(this.destroy$$.asObservable())
-        // ).subscribe();
     }
 
     ngOnInit(): void {
-
-        this.createService.currentStepFormIsValid(this.form.valid);
+        setTimeout(() => this.createService.currentStepFormIsValid(this.form.valid), 0);
 
         merge(
             (this.form.get('title') as FormControl).valueChanges.pipe(

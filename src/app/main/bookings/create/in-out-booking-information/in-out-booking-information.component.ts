@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {CreateService} from '../create.service';
 import {merge, Subject, takeUntil} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -10,7 +10,7 @@ import {tap} from 'rxjs/operators';
     styleUrls: ['./in-out-booking-information.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InOutBookingInformationComponent implements OnInit, OnDestroy, AfterViewInit {
+export class InOutBookingInformationComponent implements OnInit, OnDestroy {
     private destroy$$: Subject<void> = new Subject<void>();
     public form: FormGroup = new FormGroup({
         audioDetails: new FormControl(this.createService.audioDetails, [Validators.required]),
@@ -21,8 +21,7 @@ export class InOutBookingInformationComponent implements OnInit, OnDestroy, Afte
     }
 
     ngOnInit(): void {
-        console.log('on init', this.form.valid)
-        this.createService.currentStepFormIsValid(this.form.valid);
+        setTimeout(() => this.createService.currentStepFormIsValid(this.form.valid), 0);
         merge(
             (this.form.get('audioDetails') as FormControl).valueChanges.pipe(
                 tap(value => {
@@ -49,11 +48,6 @@ export class InOutBookingInformationComponent implements OnInit, OnDestroy, Afte
 
     ngOnDestroy(): void {
         this.destroy$$.next();
-    }
-
-    ngAfterViewInit(): void {
-        console.log('after view init', this.form.valid)
-        this.createService.currentStepFormIsValid(this.form.valid);
     }
 
 

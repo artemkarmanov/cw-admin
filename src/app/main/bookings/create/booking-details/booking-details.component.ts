@@ -22,7 +22,7 @@ export class BookingDetailsComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.createService.currentStepFormIsValid(this.form.valid);
+        setTimeout(() => this.createService.currentStepFormIsValid(this.form.valid), 0);
         merge(
             (this.form.get('requirePasscode') as FormControl).valueChanges.pipe(
                 tap(value => {

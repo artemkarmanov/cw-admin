@@ -17,20 +17,19 @@ export class CreateComponent implements OnInit, OnDestroy {
     private destroy$$: Subject<void> = new Subject<void>();
     private saveClick$$: Subject<void> = new Subject<void>();
     public disableNext$: Observable<boolean> = this.createService.isReadyForNextStep$.pipe(
-        map(_ => !_)
+        map(_ => !_),
     );
 
     constructor(private createService: CreateService, private router: Router) {
 
     }
 
-    get step() {
+    getStep() {
         return this.createService.getStep();
     }
 
 
     ngOnInit(): void {
-
         this.saveClick$$.pipe(
             takeUntil(this.destroy$$.asObservable()),
             switchMap(() => {
