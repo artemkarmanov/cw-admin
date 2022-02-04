@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {SocketMessagesService} from '../../core/socket-messages.service';
-import {EMPTY, Observable} from 'rxjs';
+import {EMPTY, Observable, pluck} from 'rxjs';
 import {IBooking, ICreateBookingResponse, INewBooking} from '../../core/types';
 import {catchError, map} from 'rxjs/operators';
 import {ErrorHandlerService} from '../../core/error-handler.service';
@@ -25,14 +25,9 @@ export class BookingService {
     }
 
     public getBookings$(count?: number, start?: number, bookingToken?: string, includePast?: boolean): Observable<IBooking[]> {
-        return this.socketMessagesService.request$</*{ bookings?: */IBooking[]/* }*/>('getBookings').pipe(
-            //pluck('bookings'),
-            map(response => {
-                return !response ? [] : response;
-            })
-            // map(response => {
-            //     return !response ? [] : (!response.bookings) ? [] : response.bookings;
-            // })
+        return this.socketMessagesService.request$<{ bookings?: IBooking[] }>('getBookings').pipe(
+            pluck('bookings'),
+            map(_ => _ as IBooking[])
         );
     }
 

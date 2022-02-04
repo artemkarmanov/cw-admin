@@ -3,12 +3,16 @@ import {BookingService} from './booking.service';
 import {BehaviorSubject, Observable, Subject, takeUntil} from 'rxjs';
 import {IBooking} from '../../core/types';
 import {tap} from 'rxjs/operators';
+import {CreateService} from './create/create.service';
 
 @Component({
     selector: 'cwb-bookings',
     templateUrl: './bookings.component.html',
     styleUrls: ['./bookings.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        CreateService
+    ]
 })
 export class BookingsComponent implements OnInit, OnDestroy {
     private destroy$$: Subject<void> = new Subject<void>();

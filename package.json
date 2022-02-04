@@ -2,7 +2,8 @@
   "name": "cw-booking",
   "version": "0.0.0",
   "scripts": {
-    "start": "ng serve --watch --port=5000 --configuration=development"
+    "start": "ng serve --watch --port=5000 --configuration=development",
+    "local-backend": "cd ../cap_plat && go run main.go"
   },
   "private": true,
   "dependencies": {

@@ -50,7 +50,7 @@ export interface ILoginResponse {
     connectionId?: number | string;
 }
 
-interface ISession {
+export interface ISession {
     sessionId: number;
     startEpoch: number;
     sessionDurationMins: number;

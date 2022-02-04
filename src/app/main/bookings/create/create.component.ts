@@ -7,7 +7,10 @@ import {Router} from '@angular/router';
     selector: 'cwb-create',
     templateUrl: './create.component.html',
     styleUrls: ['./create.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        CreateService
+    ]
 })
 export class CreateComponent implements OnInit, OnDestroy {
     private destroy$$: Subject<void> = new Subject<void>();
@@ -15,6 +18,7 @@ export class CreateComponent implements OnInit, OnDestroy {
     public isReadyForNextStep$: Observable<boolean> = this.createService.isReadyForNextStep$();
 
     constructor(private createService: CreateService, private router: Router) {
+        console.log('construct')
     }
 
     get step() {
@@ -23,6 +27,7 @@ export class CreateComponent implements OnInit, OnDestroy {
 
 
     ngOnInit(): void {
+        console.log('ngOnInit')
         this.saveClick$$.pipe(
             takeUntil(this.destroy$$.asObservable()),
             switchMap(() => {

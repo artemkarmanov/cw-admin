@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {CreateServiceProviderModule} from './create-service-provider.module';
 import {BookingService} from '../booking.service';
 import {INewBooking, INewSession} from '../../../core/types';
 import {BehaviorSubject, Observable} from 'rxjs';
@@ -8,9 +7,9 @@ import {DateTime} from 'luxon';
 const MINIMUM_SESSION_DURATION = 10; //minutes
 const MINIMUM_BOOKING_OFFSET = 48; //hours
 
-@Injectable({
-    providedIn: CreateServiceProviderModule
-})
+@Injectable(/*{
+    providedIn:CreateServiceProviderModule
+}*/)
 export class CreateService {
     private step: number = 1;
     private readyForNextStep$$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -22,6 +21,7 @@ export class CreateService {
     private _durationMins: number = MINIMUM_SESSION_DURATION;
 
     constructor(private bookingService: BookingService) {
+        console.log('----')
     }
 
     get startTime(): string {

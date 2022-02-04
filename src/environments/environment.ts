@@ -6,7 +6,8 @@
 // test2@gmail.com / abc123
 export const environment = {
     production: false,
-    backend: 'wss://testmain.captionworks.com:3000/socket'
+    //backend: 'wss://testmain.captionworks.com:3000/socket'
+    backend: 'ws://localhost:3000/socket'
 };
 
 /*

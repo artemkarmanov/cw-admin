@@ -3,11 +3,24 @@
 
     <table *ngIf="bookings.length;else empty" border="1">
         <thead>
-        <th>Booking data</th>
-        </thead>
-        <tr *ngFor="let booking of bookings">
-            <td>{{booking | json}}</td>
+        <tr>
+            <th>Booking ID</th>
+            <th>Title</th>
+            <th>Next session</th>
+            <th>Duration</th>
+            <th>Sessions remaining</th>
         </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let booking of bookings">
+
+            <td><a [routerLink]="booking.bookingToken">{{booking.bookingToken}}</a></td>
+            <td>{{booking.title}}</td>
+            <td>{{booking | nextSession | date}}</td>
+            <td>{{booking | sessionDuration}}</td>
+            <td>{{booking | remainingSessions}}</td>
+        </tr>
+        </tbody>
     </table>
     <ng-template #empty>
         <div>
