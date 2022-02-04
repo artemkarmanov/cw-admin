@@ -3,10 +3,10 @@
 </div>
 <ng-container
         *ngTemplateOutlet="asyncTemplate; context:{
-            isReadyForNextStep: isReadyForNextStep$ | async
+            disableNext: disableNext$ | async
         }">
 </ng-container>
-<ng-template #asyncTemplate let-isReadyForNextStep="isReadyForNextStep">
+<ng-template #asyncTemplate let-disabledNext="disableNext">
     <ng-container [ngSwitch]="step">
         <cwb-general-booking-information *ngSwitchCase="1"></cwb-general-booking-information>
         <cwb-in-out-booking-information *ngSwitchCase="2"></cwb-in-out-booking-information>
@@ -14,8 +14,9 @@
     </ng-container>
 
     <button (click)="back()" *ngIf="step>1">Back</button>
-    <button (click)="next()" *ngIf="step<3" [disabled]="!isReadyForNextStep">Next</button>
-    <button (click)="save()" *ngIf="step===3" [disabled]="!isReadyForNextStep">Save</button>
+    {{disabledNext}}
+    <button (click)="next()" *ngIf="step<3" [disabled]="disabledNext">Next</button>
+    <button (click)="save()" *ngIf="step===3" [disabled]="disabledNext">Save</button>
 
 </ng-template>
 

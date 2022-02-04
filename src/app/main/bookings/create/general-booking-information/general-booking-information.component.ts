@@ -20,7 +20,6 @@ export class GeneralBookingInformationComponent implements OnInit, OnDestroy {
         duration: new FormControl(this.createService.durationMins, [Validators.required]),
         timeZone: new FormControl(this.createService.timeZone, []),
         countWeeks: new FormControl(this.createService.countWeeks, [Validators.required, Validators.min(1)]),
-
     });
 
     constructor(private createService: CreateService) {
@@ -32,7 +31,9 @@ export class GeneralBookingInformationComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+
         this.createService.currentStepFormIsValid(this.form.valid);
+
         merge(
             (this.form.get('title') as FormControl).valueChanges.pipe(
                 tap((title) => {
@@ -60,6 +61,10 @@ export class GeneralBookingInformationComponent implements OnInit, OnDestroy {
                 })
             ),
         ).pipe(
+            takeUntil(this.destroy$$.asObservable()),
+        ).subscribe();
+
+        this.form.valueChanges.pipe(
             takeUntil(this.destroy$$.asObservable()),
             tap(() => {
                 this.createService.currentStepFormIsValid(this.form.valid);

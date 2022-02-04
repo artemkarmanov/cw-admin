@@ -2,6 +2,7 @@ import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/co
 import {CreateService} from './create.service';
 import {from, Observable, Subject, switchMap, takeUntil} from 'rxjs';
 import {Router} from '@angular/router';
+import {map} from 'rxjs/operators';
 
 @Component({
     selector: 'cwb-create',
@@ -15,10 +16,12 @@ import {Router} from '@angular/router';
 export class CreateComponent implements OnInit, OnDestroy {
     private destroy$$: Subject<void> = new Subject<void>();
     private saveClick$$: Subject<void> = new Subject<void>();
-    public isReadyForNextStep$: Observable<boolean> = this.createService.isReadyForNextStep$();
+    public disableNext$: Observable<boolean> = this.createService.isReadyForNextStep$.pipe(
+        map(_ => !_)
+    );
 
     constructor(private createService: CreateService, private router: Router) {
-        console.log('construct')
+
     }
 
     get step() {
@@ -27,7 +30,7 @@ export class CreateComponent implements OnInit, OnDestroy {
 
 
     ngOnInit(): void {
-        console.log('ngOnInit')
+
         this.saveClick$$.pipe(
             takeUntil(this.destroy$$.asObservable()),
             switchMap(() => {

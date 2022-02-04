@@ -1,18 +1,21 @@
 import {Injectable} from '@angular/core';
 import {BookingService} from '../booking.service';
 import {INewBooking, INewSession} from '../../../core/types';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject, distinctUntilChanged, Observable} from 'rxjs';
 import {DateTime} from 'luxon';
+import {tap} from 'rxjs/operators';
 
 const MINIMUM_SESSION_DURATION = 10; //minutes
 const MINIMUM_BOOKING_OFFSET = 48; //hours
 
-@Injectable(/*{
-    providedIn:CreateServiceProviderModule
-}*/)
+@Injectable()
 export class CreateService {
     private step: number = 1;
     private readyForNextStep$$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    public isReadyForNextStep$: Observable<boolean> = this.readyForNextStep$$.asObservable().pipe(
+        distinctUntilChanged(),
+        tap(console.log.bind(console, '->'))
+    );
     private data: Partial<INewBooking> = {
         countWeeks: 1
     };
@@ -21,7 +24,7 @@ export class CreateService {
     private _durationMins: number = MINIMUM_SESSION_DURATION;
 
     constructor(private bookingService: BookingService) {
-        console.log('----')
+
     }
 
     get startTime(): string {
@@ -125,6 +128,7 @@ export class CreateService {
     public nextStep() {
         //this.currentStepFormIsValid(false);
         this.step++;
+        console.log('next step')
     }
 
     public previousStep() {
@@ -139,9 +143,6 @@ export class CreateService {
         this.readyForNextStep$$.next(state);
     }
 
-    isReadyForNextStep$(): Observable<boolean> {
-        return this.readyForNextStep$$.asObservable();
-    }
 
     private buildSessionList(): INewSession[] {
         const date = DateTime.fromISO(this.startDate);

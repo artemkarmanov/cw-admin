@@ -41,6 +41,9 @@ export class BookingDetailsComponent implements OnInit, OnDestroy {
             ),
         ).pipe(
             takeUntil(this.destroy$$.asObservable()),
+        ).subscribe();
+        this.form.valueChanges.pipe(
+            takeUntil(this.destroy$$.asObservable()),
             tap(() => {
                 this.createService.currentStepFormIsValid(this.form.valid);
             })
