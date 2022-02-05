@@ -4,7 +4,21 @@
 </ng-container>
 <ng-template #asyncTemplate let-booking="booking">
     <div *ngIf="booking;else empty">
-        {{booking | json}}
+        <div style="display: flex; flex-direction: row">
+            <div>
+                <h2>Booking</h2>
+
+                <router-outlet></router-outlet>
+            </div>
+            <div>
+                <h2>Sessions</h2>
+                <ul>
+                    <li *ngFor="let session of booking.sessions">
+                        {{session | json}}
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 </ng-template>
 
