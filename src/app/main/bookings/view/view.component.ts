@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {Observable, pluck, Subject, switchMap, takeUntil} from 'rxjs';
-import {filter, tap} from 'rxjs/operators';
+import {Observable, pluck, Subject, takeUntil} from 'rxjs';
+import {tap} from 'rxjs/operators';
 import {ViewService} from './view.service';
 import {IBooking} from '../../../core/types';
 
@@ -16,8 +16,9 @@ import {IBooking} from '../../../core/types';
 })
 export class ViewComponent implements OnInit, OnDestroy {
     private destroy$$: Subject<void> = new Subject<void>();
-    private booking$$: Subject<IBooking> = new Subject<IBooking>();
-    public booking$: Observable<IBooking> = this.booking$$.asObservable();
+
+    public booking$: Observable<IBooking> = this.viewService.currentBookingData$.pipe(
+    );
 
     constructor(
         private route: ActivatedRoute,
@@ -29,9 +30,7 @@ export class ViewComponent implements OnInit, OnDestroy {
         this.route.params.pipe(
             takeUntil(this.destroy$$.asObservable()),
             pluck('booking_id'),
-            switchMap(token => this.viewService.getBooking(token)),
-            filter(Boolean),
-            tap(this.booking$$.next.bind(this.booking$$))
+            tap(this.viewService.loadBooking.bind(this.viewService)),
         ).subscribe();
     }
 
