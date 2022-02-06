@@ -1,6 +1,6 @@
 import {Inject, Injectable} from '@angular/core';
-import {BehaviorSubject, EMPTY, Observable, of, switchMap} from 'rxjs';
-import {catchError, map, tap} from 'rxjs/operators';
+import {BehaviorSubject, EMPTY, Observable, of, switchMap, withLatestFrom} from 'rxjs';
+import {catchError, filter, map, tap} from 'rxjs/operators';
 import {SocketMessagesService} from './socket-messages.service';
 import {ErrorHandlerService} from './error-handler.service';
 import {LOCAL_STORAGE, StorageService} from 'ngx-webstorage-service';
@@ -13,7 +13,9 @@ const USER_KEY = 'user';
 @Injectable()
 export class AuthService {
     private authorization$$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-    public isAuthorized$: Observable<boolean> = this.authorization$$.asObservable();
+    public isAuthorized$: Observable<boolean> = this.authorization$$.asObservable().pipe(
+        //distinctUntilChanged()
+    );
 
     constructor(
         private messages: SocketMessagesService,
@@ -66,11 +68,10 @@ export class AuthService {
     }
 
     public logout$(): Observable<void> {
-        return this.isAuthorized$.pipe(
-            switchMap(isAuthorized => {
-                if (!isAuthorized) {
-                    return of(void 0);
-                }
+        return of(null).pipe(
+            withLatestFrom(this.isAuthorized$, (_, isAuthorized) => isAuthorized),
+            filter((_) => !!_),
+            switchMap(() => {
                 return this.messages.request$('logout');
             }),
             tap(() => {

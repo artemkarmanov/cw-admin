@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
-import {AuthService} from '../../core/auth.service';
+import {AuthService} from '../../../core/auth.service';
 import {Subject, switchMap, takeUntil} from 'rxjs';
 
 @Component({

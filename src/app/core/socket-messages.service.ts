@@ -181,16 +181,16 @@ export class SocketMessagesService {
                         }
                     );
                     this.attempts = 0;
-                    console.log('[DataService]: connection started');
+                    console.debug('Connection started');
                 },
                 error: () => {
-                    console.log('[DataService]: connection error');
+                    console.debug('Connection error');
                 }
             },
 
             closeObserver: {
                 next: () => {
-                    console.log('[DataService]: connection closed', arguments);
+                    console.debug('Connection closed', arguments);
                     this.socket$$ = undefined;
                     this.reconnecting$$.next();
                 }

@@ -21,7 +21,7 @@ export class AppComponent {
         socketMessagesService.incidents$.pipe(
             filter(i => i.type === ('re-connecting' as TIncident)),
             tap(() => {
-                console.log('reconnecting')
+                console.debug('Reconnecting')
             }),
         ).subscribe();
         socketMessagesService.incidents$.pipe(

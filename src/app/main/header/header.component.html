@@ -1,0 +1,14 @@
+<div style="display: flex; justify-content: space-between">
+    <div>
+        <span>Logo</span>
+    </div>
+    <div>
+        <ng-container *ngIf="isLoggedIn$ | async; else unauthorized">
+            <cwb-user-info></cwb-user-info>
+            <cwb-logout-button></cwb-logout-button>
+        </ng-container>
+    </div>
+</div>
+<ng-template #unauthorized>
+    <button>Get started</button>
+</ng-template>

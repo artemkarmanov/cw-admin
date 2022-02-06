@@ -19,7 +19,7 @@ export class BookingsComponent implements OnInit, OnDestroy {
     private bookings$$: BehaviorSubject<IBooking[]> = new BehaviorSubject<IBooking[]>([]);
 
     public bookings$: Observable<IBooking[]> = this.bookings$$.asObservable().pipe(
-        tap(console.log)
+        //tap(console.log)
     );
 
     constructor(private bookingService: BookingService) {
