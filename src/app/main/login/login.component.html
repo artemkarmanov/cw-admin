@@ -1,14 +1,12 @@
-<form (ngSubmit)="login()" [formGroup]="form">
-    <div>
-        <label for="email">Email</label>
-        <input formControlName="email" id="email" required type="text">
+<div>
+    <div class="row">
+        <div class="col-sm-4">
+            <h1>Bookings</h1>
+            <cwb-login-form></cwb-login-form>
+        </div>
+        <div class="col-sm-8">
+            <img src="assets/first-page.png"/>
+        </div>
     </div>
-    <div>
-        <label for="password">Password</label>
-        <input formControlName="password" id="password" required type="password">
-    </div>
-
-
-    <button type="submit">Login</button>
-</form>
+</div>
 

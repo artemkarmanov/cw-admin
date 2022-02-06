@@ -1,14 +1,20 @@
-<div style="display: flex; justify-content: space-between">
-    <div>
-        <span>Logo</span>
-    </div>
-    <div>
-        <ng-container *ngIf="isLoggedIn$ | async; else unauthorized">
-            <cwb-user-info></cwb-user-info>
-            <cwb-logout-button></cwb-logout-button>
-        </ng-container>
+<div class="navbar shadow-sm">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Logo</a>
+        <div>
+            <ng-container *ngIf="isLoggedIn$ | async; else unauthorized">
+                 <span class="navbar-text">
+                  <cwb-user-info></cwb-user-info>
+                </span>
+
+                <cwb-logout-button></cwb-logout-button>
+            </ng-container>
+        </div>
     </div>
 </div>
 <ng-template #unauthorized>
-    <button>Get started</button>
+     <span class="navbar-text">
+      Not  a member yet?
+    </span>
+    <button class="btn btn-sm btn-primary">Get started</button>
 </ng-template>

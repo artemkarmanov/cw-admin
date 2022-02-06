@@ -1,5 +1,18 @@
-<ul>
-    <li *ngFor="let session of data">
-        {{session | json}}
-    </li>
-</ul>
+<table class="table table-hover">
+    <thead>
+    <tr class="table-light">
+        <th>Session ID</th>
+        <th>Start time</th>
+        <th>Status</th>
+        <th>Duration</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let session of data">
+        <td>{{session.sessionId}}</td>
+        <td>{{session.startEpoch | date}}</td>
+        <td>&nbsp;</td>
+        <td>{{session.sessionDurationMins}}</td>
+    </tr>
+    </tbody>
+</table>

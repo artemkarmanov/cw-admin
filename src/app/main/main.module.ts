@@ -8,6 +8,7 @@ import {SharedModule} from '../shared/shared.module';
 import {HeaderComponent} from './header/header.component';
 import {LogoutButtonComponent} from './header/logout-button/logout-button.component';
 import {UserInfoComponent} from './header/user-info/user-info.component';
+import {LoginFormComponent} from './login/login-form/login-form.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import {UserInfoComponent} from './header/user-info/user-info.component';
         LoginComponent,
         HeaderComponent,
         LogoutButtonComponent,
-        UserInfoComponent
+        UserInfoComponent,
+        LoginFormComponent
     ],
     imports: [
         SharedModule,

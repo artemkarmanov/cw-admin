@@ -1,19 +1,22 @@
-<cwb-create-button></cwb-create-button>
-<ng-container *ngIf="bookings$ | async as bookings">
+<div class="d-flex justify-content-between">
+    <h1>Bookings</h1>
+    <cwb-create-button></cwb-create-button>
+</div>
 
-    <table *ngIf="bookings.length;else empty" border="1">
-        <thead>
-        <tr>
-            <th>Booking ID</th>
-            <th>Title</th>
-            <th>Next session</th>
-            <th>Duration</th>
-            <th>Sessions remaining</th>
-        </tr>
-        </thead>
-        <tbody>
+
+<table class="table table-hover">
+    <thead>
+    <tr class="table-light">
+        <th>Booking ID</th>
+        <th>Title</th>
+        <th>Next session</th>
+        <th>Duration</th>
+        <th>Sessions remaining</th>
+    </tr>
+    </thead>
+    <ng-container *ngIf="bookings$ | async as bookings">
+        <tbody *ngIf="bookings.length;else empty">
         <tr *ngFor="let booking of bookings">
-
             <td><a [routerLink]="booking.bookingToken">{{booking.bookingToken}}</a></td>
             <td>{{booking.title}}</td>
             <td>{{booking | nextSession | date}}</td>
@@ -21,11 +24,14 @@
             <td>{{booking | remainingSessions}}</td>
         </tr>
         </tbody>
-    </table>
-    <ng-template #empty>
-        <div>
-            You don't have any bookings for captioning yet.
-            Press the New booking button to get started
-        </div>
-    </ng-template>
-</ng-container>
+    </ng-container>
+</table>
+<ng-template #empty>
+    <tr>
+        <td colspan="5">
+            You don’t have ny bookings for captioning yet. Let’s create the first one!
+            <a class="link-primary">Add first booking</a>
+        </td>
+    </tr>
+</ng-template>
+

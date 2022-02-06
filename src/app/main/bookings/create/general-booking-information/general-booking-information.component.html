@@ -1,24 +1,27 @@
 <form [formGroup]="form">
     <div>
-        <label for="title">Title</label>
-        <input formControlName="title" id="title" maxlength="100" required type="text">
+        <label class="form-label" for="title">Title</label>
+        <input class="form-control form-control-lg" formControlName="title" id="title" maxlength="100" required
+               type="text">
     </div>
     <div>
-        <label for="startDate">Start date</label>
-        <input formControlName="startDate" id="startDate" required type="date">
+        <label class="form-label" for="startDate">Start date</label>
+        <input class="form-control form-control-lg" formControlName="startDate" id="startDate" required type="date">
     </div>
     <div>
-        <label for="startTime">Start time</label>
-        <input formControlName="startTime" id="startTime" required type="time">
-    </div>
-
-    <div>
-        <label for="durationMins">Duration</label>
-        <input formControlName="duration" id="durationMins" max="1439" min="1" required type="number">
+        <label class="form-label" for="startTime">Start time</label>
+        <input class="form-control form-control-lg" formControlName="startTime" id="startTime" required type="time">
     </div>
 
     <div>
-        <label for="countWeeks">Week recurrence</label>
-        <input formControlName="countWeeks" id="countWeeks" max="100" min="1" required type="number">
+        <label class="form-label" for="durationMins">Duration</label>
+        <input class="form-control form-control-lg" formControlName="duration" id="durationMins" max="1439" min="1"
+               required type="number">
+    </div>
+
+    <div>
+        <label class="form-label" for="countWeeks">Week recurrence</label>
+        <input class="form-control form-control-lg" formControlName="countWeeks" id="countWeeks" max="100" min="1"
+               required type="number">
     </div>
 </form>

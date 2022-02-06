@@ -1,0 +1,16 @@
+<form (ngSubmit)="login()" [formGroup]="form">
+    <div>
+        <label class="form-label" for="email">Email</label>
+        <input class="form-control form-control-lg" formControlName="email" id="email" placeholder="Enter email here"
+               required type="text">
+    </div>
+    <div>
+        <label class="form-label" for="password">Password</label>
+        <input class="form-control form-control-lg" formControlName="password" id="password"
+               placeholder="Your password here" required type="password">
+    </div>
+    <div class="d-grid gap-2">
+        <button class="btn btn-primary" type="submit">Login</button>
+    </div>
+
+</form>
