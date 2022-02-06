@@ -1,11 +1,12 @@
 <header>
     <cwb-header></cwb-header>
 </header>
-<main>
+<main style="background-color: #FCFCFC;">
     <ng-container [ngSwitch]="isAuthorized$ | async">
         <ng-container *ngSwitchCase="true">
-
-            <router-outlet></router-outlet>
+            <div class="container">
+                <router-outlet></router-outlet>
+            </div>
         </ng-container>
         <ng-container *ngSwitchDefault>
             <cwb-login></cwb-login>

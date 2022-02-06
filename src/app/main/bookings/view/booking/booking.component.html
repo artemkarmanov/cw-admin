@@ -1,4 +1,27 @@
-<a routerLink="edit">Edit</a>
-<div>
-    {{data$ | async | json}}
+<div class="d-flex justify-content-between">
+    <h2>Booking details</h2>
+    <a routerLink="edit">Edit</a>
+</div>
+<div *ngIf="data$|async as data">
+
+    <fieldset>
+        <div>
+            <label class="form-label">Title</label>
+            <input [value]="data.title" class="form-control-plaintext" readonly type="text">
+        </div>
+        <div>
+            <label class="form-label">Booking ID</label>
+            <input [value]="data.bookingToken" class="form-control-plaintext" type="text">
+        </div>
+    </fieldset>
+    <fieldset>
+        <div>
+            <label class="form-label">Audio details</label>
+            <textarea [value]="data.audioDetails" class="form-control-plaintext" readonly></textarea>
+        </div>
+        <div>
+            <label class="form-label">Caption details</label>
+            <textarea [value]="data.captionDispDetails" class="form-control-plaintext" readonly></textarea>
+        </div>
+    </fieldset>
 </div>

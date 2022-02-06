@@ -8,6 +8,7 @@ import {GeneralBookingInformationComponent} from './general-booking-information/
 import {InOutBookingInformationComponent} from './in-out-booking-information/in-out-booking-information.component';
 import {BookingDetailsComponent} from './booking-details/booking-details.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import {StepTitleComponent} from './step-title/step-title.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {ReactiveFormsModule} from '@angular/forms';
         CreateComponent,
         GeneralBookingInformationComponent,
         InOutBookingInformationComponent,
-        BookingDetailsComponent
+        BookingDetailsComponent,
+        StepTitleComponent
     ],
     imports: [
         CommonModule,
