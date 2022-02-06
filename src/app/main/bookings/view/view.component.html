@@ -12,11 +12,8 @@
             </div>
             <div>
                 <h2>Sessions</h2>
-                <ul>
-                    <li *ngFor="let session of booking.sessions">
-                        {{session | json}}
-                    </li>
-                </ul>
+                <button>Add session</button>
+                <cwb-sessions [data]="booking.sessions"></cwb-sessions>
             </div>
         </div>
     </div>
