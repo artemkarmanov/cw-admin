@@ -4,6 +4,7 @@ import {AuthService} from './auth.service';
 import {SocketMessagesService} from './socket-messages.service';
 import {ApplicationErrorHandler} from './application-error-handler';
 import {ErrorHandlerService} from './error-handler.service';
+import {ModalService} from './modal.service';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {ErrorHandlerService} from './error-handler.service';
         AuthService,
         SocketMessagesService,
         ApplicationErrorHandler,
-        ErrorHandlerService
+        ErrorHandlerService,
+        ModalService
     ]
 })
 export class CoreModule {
