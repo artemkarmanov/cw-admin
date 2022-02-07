@@ -1,0 +1,26 @@
+<main>
+    <div><a class="link-primary" routerLink="../">Back</a></div>
+    <h1>Register</h1>
+    <form (ngSubmit)="create()" [formGroup]="form">
+        <div>
+            <label class="form-label" for="new-email">Email</label>
+            <input class="form-control form-control-lg" formControlName="email" id="new-email"
+                   placeholder="Enter your email here"
+                   required type="text">
+        </div>
+        <div>
+            <label class="form-label" for="new-password">Password</label>
+            <input class="form-control form-control-lg" formControlName="password" id="new-password"
+                   placeholder="Enter the password" required type="password">
+        </div>
+        <div>
+            <label class="form-label" for="new-password2">Repeat password</label>
+            <input class="form-control form-control-lg" formControlName="password2" id="new-password2"
+                   placeholder="Re-enter password" required type="password">
+        </div>
+        <div class="d-grid gap-2">
+            <button [disabled]="form.invalid || form.untouched" class="btn btn-primary" type="submit">Create profile
+            </button>
+        </div>
+    </form>
+</main>

@@ -25,16 +25,20 @@ export class AuthService {
     ) {
     }
 
+    public authorize(token: string): void {
+        this.setAppToken(token);
+        this.authorization$$.next(true)
+    }
+
 
     public login$(email: string, password: string): Observable<unknown> {
 
         return this.messages.request$<ILoginResponse>('login', {email, password}).pipe(
             tap((data) => {
                 const {token} = data;
-                this.setAppToken(token);
+                this.authorize(token);
                 this.userStorage.set(USER_KEY, {email});
             }),
-            tap(() => this.authorization$$.next(true)),
 
             catchError((err) => {
                 this.errorHandlerService.handle(err);
@@ -61,9 +65,6 @@ export class AuthService {
             tap((result) => {
                 this.authorization$$.next(result);
             }),
-            tap(() => {
-
-            })
         );
     }
 

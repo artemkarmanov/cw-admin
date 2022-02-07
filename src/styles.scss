@@ -40,10 +40,15 @@ cwb-root {
   justify-content: space-between;
 }
 
-cwb-main {
+cwb-main, cwb-password-reset, cwb-create-user {
   height: 100%;
   display: flex;
   flex-direction: column;
+}
+
+cwb-create-user {
+  align-items: center;
+  justify-content: center;
 }
 
 main {
