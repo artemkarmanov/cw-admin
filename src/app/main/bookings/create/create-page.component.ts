@@ -6,14 +6,14 @@ import {map} from 'rxjs/operators';
 
 @Component({
     selector: 'cwb-create',
-    templateUrl: './create.component.html',
-    styleUrls: ['./create.component.scss'],
+    templateUrl: './create-page.component.html',
+    styleUrls: ['./create-page.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         CreateService
     ]
 })
-export class CreateComponent implements OnInit, OnDestroy {
+export class CreatePageComponent implements OnInit, OnDestroy {
     private destroy$$: Subject<void> = new Subject<void>();
     private saveClick$$: Subject<void> = new Subject<void>();
     public disableNext$: Observable<boolean> = this.createService.isReadyForNextStep$.pipe(

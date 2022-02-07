@@ -2,12 +2,12 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {PasswordResetRoutingModule} from './password-reset-routing.module';
-import {PasswordResetComponent} from './password-reset.component';
+import {PasswordResetPageComponent} from './password-reset-page.component';
 
 
 @NgModule({
   declarations: [
-    PasswordResetComponent
+    PasswordResetPageComponent
   ],
   imports: [
     CommonModule,

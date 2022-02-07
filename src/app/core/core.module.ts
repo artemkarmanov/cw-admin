@@ -5,6 +5,7 @@ import {SocketMessagesService} from './socket-messages.service';
 import {ApplicationErrorHandler} from './application-error-handler';
 import {ErrorHandlerService} from './error-handler.service';
 import {ModalService} from './modal.service';
+import {BreadCrumbsService} from './bread-crumbs.service';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import {ModalService} from './modal.service';
         SocketMessagesService,
         ApplicationErrorHandler,
         ErrorHandlerService,
-        ModalService
+        ModalService,
+        BreadCrumbsService
     ]
 })
 export class CoreModule {

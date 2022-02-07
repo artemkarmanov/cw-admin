@@ -16,15 +16,14 @@ export function checkPasswords(): ValidatorFn {
 }
 
 @Component({
-    selector: 'cwb-create-user',
-    templateUrl: './create-user.component.html',
-    styleUrls: ['./create-user.component.scss'],
+    templateUrl: './create-user-page.component.html',
+    styleUrls: ['./create-user-page.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         CreateUserService
     ]
 })
-export class CreateUserComponent implements OnInit, OnDestroy {
+export class CreateUserPageComponent implements OnInit, OnDestroy {
     private destroy$$: Subject<void> = new Subject<void>();
     private create$$: Subject<void> = new Subject<void>();
     public form: FormGroup = new FormGroup({

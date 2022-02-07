@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {ViewRoutingModule} from './view-routing.module';
-import {ViewComponent} from './view.component';
+import {ViewBookingPageComponent} from './view-booking-page.component';
 import {BookingComponent} from './booking/booking.component';
 import {SessionsComponent} from './sessions/sessions.component';
 import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
@@ -12,7 +12,7 @@ import {NewSessionDialogComponent} from './new-session-dialog/new-session-dialog
 
 @NgModule({
     declarations: [
-        ViewComponent,
+        ViewBookingPageComponent,
         BookingComponent,
         SessionsComponent,
         AddSessionButtonComponent,

@@ -1,6 +1,6 @@
 <div class="navbar shadow-sm">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Logo</a>
+        <cwb-bread-crumbs></cwb-bread-crumbs>
         <div>
             <ng-container *ngIf="isLoggedIn$ | async; else unauthorized">
                  <span class="navbar-text">

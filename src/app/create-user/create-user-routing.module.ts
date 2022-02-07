@@ -1,8 +1,8 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {CreateUserComponent} from './create-user.component';
+import {CreateUserPageComponent} from './create-user-page.component';
 
-const routes: Routes = [{path: '', component: CreateUserComponent}];
+const routes: Routes = [{path: '', component: CreateUserPageComponent}];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

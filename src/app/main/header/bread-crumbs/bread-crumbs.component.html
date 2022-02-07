@@ -1,0 +1,20 @@
+<ng-container *ngIf="data$ | async as data else logo">
+    <div *ngIf="data.length >1; else logo" class="d-flex">
+        <a class="me-4" routerLink="../">Back</a>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <ng-container *ngFor="let item of data; let last=last">
+                    <li *ngIf="last;else link" class="breadcrumb-item active">{{item.title}}</li>
+                    <ng-template #link>
+                        <li class="breadcrumb-item "><a [routerLink]="item.path">{{item.title}}</a></li>
+                    </ng-template>
+                </ng-container>
+
+            </ol>
+        </nav>
+    </div>
+</ng-container>
+<ng-template #logo>
+    <a class="navbar-brand" href="#">Logo</a>
+</ng-template>
+
