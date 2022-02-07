@@ -1,8 +1,8 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {PasswordResetComponent} from './password-reset.component';
+import {PasswordResetPageComponent} from './password-reset-page.component';
 
-const routes: Routes = [{path: '', component: PasswordResetComponent}];
+const routes: Routes = [{path: '', component: PasswordResetPageComponent}];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

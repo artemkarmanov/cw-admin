@@ -4,17 +4,17 @@ import {BehaviorSubject, Observable, Subject, takeUntil} from 'rxjs';
 import {IBooking} from '../../core/types';
 import {tap} from 'rxjs/operators';
 import {CreateService} from './create/create.service';
+import {BreadCrumbsService} from '../../core/bread-crumbs.service';
 
 @Component({
-    selector: 'cwb-bookings',
-    templateUrl: './bookings.component.html',
-    styleUrls: ['./bookings.component.scss'],
+    templateUrl: './bookings-page.component.html',
+    styleUrls: ['./bookings-page.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         CreateService
     ]
 })
-export class BookingsComponent implements OnInit, OnDestroy {
+export class BookingsPageComponent implements OnInit, OnDestroy {
     private destroy$$: Subject<void> = new Subject<void>();
     private bookings$$: BehaviorSubject<IBooking[]> = new BehaviorSubject<IBooking[]>([]);
 
@@ -22,10 +22,11 @@ export class BookingsComponent implements OnInit, OnDestroy {
         //tap(console.log)
     );
 
-    constructor(private bookingService: BookingService) {
+    constructor(private bookingService: BookingService, private breadCrumbsService: BreadCrumbsService) {
     }
 
     ngOnInit(): void {
+        this.breadCrumbsService.set([]);
         this.bookingService.getBookings$().pipe(
             takeUntil(this.destroy$$.asObservable()),
             tap(this.bookings$$.next.bind(this.bookings$$))

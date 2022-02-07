@@ -9,6 +9,7 @@ import {HeaderComponent} from './header/header.component';
 import {LogoutButtonComponent} from './header/logout-button/logout-button.component';
 import {UserInfoComponent} from './header/user-info/user-info.component';
 import {LoginFormComponent} from './login/login-form/login-form.component';
+import {BreadCrumbsComponent} from './header/bread-crumbs/bread-crumbs.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import {LoginFormComponent} from './login/login-form/login-form.component';
         HeaderComponent,
         LogoutButtonComponent,
         UserInfoComponent,
-        LoginFormComponent
+        LoginFormComponent,
+        BreadCrumbsComponent
     ],
     imports: [
         SharedModule,
