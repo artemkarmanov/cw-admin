@@ -3,6 +3,7 @@ import {AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, 
 import {CreateUserService} from './create-user.service';
 import {from, Subject, switchMap, takeUntil} from 'rxjs';
 import {Router} from '@angular/router';
+import {INewUser} from '../core/types';
 
 
 export function checkPasswords(): ValidatorFn {
@@ -16,6 +17,7 @@ export function checkPasswords(): ValidatorFn {
 }
 
 @Component({
+    selector: 'cwb-create-user',
     templateUrl: './create-user-page.component.html',
     styleUrls: ['./create-user-page.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -27,9 +29,12 @@ export class CreateUserPageComponent implements OnInit, OnDestroy {
     private destroy$$: Subject<void> = new Subject<void>();
     private create$$: Subject<void> = new Subject<void>();
     public form: FormGroup = new FormGroup({
+        firstName: new FormControl('', [Validators.required]),
+        lastName: new FormControl('', [Validators.required]),
         email: new FormControl('', [Validators.required, Validators.email]),
         password: new FormControl('', [Validators.required]),
         password2: new FormControl('', [Validators.required]),
+        timeZone: new FormControl('', [Validators.required]),
     }, {
         validators: checkPasswords()
     })
@@ -44,9 +49,10 @@ export class CreateUserPageComponent implements OnInit, OnDestroy {
         this.create$$.asObservable().pipe(
             takeUntil(this.destroy$$.asObservable()),
             switchMap(() => {
+                const data: INewUser = this.form.value;
+
                 return this.createUserService.create$(
-                    this.form.get('email')?.value,
-                    this.form.get('password')?.value
+                    data
                 );
             }),
             switchMap(() => {

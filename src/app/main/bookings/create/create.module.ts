@@ -1,5 +1,4 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
 
 import {CreateRoutingModule} from './create-routing.module';
 import {CreatePageComponent} from './create-page.component';
@@ -7,8 +6,8 @@ import {CreateServiceProviderModule} from './create-service-provider.module';
 import {GeneralBookingInformationComponent} from './general-booking-information/general-booking-information.component';
 import {InOutBookingInformationComponent} from './in-out-booking-information/in-out-booking-information.component';
 import {BookingDetailsComponent} from './booking-details/booking-details.component';
-import {ReactiveFormsModule} from '@angular/forms';
 import {StepTitleComponent} from './step-title/step-title.component';
+import {SharedModule} from '../../../shared/shared.module';
 
 
 @NgModule({
@@ -20,10 +19,10 @@ import {StepTitleComponent} from './step-title/step-title.component';
         StepTitleComponent
     ],
     imports: [
-        CommonModule,
+        SharedModule,
         CreateRoutingModule,
         CreateServiceProviderModule,
-        ReactiveFormsModule
+
     ]
 })
 export class CreateModule {

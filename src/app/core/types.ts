@@ -96,3 +96,20 @@ export interface ICreateBookingResponse {
     bookingPasscodeHash: string;
     bookingCaptionerPasscode: string;
 }
+
+export interface IRegion {
+    regionId: number;
+    region: string;
+}
+
+interface ITimeZone extends IRegion {
+    cities: string[];
+}
+
+export interface INewUser {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    timezone: string;
+}

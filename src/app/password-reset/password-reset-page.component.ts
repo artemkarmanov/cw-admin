@@ -1,16 +1,17 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 
 @Component({
-  templateUrl: './password-reset-page.component.html',
-  styleUrls: ['./password-reset-page.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'cwb-password-reset',
+    templateUrl: './password-reset-page.component.html',
+    styleUrls: ['./password-reset-page.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PasswordResetPageComponent implements OnInit {
 
-  constructor() {
-  }
+    constructor() {
+    }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
 }
