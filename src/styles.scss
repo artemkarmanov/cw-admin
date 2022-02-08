@@ -48,7 +48,7 @@ cwb-main, cwb-password-reset, cwb-create-user {
   flex-direction: column;
 }
 
-cwb-create-user {
+cwb-create-user, cwb-password-reset {
   align-items: center;
   justify-content: center;
 }

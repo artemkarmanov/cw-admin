@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 
 import {PasswordResetRoutingModule} from './password-reset-routing.module';
 import {PasswordResetPageComponent} from './password-reset-page.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import {PasswordResetPageComponent} from './password-reset-page.component';
   ],
   imports: [
     CommonModule,
-    PasswordResetRoutingModule
+    PasswordResetRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class PasswordResetModule {
