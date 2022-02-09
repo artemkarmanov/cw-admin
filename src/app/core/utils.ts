@@ -1,5 +1,6 @@
 import {IBooking, ISession} from './types';
 import {DateTime} from 'luxon';
+import {AbstractControl, FormGroup, ValidationErrors, ValidatorFn} from '@angular/forms';
 
 export function getFutureSessions(booking: IBooking): ISession[] | undefined {
     const now = DateTime.now();
@@ -22,4 +23,15 @@ export function findNextSession(booking: IBooking): ISession | undefined {
         return sessions.shift();
     }
 
+}
+
+// We suppose that FormGroup has password and password2 fields
+export function checkPasswords(): ValidatorFn {
+    return (_: AbstractControl): ValidationErrors | null => {
+        const form: FormGroup = _ as FormGroup;
+        if (form.get('password')?.value === form.get('password2')?.value) return null;
+        return {
+            passwordsDiffers: true
+        }
+    };
 }

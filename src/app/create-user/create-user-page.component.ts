@@ -1,20 +1,11 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CreateUserService} from './create-user.service';
 import {from, Subject, switchMap, takeUntil} from 'rxjs';
 import {Router} from '@angular/router';
 import {INewUser} from '../core/types';
+import {checkPasswords} from '../core/utils';
 
-
-export function checkPasswords(): ValidatorFn {
-    return (_: AbstractControl): ValidationErrors | null => {
-        const form: FormGroup = _ as FormGroup;
-        if (form.get('password')?.value === form.get('password2')?.value) return null;
-        return {
-            passwordsDiffers: true
-        }
-    };
-}
 
 @Component({
     selector: 'cwb-create-user',
