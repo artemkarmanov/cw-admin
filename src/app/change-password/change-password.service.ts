@@ -14,4 +14,11 @@ export class ChangePasswordService {
             Token: token
         })
     }
+
+    public changePassword$(email: string, token: string, password: string): Observable<boolean> {
+        return this.messages.request$<boolean>('changePassword', {
+            Email: email,
+            Token: token
+        })
+    }
 }

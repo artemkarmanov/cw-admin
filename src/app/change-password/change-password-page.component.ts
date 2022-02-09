@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {checkPasswords} from '../core/utils';
-import {mapTo, Observable, of, Subject, switchMap, takeUntil} from 'rxjs';
+import {mapTo, Observable, of, Subject, switchMap, takeUntil, withLatestFrom} from 'rxjs';
 import {ChangePasswordService} from './change-password.service';
 import {ActivatedRoute} from '@angular/router';
 import {catchError, tap} from 'rxjs/operators';
@@ -17,9 +17,11 @@ import {catchError, tap} from 'rxjs/operators';
 })
 export class ChangePasswordPageComponent implements OnInit, OnDestroy {
     private destroy$$: Subject<void> = new Subject<void>();
-    private change$$: Subject<void> = new Subject<void>();
+    private change$$: Subject<string> = new Subject<string>();
     private isTokenValid$$: Subject<boolean> = new Subject();
-    public isTokenValid$: Observable<boolean> = this.isTokenValid$$.asObservable();
+    public isTokenValid$: Observable<boolean> = this.isTokenValid$$.asObservable().pipe(
+        tap(console.log)
+    );
 
     public form: FormGroup = new FormGroup({
         password: new FormControl('', Validators.required),
@@ -36,7 +38,13 @@ export class ChangePasswordPageComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.change$$.asObservable().pipe(
-            takeUntil(this.destroy$$.asObservable())
+            takeUntil(this.destroy$$.asObservable()),
+            withLatestFrom(this.route.queryParamMap),
+            switchMap(([password, params]) => {
+                const email = params.get('email') as string;
+                const token = params.get('changePasswordToken') as string;
+                return this.changePasswordService.changePassword$(email, token, password);
+            })
         ).subscribe();
         this.route.queryParamMap.pipe(
             takeUntil(this.destroy$$.asObservable()),
@@ -51,7 +59,7 @@ export class ChangePasswordPageComponent implements OnInit, OnDestroy {
                 console.warn(e);
                 return of(false)
             }),
-            tap(this.isTokenValid$$.next.bind(this)),
+            tap(this.isTokenValid$$.next.bind(this.isTokenValid$$)),
         ).subscribe();
 
     }
@@ -61,6 +69,8 @@ export class ChangePasswordPageComponent implements OnInit, OnDestroy {
     }
 
     change(): void {
-        this.change$$.next();
+        if (this.form.valid) {
+            this.change$$.next(this.form.get('password')?.value);
+        }
     }
 }
