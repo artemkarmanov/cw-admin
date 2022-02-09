@@ -42,19 +42,14 @@ cwb-root {
   justify-content: space-between;
 }
 
-cwb-main, cwb-password-reset, cwb-create-user {
+cwb-main, cwb-simple-layout {
   height: 100%;
   display: flex;
   flex-direction: column;
 }
 
-cwb-create-user, cwb-password-reset {
-  align-items: center;
-  justify-content: center;
-}
 
 main {
-  background-color: #FCFCFC;
   display: flex;
   flex-direction: column;
   height: 100%;
