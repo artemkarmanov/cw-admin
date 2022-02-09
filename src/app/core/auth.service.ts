@@ -57,7 +57,7 @@ export class AuthService {
             return of(false);
         }
 
-        return this.messages.request$<ILoginResponse>('reLogin', {token: loginToken}).pipe(
+        return this.messages.request$<ILoginResponse>('reLogin', {loginToken}).pipe(
             map(() => true),
             catchError(() => {
                 this.clearLocalData();
