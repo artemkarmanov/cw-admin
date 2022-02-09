@@ -7,6 +7,7 @@ import {ErrorHandlerService} from './error-handler.service';
 import {ModalService} from './modal.service';
 import {BreadCrumbsService} from './bread-crumbs.service';
 import {TimezoneService} from './timezone.service';
+import {ChangePasswordGuard} from './change-password.guard';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import {TimezoneService} from './timezone.service';
         ErrorHandlerService,
         ModalService,
         BreadCrumbsService,
-        TimezoneService
+        TimezoneService,
+        ChangePasswordGuard
     ]
 })
 export class CoreModule {
