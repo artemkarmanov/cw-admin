@@ -1,8 +1,10 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {checkPasswords} from '../core/utils';
-import {Subject, takeUntil} from 'rxjs';
+import {Observable, Subject, switchMap, takeUntil} from 'rxjs';
 import {ChangePasswordService} from './change-password.service';
+import {ActivatedRoute} from '@angular/router';
+import {tap} from 'rxjs/operators';
 
 @Component({
     selector: 'cwb-change-password',
@@ -16,6 +18,8 @@ import {ChangePasswordService} from './change-password.service';
 export class ChangePasswordPageComponent implements OnInit, OnDestroy {
     private destroy$$: Subject<void> = new Subject<void>();
     private change$$: Subject<void> = new Subject<void>();
+    private isTokenValid$$: Subject<boolean> = new Subject();
+    public isTokenValid$: Observable<boolean> = this.isTokenValid$$.asObservable();
 
     public form: FormGroup = new FormGroup({
         password: new FormControl('', Validators.required),
@@ -24,13 +28,27 @@ export class ChangePasswordPageComponent implements OnInit, OnDestroy {
         validators: checkPasswords()
     })
 
-    constructor() {
+    constructor(
+        private changePasswordService: ChangePasswordService,
+        private route: ActivatedRoute
+    ) {
     }
 
     ngOnInit(): void {
         this.change$$.asObservable().pipe(
             takeUntil(this.destroy$$.asObservable())
         ).subscribe();
+        this.route.queryParamMap.pipe(
+            takeUntil(this.destroy$$.asObservable()),
+            switchMap((params) => {
+                return this.changePasswordService.checkResetPassword$(
+                    params.get('email') as string,
+                    params.get('token') as string
+                )
+            }),
+            tap(this.isTokenValid$$.next.bind(this))
+        ).subscribe();
+
     }
 
     ngOnDestroy(): void {
