@@ -1,10 +1,10 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {checkPasswords} from '../core/utils';
-import {Observable, Subject, switchMap, takeUntil} from 'rxjs';
+import {mapTo, Observable, of, Subject, switchMap, takeUntil} from 'rxjs';
 import {ChangePasswordService} from './change-password.service';
 import {ActivatedRoute} from '@angular/router';
-import {tap} from 'rxjs/operators';
+import {catchError, tap} from 'rxjs/operators';
 
 @Component({
     selector: 'cwb-change-password',
@@ -46,7 +46,12 @@ export class ChangePasswordPageComponent implements OnInit, OnDestroy {
                     params.get('token') as string
                 )
             }),
-            tap(this.isTokenValid$$.next.bind(this))
+            mapTo(true),
+            catchError(e => {
+                console.warn(e);
+                return of(false)
+            }),
+            tap(this.isTokenValid$$.next.bind(this)),
         ).subscribe();
 
     }
