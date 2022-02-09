@@ -6,6 +6,7 @@ import {ErrorHandlerService} from './error-handler.service';
 import {LOCAL_STORAGE, StorageService} from 'ngx-webstorage-service';
 import {USER_INFO} from './const';
 import {ILoginResponse} from './types';
+import {environment} from '../../environments/environment';
 
 const TOKEN_KEY = 'token';
 const USER_KEY = 'user';
@@ -32,11 +33,11 @@ export class AuthService {
 
 
     public login$(email: string, password: string): Observable<unknown> {
-
-        return this.messages.request$<ILoginResponse>('login', {email, password}).pipe(
+        const role = environment.role;
+        return this.messages.request$<ILoginResponse>('login', {email, password, role}).pipe(
             tap((data) => {
-                const {token} = data;
-                this.authorize(token);
+                const {loginToken} = data;
+                this.authorize(loginToken);
                 this.userStorage.set(USER_KEY, {email});
             }),
 
@@ -51,12 +52,12 @@ export class AuthService {
     }
 
     public reLogin$(): Observable<boolean> {
-        const token = this.getAppToken();
-        if (!token) {
+        const loginToken = this.getAppToken();
+        if (!loginToken) {
             return of(false);
         }
 
-        return this.messages.request$<ILoginResponse>('reLogin', {token}).pipe(
+        return this.messages.request$<ILoginResponse>('reLogin', {token: loginToken}).pipe(
             map(() => true),
             catchError(() => {
                 this.clearLocalData();

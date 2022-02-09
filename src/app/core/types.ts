@@ -46,7 +46,7 @@ export type SocketInMessage = string;
 export const WS_CONFIG_TOKEN = new InjectionToken<SocketMessagesConfig>('WS_CONFIG');
 
 export interface ILoginResponse {
-    token: string;
+    loginToken: string;
     connectionId?: number | string;
 }
 
