@@ -3,6 +3,7 @@ import {CreateService} from './create.service';
 import {from, Observable, Subject, switchMap, takeUntil} from 'rxjs';
 import {Router} from '@angular/router';
 import {map} from 'rxjs/operators';
+import {BreadCrumbsService} from '../../../core/bread-crumbs.service';
 
 @Component({
     selector: 'cwb-create',
@@ -20,8 +21,16 @@ export class CreatePageComponent implements OnInit, OnDestroy {
         map(_ => !_),
     );
 
-    constructor(private createService: CreateService, private router: Router) {
-
+    constructor(
+        private createService: CreateService, private router: Router,
+        private breadCrumbsService: BreadCrumbsService
+    ) {
+        this.breadCrumbsService.set([
+            {
+                title: 'New booking',
+                path: ['bookings', 'create'].join('/')
+            }
+        ])
     }
 
     getStep() {
