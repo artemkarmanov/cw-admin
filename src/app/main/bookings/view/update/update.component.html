@@ -7,7 +7,7 @@
     <form [formGroup]="form">
         <div class="d-flex justify-content-between">
             <a routerLink="../">Cancel</a>
-            <button (click)="update()">Save</button>
+            <button (click)="update()" [disabled]="form.invalid || form.untouched">Save</button>
         </div>
         <div>
             <label for="title">Title</label>

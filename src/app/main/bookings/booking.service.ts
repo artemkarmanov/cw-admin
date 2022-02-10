@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {SocketMessagesService} from '../../core/socket-messages.service';
 import {EMPTY, Observable, pluck} from 'rxjs';
-import {IBooking, ICreateBookingResponse, INewBooking} from '../../core/types';
+import {IBooking, IBookingModificationResponse, INewBooking} from '../../core/types';
 import {catchError, map} from 'rxjs/operators';
 import {ErrorHandlerService} from '../../core/error-handler.service';
 
@@ -43,8 +43,8 @@ export class BookingService {
         );
     }
 
-    public createBooking$(data: INewBooking): Observable<ICreateBookingResponse> {
-        return this.socketMessagesService.request$<ICreateBookingResponse>('createBooking', data).pipe(
+    public createBooking$(data: INewBooking): Observable<IBookingModificationResponse> {
+        return this.socketMessagesService.request$<IBookingModificationResponse>('createBooking', data).pipe(
             catchError((err) => {
                 this.errorHandler.handle(err);
                 return EMPTY;

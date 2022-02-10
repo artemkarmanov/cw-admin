@@ -91,11 +91,20 @@ export interface INewBooking {
     viewerEmails?: string;
 }
 
-export interface ICreateBookingResponse {
+export interface IUpdateBooking {
+    title?: string;
+    audioDetails?: string;
+    captionDispDetails?: string;
+    requireLogin?: 0 | 1;
+    viewerEmails?: string;
+    requirePasscode?: 0 | 1;
+}
+
+export interface IBookingModificationResponse {
     bookingToken: string;
     bookingPasscode: string;
     bookingPasscodeHash: string;
-    bookingCaptionerPasscode: string;
+    bookingCaptionerPasscode?: string;
 }
 
 export interface IRegion {
