@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "start": "ng serve --watch --port=5000 --configuration=development",
+    "build": "ng build",
     "local-backend": "cd ../cap_plat && go run main.go"
   },
   "private": true,
