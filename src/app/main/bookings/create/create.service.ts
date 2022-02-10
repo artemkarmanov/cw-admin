@@ -75,11 +75,11 @@ export class CreateService {
     }
 
     get captionDispDetails(): string {
-        return this.data.captionDistDetails || '';
+        return this.data.captionDispDetails || '';
     }
 
     set captionDispDetails(details: string) {
-        this.data.captionDistDetails = details;
+        this.data.captionDispDetails = details;
     }
 
     get timeZone(): string | undefined {
@@ -161,7 +161,7 @@ export class CreateService {
             countWeeks: this.countWeeks,
             sessionList: this.buildSessionList(),
             audioDetails: this.audioDetails,
-            captionDistDetails: this.captionDispDetails,
+            captionDispDetails: this.captionDispDetails,
             requirePasscode: this.requirePasscode,
             requireLogin: this.requireLogin,
             viewerEmails: this.viewerEmails

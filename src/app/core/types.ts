@@ -68,6 +68,7 @@ export interface IBooking {
     captionDispDetails: string;
     bookingTimeZone: string;
     sessions: ISession[];
+    viewerEmails?: string;
 }
 
 export interface INewSession {
@@ -84,7 +85,7 @@ export interface INewBooking {
     timeZoneOverride?: string;
     countWeeks: number; //Number of weeks’ worth of sessionList     sessions to process. 1 indicates no     recurrences.
     audioDetails: string;
-    captionDistDetails: string;
+    captionDispDetails: string;
     requirePasscode?: 0 | 1;
     requireLogin?: 0 | 1;
     viewerEmails?: string;

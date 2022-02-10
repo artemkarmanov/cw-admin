@@ -1,5 +1,30 @@
-<a routerLink="../">Cancel</a>
-<button>Save</button>
-<div>
-    {{data$ | async | json}}
-</div>
+<ng-container
+        *ngTemplateOutlet="asyncTemplate; context:{
+            data: data$ | async
+        }">
+</ng-container>
+<ng-template #asyncTemplate let-data="data">
+    <form [formGroup]="form">
+        <div class="d-flex justify-content-between">
+            <a routerLink="../">Cancel</a>
+            <button (click)="update()">Save</button>
+        </div>
+        <div>
+            <label for="title">Title</label>
+            <input formControlName="title" id="title" type="text">
+        </div>
+        <div>
+            <label class="form-label" for="audioDetails">Audio details</label>
+            <textarea class="form-control-lg form-control" formControlName="audioDetails" id="audioDetails"></textarea>
+        </div>
+        <div>
+            <label class="form-label" for="captionDispDetails">Caption Display Details</label>
+            <textarea class="form-control-lg form-control" formControlName="captionDispDetails"
+                      id="captionDispDetails"></textarea>
+        </div>
+        <div>
+            <cwb-viewers-list formControlName="viewerEmails"></cwb-viewers-list>
+        </div>
+
+    </form>
+</ng-template>
