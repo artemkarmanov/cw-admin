@@ -2,16 +2,19 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TimezoneSelectorComponent} from './timezone-selector/timezone-selector.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import {ViewersListComponent} from './viewers-list/viewers-list.component';
 
 
 @NgModule({
     declarations: [
-        TimezoneSelectorComponent
+        TimezoneSelectorComponent,
+        ViewersListComponent
     ],
     exports: [
         CommonModule,
         ReactiveFormsModule,
-        TimezoneSelectorComponent
+        TimezoneSelectorComponent,
+        ViewersListComponent
     ],
     imports: [
         CommonModule,
