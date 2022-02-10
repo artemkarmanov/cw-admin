@@ -43,8 +43,21 @@ export class UpdateComponent implements OnInit, OnDestroy {
         this.saveChanges$$.asObservable().pipe(
             takeUntil(this.destroy$$.asObservable()),
             withLatestFrom(this.data$,),
-            switchMap(([_, {bookingToken}]) => {
-                return this.updateService.updateBooking$(bookingToken, _);
+            switchMap(([newData, {bookingToken, viewerEmails, audioDetails, title, captionDispDetails}]) => {
+                let data: IUpdateBooking = {};
+                if (title !== newData.title) {
+                    data.title = newData.title;
+                }
+                if (audioDetails !== newData.audioDetails) {
+                    data.audioDetails = newData.audioDetails;
+                }
+                if (captionDispDetails !== newData.captionDispDetails) {
+                    data.captionDispDetails = newData.captionDispDetails;
+                }
+                if (viewerEmails !== newData.viewerEmails) {
+                    data.viewerEmails = newData.viewerEmails;
+                }
+                return this.updateService.updateBooking$(bookingToken, data);
             }),
             switchMap(() => {
                 return from(this.router.navigate(['/']))
