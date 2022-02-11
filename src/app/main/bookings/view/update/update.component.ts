@@ -56,6 +56,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
                     data.viewerEmails = newData.viewerEmails;
                 }
                 return this.updateService.updateBooking$(bookingToken, data).pipe(
+                    tap(() => this.viewService.reload()),
                     switchMap(() => {
                         return from(this.router.navigate(['bookings', bookingToken]))
                     })
