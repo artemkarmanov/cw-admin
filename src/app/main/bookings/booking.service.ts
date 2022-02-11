@@ -25,7 +25,7 @@ export class BookingService {
     }
 
     public getBookings$(count?: number, start?: number, bookingToken?: string, includePast?: boolean): Observable<IBooking[]> {
-        return this.socketMessagesService.request$<{ bookings?: IBooking[] }>('getBookings').pipe(
+        return this.socketMessagesService.request$<{ bookings?: IBooking[] }>('getBookingSummary', {}).pipe(
             pluck('bookings'),
             map(_ => _ as IBooking[])
         );

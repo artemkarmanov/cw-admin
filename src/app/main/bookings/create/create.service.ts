@@ -93,7 +93,7 @@ export class CreateService {
     }
 
     get requirePasscode(): 0 | 1 {
-        return this.data.requirePasscode || 0;
+        return (this.data.requirePasscode) ? 1 : 0;
     }
 
     set requirePasscode(value: 0 | 1) {
@@ -101,7 +101,7 @@ export class CreateService {
     }
 
     get requireLogin(): 0 | 1 {
-        return this.data.requireLogin || 0;
+        return (this.data.requireLogin) ? 1 : 0;
     }
 
     set requireLogin(value: 0 | 1) {
