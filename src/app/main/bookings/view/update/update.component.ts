@@ -22,14 +22,12 @@ export class UpdateComponent implements OnInit, OnDestroy {
     public data$: Observable<IBooking> = this.data$$.asObservable();
     public saveChanges$$: Subject<IUpdateBooking> = new Subject<IUpdateBooking>();
     public form = new FormGroup({
-
         title: new FormControl('', Validators.required),
         audioDetails: new FormControl('', Validators.required),
         captionDispDetails: new FormControl('', Validators.required),
         // requirePasscode: new FormControl(''),
         // requireLogin: new FormControl(''),
         viewerEmails: new FormControl('')
-
     });
 
     constructor(
@@ -57,11 +55,12 @@ export class UpdateComponent implements OnInit, OnDestroy {
                 if (viewerEmails !== newData.viewerEmails) {
                     data.viewerEmails = newData.viewerEmails;
                 }
-                return this.updateService.updateBooking$(bookingToken, data);
+                return this.updateService.updateBooking$(bookingToken, data).pipe(
+                    switchMap(() => {
+                        return from(this.router.navigate(['bookings', bookingToken]))
+                    })
+                );
             }),
-            switchMap(() => {
-                return from(this.router.navigate(['/']))
-            })
         ).subscribe();
 
         this.viewService.currentBookingData$.pipe(

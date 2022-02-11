@@ -15,6 +15,7 @@ import {ChangePasswordGuard} from './change-password.guard';
     imports: [
         CommonModule
     ],
+    exports: [],
     providers: [
         AuthService,
         SocketMessagesService,

@@ -4,7 +4,8 @@
 
 <ng-template #asyncTemplate let-booking="booking">
     <div *ngIf="booking;else empty">
-        <h1>Booking</h1>
+        <h1>{{booking.title}}</h1>
+        <small>Booking ID:{{booking.bookingToken}}</small>
         <div class="row">
             <div class="col-sm-5">
                 <div class="card">
