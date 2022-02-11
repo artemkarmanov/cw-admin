@@ -58,6 +58,16 @@ export interface ISession {
     captionDispOverride?: string;
 }
 
+export interface IBookingSummary {
+    bookingToken: string;
+    title: string;
+    bookingTimeZone: string;
+    nextSessionStartEpoch: number;
+    nextSessionDurationMins: number;
+    totalSessions: number;
+    countFutureSessions: number;
+}
+
 export interface IBooking {
     title: string;
     bookingToken: string;

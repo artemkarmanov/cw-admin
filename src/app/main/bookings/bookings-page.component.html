@@ -19,9 +19,9 @@
         <tr *ngFor="let booking of bookings">
             <td><a [routerLink]="booking.bookingToken">{{booking.bookingToken}}</a></td>
             <td>{{booking.title}}</td>
-            <td>{{booking | nextSession | date}}</td>
-            <td>{{booking | sessionDuration}}</td>
-            <td>{{booking | remainingSessions}}</td>
+            <td>{{booking.nextSessionStartEpoch | date}}</td>
+            <td>{{booking.nextSessionDurationMins}}</td>
+            <td>{{booking | sessionCounter}}</td>
         </tr>
         </tbody>
     </ng-container>

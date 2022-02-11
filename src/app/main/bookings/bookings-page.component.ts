@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {BookingService} from './booking.service';
 import {BehaviorSubject, Observable, Subject, takeUntil} from 'rxjs';
-import {IBooking} from '../../core/types';
+import {IBookingSummary} from '../../core/types';
 import {tap} from 'rxjs/operators';
 import {CreateService} from './create/create.service';
 import {BreadCrumbsService} from '../../core/bread-crumbs.service';
@@ -16,9 +16,9 @@ import {BreadCrumbsService} from '../../core/bread-crumbs.service';
 })
 export class BookingsPageComponent implements OnInit, OnDestroy {
     private destroy$$: Subject<void> = new Subject<void>();
-    private bookings$$: BehaviorSubject<IBooking[]> = new BehaviorSubject<IBooking[]>([]);
+    private bookings$$: BehaviorSubject<IBookingSummary[]> = new BehaviorSubject<IBookingSummary[]>([]);
 
-    public bookings$: Observable<IBooking[]> = this.bookings$$.asObservable().pipe(
+    public bookings$: Observable<IBookingSummary[]> = this.bookings$$.asObservable().pipe(
         //tap(console.log)
     );
 

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {SocketMessagesService} from '../../core/socket-messages.service';
 import {EMPTY, Observable, pluck} from 'rxjs';
-import {IBooking, IBookingModificationResponse, INewBooking} from '../../core/types';
+import {IBooking, IBookingModificationResponse, IBookingSummary, INewBooking} from '../../core/types';
 import {catchError, map} from 'rxjs/operators';
 import {ErrorHandlerService} from '../../core/error-handler.service';
 
@@ -24,10 +24,10 @@ export class BookingService {
     ) {
     }
 
-    public getBookings$(count?: number, start?: number, bookingToken?: string, includePast?: boolean): Observable<IBooking[]> {
-        return this.socketMessagesService.request$<{ bookings?: IBooking[] }>('getBookingSummary').pipe(
+    public getBookings$(count?: number, start?: number, bookingToken?: string, includePast?: boolean): Observable<IBookingSummary[]> {
+        return this.socketMessagesService.request$<{ bookings?: IBookingSummary[] }>('getBookingSummary').pipe(
             pluck('bookings'),
-            map(_ => _ as IBooking[])
+            map(_ => _ as IBookingSummary[])
         );
     }
 

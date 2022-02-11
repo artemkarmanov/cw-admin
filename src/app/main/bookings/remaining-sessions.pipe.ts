@@ -1,18 +1,11 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {IBooking} from '../../core/types';
-import {getFutureSessions} from '../../core/utils';
+import {IBookingSummary} from '../../core/types';
 
 @Pipe({
-    name: 'remainingSessions'
+    name: 'sessionCounter'
 })
-export class RemainingSessionsPipe implements PipeTransform {
-
-    transform(booking: IBooking): string {
-        const {sessions: sessions} = booking;
-        const futureSessions = getFutureSessions(booking);
-        const futureSessionCount = (futureSessions) ? futureSessions.length : 0;
-
-        return [futureSessionCount, sessions.length].join(' of ');
+export class SessionCounterPipe implements PipeTransform {
+    transform(booking: IBookingSummary): string {
+        return [booking.countFutureSessions, booking.totalSessions].join(' of ');
     }
-
 }

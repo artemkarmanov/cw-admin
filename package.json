@@ -4,7 +4,7 @@
   "scripts": {
     "start": "ng serve --watch --port=5000 --configuration=development",
     "build": "ng build",
-    "local-backend": "cd ../cap_plat && go run main.go"
+    "local-backend": "cd ../cap_plat && nodemon --watch './**/*.go' --signal SIGTERM --exec 'go run' main.go"
   },
   "private": true,
   "dependencies": {
@@ -30,6 +30,7 @@
     "@angular/compiler-cli": "~13.2.0",
     "@types/luxon": "^2.0.9",
     "@types/node": "^12.11.1",
+    "nodemon": "^2.0.15",
     "typescript": "~4.5.2"
   }
 }
