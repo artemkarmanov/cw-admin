@@ -1,1 +1,3 @@
-Logged in as: <strong>Someone</strong>
+<ng-container *ngIf="user$ | async as user">
+    Logged in as: <strong>{{user}}</strong>
+</ng-container>

@@ -123,3 +123,9 @@ export interface INewUser {
     password: string;
     timezone: string;
 }
+
+export interface IUserSettings {
+    timeZone: string;
+    firstName: string;
+    lastName: string;
+}
