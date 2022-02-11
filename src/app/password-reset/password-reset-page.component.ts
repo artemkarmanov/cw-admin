@@ -1,7 +1,8 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ResetPasswordService} from './reset-password.service';
-import {Subject, switchMap, takeUntil} from 'rxjs';
+import {from, Subject, switchMap, takeUntil} from 'rxjs';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'cwb-password-reset',
@@ -15,15 +16,19 @@ import {Subject, switchMap, takeUntil} from 'rxjs';
 export class PasswordResetPageComponent implements OnInit, OnDestroy {
     private destroy$$: Subject<void> = new Subject<void>();
     private send$$: Subject<string> = new Subject<string>();
-    public email: FormControl = new FormControl('', [Validators.required, Validators.email]);
+    public form: FormGroup = new FormGroup({
+        email: new FormControl('', [Validators.required, Validators.email])
+    });
 
-    constructor(private resetPasswordService: ResetPasswordService) {
+    constructor(
+        private resetPasswordService: ResetPasswordService, private router: Router) {
     }
 
     ngOnInit(): void {
         this.send$$.asObservable().pipe(
             takeUntil(this.destroy$$.asObservable()),
-            switchMap((email) => this.resetPasswordService.reset$(email))
+            switchMap((email) => this.resetPasswordService.reset$(email)),
+            switchMap(() => from(this.router.navigate(['/'])))
         ).subscribe();
     }
 
@@ -32,8 +37,8 @@ export class PasswordResetPageComponent implements OnInit, OnDestroy {
     }
 
     public reset() {
-        if (this.email.valid) {
-            this.send$$.next(this.email.value);
+        if (this.form.valid) {
+            this.send$$.next(this.form.get('email')?.value as string);
         }
     }
 
