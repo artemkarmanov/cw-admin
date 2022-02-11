@@ -5,6 +5,7 @@ import {mapTo, Observable, of, Subject, switchMap, takeUntil, withLatestFrom} fr
 import {ChangePasswordService} from './change-password.service';
 import {ActivatedRoute} from '@angular/router';
 import {catchError, tap} from 'rxjs/operators';
+import {AuthService} from '../core/auth.service';
 
 @Component({
     selector: 'cwb-change-password',
@@ -20,8 +21,8 @@ export class ChangePasswordPageComponent implements OnInit, OnDestroy {
     private change$$: Subject<string> = new Subject<string>();
     private isTokenValid$$: Subject<boolean> = new Subject();
     public isTokenValid$: Observable<boolean> = this.isTokenValid$$.asObservable().pipe(
-        tap(console.log)
     );
+    public isAuthorized: Observable<boolean> = this.auth.isAuthorized$;
 
     public form: FormGroup = new FormGroup({
         password: new FormControl('', Validators.required),
@@ -32,17 +33,19 @@ export class ChangePasswordPageComponent implements OnInit, OnDestroy {
 
     constructor(
         private changePasswordService: ChangePasswordService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private auth: AuthService
     ) {
     }
 
     ngOnInit(): void {
+
         this.change$$.asObservable().pipe(
             takeUntil(this.destroy$$.asObservable()),
             withLatestFrom(this.route.queryParamMap),
             switchMap(([password, params]) => {
-                const email = params.get('email') as string;
-                const token = params.get('changePasswordToken') as string;
+                const email = atob(params.get('email') as string);
+                const token = params.get('token') as string;
                 return this.changePasswordService.changePassword$(email, token, password);
             })
         ).subscribe();
@@ -50,7 +53,7 @@ export class ChangePasswordPageComponent implements OnInit, OnDestroy {
             takeUntil(this.destroy$$.asObservable()),
             switchMap((params) => {
                 return this.changePasswordService.checkResetPassword$(
-                    params.get('email') as string,
+                    atob(params.get('email') as string),
                     params.get('token') as string
                 )
             }),

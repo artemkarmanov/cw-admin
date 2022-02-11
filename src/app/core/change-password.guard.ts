@@ -10,7 +10,6 @@ export class ChangePasswordGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot): boolean | UrlTree {
         const result = route.queryParamMap.has('token') && route.queryParamMap.has('email');
-        console.log(route.queryParamMap);
         return (result) || this.router.createUrlTree(['/']);
     }
 

@@ -80,6 +80,10 @@ export class AuthService implements OnDestroy {
         }
 
         return this.messages.request$<ILoginResponse>('reLogin', {loginToken}).pipe(
+            tap((data) => {
+                const {loginToken} = data;
+                this.authorize(loginToken);
+            }),
             map(() => true),
             tap(() => this.loadUserSettings()),
             catchError(() => {
