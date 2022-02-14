@@ -1,20 +1,29 @@
-<div class="navbar shadow-sm">
-    <div class="container-fluid">
-        <cwb-bread-crumbs></cwb-bread-crumbs>
-        <div>
-            <ng-container *ngIf="isLoggedIn$ | async; else unauthorized">
+<ng-container
+        *ngTemplateOutlet="asyncTemplate; context:{
+            isLoggedIn: isLoggedIn$ | async
+        }">
+</ng-container>
+<ng-template #asyncTemplate let-isLoggedIn="isLoggedIn">
+    <div class="navbar shadow-sm">
+        <div class="container-fluid">
+            <cwb-bread-crumbs></cwb-bread-crumbs>
+            <cwb-menu *ngIf="isLoggedIn"></cwb-menu>
+            <div>
+                <ng-container *ngIf="isLoggedIn; else unauthorized">
                  <span class="navbar-text">
                   <cwb-user-info></cwb-user-info>
                 </span>
 
-                <cwb-logout-button></cwb-logout-button>
-            </ng-container>
+                    <cwb-logout-button></cwb-logout-button>
+                </ng-container>
+            </div>
         </div>
     </div>
-</div>
-<ng-template #unauthorized>
+    <ng-template #unauthorized>
      <span class="navbar-text">
       Not  a member yet?
     </span>
-    <a class="btn btn-sm btn-primary" routerLink="../../../sign-up">Get started</a>
+        <a class="btn btn-sm btn-primary" routerLink="../../../sign-up">Get started</a>
+    </ng-template>
+
 </ng-template>

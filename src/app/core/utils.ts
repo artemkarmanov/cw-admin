@@ -1,6 +1,7 @@
 import {IBooking, ISession} from './types';
 import {DateTime} from 'luxon';
 import {AbstractControl, FormGroup, ValidationErrors, ValidatorFn} from '@angular/forms';
+import {environment} from '../../environments/environment';
 
 export function getFutureSessions(booking: IBooking): ISession[] | undefined {
     const now = DateTime.now();
@@ -34,4 +35,8 @@ export function checkPasswords(): ValidatorFn {
             passwordsDiffers: true
         }
     };
+}
+
+export function getStartPage(): string {
+    return (environment.role !== 'admin') ? 'bookings' : 'sessions'
 }

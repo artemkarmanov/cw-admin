@@ -1,6 +1,8 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {MainComponent} from './main.component';
+import {AdminGuard} from '../core/admin.guard';
+import {getStartPage} from '../core/utils';
 
 const routes: Routes = [
     {
@@ -11,11 +13,24 @@ const routes: Routes = [
                 loadChildren: () => import('./bookings/bookings.module').then(m => m.BookingsModule)
             },
             {
+                path: 'sessions',
+                loadChildren: () => import('./sessions/sessions.module').then(m => m.SessionsModule),
+                canActivate: [AdminGuard]
+            },
+            {
+                path: 'users',
+                loadChildren: () => import('./users/users.module').then(m => m.UsersModule),
+                canActivate: [AdminGuard]
+            },
+            {
                 path: '',
-                redirectTo: 'bookings'
+                redirectTo: getStartPage()
             }
+
         ]
-    }];
+    },
+
+];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],

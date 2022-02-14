@@ -8,7 +8,7 @@ export const environment = {
     production: false,
     //backend: 'wss://testmain.captionworks.com:3000/socket'
     backend: 'ws://localhost:3000/socket',
-    role: 'admin',
+    role: 'viewer',
     viewerUrl: 'https://testweb.captionworks.com:8082'
 };
 
