@@ -5,14 +5,19 @@
         <th>Start time</th>
         <th>Status</th>
         <th>Duration</th>
+        <th *ngIf="isAdmin">&nbsp;</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let session of data">
         <td>{{session.sessionId}}</td>
         <td>{{session.startEpoch | date}}</td>
-        <td>&nbsp;<span cwbStatus>{{session.status}}</span></td>
+        <td><span cwbStatus>{{session.status}}</span></td>
         <td>{{session.sessionDurationMins}}</td>
+        <td *ngIf="isAdmin">
+            <button (click)="edit(session.sessionId)">Edit</button>
+            <button (click)="cancel(session.sessionId)">Cancel</button>
+        </td>
     </tr>
     </tbody>
 </table>

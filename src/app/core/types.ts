@@ -142,3 +142,13 @@ export interface IUserSettings {
     firstName: string;
     lastName: string;
 }
+
+export interface ICreateSession {
+    bookingToken: string;
+    startEpoch: number;
+    sessionDurationMins: number;
+    audioDetailsOverride?: string;
+    captionDispOverride?: string;
+    nonBilled?: 0 | 1;
+    respeakerRateOverride?: number;
+}
