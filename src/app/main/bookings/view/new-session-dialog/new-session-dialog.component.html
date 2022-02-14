@@ -1,10 +1,43 @@
 <div class="modal-header">
     <h1 class="modal-title">Add session</h1>
 </div>
-<div class="modal-body">
 
+<div [formGroup]="form" class="modal-body">
+    <div>
+        <label class="form-label" for="startDate">Start date</label>
+        <input class="form-control form-control-lg" formControlName="startDate" id="startDate" required type="date">
+    </div>
+    <div>
+        <label class="form-label" for="startTime">Start time</label>
+        <input class="form-control form-control-lg" formControlName="startTime" id="startTime" required type="time">
+    </div>
+    <div>
+        <label class="form-label" for="sessionDurationMins">Duration, minutes</label>
+        <input class="form-control form-control-lg" formControlName="sessionDurationMins" id="sessionDurationMins"
+               required
+               type="text">
+    </div>
+    <div>
+        <label class="form-label" for="audioDetailsOverride">Audio details override</label>
+        <textarea class="form-control-lg form-control" formControlName="audioDetailsOverride"
+                  id="audioDetailsOverride"></textarea>
+    </div>
+    <div>
+        <label class="form-label" for="captionDispOverride">Caption Display Details override</label>
+        <textarea class="form-control-lg form-control" formControlName="captionDispOverride"
+                  id="captionDispOverride"></textarea>
+    </div>
+    <div>
+        <label class="form-label" for="respeakerRateOverride">Re-speaker rate override</label>
+        <input class="form-control form-control-lg" formControlName="respeakerRateOverride" id="respeakerRateOverride"
+               type="text">
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" formControlName="nonBilled" id="nonBilled" type="checkbox">
+        <label class="form-check-label" for="nonBilled">Non-billed</label>
+    </div>
 </div>
 <div class="modal-footer d-flex justify-content-between">
     <button (click)="close()" class="btn btn-secondary">Cancel</button>
-    <button (click)="save()" class="btn btn-primary">Add</button>
+    <button (click)="save()" [disabled]="form.invalid || form.pristine" class="btn btn-primary">Add</button>
 </div>

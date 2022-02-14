@@ -1,5 +1,7 @@
 import {InjectionToken} from '@angular/core';
 
+export type TSessionStatus = 'Future' | 'Cancelled' | 'Running' | 'Completed';
+
 export interface SocketMessagesConfig {
     host: string;
     reconnectionInterval?: number[];
@@ -56,6 +58,7 @@ export interface ISession {
     sessionDurationMins: number;
     audioDetailsOverride?: string;
     captionDispOverride?: string;
+    status: TSessionStatus;
 }
 
 export interface IBookingSummary {

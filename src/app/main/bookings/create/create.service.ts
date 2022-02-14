@@ -3,9 +3,7 @@ import {BookingService} from '../booking.service';
 import {INewBooking, INewSession} from '../../../core/types';
 import {BehaviorSubject, distinctUntilChanged, Observable} from 'rxjs';
 import {DateTime} from 'luxon';
-
-const MINIMUM_SESSION_DURATION = 10; //minutes
-const MINIMUM_BOOKING_OFFSET = 48; //hours
+import {MINIMUM_SESSION_DURATION} from '../../../core/const';
 
 @Injectable()
 export class CreateService {
