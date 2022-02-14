@@ -15,7 +15,7 @@
         <td><span cwbStatus>{{session.status}}</span></td>
         <td>{{session.sessionDurationMins}}</td>
         <td *ngIf="isAdmin">
-            <button (click)="edit(session.sessionId)">Edit</button>
+            <button (click)="edit(session)">Edit</button>
             <button (click)="cancel(session.sessionId)">Cancel</button>
         </td>
     </tr>

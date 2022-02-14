@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Observable, pluck, Subject, takeUntil} from 'rxjs';
-import {tap} from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
 import {ViewService} from './view.service';
 import {IBooking} from '../../../core/types';
 import {BreadCrumbsService} from '../../../core/bread-crumbs.service';
@@ -18,6 +18,14 @@ export class ViewBookingPageComponent implements OnInit, OnDestroy {
     private destroy$$: Subject<void> = new Subject<void>();
 
     public booking$: Observable<IBooking> = this.viewService.currentBookingData$.pipe(
+        map((booking) => {
+            const {sessions} = booking;
+            sessions.sort((a, b) => {
+                return a.startEpoch - b.startEpoch;
+            });
+
+            return booking;
+        })
     );
 
     constructor(

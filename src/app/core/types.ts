@@ -59,6 +59,8 @@ export interface ISession {
     audioDetailsOverride?: string;
     captionDispOverride?: string;
     status: TSessionStatus;
+    nonBilled?: 0 | 1;
+    respeakerRateOverride?: number;
 }
 
 export interface IBookingSummary {

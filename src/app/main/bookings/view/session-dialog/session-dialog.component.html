@@ -27,12 +27,12 @@
         <textarea class="form-control-lg form-control" formControlName="captionDispOverride"
                   id="captionDispOverride"></textarea>
     </div>
-    <div>
+    <div *ngIf="isAdmin">
         <label class="form-label" for="respeakerRateOverride">Re-speaker rate override</label>
         <input class="form-control form-control-lg" formControlName="respeakerRateOverride" id="respeakerRateOverride"
                type="text">
     </div>
-    <div class="form-check">
+    <div *ngIf="isAdmin" class="form-check">
         <input class="form-check-input" formControlName="nonBilled" id="nonBilled" type="checkbox">
         <label class="form-check-label" for="nonBilled">Non-billed</label>
     </div>

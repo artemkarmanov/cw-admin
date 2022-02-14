@@ -24,7 +24,7 @@ export class AddSessionButtonComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.click$$.asObservable().pipe(
             takeUntil(this.destroy$$.asObservable()),
-            switchMap(this.sessionService.add$())
+            switchMap(() => this.sessionService.add$())
         ).subscribe();
     }
 
