@@ -27,7 +27,8 @@ export class SessionsComponent implements OnInit, OnDestroy {
             switchMap(session => this.sessionService.edit$(session))
         ).subscribe()
         this.cancelClick$$.asObservable().pipe(
-            takeUntil(this.destroy$$.asObservable())
+            takeUntil(this.destroy$$.asObservable()),
+            switchMap(id => this.sessionService.cancel$(id))
         ).subscribe()
     }
 

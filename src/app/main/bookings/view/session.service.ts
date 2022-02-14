@@ -4,8 +4,9 @@ import {Observable, pluck, withLatestFrom} from 'rxjs';
 import {ModalService} from '../../../core/modal.service';
 import {ViewService} from './view.service';
 import {ICreateSession, ISession} from '../../../core/types';
-import {SessionDialogComponent} from './session-dialog/session-dialog.component';
+import {SessionDialogComponent} from './sessions/session-dialog/session-dialog.component';
 import {filter, switchMap, tap} from 'rxjs/operators';
+import {ConfirmationService} from '../../../shared/confirmation.service';
 
 @Injectable()
 export class SessionService {
@@ -14,6 +15,7 @@ export class SessionService {
         private modalService: ModalService,
         private messages: SocketMessagesService,
         private viewService: ViewService,
+        private confirmationService: ConfirmationService,
     ) {
     }
 
@@ -46,6 +48,15 @@ export class SessionService {
         )
     }
 
+    public cancel$(id: number): Observable<unknown> {
+        return this.confirmationService.open$('Are you sure you want to cancel the session?').pipe(
+            switchMap(() => {
+                return this.cancelSession$(id);
+            }),
+            tap(() => this.viewService.reload())
+        );
+    }
+
     private addSession$(session: ICreateSession): Observable<number> {
         return this.messages.request$<{ sessionId: number }>('addSession', session).pipe(
             pluck('sessionId')
@@ -55,6 +66,13 @@ export class SessionService {
 
     private updateSession$(session: ISession): Observable<unknown> {
         return this.messages.request$('updateSession', session).pipe(
+
+        );
+    }
+
+
+    private cancelSession$(sessionId: number): Observable<unknown> {
+        return this.messages.request$('cancelSession', {sessionId}).pipe(
 
         );
     }

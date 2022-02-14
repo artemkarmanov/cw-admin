@@ -1,12 +1,12 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {MINIMUM_SESSION_DURATION} from '../../../../core/const';
+import {MINIMUM_SESSION_DURATION} from '../../../../../core/const';
 import {DateTime} from 'luxon';
 import {BehaviorSubject, Observable, Subject, takeUntil} from 'rxjs';
-import {ISession} from '../../../../core/types';
+import {ISession} from '../../../../../core/types';
 import {filter, tap} from 'rxjs/operators';
-import {environment} from '../../../../../environments/environment';
+import {environment} from '../../../../../../environments/environment';
 
 interface IFormData {
     startDate: string;

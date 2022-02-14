@@ -5,6 +5,8 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {ViewersListComponent} from './viewers-list/viewers-list.component';
 import {RegionPipe} from './region.pipe';
 import {CityPipe} from './city.pipe';
+import {ConfirmationDialogComponent} from './confirmation-dialog/confirmation-dialog.component';
+import {SharedProviderModule} from './shared-provider.module';
 
 
 @NgModule({
@@ -12,7 +14,8 @@ import {CityPipe} from './city.pipe';
         TimezoneSelectorComponent,
         ViewersListComponent,
         RegionPipe,
-        CityPipe
+        CityPipe,
+        ConfirmationDialogComponent
     ],
     exports: [
         CommonModule,
@@ -24,7 +27,8 @@ import {CityPipe} from './city.pipe';
     ],
     imports: [
         CommonModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        SharedProviderModule
     ]
 })
 export class SharedModule {
