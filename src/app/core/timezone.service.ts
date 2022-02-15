@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {SocketMessagesService} from './socket-messages.service';
-import {EMPTY, Observable, of, pluck, ReplaySubject, Subject, switchMap, tap} from 'rxjs';
+import {EMPTY, Observable, of, pluck, ReplaySubject, Subject, switchMap, take, tap} from 'rxjs';
 import {IRegion} from './types';
 import {catchError} from 'rxjs/operators';
 import {ErrorHandlerService} from './error-handler.service';
@@ -19,7 +19,9 @@ export class TimezoneService {
             catchError(err => {
                 errors.handle(err);
                 return EMPTY;
-            })
+            }),
+            //get regions list only one time
+            take(1)
         ).subscribe();
     }
 

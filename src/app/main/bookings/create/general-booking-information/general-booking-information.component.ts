@@ -18,7 +18,7 @@ export class GeneralBookingInformationComponent implements OnInit, OnDestroy {
         startDate: new FormControl(this.createService.startDate, [Validators.required]),
         startTime: new FormControl(this.createService.startTime, [Validators.required]),
         duration: new FormControl(this.createService.durationMins, [Validators.required]),
-        timeZone: new FormControl(this.createService.timeZone, []),
+        timeZoneOverride: new FormControl(this.createService.timeZone, []),
         countWeeks: new FormControl(this.createService.countWeeks, [Validators.required, Validators.min(1)]),
     });
 
@@ -52,6 +52,11 @@ export class GeneralBookingInformationComponent implements OnInit, OnDestroy {
             (this.form.get('countWeeks') as FormControl).valueChanges.pipe(
                 tap((value) => {
                     this.createService.countWeeks = value;
+                })
+            ),
+            (this.form.get('timeZoneOverride') as FormControl).valueChanges.pipe(
+                tap((value) => {
+                    this.createService.timeZone = value;
                 })
             ),
         ).pipe(
