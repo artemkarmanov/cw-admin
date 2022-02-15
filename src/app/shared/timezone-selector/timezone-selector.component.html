@@ -3,11 +3,13 @@
         <label class="form-label" for="region">Region</label>
         <select *ngIf="regions$ | async as regions" [formControl]="region" class="form-select form-select-lg"
                 id="region">
+            <option *ngIf="!required"></option>
             <option *ngFor="let region of regions" [value]="region.regionId">{{region.region}}</option>
         </select></div>
     <div class="d-flex flex-column w-100">
         <label class="form-label" for="city">City</label>
         <select *ngIf="cities$ | async as cities" [formControl]="city" class="form-select form-select-lg" id="city">
+            <option *ngIf="!required"></option>
             <option *ngFor="let city of cities" [value]="city">{{city}}</option>
         </select>
     </div>

@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy, Component, forwardRef, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, forwardRef, Input, OnDestroy, OnInit} from '@angular/core';
 import {TimezoneService} from '../../core/timezone.service';
 import {BehaviorSubject, Observable, Subject, switchMap, takeUntil, withLatestFrom} from 'rxjs';
 import {IRegion} from '../../core/types';
-import {tap} from 'rxjs/operators';
-import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, Validators} from '@angular/forms';
+import {filter, tap} from 'rxjs/operators';
+import {ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators} from '@angular/forms';
 
 @Component({
     selector: 'cwb-timezone-selector',
@@ -14,9 +14,16 @@ import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, Validators} from '
         provide: NG_VALUE_ACCESSOR,
         useExisting: forwardRef(() => TimezoneSelectorComponent),
         multi: true
-    }]
+    },
+        {
+            provide: NG_VALIDATORS,
+            useExisting: forwardRef(() => TimezoneSelectorComponent),
+            multi: true
+        }
+    ]
 })
 export class TimezoneSelectorComponent implements OnInit, OnDestroy, ControlValueAccessor {
+    @Input() required = true;
     private destroy$$: Subject<void> = new Subject<void>();
     private writeValue$$: Subject<string> = new Subject<string>();
     private cities$$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
@@ -24,7 +31,7 @@ export class TimezoneSelectorComponent implements OnInit, OnDestroy, ControlValu
     public city: FormControl = new FormControl('', Validators.required);
     public regions$: Observable<IRegion[]> = this.timezoneService.getRegions$().pipe(
         tap((regions) => {
-            if (!this.region.value) {
+            if (!this.region.value && this.required) {
                 this.region.setValue(regions[0].regionId);
             }
 
@@ -53,6 +60,13 @@ export class TimezoneSelectorComponent implements OnInit, OnDestroy, ControlValu
 
         this.region.valueChanges.pipe(
             takeUntil(this.destroy$$.asObservable()),
+            tap((_) => {
+                if (!_) {
+                    this.city.setValue('');
+                    this.cities$$.next([]);
+                }
+            }),
+            filter(Boolean),
             switchMap((region) => {
                 return this.timezoneService.getCities$(parseInt(region));
             }),
@@ -66,6 +80,12 @@ export class TimezoneSelectorComponent implements OnInit, OnDestroy, ControlValu
 
         this.city.valueChanges.pipe(
             takeUntil(this.destroy$$.asObservable()),
+            tap((_) => {
+                if (!_ && this.region.value) {
+                    this.onChange('')
+                }
+            }),
+            filter(Boolean),
             //@todo better to fix it
             withLatestFrom(this.regions$),
             tap(([city, regions]) => {
@@ -104,5 +124,20 @@ export class TimezoneSelectorComponent implements OnInit, OnDestroy, ControlValu
         }
     }
 
+    validate() {
+        let result: any = {
+            invalid_timezone: true
+        };
+        console.log(this.city.value, this.region.value)
+        if (this.city.value && this.region.value) {
+            result = null;
+        } else if (!this.required) {
+            if ((!this.region.value && !this.city.value)) {
+                result = null;
+            }
 
+        }
+        console.log(result)
+        return result;
+    }
 }
