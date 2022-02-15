@@ -48,4 +48,8 @@ export class SessionsComponent implements OnInit, OnDestroy {
         }
     }
 
+    isEditable(session: ISession): boolean {
+        return session.status === 'Future';
+    }
+
 }
