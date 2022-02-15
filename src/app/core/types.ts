@@ -154,3 +154,22 @@ export interface ICreateSession {
     nonBilled?: 0 | 1;
     respeakerRateOverride?: number;
 }
+
+export interface IAdminSession {
+    title: string;
+    bookingToken: string;
+    sessionId: number;
+    startEpoch: number;
+    bookingTimeZone: string;
+    sessionDurationMins: number;
+    status: string;
+    ownerUserId: number;
+    ownerFirstName: string;
+    ownerLasterName: string;
+    ownerEmail: string
+}
+
+export interface ISessionFilter {
+    fromEpoch: number;
+    toEpoch: number;
+}
