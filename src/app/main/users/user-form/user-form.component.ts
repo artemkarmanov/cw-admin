@@ -1,7 +1,7 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {checkPasswords} from '../../../core/utils';
-import {IAdminUser} from '../../../core/types';
+import {IUser} from '../../../core/types';
 
 @Component({
     selector: 'cwb-user-form',
@@ -10,6 +10,13 @@ import {IAdminUser} from '../../../core/types';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserFormComponent implements OnInit {
+    @Output() dataChange = new EventEmitter<any>();
+
+    @Input()
+    set data(user: IUser) {
+        this.form.setValue(user);
+    }
+
     public form: FormGroup = new FormGroup({
         firstName: new FormControl('', [Validators.required]),
         lastName: new FormControl('', [Validators.required]),
@@ -26,15 +33,15 @@ export class UserFormComponent implements OnInit {
     constructor() {
     }
 
-    @Input()
-    set data(user: IAdminUser) {
-        this.form.setValue(user);
-    }
 
     ngOnInit(): void {
     }
 
     save() {
+        if (this.form.valid) {
+            const data = this.form.value;
 
+            this.dataChange.emit(data);
+        }
     }
 }

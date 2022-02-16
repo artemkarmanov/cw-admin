@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {UsersService} from '../../core/users.service';
 import {BehaviorSubject, Observable, switchMap} from 'rxjs';
-import {IAdminUser, IUserFilter} from '../../core/types';
+import {IUser, IUserFilter} from '../../core/types';
 import {map} from 'rxjs/operators';
 
 @Component({
@@ -13,7 +13,7 @@ import {map} from 'rxjs/operators';
 export class UsersPageComponent implements OnInit {
     private filter$$: BehaviorSubject<IUserFilter> = new BehaviorSubject<IUserFilter>({});
 
-    public users$: Observable<IAdminUser[]> = this.filter$$.asObservable().pipe(
+    public users$: Observable<IUser[]> = this.filter$$.asObservable().pipe(
         switchMap(filter => {
             return this.usersService.getUsers$().pipe(
                 map((_) => {

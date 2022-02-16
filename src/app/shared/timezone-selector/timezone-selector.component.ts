@@ -128,7 +128,6 @@ export class TimezoneSelectorComponent implements OnInit, OnDestroy, ControlValu
         let result: any = {
             invalid_timezone: true
         };
-        console.log(this.city.value, this.region.value)
         if (this.city.value && this.region.value) {
             result = null;
         } else if (!this.required) {
@@ -137,7 +136,6 @@ export class TimezoneSelectorComponent implements OnInit, OnDestroy, ControlValu
             }
 
         }
-        console.log(result)
         return result;
     }
 }

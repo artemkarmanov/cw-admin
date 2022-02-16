@@ -137,6 +137,9 @@ export interface INewUser {
     email: string;
     password: string;
     timezone: string;
+    isCaptioner?: 0 | 1;
+    isAdmin?: 0 | 1;
+    respeakerRate?: number;
 }
 
 export interface IUserSettings {
@@ -174,15 +177,8 @@ export interface ISessionFilter {
     toEpoch: number;
 }
 
-export interface IAdminUser {
+export interface IUser extends INewUser {
     userId: number;
-    firstName: string;
-    lastName: string;
-    email: string;
-    timeZone: string;
-    isCaptioner: 0 | 1;
-    isAdmin: 0 | 1;
-    respeakerRate: number;
 }
 
 export interface IUserFilter {

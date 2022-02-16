@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
-import {IAdminUser} from '../../../core/types';
+import {IUser} from '../../../core/types';
 
 @Component({
     selector: 'cwb-user-list',
@@ -8,7 +8,7 @@ import {IAdminUser} from '../../../core/types';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserListComponent implements OnInit {
-    @Input() data: IAdminUser[] = [];
+    @Input() data: IUser[] = [];
 
     constructor() {
     }
