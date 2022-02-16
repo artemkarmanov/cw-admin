@@ -1,0 +1,32 @@
+<table class="table table-hover">
+    <thead>
+    <tr class="table-light">
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>&nbsp;</th>
+    </tr>
+    </thead>
+
+    <tbody *ngIf="data.length;else empty">
+    <tr *ngFor="let user of data">
+        <td>{{user.firstName}} {{user.lastName}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user | role}}</td>
+        <td>
+            <button [routerLink]="''+user.userId">Edit</button>
+        </td>
+    </tr>
+    </tbody>
+
+</table>
+<ng-template #empty>
+    <tr>
+        <td class="text-center" colspan="5" style="padding:48px;">
+            <div>
+                You don’t have ny bookings for captioning yet. Let’s create the first one!
+            </div>
+            <a class="link-primary" routerLink="create">Add first booking</a>
+        </td>
+    </tr>
+</ng-template>

@@ -6,6 +6,7 @@
         <th>Title</th>
         <th>Session start</th>
         <th>Duration</th>
+        <th>Status</th>
         <th>Owner</th>
     </tr>
     </thead>
@@ -13,9 +14,10 @@
         <tbody *ngIf="sessions.length;else empty">
         <tr *ngFor="let session of sessions">
             <td>{{session.sessionId}}</td>
-            <td>{{session.title}}</td>
+            <td><a [routerLink]="'/bookings/'+session.bookingToken">{{session.title}}</a></td>
             <td>{{session.startEpoch | date:'medium'}}</td>
             <td>{{session.sessionDurationMins}}</td>
+            <td><span cwbStatus>{{session.status}}</span></td>
             <td>{{session.ownerUserId}}</td>
         </tr>
         </tbody>
@@ -23,7 +25,7 @@
 </table>
 <ng-template #empty>
     <tr>
-        <td class="text-center" colspan="5" style="padding:48px;">
+        <td class="text-center" colspan="6" style="padding:48px;">
             <div>
                 There are no any sessions
             </div>

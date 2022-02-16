@@ -7,6 +7,7 @@ import {RegionPipe} from './region.pipe';
 import {CityPipe} from './city.pipe';
 import {ConfirmationDialogComponent} from './confirmation-dialog/confirmation-dialog.component';
 import {SharedProviderModule} from './shared-provider.module';
+import {StatusDirective} from './status.directive';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {SharedProviderModule} from './shared-provider.module';
         ViewersListComponent,
         RegionPipe,
         CityPipe,
-        ConfirmationDialogComponent
+        ConfirmationDialogComponent,
+        StatusDirective
     ],
     exports: [
         CommonModule,
@@ -23,7 +25,8 @@ import {SharedProviderModule} from './shared-provider.module';
         TimezoneSelectorComponent,
         ViewersListComponent,
         RegionPipe,
-        CityPipe
+        CityPipe,
+        StatusDirective
     ],
     imports: [
         CommonModule,
