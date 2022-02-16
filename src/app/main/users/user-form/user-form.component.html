@@ -1,0 +1,51 @@
+<section>
+    <h1>Create user</h1>
+    <form (ngSubmit)="save()" [formGroup]="form">
+        <div class="d-flex">
+            <div>
+                <label class="form-label" for="firstName">First name</label>
+                <input class="form-control form-control-lg" formControlName="firstName" id="firstName"
+                       placeholder="Enter your first name"
+                       required type="text">
+            </div>
+            <div>
+                <label class="form-label" for="lastName">Last name</label>
+                <input class="form-control form-control-lg" formControlName="lastName" id="lastName"
+                       placeholder="Enter your last name"
+                       required type="text">
+            </div>
+        </div>
+
+        <div>
+            <label class="form-label" for="new-email">Email</label>
+            <input class="form-control form-control-lg" formControlName="email" id="new-email"
+                   placeholder="Enter your email here"
+                   required type="text">
+        </div>
+        <div>
+            <label class="form-label" for="new-password">Password</label>
+            <input class="form-control form-control-lg" formControlName="password" id="new-password"
+                   placeholder="Enter the password" required type="password">
+        </div>
+        <div>
+            <label class="form-label" for="new-password2">Repeat password</label>
+            <input class="form-control form-control-lg" formControlName="password2" id="new-password2"
+                   placeholder="Re-enter password" required type="password">
+        </div>
+        <div>
+            <cwb-timezone-selector formControlName="timeZone"></cwb-timezone-selector>
+        </div>
+        <div>
+            <input class="form-check-input" formControlName="isAdmin" id="isAdmin" type="checkbox">
+            <label class="form-check-label" for="isAdmin">User is admin</label>
+        </div>
+        <div>
+            <input class="form-check-input" formControlName="isCaptioner" id="isCaptioner" type="checkbox">
+            <label class="form-check-label" for="isCaptioner">User is captioner</label>
+        </div>
+        <div class="d-flex justify-content-between">
+            <button class="btn btn-secondary" routerLink="../">Cancel</button>
+            <button [disabled]="form.invalid || form.untouched" class="btn btn-primary" type="submit">Save</button>
+        </div>
+    </form>
+</section>

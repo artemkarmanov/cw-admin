@@ -1,0 +1,8 @@
+<div class="d-flex justify-content-between">
+    <h1>Users</h1>
+    <div>
+        <cwb-add-user-button></cwb-add-user-button>
+    </div>
+</div>
+<cwb-user-filter (changed)="filterChanged($event)"></cwb-user-filter>
+<cwb-user-list [data]="$any(users$ | async)"></cwb-user-list>

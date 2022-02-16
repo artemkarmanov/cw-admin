@@ -173,3 +173,19 @@ export interface ISessionFilter {
     fromEpoch: number;
     toEpoch: number;
 }
+
+export interface IAdminUser {
+    userId: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    timeZone: string;
+    isCaptioner: 0 | 1;
+    isAdmin: 0 | 1;
+    respeakerRate: number;
+}
+
+export interface IUserFilter {
+    emailName?: string;
+    role?: 'admin' | 'captioner';
+}
