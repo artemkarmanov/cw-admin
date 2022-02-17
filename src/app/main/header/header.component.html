@@ -20,10 +20,10 @@
         </div>
     </div>
     <ng-template #unauthorized>
-     <span class="navbar-text">
-      Not  a member yet?
-    </span>
-        <a class="btn btn-sm btn-primary" routerLink="../../../sign-up">Get started</a>
+        <ng-container *ngIf="!isAdmin">
+            <span class="navbar-text">Not  a member yet?</span>
+            <a class="btn btn-sm btn-primary" routerLink="../../../sign-up">Get started</a>
+        </ng-container>
     </ng-template>
 
 </ng-template>

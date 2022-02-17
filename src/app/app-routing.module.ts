@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes, UrlSegment} from '@angular/router';
 import {ChangePasswordGuard} from './core/change-password.guard';
 import {SimpleLayoutComponent} from './simple-layout/simple-layout.component';
+import {UserGuard} from './core/user.guard';
 
 const routes: Routes = [
     {
@@ -27,7 +28,8 @@ const routes: Routes = [
             },
             {
                 path: 'sign-up',
-                loadChildren: () => import('./create-user/create-user.module').then(m => m.CreateUserModule)
+                loadChildren: () => import('./create-user/create-user.module').then(m => m.CreateUserModule),
+                canActivate: [UserGuard]
             },
         ]
     },

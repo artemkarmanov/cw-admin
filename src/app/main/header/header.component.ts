@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {AuthService} from '../../core/auth.service';
 import {Observable} from 'rxjs';
+import {environment} from '../../../environments/environment';
 
 @Component({
     selector: 'cwb-header',
@@ -10,6 +11,7 @@ import {Observable} from 'rxjs';
 })
 export class HeaderComponent implements OnInit {
     public isLoggedIn$: Observable<boolean> = this.authService.isAuthorized$;
+    public isAdmin = environment.role === 'admin';
 
     constructor(private authService: AuthService) {
     }
