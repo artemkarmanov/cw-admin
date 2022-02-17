@@ -1,20 +1,19 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {CreateUserService} from './create-user.service';
 import {from, Subject, switchMap, takeUntil} from 'rxjs';
 import {Router} from '@angular/router';
 import {INewUser} from '../core/types';
 import {checkPasswords} from '../core/utils';
+import {UsersService} from '../core/users.service';
+import {tap} from 'rxjs/operators';
+import {AuthService} from '../core/auth.service';
 
 
 @Component({
     selector: 'cwb-create-user',
     templateUrl: './create-user-page.component.html',
     styleUrls: ['./create-user-page.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [
-        CreateUserService
-    ]
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreateUserPageComponent implements OnInit, OnDestroy {
     private destroy$$: Subject<void> = new Subject<void>();
@@ -31,8 +30,9 @@ export class CreateUserPageComponent implements OnInit, OnDestroy {
     })
 
     constructor(
-        private createUserService: CreateUserService,
-        private router: Router
+        private createUserService: UsersService,
+        private router: Router,
+        private authService: AuthService
     ) {
     }
 
@@ -45,6 +45,9 @@ export class CreateUserPageComponent implements OnInit, OnDestroy {
                 return this.createUserService.create$(
                     data
                 );
+            }),
+            tap(token => {
+                this.authService.authorize(token)
             }),
             switchMap(() => {
                 return from(this.router.navigate(['bookings']))

@@ -1,7 +1,7 @@
-<div class="d-flex">
+<div *ngIf="regions$ | async as regions" class="d-flex">
     <div class="d-flex flex-column w-100">
         <label class="form-label" for="region">Region</label>
-        <select *ngIf="regions$ | async as regions" [formControl]="region" class="form-select form-select-lg"
+        <select *ngIf="regions.length" [formControl]="region" class="form-select form-select-lg"
                 id="region">
             <option *ngIf="!required"></option>
             <option *ngFor="let region of regions" [value]="region.regionId">{{region.region}}</option>

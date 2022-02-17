@@ -1,8 +1,9 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {Subject, takeUntil, withLatestFrom} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
-import {map, tap} from 'rxjs/operators';
+import {filter, map, tap} from 'rxjs/operators';
 import {UsersService} from '../../../core/users.service';
+import {IUser} from '../../../core/types';
 
 @Component({
     selector: 'cwb-edit-user-page',
@@ -13,6 +14,7 @@ import {UsersService} from '../../../core/users.service';
 export class EditUserPageComponent implements OnInit, OnDestroy {
     private destroy$$: Subject<void> = new Subject<void>();
     private users$ = this.usersService.getUsers$();
+    public user!: IUser;
 
     constructor(
         private route: ActivatedRoute,
@@ -25,13 +27,15 @@ export class EditUserPageComponent implements OnInit, OnDestroy {
             takeUntil(this.destroy$$.asObservable()),
             withLatestFrom(this.route.params, (users, params) => {
                 const {id} = params;
+                console.log(users, params)
                 return users.filter(user => user.userId === parseInt(id));
             }),
             map((users) => {
                 if (!users.length) throw new Error('User not found');
                 return users.pop();
             }),
-            tap(console.log)
+            filter(Boolean),
+            tap(user => this.user = user)
         ).subscribe();
     }
 

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {SocketMessagesService} from './socket-messages.service';
-import {EMPTY, Observable, of, pluck, ReplaySubject, Subject, switchMap, take, tap} from 'rxjs';
+import {BehaviorSubject, EMPTY, Observable, of, pluck, Subject, switchMap, take, tap} from 'rxjs';
 import {IRegion} from './types';
 import {catchError} from 'rxjs/operators';
 import {ErrorHandlerService} from './error-handler.service';
@@ -8,7 +8,7 @@ import {ErrorHandlerService} from './error-handler.service';
 @Injectable()
 export class TimezoneService {
     private loadRegions$$: Subject<void> = new Subject();
-    private regions$$: ReplaySubject<IRegion[]> = new ReplaySubject<IRegion[]>(1);
+    private regions$$: BehaviorSubject<IRegion[]> = new BehaviorSubject<IRegion[]>([]);
     private citiesCache: Map<number, string[]> = new Map();
 
     constructor(private messages: SocketMessagesService, errors: ErrorHandlerService) {
@@ -26,6 +26,7 @@ export class TimezoneService {
     }
 
     public getRegions$(): Observable<IRegion[]> {
+
         this.loadRegions$$.next();
         return this.regions$$.asObservable().pipe();
     }

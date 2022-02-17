@@ -1,5 +1,4 @@
-<section>
-    <h1>Create user</h1>
+
     <form (ngSubmit)="save()" [formGroup]="form">
         <div class="d-flex">
             <div>
@@ -48,4 +47,4 @@
             <button [disabled]="form.invalid || form.untouched" class="btn btn-primary" type="submit">Save</button>
         </div>
     </form>
-</section>
+

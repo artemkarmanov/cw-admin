@@ -49,4 +49,8 @@ export class UsersPageComponent implements OnInit {
         this.filter$$.next(filter);
     }
 
+    reload() {
+        this.usersService.reload();
+    }
+
 }

@@ -31,7 +31,7 @@ export class TimezoneSelectorComponent implements OnInit, OnDestroy, ControlValu
     public city: FormControl = new FormControl('', Validators.required);
     public regions$: Observable<IRegion[]> = this.timezoneService.getRegions$().pipe(
         tap((regions) => {
-            if (!this.region.value && this.required) {
+            if (regions.length && !this.region.value && this.required) {
                 this.region.setValue(regions[0].regionId);
             }
 
