@@ -1,9 +1,10 @@
 import {ChangeDetectionStrategy, Component, forwardRef, Input, OnDestroy, OnInit} from '@angular/core';
 import {TimezoneService} from '../../core/timezone.service';
-import {BehaviorSubject, Observable, Subject, switchMap, takeUntil, withLatestFrom} from 'rxjs';
+import {BehaviorSubject, exhaustMap, Observable, Subject, switchMap, takeUntil, withLatestFrom} from 'rxjs';
 import {IRegion} from '../../core/types';
 import {filter, tap} from 'rxjs/operators';
 import {ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators} from '@angular/forms';
+import {DateTime} from 'luxon';
 
 @Component({
     selector: 'cwb-timezone-selector',
@@ -47,15 +48,18 @@ export class TimezoneSelectorComponent implements OnInit, OnDestroy, ControlValu
     ngOnInit(): void {
         this.writeValue$$.asObservable().pipe(
             takeUntil(this.destroy$$.asObservable()),
-            withLatestFrom(this.timezoneService.getRegions$()),
-            tap(([timezone, regions]) => {
-                const [region, city] = timezone.split('/');
-                const regionId = regions.filter(_ => _.region === region).pop()?.regionId;
-                if (regionId) {
-                    this.region.setValue(regionId,);
-                    this.city.setValue(city);
-                }
-            })
+            tap(console.log),
+            exhaustMap((timezone) => this.timezoneService.getRegions$().pipe(
+                tap((regions) => {
+                    const [region, city] = timezone.split('/');
+
+                    const regionId = regions.filter(_ => _.region === region).pop()?.regionId;
+                    if (regionId) {
+                        this.region.setValue(regionId,);
+                        this.city.setValue(city);
+                    }
+                })
+            )),
         ).subscribe();
 
         this.region.valueChanges.pipe(
@@ -119,9 +123,7 @@ export class TimezoneSelectorComponent implements OnInit, OnDestroy, ControlValu
     }
 
     writeValue(timezone: string): void {
-        if (timezone) {
-            this.writeValue$$.next(timezone);
-        }
+        this.writeValue$$.next(timezone || DateTime.now().zoneName);
     }
 
     validate() {
