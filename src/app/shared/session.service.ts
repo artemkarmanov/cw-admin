@@ -1,35 +1,28 @@
 import {Injectable} from '@angular/core';
-import {SocketMessagesService} from '../../../core/socket-messages.service';
-import {Observable, pluck, withLatestFrom} from 'rxjs';
-import {ModalService} from '../../../core/modal.service';
-import {ViewService} from './view.service';
-import {ICreateSession, ISession} from '../../../core/types';
-import {SessionDialogComponent} from './sessions/session-dialog/session-dialog.component';
-import {filter, switchMap, tap} from 'rxjs/operators';
-import {ConfirmationService} from '../../../shared/confirmation.service';
+import {SocketMessagesService} from '../core/socket-messages.service';
+import {Observable, pluck} from 'rxjs';
+import {ModalService} from '../core/modal.service';
+import {IAdminSession, ICreateSession, ISession} from '../core/types';
+import {SessionDialogComponent} from './session-dialog/session-dialog.component';
+import {filter, switchMap} from 'rxjs/operators';
+import {ConfirmationService} from './confirmation.service';
+import {SharedProviderModule} from './shared-provider.module';
 
-@Injectable()
+@Injectable({
+    providedIn: SharedProviderModule
+})
 export class SessionService {
 
     constructor(
         private modalService: ModalService,
         private messages: SocketMessagesService,
-        private viewService: ViewService,
         private confirmationService: ConfirmationService,
     ) {
     }
 
     public add$(): Observable<unknown> {
         return this.modalService.open$(SessionDialogComponent).pipe(
-            filter(Boolean),
-            withLatestFrom(this.viewService.currentBookingData$),
-            switchMap(([session, booking]) => {
-                const data = Object.assign(session, {
-                    bookingToken: booking.bookingToken
-                }) as ICreateSession;
-                return this.addSession$(data);
-            }),
-            tap(() => this.viewService.reload())
+            //filter(Boolean),
         )
     }
 
@@ -44,7 +37,6 @@ export class SessionService {
                 });
                 return this.updateSession$(session);
             }),
-            tap(() => this.viewService.reload())
         )
     }
 
@@ -53,11 +45,19 @@ export class SessionService {
             switchMap(() => {
                 return this.cancelSession$(id);
             }),
-            tap(() => this.viewService.reload())
         );
     }
 
-    private addSession$(session: ICreateSession): Observable<number> {
+    public getSessions$(fromEpoch: number, toEpoch: number, start?: number, count?: number): Observable<IAdminSession[]> {
+        return this.messages.request$<{ sessions: IAdminSession[] }>('getSessions', {
+            fromEpoch, toEpoch, start, count
+        }).pipe(
+            pluck('sessions')
+        )
+
+    }
+
+    public addSession$(session: ICreateSession): Observable<number> {
         return this.messages.request$<{ sessionId: number }>('addSession', session).pipe(
             pluck('sessionId')
         );

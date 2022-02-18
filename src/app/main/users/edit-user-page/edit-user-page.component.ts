@@ -13,7 +13,6 @@ import {IUser} from '../../../core/types';
 })
 export class EditUserPageComponent implements OnInit, OnDestroy {
     private destroy$$: Subject<void> = new Subject<void>();
-    private users$ = this.usersService.getUsers$();
     public user!: IUser;
 
     constructor(

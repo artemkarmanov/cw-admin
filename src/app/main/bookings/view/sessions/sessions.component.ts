@@ -2,14 +2,15 @@ import {ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit} from '@ang
 import {ISession} from '../../../../core/types';
 import {environment} from '../../../../../environments/environment';
 import {Subject, switchMap, takeUntil} from 'rxjs';
-import {SessionService} from '../session.service';
+import {SessionService} from '../../../../shared/session.service';
+import {ViewService} from '../view.service';
+import {tap} from 'rxjs/operators';
 
 @Component({
     selector: 'cwb-sessions',
     templateUrl: './sessions.component.html',
     styleUrls: ['./sessions.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [SessionService]
 })
 export class SessionsComponent implements OnInit, OnDestroy {
     private destroy$$: Subject<void> = new Subject<void>();
@@ -18,17 +19,19 @@ export class SessionsComponent implements OnInit, OnDestroy {
     public isAdmin = environment.role;
     @Input() data!: ISession[];
 
-    constructor(private sessionService: SessionService) {
+    constructor(private sessionService: SessionService, private viewService: ViewService) {
     }
 
     ngOnInit(): void {
         this.editClick$$.asObservable().pipe(
             takeUntil(this.destroy$$.asObservable()),
-            switchMap(session => this.sessionService.edit$(session))
+            switchMap(session => this.sessionService.edit$(session)),
+            tap(() => this.viewService.reload())
         ).subscribe()
         this.cancelClick$$.asObservable().pipe(
             takeUntil(this.destroy$$.asObservable()),
-            switchMap(id => this.sessionService.cancel$(id))
+            switchMap(id => this.sessionService.cancel$(id)),
+            tap(() => this.viewService.reload())
         ).subscribe()
     }
 

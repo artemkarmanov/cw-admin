@@ -21,12 +21,12 @@
                    placeholder="Enter your email here"
                    required type="text">
         </div>
-        <div>
+        <div *ngIf="this.form.get('password')">
             <label class="form-label" for="new-password">Password</label>
             <input class="form-control form-control-lg" formControlName="password" id="new-password"
                    placeholder="Enter the password" required type="password">
         </div>
-        <div>
+        <div *ngIf="this.form.get('password2')">
             <label class="form-label" for="new-password2">Repeat password</label>
             <input class="form-control form-control-lg" formControlName="password2" id="new-password2"
                    placeholder="Re-enter password" required type="password">

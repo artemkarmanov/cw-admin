@@ -8,6 +8,7 @@ import {CityPipe} from './city.pipe';
 import {ConfirmationDialogComponent} from './confirmation-dialog/confirmation-dialog.component';
 import {SharedProviderModule} from './shared-provider.module';
 import {StatusDirective} from './status.directive';
+import {SessionDialogComponent} from './session-dialog/session-dialog.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import {StatusDirective} from './status.directive';
         RegionPipe,
         CityPipe,
         ConfirmationDialogComponent,
-        StatusDirective
+        StatusDirective,
+        SessionDialogComponent
     ],
     exports: [
         CommonModule,
@@ -26,7 +28,8 @@ import {StatusDirective} from './status.directive';
         ViewersListComponent,
         RegionPipe,
         CityPipe,
-        StatusDirective
+        StatusDirective,
+        SessionDialogComponent
     ],
     imports: [
         CommonModule,

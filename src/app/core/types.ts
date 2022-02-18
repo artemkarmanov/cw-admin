@@ -63,6 +63,20 @@ export interface ISession {
     respeakerRateOverride?: number;
 }
 
+export interface IAdminSession {
+    title: string;
+    bookingToken: string;
+    sessionId: number;
+    startEpoch: number;
+    bookingTimeZone: string;
+    sessionDurationMins: number;
+    status: string;
+    ownerUserId: number;
+    ownerFirstName: string;
+    ownerLastName: string;
+    ownerEmail: string
+}
+
 export interface IBookingSummary {
     bookingToken: string;
     title: string;
@@ -168,7 +182,7 @@ export interface IAdminSession {
     status: string;
     ownerUserId: number;
     ownerFirstName: string;
-    ownerLasterName: string;
+    ownerLastName: string;
     ownerEmail: string
 }
 

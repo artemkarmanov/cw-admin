@@ -28,7 +28,11 @@ export class UserFormComponent implements OnInit {
     @Input()
     set data(user: IUser) {
         if (user) {
-            this.form.patchValue(Object.assign({}, user, {password: '', password2: ''}));
+            this.form.removeControl('password');
+            this.form.removeControl('password2');
+            this.form.removeValidators(checkPasswords());
+            this.form.updateValueAndValidity({emitEvent: false});
+            this.form.patchValue(Object.assign({}, user, {password: '', password2: ''}), {emitEvent: false});
         }
 
     }

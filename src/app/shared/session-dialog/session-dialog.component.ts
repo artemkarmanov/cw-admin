@@ -1,12 +1,12 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {MINIMUM_SESSION_DURATION} from '../../../../../core/const';
+import {MINIMUM_SESSION_DURATION} from '../../core/const';
 import {DateTime} from 'luxon';
 import {BehaviorSubject, Observable, Subject, takeUntil} from 'rxjs';
-import {ISession} from '../../../../../core/types';
+import {ISession} from '../../core/types';
 import {filter, tap} from 'rxjs/operators';
-import {environment} from '../../../../../../environments/environment';
+import {environment} from '../../../environments/environment';
 
 interface IFormData {
     startDate: string;
@@ -27,6 +27,7 @@ interface IFormData {
 export class SessionDialogComponent implements OnInit, OnDestroy {
     private destroy$$: Subject<void> = new Subject<void>();
     public isAdmin = environment.role === 'admin';
+    public inEditMode = false;
     public data$$: BehaviorSubject<ISession | null> = new BehaviorSubject<ISession | null>(null);
     private data$: Observable<ISession> = this.data$$.asObservable().pipe(
         filter(Boolean)
@@ -55,6 +56,7 @@ export class SessionDialogComponent implements OnInit, OnDestroy {
         this.data$.pipe(
             takeUntil(this.destroy$$.asObservable()),
             tap((session: ISession) => {
+                this.inEditMode = true;
                 const d = DateTime.fromMillis(session.startEpoch, {
                     zone: 'utc'
                 });

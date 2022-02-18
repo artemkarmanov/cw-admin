@@ -1,5 +1,8 @@
 <div class="modal-header">
-    <h1 class="modal-title">Add session</h1>
+    <h1 class="modal-title">
+        <ng-container *ngIf="!inEditMode; else edit_title">Add session</ng-container>
+        <ng-template #edit_title>Edit session</ng-template>
+    </h1>
 </div>
 
 <div [formGroup]="form" class="modal-body">
@@ -39,5 +42,8 @@
 </div>
 <div class="modal-footer d-flex justify-content-between">
     <button (click)="close()" class="btn btn-secondary">Cancel</button>
-    <button (click)="save()" [disabled]="form.invalid || form.pristine" class="btn btn-primary">Add</button>
+    <button (click)="save()" [disabled]="form.invalid || form.pristine" class="btn btn-primary">
+        <ng-container *ngIf="!inEditMode; else edit">Create</ng-container>
+        <ng-template #edit>Save</ng-template>
+    </button>
 </div>
