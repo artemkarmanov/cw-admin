@@ -25,6 +25,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
         title: new FormControl('', Validators.required),
         audioDetails: new FormControl('', Validators.required),
         captionDispDetails: new FormControl('', Validators.required),
+        timeZoneOverride: new FormControl(''),
         // requirePasscode: new FormControl(''),
         // requireLogin: new FormControl(''),
         viewerEmails: new FormControl('')
@@ -41,7 +42,14 @@ export class UpdateComponent implements OnInit, OnDestroy {
         this.saveChanges$$.asObservable().pipe(
             takeUntil(this.destroy$$.asObservable()),
             withLatestFrom(this.data$,),
-            switchMap(([newData, {bookingToken, viewerEmails, audioDetails, title, captionDispDetails}]) => {
+            switchMap(([newData, {
+                bookingToken,
+                viewerEmails,
+                audioDetails,
+                title,
+                bookingTimeZone,
+                captionDispDetails
+            }]) => {
                 let data: IUpdateBooking = {};
                 if (title !== newData.title) {
                     data.title = newData.title;
@@ -54,6 +62,12 @@ export class UpdateComponent implements OnInit, OnDestroy {
                 }
                 if (viewerEmails !== newData.viewerEmails) {
                     data.viewerEmails = newData.viewerEmails;
+                }
+                if (viewerEmails !== newData.viewerEmails) {
+                    data.viewerEmails = newData.viewerEmails;
+                }
+                if (bookingTimeZone !== newData.timeZoneOverride) {
+                    data.timeZoneOverride = newData.timeZoneOverride;
                 }
                 return this.updateService.updateBooking$(bookingToken, data).pipe(
                     tap(() => this.viewService.reload()),
@@ -68,17 +82,17 @@ export class UpdateComponent implements OnInit, OnDestroy {
             takeUntil(this.destroy$$.asObservable()),
             tap(this.data$$.next.bind(this.data$$)),
             tap(data => {
-                const {title, audioDetails, captionDispDetails, viewerEmails} = data;
+                const {title, audioDetails, captionDispDetails, viewerEmails, bookingTimeZone} = data;
                 this.form.setValue({
                     title,
                     audioDetails,
                     captionDispDetails,
+                    timeZoneOverride: bookingTimeZone,
                     /*requirePasscode: new FormControl(''),
                     requireLogin: new FormControl(''),*/
                     viewerEmails
                 });
 
-                console.log(this.form.value)
             })
         ).subscribe();
 

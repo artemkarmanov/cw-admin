@@ -127,6 +127,7 @@ export interface IUpdateBooking {
     requireLogin?: 0 | 1;
     viewerEmails?: string;
     requirePasscode?: 0 | 1;
+    timeZoneOverride?: string;
 }
 
 export interface IBookingModificationResponse {

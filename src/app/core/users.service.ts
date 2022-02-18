@@ -44,6 +44,15 @@ export class UsersService {
         );
     }
 
+    public update$(userData: IUser): Observable<unknown> {
+        return this.messages.request$<unknown>('updateUser', userData).pipe(
+            catchError(e => {
+                this.error.handle(e);
+                return EMPTY;
+            }),
+        );
+    }
+
     public reload() {
         this.isLoaded = false;
         this.load$$.next();

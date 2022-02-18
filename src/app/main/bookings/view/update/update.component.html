@@ -7,7 +7,6 @@
     <form [formGroup]="form">
         <div class="d-flex justify-content-between">
             <a routerLink="../">Cancel</a>
-            {{form.pristine}}
             <button (click)="update()" [disabled]="form.invalid || form.pristine">Save</button>
         </div>
         <div>
@@ -23,8 +22,10 @@
             <textarea class="form-control-lg form-control" formControlName="captionDispDetails"
                       id="captionDispDetails"></textarea>
         </div>
+        <cwb-timezone-selector formControlName="timeZoneOverride"></cwb-timezone-selector>
         <div>
-            <cwb-viewers-list formControlName="viewerEmails"></cwb-viewers-list>
+            <label class="form-label" for="viewerEmails">Authorized viewers</label>
+            <cwb-viewers-list formControlName="viewerEmails" id="viewerEmails"></cwb-viewers-list>
         </div>
 
     </form>

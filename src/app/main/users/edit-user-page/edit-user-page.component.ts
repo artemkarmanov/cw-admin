@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
-import {Subject, takeUntil, withLatestFrom} from 'rxjs';
-import {ActivatedRoute} from '@angular/router';
-import {filter, map, tap} from 'rxjs/operators';
+import {from, Subject, takeUntil, withLatestFrom} from 'rxjs';
+import {ActivatedRoute, Router} from '@angular/router';
+import {filter, map, switchMap, tap} from 'rxjs/operators';
 import {UsersService} from '../../../core/users.service';
 import {IUser} from '../../../core/types';
 
@@ -13,15 +13,25 @@ import {IUser} from '../../../core/types';
 })
 export class EditUserPageComponent implements OnInit, OnDestroy {
     private destroy$$: Subject<void> = new Subject<void>();
+    private save$$: Subject<IUser> = new Subject<IUser>();
     public user!: IUser;
 
     constructor(
         private route: ActivatedRoute,
+        private router: Router,
         private usersService: UsersService
     ) {
     }
 
     ngOnInit(): void {
+        this.save$$.asObservable().pipe(
+            takeUntil(this.destroy$$.asObservable()),
+            switchMap(this.usersService.update$.bind(this.usersService)),
+            switchMap(() => {
+                return from(this.router.navigate(['/users']))
+            })
+        ).subscribe();
+
         this.usersService.getUsers$().pipe(
             takeUntil(this.destroy$$.asObservable()),
             withLatestFrom(this.route.params, (users, params) => {
@@ -40,6 +50,10 @@ export class EditUserPageComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.destroy$$.next();
+    }
+
+    save(user: IUser) {
+        this.save$$.next(user);
     }
 
 }

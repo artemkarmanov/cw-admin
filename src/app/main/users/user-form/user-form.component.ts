@@ -21,6 +21,7 @@ export class UserFormComponent implements OnInit {
         timeZone: new FormControl('', [Validators.required]),
         isAdmin: new FormControl(false, [Validators.required]),
         isCaptioner: new FormControl(false, [Validators.required]),
+        respeakerRate: new FormControl('', [Validators.required]),
     }, {
         validators: checkPasswords()
     })
