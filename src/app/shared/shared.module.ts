@@ -9,6 +9,9 @@ import {ConfirmationDialogComponent} from './confirmation-dialog/confirmation-di
 import {SharedProviderModule} from './shared-provider.module';
 import {StatusDirective} from './status.directive';
 import {SessionDialogComponent} from './session-dialog/session-dialog.component';
+import {CardComponent} from './card/card.component';
+import {PageTopComponent} from './page-top/page-top.component';
+import {ButtonHeaderComponent} from './button-header/button-header.component';
 
 
 @NgModule({
@@ -19,7 +22,10 @@ import {SessionDialogComponent} from './session-dialog/session-dialog.component'
         CityPipe,
         ConfirmationDialogComponent,
         StatusDirective,
-        SessionDialogComponent
+        SessionDialogComponent,
+        CardComponent,
+        PageTopComponent,
+        ButtonHeaderComponent
     ],
     exports: [
         CommonModule,
@@ -29,7 +35,10 @@ import {SessionDialogComponent} from './session-dialog/session-dialog.component'
         RegionPipe,
         CityPipe,
         StatusDirective,
-        SessionDialogComponent
+        SessionDialogComponent,
+        CardComponent,
+        PageTopComponent,
+        ButtonHeaderComponent
     ],
     imports: [
         CommonModule,

@@ -9,12 +9,16 @@ body, html {
   height: 100%;
 }
 
+$blue: $blue-500;
+$secondary: $blue-100;
 
 @import "node_modules/bootstrap/scss/functions";
 @import "scss/vars";
 @import "../node_modules/bootstrap/scss/variables";
 @import "../node_modules/bootstrap/scss/mixins";
 @import "../node_modules/bootstrap/scss/root";
+
+//@debug $primary;
 
 @import "../node_modules/bootstrap/scss/utilities";
 @import "../node_modules/bootstrap/scss/reboot";
@@ -73,7 +77,6 @@ footer {
 
     &:hover {
       color: $grey-700;
-      text-decoration: underline;
     }
   }
 
@@ -81,3 +84,18 @@ footer {
     color: $grey-700;
   }
 }
+
+.btn-primary {
+  @include button-variant($primary, $primary, white);
+}
+
+.btn-secondary {
+  @include button-variant($secondary, $secondary, $blue-500);
+}
+
+//input:autofill, input:-webkit-autofill-selected {
+//  color: $input-color !important;
+//  font-size: $input-font-size !important;
+//  background-color: $input-bg !important;
+//}
+

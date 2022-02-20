@@ -1,41 +1,43 @@
-<div class="d-flex justify-content-between">
-    <div class="d-inline-flex"><h1>Bookings</h1>
-        <button (click)="reload()">Reload</button>
-    </div>
+<cwb-page-top>
+    <cwb-button-header>
+        <h1>Bookings</h1>
+        <i (click)="reload()" class="bi-arrow-clockwise" role="button"></i>
+    </cwb-button-header>
     <cwb-create-button></cwb-create-button>
-</div>
+</cwb-page-top>
 
 
-<table class="table table-hover">
-    <thead>
-    <tr class="table-light">
-        <th>Booking ID</th>
-        <th>Title</th>
-        <th>Next session</th>
-        <th>Duration</th>
-        <th>Sessions remaining</th>
-    </tr>
-    </thead>
-    <ng-container *ngIf="bookings$ | async as bookings">
-        <tbody *ngIf="bookings.length;else empty">
-        <tr *ngFor="let booking of bookings">
-            <td><a [routerLink]="booking.bookingToken">{{booking.bookingToken}}</a></td>
-            <td>{{booking.title}}</td>
-            <td>{{booking.nextSessionStartEpoch | date:'medium'}}</td>
-            <td>{{booking.nextSessionDurationMins}}</td>
-            <td>{{booking | sessionCounter}}</td>
+<cwb-card>
+    <table class="table table-hover">
+        <thead>
+        <tr class="table-light">
+            <th>Booking ID</th>
+            <th>Title</th>
+            <th>Next session</th>
+            <th>Duration</th>
+            <th>Sessions remaining</th>
         </tr>
-        </tbody>
-    </ng-container>
-</table>
-<ng-template #empty>
-    <tr>
-        <td class="text-center" colspan="5" style="padding:48px;">
-            <div>
-                You don’t have ny bookings for captioning yet. Let’s create the first one!
-            </div>
-            <a class="link-primary" routerLink="create">Add first booking</a>
-        </td>
-    </tr>
-</ng-template>
-
+        </thead>
+        <ng-container *ngIf="bookings$ | async as bookings">
+            <tbody *ngIf="bookings.length;else empty">
+            <tr *ngFor="let booking of bookings">
+                <td><a [routerLink]="booking.bookingToken">{{booking.bookingToken}}</a></td>
+                <td>{{booking.title}}</td>
+                <td>{{booking.nextSessionStartEpoch | date:'medium'}}</td>
+                <td>{{booking.nextSessionDurationMins}}</td>
+                <td>{{booking | sessionCounter}}</td>
+            </tr>
+            </tbody>
+        </ng-container>
+    </table>
+    <ng-template #empty>
+        <tr>
+            <td class="text-center" colspan="5" style="padding:48px;">
+                <div>
+                    You don’t have ny bookings for captioning yet. Let’s create the first one!
+                </div>
+                <a class="link-primary" routerLink="create">Add first booking</a>
+            </td>
+        </tr>
+    </ng-template>
+</cwb-card>

@@ -1,46 +1,49 @@
-<div class="d-flex">
-    <h1>Sessions</h1>
-    <div>
-        <button (click)="reload()">Reload</button>
-    </div>
-</div>
-<cwb-filter></cwb-filter>
-<table class="table table-hover">
-    <thead>
-    <tr class="table-light">
-        <th>Session ID</th>
-        <th>Title</th>
-        <th>Session start</th>
-        <th>Duration</th>
-        <th>Status</th>
-        <th>Owner</th>
-        <th>&nbsp;</th>
-    </tr>
-    </thead>
-    <ng-container *ngIf="sessions$ | async as sessions">
-        <tbody *ngIf="sessions.length;else empty">
-        <tr *ngFor="let session of sessions">
-            <td>{{session.sessionId}}</td>
-            <td><a [routerLink]="'/bookings/'+session.bookingToken">{{session.title}}</a></td>
-            <td>{{session.startEpoch | date:'medium'}}</td>
-            <td>{{session.sessionDurationMins}}</td>
-            <td><span cwbStatus>{{session.status}}</span></td>
-            <td>{{session | owner}}</td>
-            <td>
-                <button (click)="edit(session.sessionId)">Edit</button>
-                <button (click)="cancel(session.sessionId)">Cancel</button>
+<cwb-page-top>
+    <cwb-button-header>
+        <h1>Sessions</h1>
+        <i (click)="reload()" class="bi-arrow-clockwise" role="button"></i>
+    </cwb-button-header>
+</cwb-page-top>
+
+<cwb-card>
+    <cwb-filter></cwb-filter>
+    <table class="table table-hover">
+        <thead>
+        <tr class="table-light">
+            <th>Session ID</th>
+            <th>Title</th>
+            <th>Session start</th>
+            <th>Duration</th>
+            <th>Status</th>
+            <th>Owner</th>
+            <th>&nbsp;</th>
+        </tr>
+        </thead>
+        <ng-container *ngIf="sessions$ | async as sessions">
+            <tbody *ngIf="sessions.length;else empty">
+            <tr *ngFor="let session of sessions">
+                <td>{{session.sessionId}}</td>
+                <td><a [routerLink]="'/bookings/'+session.bookingToken">{{session.title}}</a></td>
+                <td>{{session.startEpoch | date:'medium'}}</td>
+                <td>{{session.sessionDurationMins}}</td>
+                <td><span cwbStatus>{{session.status}}</span></td>
+                <td>{{session | owner}}</td>
+                <td>
+                    <button (click)="edit(session.sessionId)">Edit</button>
+                    <button (click)="cancel(session.sessionId)">Cancel</button>
+                </td>
+            </tr>
+            </tbody>
+        </ng-container>
+    </table>
+    <ng-template #empty>
+        <tr>
+            <td class="text-center" colspan="6" style="padding:48px;">
+                <div>
+                    There are no any sessions
+                </div>
+
             </td>
         </tr>
-        </tbody>
-    </ng-container>
-</table>
-<ng-template #empty>
-    <tr>
-        <td class="text-center" colspan="6" style="padding:48px;">
-            <div>
-                There are no any sessions
-            </div>
-
-        </td>
-    </tr>
-</ng-template>
+    </ng-template>
+</cwb-card>
