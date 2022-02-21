@@ -1,0 +1,6 @@
+@use '../../../../scss/colors' as c;
+
+small {
+  font-weight: 600;
+  color: c.$grey-500;
+}

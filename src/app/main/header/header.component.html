@@ -8,14 +8,9 @@
         <div class="container-fluid">
             <cwb-bread-crumbs></cwb-bread-crumbs>
             <cwb-menu *ngIf="isLoggedIn"></cwb-menu>
-            <div>
-                <ng-container *ngIf="isLoggedIn; else unauthorized">
-                 <span class="navbar-text">
-                  <cwb-user-info></cwb-user-info>
-                </span>
-
-                    <cwb-logout-button></cwb-logout-button>
-                </ng-container>
+            <div *ngIf="isLoggedIn; else unauthorized" class="d-flex justify-content-between" style="width:260px">
+                <cwb-user-info></cwb-user-info>
+                <cwb-logout-button></cwb-logout-button>
             </div>
         </div>
     </div>

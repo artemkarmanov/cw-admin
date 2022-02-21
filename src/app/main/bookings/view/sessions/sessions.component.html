@@ -1,4 +1,4 @@
-<table class="table table-hover">
+<table>
     <thead>
     <tr class="table-light">
         <th>Session ID</th>
@@ -15,8 +15,12 @@
         <td><span cwbStatus>{{session.status}}</span></td>
         <td>{{session.sessionDurationMins}}</td>
         <td *ngIf="isAdmin">
-            <button (click)="edit(session)" [disabled]="!isEditable(session)">Edit</button>
-            <button (click)="cancel(session.sessionId)" [disabled]="!isEditable(session)">Cancel</button>
+            <button (click)="edit(session)" [disabled]="!isEditable(session)" class="btn">
+                <cwb-icon name="pencil"></cwb-icon>
+            </button>
+            <button (click)="cancel(session.sessionId)" [disabled]="!isEditable(session)" class="btn">
+                <cwb-icon name="x-lg"></cwb-icon>
+            </button>
         </td>
     </tr>
     </tbody>

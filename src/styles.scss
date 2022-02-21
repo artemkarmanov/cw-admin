@@ -11,7 +11,7 @@ body, html {
 
 $blue: $blue-500;
 $secondary: $blue-100;
-
+$light: $grey-200;
 @import "node_modules/bootstrap/scss/functions";
 @import "scss/vars";
 @import "../node_modules/bootstrap/scss/variables";
@@ -55,10 +55,12 @@ cwb-main, cwb-simple-layout {
 
 
 main {
+  background-color: $grey-200;
   display: flex;
   flex-direction: column;
   height: 100%;
   justify-content: flex-start;
+  align-items: stretch;
 }
 
 footer {
@@ -99,3 +101,44 @@ footer {
 //  background-color: $input-bg !important;
 //}
 
+.card {
+  min-height: calc(100vh - 223px);
+}
+
+.table {
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.table > *:first-child > * > * {
+  border-bottom-width: 0;
+  box-shadow: none;
+}
+
+.table > :not(:first-child) {
+  border-top: 0;
+}
+
+.table th {
+  font-size: 14px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  color: $grey-800;
+}
+
+small {
+  line-height: 16px;
+}
+
+.form-control-plaintext {
+  padding-top: 0;
+  padding-bottom: 0;
+  font-size: 18px;
+  font-weight: $font-weight-bold;
+}
+
+fieldset {
+  border-radius: $border-radius;
+  border: 1px solid $blue-200;
+  padding: 12px;
+}

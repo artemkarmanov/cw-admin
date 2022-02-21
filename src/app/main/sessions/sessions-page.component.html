@@ -1,13 +1,15 @@
 <cwb-page-top>
     <cwb-button-header>
         <h1>Sessions</h1>
-        <i (click)="reload()" class="bi-arrow-clockwise" role="button"></i>
+        <button (click)="reload()" class="btn btn-sm text-primary">
+            <cwb-icon name="arrow-clockwise"></cwb-icon>
+        </button>
     </cwb-button-header>
 </cwb-page-top>
 
 <cwb-card>
     <cwb-filter></cwb-filter>
-    <table class="table table-hover">
+    <table>
         <thead>
         <tr class="table-light">
             <th>Session ID</th>
@@ -29,8 +31,12 @@
                 <td><span cwbStatus>{{session.status}}</span></td>
                 <td>{{session | owner}}</td>
                 <td>
-                    <button (click)="edit(session.sessionId)">Edit</button>
-                    <button (click)="cancel(session.sessionId)">Cancel</button>
+                    <button (click)="edit(session.sessionId)" class="btn">
+                        <cwb-icon name="pencil"></cwb-icon>
+                    </button>
+                    <button (click)="cancel(session.sessionId)" class="btn">
+                        <cwb-icon name="x-lg"></cwb-icon>
+                    </button>
                 </td>
             </tr>
             </tbody>

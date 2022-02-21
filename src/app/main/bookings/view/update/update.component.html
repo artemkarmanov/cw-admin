@@ -5,13 +5,19 @@
 </ng-container>
 <ng-template #asyncTemplate let-data="data">
     <form [formGroup]="form">
-        <div class="d-flex justify-content-between">
-            <a routerLink="../">Cancel</a>
-            <button (click)="update()" [disabled]="form.invalid || form.pristine">Save</button>
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>Edit booking details</h2>
+            <div class="d-flex">
+                <a class="btn btn-sm text-primary" routerLink="../">Cancel</a>
+                <button (click)="update()" [disabled]="form.invalid || form.pristine" class="btn btn-primary btn-sm">
+                    <cwb-icon name="save"></cwb-icon>
+                    Save
+                </button>
+            </div>
         </div>
         <div>
-            <label for="title">Title</label>
-            <input formControlName="title" id="title" type="text">
+            <label class="form-label" for="title">Title</label>
+            <input class="form-control form-control-lg" formControlName="title" id="title" type="text">
         </div>
         <div>
             <label class="form-label" for="audioDetails">Audio details</label>

@@ -1,6 +1,6 @@
 $enable-shadows: true;
 $enable-rounded: true;
-$body-bg: #FCFCFC;
+$body-bg: white;
 $font-family-base: 'Inter', sans-serif;
 
 $spacer: 1rem;
@@ -13,9 +13,11 @@ $spacers: (
         5: $spacer * 3,
 );
 
+//$font-size-base: 1.0625rem;
 $font-size-base: 1.0625rem;
 $font-size-sm: 0.875rem;
 $font-size-lg: 1.25rem;
+$small-font-size: 0.75rem;
 
 $font-weight-light: 400;
 $font-weight-normal: 500;
@@ -25,11 +27,15 @@ $font-weight-bolder: 700;
 $headings-color: $grey-900;
 
 $h1-font-size: 24px;
+$h2-font-size: 20px;
 $headings-font-weight: $font-weight-bold;
 $display-font-weight: $font-weight-bolder;
 $headings-line-height: 1.5;
+$headings-margin-bottom: 0;
 
 $border-radius: 8px;
+$border-color: $grey-300;
+$text-muted: $grey-700;
 
 // Links
 //
@@ -105,14 +111,59 @@ $input-placeholder-color: $grey-500;
 
 
 $form-select-bg: white;
+$form-check-input-checked-color: $blue-500;
+$form-check-input-checked-bg-image: url("data:image/svg+xml,<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><rect x='2' y='2' width='20' height='20' rx='2' stroke='#{$form-check-input-checked-color}' stroke-width='1.5'/><rect x='6' y='6' width='12' height='12' rx='2' fill='#{$form-check-input-checked-color}'/></svg>");
+
 
 $form-label-margin-bottom: 0.25rem;
 $form-label-font-size: 12px;
 //$form-label-font-style:                 null !default;
 $form-label-font-weight: $font-weight-bold;
 $form-label-color: $grey-600;
+$input-plaintext-color: $grey-800;
 
 $navbar-padding-y: 12px;
-$table-bg: white;
 
+$card-bg: $body-bg;
+$card-border-color: $card-bg;
+$card-box-shadow: 0px 2px 4px 2px rgba(107, 107, 107, 0.04), 0px 4px 6px 4px rgba(68, 68, 68, 0.04);
+$card-spacer-y: 16px;
+$card-spacer-x: 12px;
 
+//$table-bg: $card-bg;
+$table-cell-padding-x: 0.75rem;
+$table-cell-padding-y: 1.5rem;
+//$table-cell-padding-y-sm:     .25rem !default;
+//$table-cell-padding-x-sm:     .25rem !default;
+//
+//$table-cell-vertical-align:   top !default;
+//
+//$table-color:                 $body-color !default;
+//$table-bg:                    transparent !default;
+//$table-accent-bg:             transparent !default;
+//
+$table-th-font-weight: $font-weight-normal;
+//
+//$table-striped-color:         $table-color !default;
+//$table-striped-bg-factor:     .05 !default;
+//$table-striped-bg:            rgba($black, $table-striped-bg-factor) !default;
+//
+//$table-active-color:          $table-color !default;
+//$table-active-bg-factor:      .1 !default;
+//$table-active-bg:             rgba($black, $table-active-bg-factor) !default;
+//
+//$table-hover-color:           $table-color !default;
+//$table-hover-bg-factor:       .075 !default;
+//$table-hover-bg:              rgba($black, $table-hover-bg-factor) !default;
+//
+//$table-border-factor:         .1 !default;
+//$table-border-width:          $border-width !default;
+$table-border-color: $grey-200;
+//
+//$table-striped-order:         odd !default;
+//
+//$table-group-separator-color: currentColor !default;
+//
+//$table-caption-color:         $text-muted !default;
+//
+//$table-bg-scale:              -80% !default;

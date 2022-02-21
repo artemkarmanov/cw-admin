@@ -12,6 +12,8 @@ import {SessionDialogComponent} from './session-dialog/session-dialog.component'
 import {CardComponent} from './card/card.component';
 import {PageTopComponent} from './page-top/page-top.component';
 import {ButtonHeaderComponent} from './button-header/button-header.component';
+import {IconComponent} from './icon/icon.component';
+import {TableDirective} from '../table.directive';
 
 
 @NgModule({
@@ -25,7 +27,9 @@ import {ButtonHeaderComponent} from './button-header/button-header.component';
         SessionDialogComponent,
         CardComponent,
         PageTopComponent,
-        ButtonHeaderComponent
+        ButtonHeaderComponent,
+        IconComponent,
+        TableDirective
     ],
     exports: [
         CommonModule,
@@ -38,7 +42,9 @@ import {ButtonHeaderComponent} from './button-header/button-header.component';
         SessionDialogComponent,
         CardComponent,
         PageTopComponent,
-        ButtonHeaderComponent
+        ButtonHeaderComponent,
+        IconComponent,
+        TableDirective
     ],
     imports: [
         CommonModule,

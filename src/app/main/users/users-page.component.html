@@ -1,7 +1,9 @@
 <cwb-page-top>
     <cwb-button-header>
         <h1>Users</h1>
-        <i (click)="reload()" class="bi-arrow-clockwise" role="button"></i>
+        <button (click)="reload()" class="btn btn-sm text-primary">
+            <cwb-icon name="arrow-clockwise"></cwb-icon>
+        </button>
     </cwb-button-header>
 
     <cwb-add-user-button></cwb-add-user-button>

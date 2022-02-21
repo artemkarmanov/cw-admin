@@ -1,4 +1,4 @@
-<table *ngIf="data" class="table table-hover">
+<table *ngIf="data">
     <thead>
     <tr class="table-light">
         <th>Name</th>
@@ -14,7 +14,9 @@
         <td>{{user.email}}</td>
         <td>{{user | role}}</td>
         <td>
-            <button [routerLink]="''+user.userId">Edit</button>
+            <button [routerLink]="''+user.userId" class="btn">
+                <cwb-icon name="pencil"></cwb-icon>
+            </button>
         </td>
     </tr>
     </tbody>

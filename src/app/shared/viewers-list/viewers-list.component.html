@@ -1,5 +1,8 @@
 <div *ngFor="let viewer of viewers.controls; index as i">
-    <input [formControl]="$any(viewers.controls[i])"/>
+    <input [formControl]="$any(viewers.controls[i])" class="form-control form-control-lg"/>
     <button (click)="remove(i)" [disabled]="!viewers.controls[i].value">X</button>
 </div>
-<button (click)="add()">Add viewer</button>
+<button (click)="add()" class="btn btn-sm text-primary">
+    <cwb-icon name="plus-lg"></cwb-icon>
+    Add viewer
+</button>
