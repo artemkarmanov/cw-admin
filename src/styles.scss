@@ -53,6 +53,11 @@ cwb-main, cwb-simple-layout {
   flex-direction: column;
 }
 
+cwb-booking-page, cwb-bookings-page {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
 
 main {
   background-color: $grey-200;
@@ -100,9 +105,14 @@ footer {
 //  font-size: $input-font-size !important;
 //  background-color: $input-bg !important;
 //}
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
 
 .card {
-  min-height: calc(100vh - 223px);
+  margin-bottom: 24px;
 }
 
 .table {

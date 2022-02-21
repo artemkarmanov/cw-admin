@@ -58,6 +58,8 @@ $btn-line-height: 24px;
 $btn-border-radius-sm: $border-radius;
 $btn-font-weight: $font-weight-bold;
 $btn-font-size-sm: $font-size-base;
+$btn-padding-x-sm: 1rem;
+$btn-padding-y-sm: 0.5rem;
 
 // scss-docs-start form-input-variables
 //$input-padding-y:                       $input-btn-padding-y !default;
@@ -123,11 +125,12 @@ $form-label-color: $grey-600;
 $input-plaintext-color: $grey-800;
 
 $navbar-padding-y: 12px;
+$navbar-light-color: $grey-600;
 
 $card-bg: $body-bg;
 $card-border-color: $card-bg;
 $card-box-shadow: 0px 2px 4px 2px rgba(107, 107, 107, 0.04), 0px 4px 6px 4px rgba(68, 68, 68, 0.04);
-$card-spacer-y: 16px;
+$card-spacer-y: 1rem;
 $card-spacer-x: 12px;
 
 //$table-bg: $card-bg;

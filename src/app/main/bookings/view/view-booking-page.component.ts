@@ -7,6 +7,7 @@ import {IBooking} from '../../../core/types';
 import {BreadCrumbsService} from '../../../core/bread-crumbs.service';
 
 @Component({
+    selector: 'cwb-booking-page',
     templateUrl: './view-booking-page.component.html',
     styleUrls: ['./view-booking-page.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,

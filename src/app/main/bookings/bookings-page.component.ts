@@ -7,6 +7,7 @@ import {CreateService} from './create/create.service';
 import {BreadCrumbsService} from '../../core/bread-crumbs.service';
 
 @Component({
+    selector: 'cwb-bookings-page',
     templateUrl: './bookings-page.component.html',
     styleUrls: ['./bookings-page.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,

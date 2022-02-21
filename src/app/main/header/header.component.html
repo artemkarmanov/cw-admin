@@ -4,7 +4,7 @@
         }">
 </ng-container>
 <ng-template #asyncTemplate let-isLoggedIn="isLoggedIn">
-    <div class="navbar shadow-sm">
+    <div class="navbar shadow-sm navbar-light">
         <div class="container-fluid">
             <cwb-bread-crumbs></cwb-bread-crumbs>
             <cwb-menu *ngIf="isLoggedIn"></cwb-menu>
@@ -15,10 +15,10 @@
         </div>
     </div>
     <ng-template #unauthorized>
-        <ng-container *ngIf="!isAdmin">
-            <span class="navbar-text">Not  a member yet?</span>
+        <div *ngIf="!isAdmin" class="d-flex justify-content-between" style="width:300px;">
+            <span class="navbar-text">Not a member yet?</span>
             <a class="btn btn-sm btn-primary" routerLink="../../../sign-up">Get started</a>
-        </ng-container>
+        </div>
     </ng-template>
 
 </ng-template>

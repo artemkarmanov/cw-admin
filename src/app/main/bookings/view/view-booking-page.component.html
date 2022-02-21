@@ -3,7 +3,7 @@
 </ng-container>
 
 <ng-template #asyncTemplate let-booking="booking">
-    <div *ngIf="booking;else empty">
+    <ng-container *ngIf="booking;else empty">
         <cwb-page-top>
             <div>
                 <h1>{{booking.title}}</h1>
@@ -12,13 +12,13 @@
         </cwb-page-top>
 
         <div class="row">
-            <div class="col-sm-5">
+            <div class="col-sm-5 d-flex">
                 <cwb-card>
                     <router-outlet></router-outlet>
                 </cwb-card>
 
             </div>
-            <div class="col-sm-7">
+            <div class="col-sm-7 d-flex">
                 <cwb-card>
                     <div class="d-flex justify-content-between align-items-center">
                         <h2>Sessions</h2>
@@ -28,7 +28,7 @@
                 </cwb-card>
             </div>
         </div>
-    </div>
+    </ng-container>
 </ng-template>
 
 <ng-template #empty>
