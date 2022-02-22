@@ -1,0 +1,7 @@
+@mixin emoji($name) {
+  background-image: url("../assets/#{$name}.png");
+  padding-left: 34px;
+  background-repeat: no-repeat;
+  background-size: 32px 32px;
+  background-position: left center;
+}

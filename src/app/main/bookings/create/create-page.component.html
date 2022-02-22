@@ -6,7 +6,9 @@
 </ng-container>
 <ng-template #asyncTemplate let-disabledNext="disableNext" let-s=step>
     <div style="width:680px;margin: 0 auto;">
-        <h1>Create new booking</h1>
+        <h1 class="display-6">
+            Create new booking
+        </h1>
         <cwb-step-title></cwb-step-title>
         <ng-container [ngSwitch]="s">
             <cwb-general-booking-information *ngSwitchCase="1"></cwb-general-booking-information>

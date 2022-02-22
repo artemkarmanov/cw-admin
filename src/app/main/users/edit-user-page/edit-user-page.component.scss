@@ -1,3 +1,6 @@
+@use "../../../../scss/utils" as utils;
+
+
 :host {
   display: flex;
   justify-content: center;
@@ -5,4 +8,8 @@
 
 section {
   width: 460px;
+}
+
+h1 {
+  @include utils.emoji('gear');
 }
