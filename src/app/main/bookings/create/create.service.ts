@@ -1,9 +1,11 @@
 import {Injectable} from '@angular/core';
 import {BookingService} from '../booking.service';
 import {INewBooking, INewSession} from '../../../core/types';
-import {BehaviorSubject, distinctUntilChanged, Observable} from 'rxjs';
+import {BehaviorSubject, distinctUntilChanged, Observable, pluck} from 'rxjs';
 import {DateTime} from 'luxon';
 import {MINIMUM_SESSION_DURATION} from '../../../core/const';
+import {AuthService} from '../../../core/auth.service';
+import {map, switchMap} from 'rxjs/operators';
 
 @Injectable()
 export class CreateService {
@@ -19,7 +21,7 @@ export class CreateService {
     private _startTime?: string;
     private _durationMins: number = MINIMUM_SESSION_DURATION;
 
-    constructor(private bookingService: BookingService) {
+    constructor(private bookingService: BookingService, private authService: AuthService) {
 
     }
 
@@ -130,7 +132,9 @@ export class CreateService {
     }
 
     public create$() {
-        return this.bookingService.createBooking$(this.getData());
+        return this.getData$().pipe(
+            switchMap(this.bookingService.createBooking$.bind(this.bookingService))
+        );
     }
 
     currentStepFormIsValid(state: boolean): void {
@@ -152,17 +156,28 @@ export class CreateService {
         ];
     }
 
-    private getData(): INewBooking {
-        return {
-            title: this.title,
-            startDate: this.startDate,
-            countWeeks: this.countWeeks,
-            sessionList: this.buildSessionList(),
-            audioDetails: this.audioDetails,
-            captionDispDetails: this.captionDispDetails,
-            requirePasscode: this.requirePasscode,
-            requireLogin: this.requireLogin,
-            viewerEmails: this.viewerEmails
-        }
+    private getData$(): Observable<INewBooking> {
+        return this.authService.getUserSettings$.pipe(
+            pluck('timeZone'),
+            map((timeZone) => {
+                const result = {
+                    title: this.title,
+                    startDate: this.startDate,
+                    countWeeks: this.countWeeks,
+                    sessionList: this.buildSessionList(),
+                    audioDetails: this.audioDetails,
+                    captionDispDetails: this.captionDispDetails,
+                    requirePasscode: this.requirePasscode,
+                    requireLogin: this.requireLogin,
+                    viewerEmails: this.viewerEmails,
+                };
+                if (this.timeZone !== timeZone) {
+                    Object.assign(result, {timeZoneOverride: this.timeZone});
+                }
+
+                return result;
+
+            })
+        )
     }
 }
