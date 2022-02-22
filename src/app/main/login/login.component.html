@@ -1,7 +1,10 @@
 <div>
     <div class="row">
         <div class="col-sm-4">
-            <h1 class="display-6">Bookings</h1>
+            <h1 class="display-6">
+                <ng-container *ngIf="isAdmin;else bookings_title">Admin</ng-container>
+                <ng-template #bookings_title>Bookings</ng-template>
+            </h1>
             <cwb-login-form></cwb-login-form>
             <div class="text-center pt-4">
                 Forgot the password? <a class="link-primary" routerLink="../../reset-password">Reset</a>

@@ -16,7 +16,7 @@ export class ShareBookingLinkComponent implements OnInit {
 
     @Input()
     set booking(booking: IBooking) {
-        this.href = environment.viewerUrl + '/?bookingToken=' + booking.bookingToken + '&passcodeHash=' + booking.bookingPasscodeHash;
+        this.href = environment.viewerUrl + '/?bookingToken=' + booking.bookingToken + ((booking.bookingPasscodeHash) ? '&passcodeHash=' + booking.bookingPasscodeHash : '');
     }
 
     ngOnInit(): void {
