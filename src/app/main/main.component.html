@@ -1,19 +1,23 @@
 <header>
     <cwb-header></cwb-header>
 </header>
-<main>
 
-    <ng-container [ngSwitch]="isAuthorized$ | async">
-        <div *ngSwitchCase="true" class="container">
-            <router-outlet></router-outlet>
-        </div>
-
-        <div *ngSwitchDefault class="container"
-             style="height: 100%;    display: flex;    flex-direction: column;    justify-content: center;">
-            <cwb-login></cwb-login>
-
-        </div>
-
+<ng-container [ngSwitch]="isAuthorized$ | async">
+    <ng-container *ngSwitchCase="true" class="container">
+        <main>
+            <div class="container">
+                <router-outlet></router-outlet>
+            </div>
+        </main>
     </ng-container>
+    <ng-container *ngSwitchDefault class="container d-flex flex-column justify-content-center">
+        <main class="bg-white">
+            <div class="container d-flex flex-column justify-content-center" style="height: 100%;">
+                <cwb-login></cwb-login>
+            </div>
+        </main>
+    </ng-container>
+</ng-container>
 
-</main>
+
+
