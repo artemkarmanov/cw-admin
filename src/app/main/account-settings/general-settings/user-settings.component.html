@@ -1,0 +1,31 @@
+<form (ngSubmit)="save()" [formGroup]="form">
+    <div class="d-flex">
+        <div>
+            <label class="form-label" for="firstName">First name</label>
+            <input class="form-control form-control-lg" formControlName="firstName" id="firstName"
+                   placeholder="Enter your first name"
+                   required type="text">
+        </div>
+        <div>
+            <label class="form-label" for="lastName">Last name</label>
+            <input class="form-control form-control-lg" formControlName="lastName" id="lastName"
+                   placeholder="Enter your last name"
+                   required type="text">
+        </div>
+    </div>
+
+    <div>
+        <label class="form-label" for="new-email">Email</label>
+        <input class="form-control form-control-lg" formControlName="email" id="new-email"
+               placeholder="Enter your email here"
+               required type="text">
+    </div>
+
+    <div>
+        <cwb-timezone-selector formControlName="timeZone"></cwb-timezone-selector>
+    </div>
+
+    <div>
+        <button [disabled]="form.invalid || form.untouched" class="btn btn-primary" type="submit">Save</button>
+    </div>
+</form>

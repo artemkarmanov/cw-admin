@@ -158,9 +158,11 @@ export interface INewUser {
 }
 
 export interface IUserSettings {
+    userId: number;
     timeZone: string;
     firstName: string;
     lastName: string;
+    email: string;
 }
 
 export interface ICreateSession {

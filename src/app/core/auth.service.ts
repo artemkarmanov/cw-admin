@@ -30,7 +30,7 @@ export class AuthService implements OnDestroy {
     );
     private loadUserSettings$$: Subject<void> = new Subject<void>();
     private userData$$: ReplaySubject<IUserSettings> = new ReplaySubject<IUserSettings>(1);
-    public getUserSettings$: Observable<IUserSettings> = this.userData$$.asObservable();
+    public userSettings$: Observable<IUserSettings> = this.userData$$.asObservable();
 
     constructor(
         private messages: SocketMessagesService,

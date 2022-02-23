@@ -44,7 +44,7 @@ export class UsersService {
         );
     }
 
-    public update$(userData: IUser): Observable<unknown> {
+    public update$(userData: Partial<IUser>): Observable<unknown> {
         return this.messages.request$<unknown>('updateUser', userData).pipe(
             catchError(e => {
                 this.error.handle(e);
