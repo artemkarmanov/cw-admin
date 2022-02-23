@@ -1,0 +1,23 @@
+.nav-link {
+  padding-left: 25px;
+  background-repeat: no-repeat;
+  background-size: 25px 24px;
+  background-position: left center;
+
+  &[routerLink=bookings] {
+    background-image: url("../../../../assets/bookings.svg");
+  }
+
+  &[routerLink=account-settings] {
+    background-image: url("../../../../assets/account.svg");
+  }
+
+  &[routerLink=sessions] {
+    background-image: url("../../../../assets/sessions.svg");
+  }
+
+  &[routerLink=users] {
+    background-image: url("../../../../assets/users.svg");
+  }
+}
+
