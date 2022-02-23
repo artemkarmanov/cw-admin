@@ -46,14 +46,14 @@ export class SessionsPageComponent implements OnInit, AfterViewInit, OnDestroy {
     ngAfterViewInit(): void {
         this.filter.get$().pipe(
             takeUntil(this.destroy$$.asObservable()),
-            switchMap(({fromEpoch, toEpoch}) => this.sessionService.getSessions$(fromEpoch, toEpoch)),
+            switchMap(({fromEpoch, toEpoch}) => this.sessionService.getSessionsSummary$(fromEpoch, toEpoch)),
             tap((_) => this.sessions$$.next(_))
         ).subscribe();
 
         this.reload$$.asObservable().pipe(
             takeUntil(this.destroy$$.asObservable()),
             withLatestFrom(this.filter.get$(), (_, f) => f),
-            switchMap(({fromEpoch, toEpoch}) => this.sessionService.getSessions$(fromEpoch, toEpoch)),
+            switchMap(({fromEpoch, toEpoch}) => this.sessionService.getSessionsSummary$(fromEpoch, toEpoch)),
             tap((_) => this.sessions$$.next(_))
         ).subscribe();
     }

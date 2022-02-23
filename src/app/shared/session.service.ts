@@ -48,8 +48,8 @@ export class SessionService {
         );
     }
 
-    public getSessions$(fromEpoch: number, toEpoch: number, start?: number, count?: number): Observable<IAdminSession[]> {
-        return this.messages.request$<{ sessions: IAdminSession[] }>('getSessions', {
+    public getSessionsSummary$(fromEpoch: number, toEpoch: number, start?: number, count?: number): Observable<IAdminSession[]> {
+        return this.messages.request$<{ sessions: IAdminSession[] }>('getSessionsSummary', {
             fromEpoch, toEpoch, start, count
         }).pipe(
             pluck('sessions')

@@ -4,7 +4,7 @@
 
 <ng-container [ngSwitch]="isAuthorized$ | async">
     <ng-container *ngSwitchCase="true" class="container">
-        <main>
+        <main [class.bg-white]="pageHasSimpleLayout$ | async">
             <div class="container">
                 <router-outlet></router-outlet>
             </div>

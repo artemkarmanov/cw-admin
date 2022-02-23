@@ -23,12 +23,17 @@ const routes: Routes = [
                 canActivate: [AdminGuard]
             },
             {
+                path: 'account-settings',
+                loadChildren: () => import('./account-settings/account-settings.module').then(m => m.AccountSettingsModule)
+            },
+            {
                 path: '',
                 redirectTo: getStartPage()
             }
 
         ]
     },
+
 
 ];
 
