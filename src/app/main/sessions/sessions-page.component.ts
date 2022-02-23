@@ -6,7 +6,7 @@ import {tap} from 'rxjs/operators';
 import {SessionService} from '../../shared/session.service';
 
 @Component({
-    selector: 'cwb-sessions',
+    selector: 'cwb-sessions-page',
     templateUrl: './sessions-page.component.html',
     styleUrls: ['./sessions-page.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
