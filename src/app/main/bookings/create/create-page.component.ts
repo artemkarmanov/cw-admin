@@ -27,6 +27,10 @@ export class CreatePageComponent implements OnInit, OnDestroy {
     ) {
         this.breadCrumbsService.set([
             {
+                path: '/bookings',
+                title: 'Bookings'
+            },
+            {
                 title: 'New booking',
                 path: ['bookings', 'create'].join('/')
             }

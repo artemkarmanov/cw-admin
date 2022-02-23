@@ -3,6 +3,7 @@ import {UsersService} from '../../core/users.service';
 import {BehaviorSubject, Observable, switchMap} from 'rxjs';
 import {IUser, IUserFilter} from '../../core/types';
 import {map} from 'rxjs/operators';
+import {BreadCrumbsService} from '../../core/bread-crumbs.service';
 
 @Component({
     selector: 'cwb-users-page',
@@ -38,11 +39,17 @@ export class UsersPageComponent implements OnInit {
         })
     );
 
-    constructor(private usersService: UsersService) {
+    constructor(
+        private usersService: UsersService,
+        private breadCrumbsService: BreadCrumbsService
+    ) {
     }
 
     ngOnInit(): void {
-
+        this.breadCrumbsService.set([{
+            path: '/users',
+            title: 'Users'
+        }]);
     }
 
     filterChanged(filter: IUserFilter) {

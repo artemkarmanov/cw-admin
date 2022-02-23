@@ -4,6 +4,7 @@ import {IAdminSession} from '../../core/types';
 import {FilterComponent} from './filter/filter.component';
 import {tap} from 'rxjs/operators';
 import {SessionService} from '../../shared/session.service';
+import {BreadCrumbsService} from '../../core/bread-crumbs.service';
 
 @Component({
     selector: 'cwb-sessions-page',
@@ -22,10 +23,17 @@ export class SessionsPageComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild(FilterComponent)
     private filter!: FilterComponent;
 
-    constructor(private sessionService: SessionService) {
+    constructor(
+        private sessionService: SessionService,
+        private breadCrumbsService: BreadCrumbsService
+    ) {
     }
 
     ngOnInit(): void {
+        this.breadCrumbsService.set([{
+            path: '/sessions',
+            title: 'Sessions'
+        }]);
         this.cancelClick$$.asObservable().pipe(
             takeUntil(this.destroy$$.asObservable()),
             switchMap(this.sessionService.cancel$.bind(this.sessionService)),

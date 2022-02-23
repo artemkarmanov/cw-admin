@@ -4,6 +4,7 @@ import {UsersService} from '../../../core/users.service';
 import {from, Subject, switchMap, takeUntil} from 'rxjs';
 import {Router} from '@angular/router';
 import {tap} from 'rxjs/operators';
+import {BreadCrumbsService} from '../../../core/bread-crumbs.service';
 
 @Component({
     selector: 'cwb-new-user-page',
@@ -17,11 +18,22 @@ export class NewUserPageComponent implements OnInit, OnDestroy {
 
     constructor(
         private usersService: UsersService,
-        private router: Router
+        private router: Router,
+        private breadCrumbsService: BreadCrumbsService
     ) {
     }
 
     ngOnInit(): void {
+        this.breadCrumbsService.set([
+            {
+                path: '/users',
+                title: 'Users'
+            },
+            {
+                title: 'New user',
+                path: ['users', 'create'].join('/')
+            }
+        ]);
         this.save$$.pipe(
             takeUntil(this.destroy$$.asObservable()),
             switchMap(this.usersService.create$.bind(this.usersService)),

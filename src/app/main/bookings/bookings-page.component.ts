@@ -31,7 +31,10 @@ export class BookingsPageComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.breadCrumbsService.set([]);
+        this.breadCrumbsService.set([{
+            path: '/bookings',
+            title: 'Bookings'
+        }]);
 
         this.bookingService.getBookings$().pipe(
             takeUntil(this.destroy$$.asObservable()),

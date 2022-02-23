@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {filter, map, switchMap, tap} from 'rxjs/operators';
 import {UsersService} from '../../../core/users.service';
 import {IUser} from '../../../core/types';
+import {BreadCrumbsService} from '../../../core/bread-crumbs.service';
 
 @Component({
     selector: 'cwb-edit-user-page',
@@ -19,7 +20,8 @@ export class EditUserPageComponent implements OnInit, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private usersService: UsersService
+        private usersService: UsersService,
+        private breadCrumbsService: BreadCrumbsService
     ) {
     }
 
@@ -44,7 +46,19 @@ export class EditUserPageComponent implements OnInit, OnDestroy {
                 return users.pop();
             }),
             filter(Boolean),
-            tap(user => this.user = user)
+            tap(user => this.user = user),
+            tap(user => {
+                this.breadCrumbsService.set([
+                    {
+                        path: '/users',
+                        title: 'Users'
+                    },
+                    {
+                        title: ['Edit', user.firstName, user.lastName].join(' '),
+                        path: ['users', user.userId].join('/')
+                    }
+                ])
+            })
         ).subscribe();
     }
 

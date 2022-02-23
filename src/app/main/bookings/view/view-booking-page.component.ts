@@ -48,6 +48,10 @@ export class ViewBookingPageComponent implements OnInit, OnDestroy {
         ).subscribe((booking) => {
             this.breadCrumbsService.set([
                 {
+                    path: '/bookings',
+                    title: 'Bookings'
+                },
+                {
                     title: booking.title,
                     path: ['bookings', booking.bookingToken].join('/')
                 }
