@@ -46,9 +46,11 @@ export class TimezoneSelectorComponent implements OnInit, OnDestroy, ControlValu
     }
 
     ngOnInit(): void {
+        this.city.statusChanges.pipe(
+            tap(console.log)
+        ).subscribe();
         this.writeValue$$.asObservable().pipe(
             takeUntil(this.destroy$$.asObservable()),
-            tap(console.log),
             exhaustMap((timezone) => this.timezoneService.getRegions$().pipe(
                 tap((regions) => {
                     const [region, city] = timezone.split('/');
@@ -79,7 +81,8 @@ export class TimezoneSelectorComponent implements OnInit, OnDestroy, ControlValu
                 if (!this.city.value || !cities.includes(this.city.value)) {
                     this.city.setValue(cities[0]);
                 }
-            })
+            }),
+            //tap(() => this.onTouched())
         ).subscribe();
 
         this.city.valueChanges.pipe(
@@ -97,7 +100,8 @@ export class TimezoneSelectorComponent implements OnInit, OnDestroy, ControlValu
                 const {region} = regions.filter(region => region.regionId === parseInt(this.region.value)).pop() as IRegion;
                 const zone = [region, city].join('/');
                 this.onChange(zone);
-            })
+            }),
+            //tap(() => this.onTouched())
         ).subscribe();
     }
 

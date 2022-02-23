@@ -157,7 +157,7 @@ export class CreateService {
     }
 
     private getData$(): Observable<INewBooking> {
-        return this.authService.getUserSettings$.pipe(
+        return this.authService.userSettings$.pipe(
             pluck('timeZone'),
             map((timeZone) => {
                 const result = {

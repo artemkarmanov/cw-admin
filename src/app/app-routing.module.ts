@@ -29,7 +29,7 @@ const routes: Routes = [
             {
                 path: 'sign-up',
                 loadChildren: () => import('./create-user/create-user.module').then(m => m.CreateUserModule),
-                canActivate: [UserGuard]
+                canLoad: [UserGuard]
             },
         ]
     },

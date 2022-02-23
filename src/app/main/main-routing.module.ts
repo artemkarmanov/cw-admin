@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {MainComponent} from './main.component';
 import {AdminGuard} from '../core/admin.guard';
 import {getStartPage} from '../core/utils';
+import {UserGuard} from '../core/user.guard';
 
 const routes: Routes = [
     {
@@ -15,16 +16,17 @@ const routes: Routes = [
             {
                 path: 'sessions',
                 loadChildren: () => import('./sessions/sessions.module').then(m => m.SessionsModule),
-                canActivate: [AdminGuard]
+                canLoad: [AdminGuard]
             },
             {
                 path: 'users',
                 loadChildren: () => import('./users/users.module').then(m => m.UsersModule),
-                canActivate: [AdminGuard]
+                canLoad: [AdminGuard]
             },
             {
                 path: 'account-settings',
-                loadChildren: () => import('./account-settings/account-settings.module').then(m => m.AccountSettingsModule)
+                loadChildren: () => import('./account-settings/account-settings.module').then(m => m.AccountSettingsModule),
+                canLoad: [UserGuard]
             },
             {
                 path: '',

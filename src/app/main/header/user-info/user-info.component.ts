@@ -10,7 +10,7 @@ import {map} from 'rxjs/operators';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserInfoComponent implements OnInit {
-    public user$: Observable<string> = this.auth.getUserSettings$.pipe(
+    public user$: Observable<string> = this.auth.userSettings$.pipe(
         map(userData => {
             if (!userData.firstName && !userData.lastName) {
                 return 'Unknown user';

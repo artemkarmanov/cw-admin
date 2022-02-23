@@ -22,7 +22,6 @@ export class MainComponent implements OnInit, OnDestroy {
     ) {
         this.router.events.pipe(
             takeUntil(this.destroy$$.asObservable()),
-            //tap(console.log),
             filter(event => event instanceof NavigationEnd),
             map((_) => (_ as NavigationEnd).url),
             map(_ => {
