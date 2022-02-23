@@ -10,7 +10,10 @@ export const environment = {
     backend: 'ws://localhost:3000/socket',
     //role: 'viewer',
     role: 'admin',
-    viewerUrl: 'https://testweb.captionworks.com:8082'
+    viewerUrl: 'https://testweb.captionworks.com:8082',
+    stripe: {
+        pk: 'pk_test_51KPQdVBu2Bri9BWB90KzZlGYbCQJbyZBVg424UdvQqiU9Qf9IKLHxfnhtgX7U7ZoSH9ZCqjBpFZLAl3y4m96EiZt00v0gMVUQP'
+    }
 };
 
 /*
