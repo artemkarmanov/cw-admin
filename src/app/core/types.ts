@@ -147,6 +147,7 @@ interface ITimeZone extends IRegion {
 }
 
 export interface INewUser {
+    paymentMethodComplete: any;
     firstName: string;
     lastName: string;
     email: string;
@@ -158,6 +159,7 @@ export interface INewUser {
 }
 
 export interface IUserSettings {
+    paymentMethodComplete: any;
     userId: number;
     timeZone: string;
     firstName: string;

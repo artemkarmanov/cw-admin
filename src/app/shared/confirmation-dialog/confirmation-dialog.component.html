@@ -6,6 +6,9 @@
     {{text}}
 </div>
 <div class="modal-footer d-flex justify-content-between">
-    <button (click)="cancel()" class="btn btn-secondary">{{cancelText}}</button>
+    <!-- <button (click)="cancel()" class="btn btn-secondary">{{cancelText}}</button> -->
+    <!-- This button is currently only being used as an alert dialog -->
+    <!-- (in payment-component.ts) so it really doesn't need a Cancel button -->
+    <!-- which is why this is commented out -->
     <button (click)="confirm()" class="btn btn-primary">{{confirmText}}</button>
 </div>

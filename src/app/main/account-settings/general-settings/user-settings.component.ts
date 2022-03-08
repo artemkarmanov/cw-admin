@@ -5,6 +5,7 @@ import {AuthService} from '../../../core/auth.service';
 import {tap} from 'rxjs/operators';
 import {UsersService} from '../../../core/users.service';
 import {INewUser, IUser, IUserSettings} from '../../../core/types';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'cwb-user-settings',
@@ -20,10 +21,18 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
         lastName: new FormControl('', [Validators.required]),
         email: new FormControl('', [Validators.required, Validators.email]),
         timeZone: new FormControl('', [Validators.required]),
-
     })
 
-    constructor(private auth: AuthService, private usersService: UsersService) {
+    // Just adding this for testing.  The actual value needs to (eventually)
+    // come from the backend
+    public paymentMethodComplete: number = 0;
+
+    // This component now contains a user  info form, as well as a credit
+    // card input form (hidden by default).  Everytime the page loads,
+    // we'll hide the credit card form, using this boolean flag
+    public showCreditCardForm: boolean = false;
+
+    constructor(private auth: AuthService, private usersService: UsersService, public router: Router) {
     }
 
     ngOnInit(): void {
@@ -31,6 +40,7 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
             takeUntil(this.destroy$$.asObservable()),
             tap((data) => {
                 this.form.patchValue(data);
+                this.paymentMethodComplete = data.paymentMethodComplete
             })
         ).subscribe();
         this.save$$.asObservable().pipe(
@@ -52,6 +62,9 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
                 if (newData.email !== oldData.email) {
                     data.email = newData.email;
                 }
+                if (newData.paymentMethodComplete !== oldData.paymentMethodComplete) {
+                    data.paymentMethodComplete = newData.paymentMethodComplete;
+                }
                 return this.usersService.update$(data);
             })
         ).subscribe();
@@ -68,4 +81,7 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
 
     }
 
+    showPaymentSettingForm()  {
+        this.showCreditCardForm = true;
+    }
 }

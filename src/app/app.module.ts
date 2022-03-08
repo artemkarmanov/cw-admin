@@ -12,11 +12,12 @@ import {TOKEN_SERVICE, USER_INFO} from './core/const';
 import {ErrorComponent} from './error/error.component';
 import {SimpleLayoutComponent} from './simple-layout/simple-layout.component';
 
+
 @NgModule({
     declarations: [
         AppComponent,
         ErrorComponent,
-        SimpleLayoutComponent,
+        SimpleLayoutComponent
     ],
     imports: [
         BrowserModule,

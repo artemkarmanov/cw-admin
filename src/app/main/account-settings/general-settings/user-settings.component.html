@@ -1,3 +1,9 @@
+<ng-container *ngIf="showCreditCardForm; else showUserInfoForm">
+    <h2>Payment settings</h2>
+    <cwb-payment></cwb-payment>
+</ng-container>
+<ng-template #showUserInfoForm>
+<h2>General settings</h2>
 <form (ngSubmit)="save()" [formGroup]="form">
     <div class="d-flex">
         <div>
@@ -25,7 +31,32 @@
         <cwb-timezone-selector formControlName="timeZone"></cwb-timezone-selector>
     </div>
 
-    <div>
-        <button [disabled]="form.invalid || form.untouched" class="btn btn-primary" type="submit">Save</button>
+    <div class="container">
+        <div class="row">
+          <div class="col text-center">
+           
+            <ng-container *ngIf="paymentMethodComplete===1; else notComplete">
+                <div style="margin: 5%;">
+                    You have a payment method saved with CaptionWorks.
+                </div>
+            </ng-container>
+            <ng-template #notComplete>
+                <div style="margin: 5%;">
+                    You don't have a payment method set up yet.
+                </div>
+            </ng-template>
+            
+            <button class="btn btn-secondary" (click)="showPaymentSettingForm()">Update payment method</button>
+          </div>
+        </div>
+    
+
+        <div class="row">
+            <div class="col text-right">
+                <button [disabled]="form.invalid || form.untouched" class="btn btn-primary" style="text-align: right" type="submit">Save</button>
+            </div>
+        </div>
+        
     </div>
 </form>
+</ng-template>
