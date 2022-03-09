@@ -30,13 +30,13 @@ export class CreateUserPageComponent implements OnInit, OnDestroy {
     })
 
     constructor(
-        private createUserService: UsersService,
+        private createUserService: UsersService, 
         private router: Router,
         private authService: AuthService
     ) {
     }
 
-    ngOnInit(): void {
+    ngOnInit(): void {  
         this.create$$.asObservable().pipe(
             takeUntil(this.destroy$$.asObservable()),
             switchMap(() => {
@@ -46,12 +46,18 @@ export class CreateUserPageComponent implements OnInit, OnDestroy {
                     data
                 );
             }),
-            tap(token => {
-                this.authService.authorize(token)
-            }),
-            switchMap(() => {
+             tap(token => {
+                //this.authService.authorize(token)
+
+                // This was causing a kind of "empty" login (a login with no
+                // user data included) immediately after the new user was created,
+                // so I commented it out for now.  The system now takes the user back  to
+                // the login screen after they create a new account
+                // (not ideal, but just something for now)
+             }),
+             switchMap(() => {         
                 return from(this.router.navigate(['bookings']))
-            })
+             })
         ).subscribe();
     }
 
@@ -61,7 +67,7 @@ export class CreateUserPageComponent implements OnInit, OnDestroy {
 
     create(): void {
         if (this.form.valid) {
-            this.create$$.next();
+            this.create$$.next();      
         }
     }
 

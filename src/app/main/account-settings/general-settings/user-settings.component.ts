@@ -23,8 +23,8 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
         timeZone: new FormControl('', [Validators.required]),
     })
 
-    // Just adding this for testing.  The actual value needs to (eventually)
-    // come from the backend
+    // Making this zero here, but it will be fetched from the backend and re-assigned
+    // a value in ngOnInit()
     public paymentMethodComplete: number = 0;
 
     // This component now contains a user  info form, as well as a credit
@@ -48,6 +48,7 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
             switchMap(() => this.auth.userSettings$),
             switchMap((oldUserData) => {
                 const oldData = JSON.parse(JSON.stringify(oldUserData)) as IUserSettings;
+             
                 const newData = this.form.value as INewUser;
                 const data: Partial<IUser> = {};
                 if (newData.firstName !== oldData.firstName) {

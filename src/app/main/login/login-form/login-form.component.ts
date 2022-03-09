@@ -26,7 +26,7 @@ export class LoginFormComponent implements OnInit, OnDestroy {
 
     constructor(private authService: AuthService) {
         this.loginClick$$.asObservable().pipe(
-            switchMap(() => {
+            switchMap(() => { 
                 const {email, password} = this.form.value as IUserCredentials;
                 return this.authService.login$(email, password);
             })
