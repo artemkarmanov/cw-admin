@@ -15,11 +15,14 @@ export class BookingDetailsComponent implements OnInit, OnDestroy {
     public form: FormGroup = new FormGroup({
         requirePasscode: new FormControl(this.createService.requirePasscode),
         requireLogin: new FormControl(this.createService.requireLogin),
-        viewerEmails: new FormControl(this.createService.viewerEmails)
+        viewerEmails: new FormControl(this.createService.viewerEmails),
+        authorizedViewersOnly: new FormControl()
     });
 
     constructor(private createService: CreateService) {
     }
+
+    public authorizedViewersOnlyChecked: boolean =  false;
 
     ngOnInit(): void {
         setTimeout(() => this.createService.currentStepFormIsValid(this.form.valid), 0);
@@ -52,6 +55,10 @@ export class BookingDetailsComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.destroy$$.next();
+    }
+
+    switchAuthorizedViewerBool() {
+        this.authorizedViewersOnlyChecked = (this.authorizedViewersOnlyChecked) ? false : true;
     }
 
 }

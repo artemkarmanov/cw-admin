@@ -26,10 +26,15 @@ export class UpdateComponent implements OnInit, OnDestroy {
         audioDetails: new FormControl('', Validators.required),
         captionDispDetails: new FormControl('', Validators.required),
         timeZoneOverride: new FormControl(''),
-        // requirePasscode: new FormControl(''),
-        // requireLogin: new FormControl(''),
-        viewerEmails: new FormControl('')
+        requirePasscode: new FormControl(false),
+        requireLogin: new FormControl(false),
+        viewerEmails: new FormControl(''),
+        bookingPasscode: new FormControl(''),
+        authorizedViewersOnly: new FormControl(false)
     });
+
+    public authorizedViewersOnlyChecked: boolean =  false;
+    public requirePasscodeChecked: boolean = false;
 
     constructor(
         private viewService: ViewService,
@@ -48,7 +53,8 @@ export class UpdateComponent implements OnInit, OnDestroy {
                 audioDetails,
                 title,
                 bookingTimeZone,
-                captionDispDetails
+                captionDispDetails,
+                bookingPasscode
             }]) => {
                 let data: IUpdateBooking = {};
                 if (title !== newData.title) {
@@ -69,6 +75,9 @@ export class UpdateComponent implements OnInit, OnDestroy {
                 if (bookingTimeZone !== newData.timeZoneOverride) {
                     data.timeZoneOverride = newData.timeZoneOverride;
                 }
+                if (bookingPasscode !== newData.bookingPasscode)  {
+                    data.bookingPasscode = newData.bookingPasscode;
+                }
                 return this.updateService.updateBooking$(bookingToken, data).pipe(
                     tap(() => this.viewService.reload()),
                     switchMap(() => {
@@ -82,14 +91,16 @@ export class UpdateComponent implements OnInit, OnDestroy {
             takeUntil(this.destroy$$.asObservable()),
             tap(this.data$$.next.bind(this.data$$)),
             tap(data => {
-                const {title, audioDetails, captionDispDetails, viewerEmails, bookingTimeZone} = data;
+                const {title, audioDetails, captionDispDetails, viewerEmails, bookingTimeZone, requirePasscode, requireLogin, bookingPasscode} = data;
                 this.form.setValue({
                     title,
                     audioDetails,
                     captionDispDetails,
                     timeZoneOverride: bookingTimeZone,
-                    /*requirePasscode: new FormControl(''),
-                    requireLogin: new FormControl(''),*/
+                    requirePasscode,
+                    requireLogin,
+                    bookingPasscode,
+                    authorizedViewersOnly:requirePasscode,
                     viewerEmails
                 });
 
@@ -107,6 +118,14 @@ export class UpdateComponent implements OnInit, OnDestroy {
             this.saveChanges$$.next(this.form.value as IUpdateBooking);
         }
 
+    }
+
+    switchAuthorizedViewerBool() {
+        this.authorizedViewersOnlyChecked = (this.authorizedViewersOnlyChecked) ? false : true;
+    }
+
+    switchRequirePasscodeBool() {
+        this.requirePasscodeChecked = (this.requirePasscodeChecked) ? false : true;
     }
 
 }

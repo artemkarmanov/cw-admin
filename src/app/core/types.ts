@@ -97,6 +97,8 @@ export interface IBooking {
     captionDispDetails: string;
     bookingTimeZone: string;
     sessions: ISession[];
+    requirePasscode?: 0 | 1;
+    requireLogin?: 0 | 1;
     viewerEmails?: string;
 }
 
@@ -127,6 +129,7 @@ export interface IUpdateBooking {
     requireLogin?: 0 | 1;
     viewerEmails?: string;
     requirePasscode?: 0 | 1;
+    bookingPasscode?: string;
     timeZoneOverride?: string;
 }
 
