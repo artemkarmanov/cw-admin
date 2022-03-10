@@ -34,7 +34,6 @@ export class UpdateComponent implements OnInit, OnDestroy {
     });
 
     public authorizedViewersOnlyChecked: boolean =  false;
-    public requirePasscodeChecked: boolean = false;
 
     constructor(
         private viewService: ViewService,
@@ -54,30 +53,22 @@ export class UpdateComponent implements OnInit, OnDestroy {
                 title,
                 bookingTimeZone,
                 captionDispDetails,
-                bookingPasscode
+                bookingPasscode,
+                requirePasscode,
+                requireLogin
             }]) => {
                 let data: IUpdateBooking = {};
-                if (title !== newData.title) {
-                    data.title = newData.title;
-                }
-                if (audioDetails !== newData.audioDetails) {
-                    data.audioDetails = newData.audioDetails;
-                }
-                if (captionDispDetails !== newData.captionDispDetails) {
-                    data.captionDispDetails = newData.captionDispDetails;
-                }
-                if (viewerEmails !== newData.viewerEmails) {
-                    data.viewerEmails = newData.viewerEmails;
-                }
-                if (viewerEmails !== newData.viewerEmails) {
-                    data.viewerEmails = newData.viewerEmails;
-                }
-                if (bookingTimeZone !== newData.timeZoneOverride) {
-                    data.timeZoneOverride = newData.timeZoneOverride;
-                }
-                if (bookingPasscode !== newData.bookingPasscode)  {
-                    data.bookingPasscode = newData.bookingPasscode;
-                }
+    
+                data.title = newData.title;
+                data.audioDetails = newData.audioDetails;
+                data.captionDispDetails = newData.captionDispDetails;
+                data.viewerEmails = newData.viewerEmails;
+                data.viewerEmails = newData.viewerEmails;
+                data.timeZoneOverride = newData.timeZoneOverride;
+                data.bookingPasscode = newData.bookingPasscode;
+                data.requirePasscode = (newData.requirePasscode) ? 1 : 0;
+                data.requireLogin = (newData.requireLogin) ? 1 : 0;
+            
                 return this.updateService.updateBooking$(bookingToken, data).pipe(
                     tap(() => this.viewService.reload()),
                     switchMap(() => {
@@ -92,16 +83,24 @@ export class UpdateComponent implements OnInit, OnDestroy {
             tap(this.data$$.next.bind(this.data$$)),
             tap(data => {
                 const {title, audioDetails, captionDispDetails, viewerEmails, bookingTimeZone, requirePasscode, requireLogin, bookingPasscode} = data;
+                let hasAuthorizedViewers = 0
+                if (viewerEmails) {
+                    if (viewerEmails.split("\\n").length > 0) {
+                        hasAuthorizedViewers = 1
+                        this.authorizedViewersOnlyChecked = true;
+                    }
+                }
+                console.log(bookingPasscode)
                 this.form.setValue({
-                    title,
-                    audioDetails,
-                    captionDispDetails,
+                    title: title,
+                    audioDetails: audioDetails,
+                    captionDispDetails: captionDispDetails,
                     timeZoneOverride: bookingTimeZone,
-                    requirePasscode,
-                    requireLogin,
-                    bookingPasscode,
-                    authorizedViewersOnly:requirePasscode,
-                    viewerEmails
+                    requirePasscode: requirePasscode,
+                    requireLogin: requireLogin,
+                    bookingPasscode: (bookingPasscode.length < 5) ? "not required" : bookingPasscode,
+                    authorizedViewersOnly: hasAuthorizedViewers,
+                    viewerEmails: viewerEmails
                 });
 
             })
@@ -122,10 +121,6 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
     switchAuthorizedViewerBool() {
         this.authorizedViewersOnlyChecked = (this.authorizedViewersOnlyChecked) ? false : true;
-    }
-
-    switchRequirePasscodeBool() {
-        this.requirePasscodeChecked = (this.requirePasscodeChecked) ? false : true;
     }
 
 }
