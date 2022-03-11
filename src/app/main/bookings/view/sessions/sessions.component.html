@@ -15,12 +15,14 @@
         <td><span cwbStatus>{{session.status}}</span></td>
         <td>{{session.sessionDurationMins}}</td>
         <td *ngIf="isAdmin">
-            <button (click)="edit(session)" [disabled]="!isEditable(session)" class="btn">
-                <cwb-icon name="pencil"></cwb-icon>
-            </button>
-            <button (click)="cancel(session.sessionId)" [disabled]="!isEditable(session)" class="btn">
-                <cwb-icon name="x-lg"></cwb-icon>
-            </button>
+            <ng-container *ngIf="isEditable(session)">
+                <button (click)="edit(session)" [disabled]="!isEditable(session)" class="btn">
+                    <cwb-icon name="pencil"></cwb-icon>
+                </button>
+                <button (click)="cancel(session.sessionId)" [disabled]="!isEditable(session)" class="btn">
+                    <cwb-icon name="x-lg"></cwb-icon>
+                </button>
+            </ng-container>
         </td>
     </tr>
     </tbody>
