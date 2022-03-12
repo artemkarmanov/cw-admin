@@ -53,6 +53,14 @@ export class AuthService implements OnDestroy {
 
     public authorize(token: string): void {
         this.setAppToken(token);
+        // This authorize function is called (among other times) when a user creates
+        // a new account.  Once the account is created, the user is automatically logged in,
+        // however, the user Data is never loaded.  What results is a kind of "empty" login, 
+        // and no username appears  under "Logged in as:" on the main screen. Also, users
+        // can't complete the "Create Booking" wizard, because their user Data has not
+        // been loaded.  So, I added the following line to load  their data:
+        this.loadUserSettings();
+        
         this.authorization$$.next(true);
     }
 
