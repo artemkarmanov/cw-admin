@@ -1,6 +1,6 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Observable, Subject, switchMap, takeUntil, withLatestFrom} from 'rxjs';
-import {IAdminSession} from '../../core/types';
+import {IAdminSession, ISession} from '../../core/types';
 import {FilterComponent} from './filter/filter.component';
 import {tap} from 'rxjs/operators';
 import {SessionService} from '../../shared/session.service';
@@ -16,7 +16,7 @@ export class SessionsPageComponent implements OnInit, AfterViewInit, OnDestroy {
     private destroy$$: Subject<void> = new Subject<void>();
     private reload$$: Subject<void> = new Subject<void>();
     private cancelClick$$: Subject<number> = new Subject<number>();
-    private editClick$$: Subject<number> = new Subject<number>();
+    private editClick$$: Subject<IAdminSession> = new Subject<IAdminSession>();
     private sessions$$: Subject<IAdminSession[]> = new Subject<IAdminSession[]>();
     public sessions$: Observable<IAdminSession[]> = this.sessions$$.asObservable();
 
@@ -41,7 +41,7 @@ export class SessionsPageComponent implements OnInit, AfterViewInit, OnDestroy {
         ).subscribe();
         this.editClick$$.asObservable().pipe(
             takeUntil(this.destroy$$.asObservable()),
-            //switchMap(this.sessionService.edit$.bind(this.sessionService)),
+            switchMap(this.sessionService.editAdmin$.bind(this.sessionService)),
             tap(() => this.reload$$.next()),
         ).subscribe();
 
@@ -64,6 +64,7 @@ export class SessionsPageComponent implements OnInit, AfterViewInit, OnDestroy {
             switchMap(({fromEpoch, toEpoch}) => this.sessionService.getSessionsSummary$(fromEpoch, toEpoch)),
             tap((_) => this.sessions$$.next(_))
         ).subscribe();
+
     }
 
     cancel(id: number) {
@@ -71,8 +72,8 @@ export class SessionsPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
     }
 
-    edit(id: number) {
-        this.editClick$$.next(id);
+    edit(session: IAdminSession) {
+        this.editClick$$.next(session);
 
     }
 

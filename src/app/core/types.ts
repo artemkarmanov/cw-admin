@@ -70,7 +70,7 @@ export interface IAdminSession {
     startEpoch: number;
     bookingTimeZone: string;
     sessionDurationMins: number;
-    status: string;
+    status: TSessionStatus;
     ownerUserId: number;
     ownerFirstName: string;
     ownerLastName: string;
@@ -187,7 +187,7 @@ export interface IAdminSession {
     startEpoch: number;
     bookingTimeZone: string;
     sessionDurationMins: number;
-    status: string;
+    status: TSessionStatus;
     ownerUserId: number;
     ownerFirstName: string;
     ownerLastName: string;

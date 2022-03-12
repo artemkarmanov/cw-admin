@@ -40,6 +40,20 @@ export class SessionService {
         )
     }
 
+    public editAdmin$(sessionData: IAdminSession): Observable<unknown> {
+        return this.modalService.open$<any, SessionDialogComponent>(SessionDialogComponent, {}, (instance) => {
+            instance.data$$.next(sessionData);
+        }).pipe(
+            filter(Boolean),
+            switchMap((session) => {
+                Object.assign(session, {
+                    sessionId: sessionData.sessionId
+                });
+                return this.updateSession$(session);
+            }),
+        )
+    }
+
     public cancel$(id: number): Observable<unknown> {
         return this.confirmationService.open$('Are you sure you want to cancel the session?').pipe(
             switchMap(() => {

@@ -31,7 +31,7 @@
                 <td><span cwbStatus>{{session.status}}</span></td>
                 <td>{{session | owner}}</td>
                 <td>
-                    <button (click)="edit(session.sessionId)" class="btn">
+                    <button (click)="edit(session)" class="btn">
                         <cwb-icon name="pencil"></cwb-icon>
                     </button>
                     <button (click)="cancel(session.sessionId)" class="btn">
