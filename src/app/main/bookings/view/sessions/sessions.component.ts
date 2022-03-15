@@ -22,6 +22,7 @@ export class SessionsComponent implements OnInit, OnDestroy {
     constructor(private sessionService: SessionService, private viewService: ViewService) {
     }
 
+    // This is the session card that appears on the Viewer Side
     ngOnInit(): void {
         this.editClick$$.asObservable().pipe(
             takeUntil(this.destroy$$.asObservable()),
