@@ -26,21 +26,7 @@ export class SessionService {
         )
     }
 
-    public edit$(sessionData: ISession): Observable<unknown> {
-        return this.modalService.open$<any, SessionDialogComponent>(SessionDialogComponent, {}, (instance) => {
-            instance.data$$.next(sessionData);
-        }).pipe(
-            filter(Boolean),
-            switchMap((session) => {
-                Object.assign(session, {
-                    sessionId: sessionData.sessionId
-                });
-                return this.updateSession$(session);
-            }),
-        )
-    }
-
-    public editAdmin$(sessionData: IAdminSession): Observable<unknown> {
+    public edit$(sessionData: ISession | IAdminSession): Observable<unknown> {
         return this.modalService.open$<any, SessionDialogComponent>(SessionDialogComponent, {}, (instance) => {
             instance.data$$.next(sessionData);
         }).pipe(
@@ -78,11 +64,13 @@ export class SessionService {
     }
 
 
-    private updateSession$(session: ISession): Observable<unknown> {
+    private updateSession$(session: ISession | IAdminSession): Observable<unknown> {
         return this.messages.request$('updateSession', session).pipe(
 
         );
     }
+
+
 
 
     private cancelSession$(sessionId: number): Observable<unknown> {

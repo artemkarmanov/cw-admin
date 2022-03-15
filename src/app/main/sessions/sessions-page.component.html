@@ -23,22 +23,26 @@
         </thead>
         <ng-container *ngIf="sessions$ | async as sessions">
             <tbody *ngIf="sessions.length;else empty">
-            <tr *ngFor="let session of sessions">
-                <td>{{session.sessionId}}</td>
-                <td><a [routerLink]="'/bookings/'+session.bookingToken">{{session.title}}</a></td>
-                <td>{{session.startEpoch | date:'medium'}}</td>
-                <td>{{session.sessionDurationMins}}</td>
-                <td><span cwbStatus>{{session.status}}</span></td>
-                <td>{{session | owner}}</td>
-                <td>
-                    <button (click)="edit(session)" class="btn">
-                        <cwb-icon name="pencil"></cwb-icon>
-                    </button>
-                    <button (click)="cancel(session.sessionId)" class="btn">
-                        <cwb-icon name="x-lg"></cwb-icon>
-                    </button>
-                </td>
-            </tr>
+                <tr *ngFor="let session of sessions">
+                    <ng-container *ngIf="isNotCancelled(session)">
+                        <td>{{session.sessionId}}</td>
+                        <td><a [routerLink]="'/bookings/'+session.bookingToken">{{session.title}}</a></td>
+                        <td>{{session.startEpoch | date:'medium'}}</td>
+                        <td>{{session.sessionDurationMins}}</td>
+                        <td><span cwbStatus>{{session.status}}</span></td>
+                        <td>{{session | owner}}</td>
+                        <td>
+                            <ng-container *ngIf="isEditable(session)">
+                                <button (click)="edit(session)" class="btn">
+                                    <cwb-icon name="pencil"></cwb-icon>
+                                </button>
+                                <button (click)="cancel(session.sessionId)" class="btn">
+                                    <cwb-icon name="x-lg"></cwb-icon>
+                                </button>
+                            </ng-container>
+                        </td>
+                    </ng-container>
+                </tr>
             </tbody>
         </ng-container>
     </table>
@@ -46,7 +50,7 @@
         <tr>
             <td class="text-center" colspan="6" style="padding:48px;">
                 <div>
-                    There are no any sessions
+                    There are not any sessions
                 </div>
 
             </td>

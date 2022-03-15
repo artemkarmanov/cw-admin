@@ -6,6 +6,7 @@ import {tap} from 'rxjs/operators';
 import {SessionService} from '../../shared/session.service';
 import {BreadCrumbsService} from '../../core/bread-crumbs.service';
 
+
 @Component({
     selector: 'cwb-sessions-page',
     templateUrl: './sessions-page.component.html',
@@ -25,10 +26,11 @@ export class SessionsPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
     constructor(
         private sessionService: SessionService,
-        private breadCrumbsService: BreadCrumbsService
+        private breadCrumbsService: BreadCrumbsService,
     ) {
     }
 
+    // This is the edit session card that appears on the Admin Side
     ngOnInit(): void {
         this.breadCrumbsService.set([{
             path: '/sessions',
@@ -41,7 +43,7 @@ export class SessionsPageComponent implements OnInit, AfterViewInit, OnDestroy {
         ).subscribe();
         this.editClick$$.asObservable().pipe(
             takeUntil(this.destroy$$.asObservable()),
-            switchMap(this.sessionService.editAdmin$.bind(this.sessionService)),
+            switchMap(this.sessionService.edit$.bind(this.sessionService)),
             tap(() => this.reload$$.next()),
         ).subscribe();
 
@@ -79,6 +81,17 @@ export class SessionsPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
     reload() {
         this.reload$$.next();
+    }
+
+    isEditable(session: IAdminSession): boolean {
+        return session.status === 'Future';
+    }
+
+    // Even cancelled sessions were showing up on the admin side after they'd been cancelled
+    // which was making the list of sessions very long, so I decided to hide cancelled
+    // sessions from being displayed using this function
+    isNotCancelled(session: IAdminSession): boolean {
+        return session.status !== 'Cancelled'
     }
 
 
