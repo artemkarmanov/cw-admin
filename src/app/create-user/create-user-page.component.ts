@@ -47,13 +47,7 @@ export class CreateUserPageComponent implements OnInit, OnDestroy {
                 );
             }),
              tap(token => {
-                //this.authService.authorize(token)
-
-                // This was causing a kind of "empty" login (a login with no
-                // user data included) immediately after the new user was created,
-                // so I commented it out for now.  The system now takes the user back  to
-                // the login screen after they create a new account
-                // (not ideal, but just something for now)
+                this.authService.authorize(token)
              }),
              switchMap(() => {         
                 return from(this.router.navigate(['bookings']))

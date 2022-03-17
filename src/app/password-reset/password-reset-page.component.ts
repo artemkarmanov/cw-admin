@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ResetPasswordService} from './reset-password.service';
 import {from, Subject, switchMap, takeUntil} from 'rxjs';
 import {Router} from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'cwb-password-reset',
@@ -20,6 +21,8 @@ export class PasswordResetPageComponent implements OnInit, OnDestroy {
         email: new FormControl('', [Validators.required, Validators.email])
     });
 
+    public role = environment.role;
+
     constructor(
         private resetPasswordService: ResetPasswordService, private router: Router) {
     }
@@ -27,7 +30,7 @@ export class PasswordResetPageComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.send$$.asObservable().pipe(
             takeUntil(this.destroy$$.asObservable()),
-            switchMap((email) => this.resetPasswordService.reset$(email)),
+            switchMap((email) => this.resetPasswordService.reset$(email, this.role)),
             switchMap(() => from(this.router.navigate(['/'])))
         ).subscribe();
     }

@@ -2,6 +2,7 @@ import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output}
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {checkPasswords} from '../../../core/utils';
 import {IUser} from '../../../core/types';
+import { UsersService } from 'src/app/core/users.service';
 
 @Component({
     selector: 'cwb-user-form',
@@ -26,9 +27,12 @@ export class UserFormComponent implements OnInit {
         validators: checkPasswords()
     })
 
+    public thisUserId: number = 0;
+
     @Input()
     set data(user: IUser) {
         if (user) {
+            this.thisUserId = user.userId;
             this.form.removeControl('password');
             this.form.removeControl('password2');
             this.form.removeValidators(checkPasswords());
@@ -38,7 +42,7 @@ export class UserFormComponent implements OnInit {
 
     }
 
-    constructor() {
+    constructor(private usersService: UsersService) {
     }
 
 
@@ -52,8 +56,34 @@ export class UserFormComponent implements OnInit {
             Object.assign(data, {
                 isAdmin: (data.isAdmin) ? 1 : 0,
                 isCaptioner: (data.isCaptioner) ? 1 : 0,
+                // The respeaker rate should be a float, but it comes from the
+                // form as a string, so I change it to a float here
+                respeakerRate: parseFloat(data.respeakerRate)
             })
+            // When a user is being created, the thisUserId will be initialized
+            // to 0. In that case, we don't want  to send that data to the backend,
+            // so this "if" statement checks if it's over zero, and adds it to the 
+            // data for the backend if  it is.
+
+            // The reason is because this form component is used for both 
+            // creating as well  as updating users.
+
+            // In case we're  creating users, we want to not send the userId (0).
+            // In case we're updating a user, we DEFINITELY NEED to send the userId
+            // (or else the incorrect user gets updated).
+            if (this.thisUserId > 0) {
+                Object.assign(data, {
+                    userId: this.thisUserId
+                })
+            }
+            // this dataChange expression doesn't seem to be doing anything,
+            // but I'll leave it here anyway.  The main problem is, the list of users
+            // is not updating once a user clicks "Save", so I added the final "this.userService.reload()"
+            // line in this function.  It reloads the user service, grabbing all the 
+            // newest users from the DB and displaying them.
+            console.log(data)
             this.dataChange.emit(data);
+            this.usersService.reload();
         }
     }
 }
