@@ -29,6 +29,9 @@ export class EditUserPageComponent implements OnInit, OnDestroy {
         this.save$$.asObservable().pipe(
             takeUntil(this.destroy$$.asObservable()),
             switchMap(this.usersService.update$.bind(this.usersService)),
+            tap(() => {
+                this.usersService.reload();
+            }),
             switchMap(() => {
                 return from(this.router.navigate(['/users']))
             })

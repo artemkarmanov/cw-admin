@@ -34,6 +34,18 @@ export class UsersService {
         );
     }
 
+    public load$() {
+        this.load$$.asObservable().pipe(
+            takeWhile(() => !this.isLoaded),
+            switchMap(() => {
+                return this.messages.request$<{ users: IUser[] }>('getUsers');
+            }),
+            pluck('users'),
+            tap(this.data$$.next.bind(this.data$$)),
+            tap(() => this.isLoaded = true)
+        ).subscribe();
+    }
+
     public create$(newUserData: INewUser): Observable<string> {
         return this.messages.request$<{ token: string }>('newUser', newUserData).pipe(
             catchError(e => {
@@ -53,8 +65,9 @@ export class UsersService {
         );
     }
 
-    public reload() {
+    public reload() {     
         this.isLoaded = false;
+        this.load$();
         this.load$$.next();
     }
 }
