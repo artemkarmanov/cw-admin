@@ -1,21 +1,21 @@
 <form [formGroup]="form">
     <div class="d-flex align-items-center">
         <input class="form-check-input" formControlName="requireLogin" id="requireLogin" type="checkbox">
-        <label class="form-check-label form-control-lg" for="requireLogin">Require login</label>
+        <label class="form-check-label form-control-lg" for="requireLogin">Require viewer has a CaptionWorks login</label>
     </div>
     <div class="d-flex align-items-center">
         <input class="form-check-input" formControlName="authorizedViewersOnly" id="authorizedViewersOnly" type="checkbox" (click)="switchAuthorizedViewerBool()">
-        <label class="form-check-label form-control-lg" for="authorizedViewersOnly">Authorized viewers only (prevent public access)</label>
+        <label class="form-check-label form-control-lg" for="authorizedViewersOnly">Only allow these authorised viewers:</label>
     </div>
     <ng-container *ngIf="authorizedViewersOnlyChecked">
         <div>
-            <label class="form-check-label" for="viewerEmails">Authorized viewers</label>
+            <label class="form-check-label" for="viewerEmails">List of emails for authorised viewers (separated by linebreaks)</label>
             <cwb-viewers-list formControlName="viewerEmails" id="viewerEmails"></cwb-viewers-list>
         </div>
     </ng-container>
     <div class="d-flex align-items-center">
         <input class="form-check-input" formControlName="requirePasscode" id="requirePasscode" type="checkbox">
-        <label class="form-check-label form-control-lg" for="requirePasscode">Require passcode</label>
+        <label class="form-check-label form-control-lg" for="requirePasscode">Require passcode to view (no public access)</label>
     </div>
 
 </form>

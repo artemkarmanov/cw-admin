@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, forwardRef, OnDestroy, OnInit} from '@angular/core';
-import {ControlValueAccessor, FormArray, FormControl, NG_VALUE_ACCESSOR, Validators} from '@angular/forms';
+import {ControlValueAccessor, FormArray, FormControl, FormGroup, NG_VALUE_ACCESSOR, Validators} from '@angular/forms';
 import {debounceTime, Subject, takeUntil} from 'rxjs';
 import {tap} from 'rxjs/operators';
 
@@ -17,6 +17,13 @@ import {tap} from 'rxjs/operators';
 export class ViewersListComponent implements OnInit, OnDestroy, ControlValueAccessor {
     private destroy$$: Subject<void> = new Subject<void>();
     public viewers = new FormArray([]);
+    public enterViewersIndividually: boolean = false;
+    public form = new FormGroup({
+        enterViewersIndividually: new FormControl(false),
+        listOfViewers: new FormControl('example@cw.com\nanother@cw.com\netc...')
+    })
+
+    public listForTextArea: string = "";
 
     constructor() {
     }
@@ -81,6 +88,36 @@ export class ViewersListComponent implements OnInit, OnDestroy, ControlValueAcce
     refresh() {
         const result = (this.viewers.value as string[]).join('\\n');
         this.onChange(result);
+    }
+
+    switchEnterViewersIndividuallyBool() {
+        this.enterViewersIndividually = (this.enterViewersIndividually) ? false : true;
+        
+        // If the  enterViewersIndividuall bool is false, we know
+        // the user is back to viewing the text area (list of viewers separated by linebreaks)
+        // Just in case they added any viewers (or  subtracted any) while they were
+        // in the "add individual viewers" view, we have to 'sync' the list of individual
+        // viewers and the text area here, so that they contain the same information
+        if (!this.enterViewersIndividually) {
+            var individualViewers = (this.viewers.value as string[]).join('\n');
+            this.form.controls['listOfViewers'].setValue(individualViewers)
+        }
+    }
+
+    addViewersFromList() {
+        // This adds the viewers from the list, and then pushes them to the 
+        // array for "add individual viewers" as well.
+
+        // Just so we don't accidentally add the same viewers twice, let's 
+        // empty the array
+        this.viewers.clear();
+
+        let viewersAsArray = this.form.value.listOfViewers.split("\n")
+        for (var v in viewersAsArray) {
+            this.viewers.push(
+                new FormControl(viewersAsArray[v], [Validators.required, Validators.email])
+            )
+        }
     }
 
 }

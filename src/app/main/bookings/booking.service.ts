@@ -44,6 +44,7 @@ export class BookingService {
     }
 
     public createBooking$(data: INewBooking): Observable<IBookingModificationResponse> {
+        console.log(data)
         return this.socketMessagesService.request$<IBookingModificationResponse>('createBooking', data).pipe(
             catchError((err) => {
                 this.errorHandler.handle(err);
