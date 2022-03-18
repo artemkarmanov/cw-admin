@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CreateService} from '../create.service';
 
-const TITLES: string[] = ['Fill the general detail', 'Add audio and caption details', 'Setup the access'];
+const TITLES: string[] = ['Tell us about your captioning requirements', 'Add audio and caption details', 'Tell us about your security requirements'];
 
 
 @Component({

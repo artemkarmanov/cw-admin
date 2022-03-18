@@ -26,7 +26,8 @@ export class CreateService {
     }
 
     get startTime(): string {
-        return this._startTime || '';
+        // This makes the start time selector default to 12:00 AM
+        return this._startTime || '00:00';
     }
 
     set startTime(time) {
@@ -75,7 +76,9 @@ export class CreateService {
     }
 
     get captionDispDetails(): string {
-        return this.data.captionDispDetails || '';
+        // This defaults to the message below (Captions can be viewed...) for now
+        // but can be changed to blank '' later.
+        return this.data.captionDispDetails || 'Captions can be viewed in the CaptionWorks viewer';
     }
 
     set captionDispDetails(details: string) {
