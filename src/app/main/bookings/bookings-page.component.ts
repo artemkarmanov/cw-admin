@@ -2,9 +2,10 @@ import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/co
 import {BookingService} from './booking.service';
 import {BehaviorSubject, Observable, Subject, switchMap, takeUntil} from 'rxjs';
 import {IBookingSummary} from '../../core/types';
-import {tap} from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
 import {CreateService} from './create/create.service';
 import {BreadCrumbsService} from '../../core/bread-crumbs.service';
+import { DateTime } from 'luxon';
 
 @Component({
     selector: 'cwb-bookings-page',
@@ -24,6 +25,8 @@ export class BookingsPageComponent implements OnInit, OnDestroy {
         //tap(console.log)
     );
 
+    public hrsDiff: number = -9;
+
     constructor(
         private bookingService: BookingService,
         private breadCrumbsService: BreadCrumbsService
@@ -31,6 +34,11 @@ export class BookingsPageComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+
+        
+
+
+
         this.breadCrumbsService.set([{
             path: '/bookings',
             title: 'Bookings'
@@ -38,7 +46,7 @@ export class BookingsPageComponent implements OnInit, OnDestroy {
 
         this.bookingService.getBookings$().pipe(
             takeUntil(this.destroy$$.asObservable()),
-            tap(this.bookings$$.next.bind(this.bookings$$))
+            tap(this.bookings$$.next.bind(this.bookings$$)),
         ).subscribe();
 
         this.reload$$.asObservable().pipe(
@@ -52,9 +60,23 @@ export class BookingsPageComponent implements OnInit, OnDestroy {
         this.destroy$$.next();
     }
 
+    public getAdjustedHour(start: any, tz: any) {
+        console.log(tz)
+        if (tz === "") {
+            tz = "America/New_York"
+        }
+        let dt = DateTime.fromMillis(start * 1000, {zone: tz,  locale: tz})
+        let dater = dt.toISO({format: 'extended'}).toString();
+        
+        
+        return dater
+    }
+
     public reload(): void {
         this.reload$$.next();
     }
 
 
 }
+
+

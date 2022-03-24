@@ -5,6 +5,7 @@ import {FilterComponent} from './filter/filter.component';
 import {tap} from 'rxjs/operators';
 import {SessionService} from '../../shared/session.service';
 import {BreadCrumbsService} from '../../core/bread-crumbs.service';
+import { DateTime } from 'luxon';
 
 
 @Component({
@@ -92,6 +93,21 @@ export class SessionsPageComponent implements OnInit, AfterViewInit, OnDestroy {
     // sessions from being displayed using this function
     isNotCancelled(session: IAdminSession): boolean {
         return session.status !== 'Cancelled'
+    }
+
+    // The backend now sends/receives/stores times in seconds (instead of milliseconds)
+    // so this function is necessary.  It takes the start time, multiplies it by 1000
+    // (to put it in milisecond format), then changes the timezone 
+    public getAdjustedHour(start: any, tz: any) {
+        console.log(tz)
+        if (tz === "") {
+            tz = "America/New_York"
+        }
+        let dt = DateTime.fromMillis(start * 1000, {zone: tz,  locale: tz})
+        let dater = dt.toISO({format: 'extended'}).toString();
+        
+        
+        return dater
     }
 
 
