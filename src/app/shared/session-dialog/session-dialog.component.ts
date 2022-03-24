@@ -57,7 +57,9 @@ export class SessionDialogComponent implements OnInit, OnDestroy {
             takeUntil(this.destroy$$.asObservable()),
             tap((session: ISession) => {
                 this.inEditMode = true;
-                const d = DateTime.fromMillis(session.startEpoch, {
+                // The backend is now returning startEpochs in a different way, so 
+                // this * 1000  is necessary now (3/23/2022)
+                const d = DateTime.fromMillis(session.startEpoch * 1000, {
                     zone: 'utc'
                 });
                 const startDate = d.toISODate();

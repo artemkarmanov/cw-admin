@@ -18,17 +18,24 @@
             <th>Title</th>
             <th>Next session</th>
             <th>Duration</th>
-            <th>Sessions remaining</th>
+            <th>Remaining</th>
+            <th>Total</th>
         </tr>
         </thead>
         <ng-container *ngIf="bookings$ | async as bookings">
             <tbody *ngIf="bookings.length;else empty">
-            <tr *ngFor="let booking of bookings">
+            <tr *ngFor="let booking of bookings" style="line-height: 0px;">
                 <td><a [routerLink]="booking.bookingToken">{{booking.bookingToken}}</a></td>
                 <td>{{booking.title}}</td>
-                <td>{{booking.nextSessionStartEpoch | date:'medium'}}</td>
+                <!-- I had to add this " * 1000" because the backend is now (as of March 23, 2022)-->
+                <!-- returning date startEpochs with fewer digits than before -->
+                <!-- All bookings created from here on will display correctly now, but some past  -->
+                <!-- bookings will not display correctly anymore -->
+                                                        <!--    1 min.  60  hrs.  -->
+                <td>{{getAdjustedHour(booking.nextSessionStartEpoch, booking.bookingTimeZone) | date: 'short':'+0000'}}</td>
                 <td>{{booking.nextSessionDurationMins}}</td>
-                <td>{{booking | sessionCounter}}</td>
+                <td>{{booking.totalSessions}}</td>
+                <td>{{booking.countFutureSessions}}</td>
             </tr>
             </tbody>
         </ng-container>
