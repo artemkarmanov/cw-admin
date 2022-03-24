@@ -174,8 +174,18 @@ export class CreateService {
                     requireLogin: this.requireLogin,
                     viewerEmails: this.viewerEmails,
                 };
+                // This used to be just an if statement, and if the "this.timeZone"
+                // was different from "timeZone", it would add data to the object,
+                // then write that data to the database on the backend (associated with the
+                // booking).  However, if they were the same, no timezone-related data
+                // would be added to the object, resulting in no data being saved to the database
+                // resulting in a "Region: Unknown" and "Country: Unknown" situation 
+                // if the user chose to view their booking in detail.  So, I added the 
+                // else statement  here
                 if (this.timeZone !== timeZone) {
                     Object.assign(result, {timeZoneOverride: this.timeZone});
+                } else {
+                    Object.assign(result, {timeZoneOverride: timeZone});
                 }
 
                 return result;
