@@ -60,6 +60,9 @@ export class BookingsPageComponent implements OnInit, OnDestroy {
         this.destroy$$.next();
     }
 
+    // The backend now sends/receives/stores times in seconds (instead of milliseconds)
+    // so this function is necessary.  It takes the start time, multiplies it by 1000
+    // (to put it in milisecond format), then changes the timezone 
     public getAdjustedHour(start: any, tz: any) {
         console.log(tz)
         if (tz === "") {
