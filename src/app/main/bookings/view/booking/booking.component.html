@@ -17,12 +17,12 @@
         </div>
         <div class="d-flex">
             <div style="flex:1">
-                <label class="form-label">Region</label>
-                <div class="field-text">{{data.bookingTimeZone | region}}</div>
-            </div>
-            <div style="flex: 1">
-                <label class="form-label">Country</label>
-                <div class="field-text">{{data.bookingTimeZone | city}}</div>
+                <label class="form-label">Country, city, timezone</label>
+                <div class="field-text">
+                    {{data.bookingTimeZone | region}}, 
+                    {{data.bookingTimeZone | city}} 
+                    {{data.bookingTimeZone | timezone}}
+                </div>
             </div>
         </div>
 

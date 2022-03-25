@@ -14,6 +14,7 @@ import {PageTopComponent} from './page-top/page-top.component';
 import {ButtonHeaderComponent} from './button-header/button-header.component';
 import {IconComponent} from './icon/icon.component';
 import {TableDirective} from '../table.directive';
+import {TimezonePipe} from './timezone.pipe';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import {TableDirective} from '../table.directive';
         ViewersListComponent,
         RegionPipe,
         CityPipe,
+        TimezonePipe,
         ConfirmationDialogComponent,
         StatusDirective,
         SessionDialogComponent,
@@ -38,6 +40,7 @@ import {TableDirective} from '../table.directive';
         ViewersListComponent,
         RegionPipe,
         CityPipe,
+        TimezonePipe,
         StatusDirective,
         SessionDialogComponent,
         CardComponent,

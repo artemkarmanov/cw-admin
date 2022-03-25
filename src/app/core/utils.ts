@@ -40,3 +40,9 @@ export function checkPasswords(): ValidatorFn {
 export function getStartPage(): string {
     return (environment.role !== 'admin') ? 'bookings' : 'sessions'
 }
+
+export function getUTCOffset(zone: string): string {
+    const zoneDate = DateTime.utc().setZone(zone);
+    const sign = zoneDate.offset < 0 ? '-' : '+';
+    return sign + zoneDate.toISOTime().split(sign)[1];
+}
