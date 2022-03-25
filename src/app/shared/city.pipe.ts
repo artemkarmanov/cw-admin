@@ -7,7 +7,10 @@ export class CityPipe implements PipeTransform {
 
     transform(value: string): string {
         if (!value) return 'Unknown';
-        return value.split('/').pop() as string;
+        return value
+            .replace('_', ' ')
+            .split('/')
+            .pop() as string;
     }
 
 }
