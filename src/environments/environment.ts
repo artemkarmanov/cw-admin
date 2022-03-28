@@ -12,7 +12,8 @@ export const environment = {
     //role: 'viewer',
     viewerUrl: 'https://testweb.captionworks.com:8082',
     stripe: {
-        pk: 'pk_test_51KPQdVBu2Bri9BWB90KzZlGYbCQJbyZBVg424UdvQqiU9Qf9IKLHxfnhtgX7U7ZoSH9ZCqjBpFZLAl3y4m96EiZt00v0gMVUQP'
+        pk: 'pk_test_51KPQdVBu2Bri9BWB90KzZlGYbCQJbyZBVg424UdvQqiU9Qf9IKLHxfnhtgX7U7ZoSH9ZCqjBpFZLAl3y4m96EiZt00v0gMVUQP',
+        complete: 'https://testweb.captionworks.com:8083/account-settings'
     }
 };
 

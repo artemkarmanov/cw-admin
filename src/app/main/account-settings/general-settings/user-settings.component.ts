@@ -5,7 +5,8 @@ import {AuthService} from '../../../core/auth.service';
 import {tap} from 'rxjs/operators';
 import {UsersService} from '../../../core/users.service';
 import {INewUser, IUser, IUserSettings} from '../../../core/types';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {IBackFromStripe} from "../back-from-stripe.interface";
 
 @Component({
     selector: 'cwb-user-settings',
@@ -32,10 +33,23 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
     // we'll hide the credit card form, using this boolean flag
     public showCreditCardForm: boolean = false;
 
-    constructor(private auth: AuthService, private usersService: UsersService, public router: Router) {
+    constructor(
+      private auth: AuthService,
+      private usersService: UsersService,
+      public router: Router,
+      public route: ActivatedRoute
+    ) {
     }
 
     ngOnInit(): void {
+      const bouncedBack = this.route.snapshot.queryParams as IBackFromStripe
+      if (
+        bouncedBack.setup_intent &&
+        bouncedBack.setup_intent_client_secret &&
+        bouncedBack.redirect_status
+      ) {
+        this.showCreditCardForm = true
+      }
         this.auth.userSettings$.pipe(
             takeUntil(this.destroy$$.asObservable()),
             tap((data) => {
@@ -48,7 +62,7 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
             switchMap(() => this.auth.userSettings$),
             switchMap((oldUserData) => {
                 const oldData = JSON.parse(JSON.stringify(oldUserData)) as IUserSettings;
-             
+
                 const newData = this.form.value as INewUser;
                 const data: Partial<IUser> = {};
                 if (newData.firstName !== oldData.firstName) {

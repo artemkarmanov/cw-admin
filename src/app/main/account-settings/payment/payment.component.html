@@ -1,2 +1,9 @@
-<div #cardInfo id="card-info"></div>
-<button class="btn btn-primary" (click)="savePaymentSettings()">Save these settings</button>
+<form id="payment-form" (submit)="submit($event)">
+	<div id="payment-element">
+		<div #cardInfo id="card-info"></div>
+	</div>
+	<button *ngIf="!bouncedBack" class="btn btn-primary" id="submit">Submit</button>
+	<div id="error-message" #error></div>
+</form>
+<button *ngIf="bouncedBack" class="btn btn-primary" (click)="savePaymentSettings()">Save these
+	settings</button>
