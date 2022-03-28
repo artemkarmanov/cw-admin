@@ -1,12 +1,13 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Subject, switchMap, takeUntil} from 'rxjs';
+import {of, Subject, switchMap, take, takeUntil} from 'rxjs';
 import {AuthService} from '../../../core/auth.service';
 import {tap} from 'rxjs/operators';
 import {UsersService} from '../../../core/users.service';
 import {INewUser, IUser, IUserSettings} from '../../../core/types';
 import {ActivatedRoute, Router} from '@angular/router';
 import {IBackFromStripe} from "../back-from-stripe.interface";
+import {ConfirmationService} from "../../../shared/confirmation.service";
 
 @Component({
     selector: 'cwb-user-settings',
@@ -37,18 +38,31 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
       private auth: AuthService,
       private usersService: UsersService,
       public router: Router,
-      public route: ActivatedRoute
+      public route: ActivatedRoute,
+      public confirmationService: ConfirmationService
     ) {
     }
 
     ngOnInit(): void {
-      const bouncedBack = this.route.snapshot.queryParams as IBackFromStripe
-      if (
-        bouncedBack.setup_intent &&
-        bouncedBack.setup_intent_client_secret &&
-        bouncedBack.redirect_status
-      ) {
-        this.showCreditCardForm = true
+      const {
+        setup_intent,
+        setup_intent_client_secret,
+        redirect_status
+      } = this.route.snapshot.queryParams as IBackFromStripe
+
+      if (setup_intent && setup_intent_client_secret) {
+        of(redirect_status)
+          .pipe(
+            take(1),
+            switchMap((status) => status === 'succeeded'
+              ? this.confirmationService.open$("Payment details have been saved")
+              : this.confirmationService.open$("Those payment details are incorrect")
+            )
+          )
+          .pipe(
+            switchMap(() => this.router.navigate(['account-settings']))
+          )
+          .subscribe()
       }
         this.auth.userSettings$.pipe(
             takeUntil(this.destroy$$.asObservable()),
