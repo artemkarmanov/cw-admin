@@ -25,7 +25,7 @@
             <tbody *ngIf="sessions.length;else empty">
                 <tr *ngFor="let session of sessions">
                     <ng-container *ngIf="isNotCancelled(session)">
-                        <td>{{session.sessionId}}</td>
+                        <td (click)="renderSessionCaptionsViewDialog(session.sessionId)">{{session.sessionId}}</td>
                         <td><a [routerLink]="'/bookings/'+session.bookingToken">{{session.title}}</a></td>
                         <!-- I had to add this 'getAdjustedHour()' function because the backend is now (as of March 23, 2022)-->
                         <!-- returning date startEpochs with fewer digits than before -->

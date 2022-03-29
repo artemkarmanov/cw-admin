@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {SocketMessagesService} from '../core/socket-messages.service';
 import {Observable, pluck} from 'rxjs';
 import {ModalService} from '../core/modal.service';
-import {IAdminSession, ICreateSession, ISession} from '../core/types';
+import {IAdminSession, ICreateSession, ISession, ISessionCaptionLogs} from '../core/types';
 import {SessionDialogComponent} from './session-dialog/session-dialog.component';
 import {filter, switchMap} from 'rxjs/operators';
 import {ConfirmationService} from './confirmation.service';
@@ -63,6 +63,13 @@ export class SessionService {
         );
     }
 
+    public getSessionCaptionLogs$(sessionId: number): Observable<ISessionCaptionLogs[]> {
+        return this.messages.request$<{ logs: ISessionCaptionLogs[] }>('getSessionCaptionLogs', {
+            sessionId
+        }).pipe(
+            pluck('logs')
+        );
+    }
 
     private updateSession$(session: ISession | IAdminSession): Observable<unknown> {
         return this.messages.request$('updateSession', session).pipe(
