@@ -100,6 +100,7 @@ export interface IBooking {
     requirePasscode?: 0 | 1;
     requireLogin?: 0 | 1;
     viewerEmails?: string;
+    authorisedViewersOnly: number;
 }
 
 export interface INewSession {
@@ -123,14 +124,16 @@ export interface INewBooking {
 }
 
 export interface IUpdateBooking {
-    title?: string;
-    audioDetails?: string;
-    captionDispDetails?: string;
-    requireLogin?: 0 | 1;
+    title: string;
+    audioDetails: string;
+    captionDispDetails: string;
+    requireLogin: number;
     viewerEmails?: string;
-    requirePasscode?: 0 | 1;
-    bookingPasscode?: string;
-    timeZoneOverride?: string;
+    requirePasscode: number;
+    bookingPasscode: string;
+    timeZoneOverride: string;
+    authorisedViewersOnly: number;
+    authorisedViewerEmails: string;
 }
 
 export interface IBookingModificationResponse {

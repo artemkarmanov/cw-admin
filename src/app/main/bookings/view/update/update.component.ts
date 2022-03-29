@@ -3,7 +3,7 @@ import {ViewService} from '../view.service';
 import {from, Observable, Subject, switchMap, takeUntil, withLatestFrom} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {tap} from 'rxjs/operators';
-import {IBooking, IUpdateBooking} from '../../../../core/types';
+import {IBooking, IUpdateBooking} from 'src/app/core/types';
 import {UpdateService} from './update.service';
 import {Router} from '@angular/router';
 
@@ -45,29 +45,21 @@ export class UpdateComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.saveChanges$$.asObservable().pipe(
             takeUntil(this.destroy$$.asObservable()),
-            withLatestFrom(this.data$,),
+            withLatestFrom(this.data$),
             switchMap(([newData, {
                 bookingToken,
-                viewerEmails,
-                audioDetails,
-                title,
-                bookingTimeZone,
-                captionDispDetails,
-                bookingPasscode,
-                requirePasscode,
-                requireLogin
             }]) => {
-                let data: IUpdateBooking = {};
-    
-                data.title = newData.title;
-                data.audioDetails = newData.audioDetails;
-                data.captionDispDetails = newData.captionDispDetails;
-                data.viewerEmails = newData.viewerEmails;
-                data.viewerEmails = newData.viewerEmails;
-                data.timeZoneOverride = newData.timeZoneOverride;
-                data.bookingPasscode = newData.bookingPasscode;
-                data.requirePasscode = (newData.requirePasscode) ? 1 : 0;
-                data.requireLogin = (newData.requireLogin) ? 1 : 0;
+                let data = {
+                    title: newData.title,
+                    audioDetails: newData.audioDetails,
+                    captionDispDetails: newData.captionDispDetails,
+                    timeZoneOverride: newData.timeZoneOverride,
+                    bookingPasscode: newData.bookingPasscode,
+                    requirePasscode: (newData.requirePasscode) ? 1 : 0,
+                    requireLogin: (newData.requireLogin) ? 1 : 0,
+                    authorisedViewersOnly: newData.authorisedViewersOnly ? 1 : 0,
+                    authorisedViewerEmails: newData.viewerEmails ?? ''
+                }
             
                 return this.updateService.updateBooking$(bookingToken, data).pipe(
                     tap(() => this.viewService.reload()),
@@ -85,12 +77,11 @@ export class UpdateComponent implements OnInit, OnDestroy {
                 const {title, audioDetails, captionDispDetails, viewerEmails, bookingTimeZone, requirePasscode, requireLogin, bookingPasscode} = data;
                 let hasAuthorizedViewers = 0
                 if (viewerEmails) {
-                    if (viewerEmails.split("\\n").length > 0) {
+                    if (viewerEmails.split("\n").length > 0) {
                         hasAuthorizedViewers = 1
                         this.authorizedViewersOnlyChecked = true;
                     }
                 }
-                console.log(bookingPasscode)
                 this.form.setValue({
                     title: title,
                     audioDetails: audioDetails,

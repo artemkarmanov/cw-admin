@@ -17,11 +17,9 @@ import {tap} from 'rxjs/operators';
 export class ViewersListComponent implements OnInit, OnDestroy, ControlValueAccessor {
     private destroy$$: Subject<void> = new Subject<void>();
     public viewers = new FormArray([]);
-    public enterViewersIndividually: boolean = false;
     public form = new FormGroup({
-        enterViewersIndividually: new FormControl(false),
-        listOfViewers: new FormControl('example@cw.com\nanother@cw.com\netc...')
-    })
+        listOfViewers: new FormControl('')
+    });
 
     public listForTextArea: string = "";
 
@@ -31,7 +29,7 @@ export class ViewersListComponent implements OnInit, OnDestroy, ControlValueAcce
     ngOnInit(): void {
         this.viewers.valueChanges.pipe(
             takeUntil(this.destroy$$.asObservable()),
-            debounceTime(1000),
+            debounceTime(300),
             tap(() => this.refresh())
         ).subscribe();
     }
@@ -90,19 +88,6 @@ export class ViewersListComponent implements OnInit, OnDestroy, ControlValueAcce
         this.onChange(result);
     }
 
-    switchEnterViewersIndividuallyBool() {
-        this.enterViewersIndividually = (this.enterViewersIndividually) ? false : true;
-        
-        // If the  enterViewersIndividuall bool is false, we know
-        // the user is back to viewing the text area (list of viewers separated by linebreaks)
-        // Just in case they added any viewers (or  subtracted any) while they were
-        // in the "add individual viewers" view, we have to 'sync' the list of individual
-        // viewers and the text area here, so that they contain the same information
-        if (!this.enterViewersIndividually) {
-            var individualViewers = (this.viewers.value as string[]).join('\n');
-            this.form.controls['listOfViewers'].setValue(individualViewers)
-        }
-    }
 
     addViewersFromList() {
         // This adds the viewers from the list, and then pushes them to the 

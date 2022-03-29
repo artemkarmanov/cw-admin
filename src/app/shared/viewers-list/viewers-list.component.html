@@ -1,22 +1,4 @@
 <form [formGroup]="form">
-    <input class="form-check-input" formControlName="enterViewersIndividually" id="enterViewersIndividually" type="checkbox" style="margin-right: 10px;" (click)="switchEnterViewersIndividuallyBool()">
-    <label class="form-label" for="enterViewersIndividually">Enter viewer emails one by one</label>    
-    <ng-container *ngIf="enterViewersIndividually else addListOfViewers">
-        <div *ngFor="let viewer of viewers.controls; index as i">
-            <input [formControl]="$any(viewers.controls[i])" class="form-control form-control-lg"/>
-            <button (click)="remove(i)" [disabled]="!viewers.controls[i].value">X</button>
-        </div>
-        <button (click)="add()" class="btn btn-sm text-primary">
-            <cwb-icon name="plus-lg"></cwb-icon>
-            Add viewer
-        </button>
-    </ng-container>
-    <ng-template #addListOfViewers>
-        <textarea class="form-control form-control-lg" formControlName="listOfViewers" id="listOfViewers"></textarea>  
-        <button (click)="addViewersFromList()" class="btn btn-sm text-primary">
-            <cwb-icon name="plus-lg"></cwb-icon>
-            Add these viewers
-        </button>
-    </ng-template>
+    <textarea (input)="addViewersFromList()" class="form-control form-control-lg" formControlName="listOfViewers" id="listOfViewers"></textarea>  
 </form>
 
