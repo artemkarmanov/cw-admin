@@ -78,6 +78,7 @@ export interface IAdminSession {
 }
 
 export interface IBookingSummary {
+	  date?: string;
     bookingToken: string;
     title: string;
     bookingTimeZone: string;
