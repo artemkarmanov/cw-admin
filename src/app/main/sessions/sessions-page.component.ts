@@ -110,5 +110,8 @@ export class SessionsPageComponent implements OnInit, AfterViewInit, OnDestroy {
         return dater
     }
 
-
+    public renderSessionCaptionsViewDialog(sessionId: number): any {
+        this.sessionService.getSessionCaptionLogs$(sessionId)
+            .subscribe(data => console.log(data));
+    }
 }

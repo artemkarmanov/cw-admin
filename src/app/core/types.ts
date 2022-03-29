@@ -202,6 +202,16 @@ export interface ISessionFilter {
     toEpoch: number;
 }
 
+export interface ISessionCaptionLogs {
+    captionLogId: number;
+    userId: number;
+    firstName: string;
+    lastName: string
+    connectionId: number;
+    endEpoch: number;
+    startEpoch: number;
+}
+
 export interface IUser extends INewUser {
     userId: number;
 }
