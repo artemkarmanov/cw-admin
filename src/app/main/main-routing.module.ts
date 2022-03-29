@@ -29,6 +29,10 @@ const routes: Routes = [
                 canLoad: [UserGuard]
             },
             {
+                path: 'billing',
+                loadChildren: () => import('./billing/billing.module').then(m => m.BillingModule)
+            },
+            {
                 path: '',
                 redirectTo: getStartPage()
             }

@@ -1,0 +1,18 @@
+.main {
+	height: calc(100vh - 72px - 41px - 37px - 12px);
+	overflow-y: scroll;
+	overflow-x: hidden;
+
+	&::-webkit-scrollbar {
+		width:  4px;
+		height: 4px;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background: #7E7E7E;
+	}
+
+	&::-webkit-scrollbar-track {
+		background: silver;
+	}
+}

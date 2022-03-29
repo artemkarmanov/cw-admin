@@ -19,5 +19,8 @@
   &[routerLink=users] {
     background-image: url("../../../../assets/users.svg");
   }
-}
 
+  &[routerLink=billing] {
+    background-image: url("../../../../assets/bookings.svg");
+  }
+}

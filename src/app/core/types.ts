@@ -148,9 +148,9 @@ export interface IRegion {
     region: string;
 }
 
-interface ITimeZone extends IRegion {
-    cities: string[];
-}
+// interface ITimeZone extends IRegion {
+//     cities: string[];
+// }
 
 export interface INewUser {
     paymentMethodComplete: any;
@@ -220,3 +220,24 @@ export interface IUserFilter {
     emailName?: string;
     role?: 'admin' | 'captioner';
 }
+
+export interface IBilling {
+    userId: number,
+    firstName: string,
+    lastName: string,
+    email: string,
+    billingResultId: number,
+    totalBill: number,
+    success: 0 | 1,
+    error: string,
+    billedAtEpoch: number
+}
+
+export interface IBillingDetails extends Array<{
+    billingDetailsId: number,
+    sessionId: number,
+    sessionBill: number,
+    billedDuration: number,
+    duration: number,
+    rate: number
+}> {}
