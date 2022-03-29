@@ -36,7 +36,7 @@
         <ng-container *ngIf="authorizedViewersOnlyChecked">
             <div>
                 <label class="form-label" for="viewerEmails">List of emails for authorised viewers (separated by linebreaks)</label>
-                <cwb-viewers-list formControlName="viewerEmails" id="viewerEmails"></cwb-viewers-list>
+                <textarea class="form-control form-control-lg" formControlName="viewerEmails" id="viewerEmails"></textarea>  
             </div>
         </ng-container>
         <div>

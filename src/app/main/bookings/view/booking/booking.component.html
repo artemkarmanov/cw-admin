@@ -45,9 +45,9 @@
             <div class="field-text">{{data.bookingCaptionerPasscode}}</div>
         </div>
         <ng-container *ngIf="data.viewerEmails">
-            <ng-container *ngIf="data.viewerEmails.split('\\n').length > 0">
-                <label class="form-label">Number of authorized viewers: {{data.viewerEmails.split("\\n").length}}</label>
-                <div *ngFor="let viewer of data.viewerEmails.split('\\n')">
+            <ng-container *ngIf="data.viewerEmails.split('\n').length > 0">
+                <label class="form-label">Number of authorized viewers: {{data.viewerEmails.split('\n').length}}</label>
+                <div *ngFor="let viewer of data.viewerEmails.split('\n')">
                     <div class="field-text">{{viewer}}</div>
                 </div>
             </ng-container>
