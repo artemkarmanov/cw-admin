@@ -204,12 +204,11 @@ export interface ISessionFilter {
 
 export interface ISessionCaptionLogs {
     captionLogId: number;
-    userId: number;
-    firstName: string;
-    lastName: string
-    connectionId: number;
     endEpoch: number;
-    startEpoch: number;
+    firstName: string;
+    lastName: string;
+    startepoch: number;
+    userId: number;
 }
 
 export interface IUser extends INewUser {

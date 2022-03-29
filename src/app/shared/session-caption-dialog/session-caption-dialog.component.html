@@ -1,0 +1,43 @@
+<div class="modal-header">
+    <h1 class="modal-title">
+        Caption Log
+    </h1>
+    <button (click)="close()"  type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<cwb-card>
+    <table>
+        <thead>
+        <tr class="table-light">
+            <th>Log</th>
+            <th>User</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Started</th>
+            <th>Ended</th>
+        </tr>
+        </thead>
+        <ng-container *ngIf="data$$ | async as logs">
+            <tbody *ngIf="logs.length; else empty">
+                <tr *ngFor="let log of logs">
+                    <td>{{log.captionLogId}}</td>
+                    <td>{{log.userId}}</td>
+                    <td>{{log.firstName}}</td>
+                    <td>{{log.lastName}}</td>
+                    <td>{{getAdjustedHour(log.startepoch, (userTimezone$ | async)) | date: 'd MMM, y, h:mm a'}}</td>
+                    <td>{{getAdjustedHour(log.endEpoch, (userTimezone$ | async)) | date: 'd MMM, y, h:mm a'}}</td>
+                </tr>
+            </tbody>
+        </ng-container>
+    </table>
+    <ng-template #empty>
+        <tr>
+            <td class="text-center" colspan="6" style="padding:48px;">
+                <div>
+                    There is no caption log
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+</cwb-card>

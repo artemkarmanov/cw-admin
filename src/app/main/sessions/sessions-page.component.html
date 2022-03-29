@@ -23,7 +23,7 @@
         </thead>
         <ng-container *ngIf="sessions$ | async as sessions">
             <tbody *ngIf="sessions.length;else empty">
-                <tr *ngFor="let session of sessions">
+                <tr *ngFor="let session of sessions" (click)="renderSessionCaptionsViewDialog(session.sessionId)">
                     <ng-container *ngIf="isNotCancelled(session)">
                         <td (click)="renderSessionCaptionsViewDialog(session.sessionId)">{{session.sessionId}}</td>
                         <td><a [routerLink]="'/bookings/'+session.bookingToken">{{session.title}}</a></td>

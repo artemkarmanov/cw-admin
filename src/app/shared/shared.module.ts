@@ -15,6 +15,7 @@ import {ButtonHeaderComponent} from './button-header/button-header.component';
 import {IconComponent} from './icon/icon.component';
 import {TableDirective} from '../table.directive';
 import {TimezonePipe} from './timezone.pipe';
+import {SessionCaptionDialogComponent} from './session-caption-dialog/session-caption-dialog.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import {TimezonePipe} from './timezone.pipe';
         PageTopComponent,
         ButtonHeaderComponent,
         IconComponent,
-        TableDirective
+        TableDirective,
+        SessionCaptionDialogComponent
     ],
     exports: [
         CommonModule,
@@ -47,7 +49,8 @@ import {TimezonePipe} from './timezone.pipe';
         PageTopComponent,
         ButtonHeaderComponent,
         IconComponent,
-        TableDirective
+        TableDirective,
+        SessionCaptionDialogComponent
     ],
     imports: [
         CommonModule,
