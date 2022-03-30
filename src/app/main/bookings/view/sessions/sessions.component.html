@@ -11,8 +11,7 @@
     <tbody>
     <tr *ngFor="let session of data">
         <td>{{session.sessionId}}</td>
-        <!-- TODO:  Get the bookingTimeZone of this session  -->
-        <td>{{getAdjustedHour(session.startEpoch, "America/New_York") | date: 'd MMM, y, h:mm a':'+0000'}}</td>
+        <td>{{session.startEpoch | adjustTime: bookingTimeZone | async | date: 'd MMM, y, h:mm a'}}</td>
         <td><span cwbStatus>{{session.status}}</span></td>
         <td>{{session.sessionDurationMins}}</td>
         <td *ngIf="isAdmin">
