@@ -32,7 +32,7 @@
                 <!-- All bookings created from here on will display correctly now, but some past  -->
                 <!-- bookings will not display correctly anymore -->
                                                
-                <td>{{getAdjustedHour(booking.nextSessionStartEpoch, booking.bookingTimeZone) | date: 'short':'+0000'}}</td>
+                <td>{{getAdjustedHour(booking.nextSessionStartEpoch, booking.bookingTimeZone) | date: 'd MMM YYYY hh:mm a':'+0000'}}</td>
                 <td>{{booking.nextSessionDurationMins}}</td>
                 <td>{{booking.totalSessions}}</td>
                 <td>{{booking.countFutureSessions}}</td>

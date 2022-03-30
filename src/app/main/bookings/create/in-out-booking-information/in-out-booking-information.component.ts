@@ -13,8 +13,8 @@ import {tap} from 'rxjs/operators';
 export class InOutBookingInformationComponent implements OnInit, OnDestroy {
     private destroy$$: Subject<void> = new Subject<void>();
     public form: FormGroup = new FormGroup({
-        audioDetails: new FormControl(this.createService.audioDetails, [Validators.required]),
-        captionDispDetails: new FormControl(this.createService.captionDispDetails, [Validators.required])
+        audioDetails: new FormControl(this.createService.audioDetails),
+        captionDispDetails: new FormControl(this.createService.captionDispDetails)
     });
 
     constructor(private createService: CreateService) {

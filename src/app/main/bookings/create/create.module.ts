@@ -8,6 +8,8 @@ import {InOutBookingInformationComponent} from './in-out-booking-information/in-
 import {BookingDetailsComponent} from './booking-details/booking-details.component';
 import {StepTitleComponent} from './step-title/step-title.component';
 import {SharedModule} from '../../../shared/shared.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -22,7 +24,8 @@ import {SharedModule} from '../../../shared/shared.module';
         SharedModule,
         CreateRoutingModule,
         CreateServiceProviderModule,
-
+        FormsModule,
+        NgbModule
     ]
 })
 export class CreateModule {
