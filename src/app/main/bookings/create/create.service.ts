@@ -59,6 +59,14 @@ export class CreateService {
         this.data.startDate = startDate;
     }
 
+    get oboUserId(): number | undefined {
+        return this.data.oboUserId || undefined
+    }
+
+    set oboUserId(oboUserId: number | undefined) {
+        this.data.oboUserId = Number(oboUserId) || undefined
+    }
+
     get countWeeks(): number {
         return this.data.countWeeks || 1;
     }
@@ -173,6 +181,7 @@ export class CreateService {
                     requirePasscode: this.requirePasscode,
                     requireLogin: this.requireLogin,
                     viewerEmails: this.viewerEmails,
+                    oboUserId: this.oboUserId
                 };
                 // This used to be just an if statement, and if the "this.timeZone"
                 // was different from "timeZone", it would add data to the object,

@@ -27,6 +27,14 @@
                required type="number">
     </div>
     <div>
+        <label class="form-label" for="oboUserId">Booking owner</label>
+        <select class="form-select form-select-lg" formControlName="oboUserId" id="oboUserId" type="number">
+            <option *ngFor="let user of (users$ | async)" [value]="user.userId">
+                {{user.firstName}} {{user.lastName}}
+            </option>
+        </select>
+    </div>
+    <div>
         <cwb-timezone-selector [required]="false" formControlName="timeZoneOverride"></cwb-timezone-selector>
     </div>
 </form>
