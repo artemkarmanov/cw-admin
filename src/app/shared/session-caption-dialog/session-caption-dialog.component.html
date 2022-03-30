@@ -25,8 +25,8 @@
                     <td>{{log.userId}}</td>
                     <td>{{log.firstName}}</td>
                     <td>{{log.lastName}}</td>
-                    <td>{{getAdjustedHour(log.startepoch, (userTimezone$ | async)) | date: 'd MMM, y, h:mm a'}}</td>
-                    <td>{{getAdjustedHour(log.endEpoch, (userTimezone$ | async)) | date: 'd MMM, y, h:mm a'}}</td>
+                    <td>{{log.startepoch | adjustTime | async | date: 'd MMM, y, h:mm a'}}</td>
+                    <td>{{log.endEpoch | adjustTime | async | date: 'd MMM, y, h:mm a'}}</td>
                 </tr>
             </tbody>
         </ng-container>
