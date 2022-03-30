@@ -23,4 +23,8 @@
   &[routerLink=billing] {
     background-image: url("../../../../assets/bookings.svg");
   }
+
+  &:not(.active) {
+    color: #3F3F3F;
+  }
 }

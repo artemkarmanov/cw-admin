@@ -122,6 +122,7 @@ export interface INewBooking {
     requirePasscode?: 0 | 1;
     requireLogin?: 0 | 1;
     viewerEmails?: string;
+    oboUserId?: number;
 }
 
 export interface IUpdateBooking {
