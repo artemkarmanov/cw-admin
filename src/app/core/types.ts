@@ -207,3 +207,13 @@ export interface IUserFilter {
     emailName?: string;
     role?: 'admin' | 'captioner';
 }
+
+export interface ISessionViewerLog  {
+    viewerLogId: number,
+    userId: number,
+    firstName: string,
+    lastName: string,
+    email: string,
+    endEpoch: number,
+    startepoch: number
+}

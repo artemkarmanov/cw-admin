@@ -2,11 +2,12 @@ import {Injectable} from '@angular/core';
 import {SocketMessagesService} from '../core/socket-messages.service';
 import {Observable, pluck} from 'rxjs';
 import {ModalService} from '../core/modal.service';
-import {IAdminSession, ICreateSession, ISession} from '../core/types';
+import {IAdminSession, ICreateSession, ISession, ISessionViewerLog} from '../core/types';
 import {SessionDialogComponent} from './session-dialog/session-dialog.component';
-import {filter, switchMap} from 'rxjs/operators';
+import {filter, map, switchMap} from 'rxjs/operators';
 import {ConfirmationService} from './confirmation.service';
 import {SharedProviderModule} from './shared-provider.module';
+import { SessionViewerLogsDialogComponent } from './session-viewer-logs-dialog/session-viewer-logs-dialog.component';
 
 @Injectable({
     providedIn: SharedProviderModule
@@ -54,7 +55,30 @@ export class SessionService {
         }).pipe(
             pluck('sessions')
         )
+    }
 
+    public getSessionViewerLogs$(sessionId: number): Observable<unknown> {
+        console.log("here")
+        return this.messages.request$<{ logs: ISessionViewerLog[] }>('getSessionViewerLogs', {
+            sessionId
+        }).pipe(
+            pluck('logs'),
+            map(stuff => stuff.map((st) => {
+                console.log(stuff)
+                return this.modalService.open$<any, SessionViewerLogsDialogComponent>(SessionViewerLogsDialogComponent, {size: "xl"}, (instance) => {
+                    instance.data$$.next(stuff);
+               })
+              }))
+        )
+        
+        
+                
+                
+        
+        
+            
+        
+        
     }
 
     public addSession$(session: ICreateSession): Observable<number> {

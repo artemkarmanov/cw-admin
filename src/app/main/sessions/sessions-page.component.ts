@@ -99,7 +99,6 @@ export class SessionsPageComponent implements OnInit, AfterViewInit, OnDestroy {
     // so this function is necessary.  It takes the start time, multiplies it by 1000
     // (to put it in milisecond format), then changes the timezone 
     public getAdjustedHour(start: any, tz: any) {
-        console.log(tz)
         if (tz === "") {
             tz = "America/New_York"
         }
@@ -108,6 +107,11 @@ export class SessionsPageComponent implements OnInit, AfterViewInit, OnDestroy {
         
         
         return dater
+    }
+
+    showLogs(s: any) {
+        this.sessionService.getSessionViewerLogs$(s.sessionId).subscribe(v => console.log(v))
+        
     }
 
 

@@ -36,6 +36,9 @@
                         <td><span cwbStatus>{{session.status}}</span></td>
                         <td>{{session | owner}}</td>
                         <td>
+                            <button (click)="showLogs(session)" class="btn">
+                                Logs
+                            </button>
                             <ng-container *ngIf="isEditable(session)">
                                 <button (click)="edit(session)" class="btn">
                                     <cwb-icon name="pencil"></cwb-icon>

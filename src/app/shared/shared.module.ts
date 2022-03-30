@@ -14,6 +14,7 @@ import {PageTopComponent} from './page-top/page-top.component';
 import {ButtonHeaderComponent} from './button-header/button-header.component';
 import {IconComponent} from './icon/icon.component';
 import {TableDirective} from '../table.directive';
+import { SessionViewerLogsDialogComponent } from './session-viewer-logs-dialog/session-viewer-logs-dialog.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import {TableDirective} from '../table.directive';
         RegionPipe,
         CityPipe,
         ConfirmationDialogComponent,
+        SessionViewerLogsDialogComponent,
         StatusDirective,
         SessionDialogComponent,
         CardComponent,
@@ -40,6 +42,7 @@ import {TableDirective} from '../table.directive';
         CityPipe,
         StatusDirective,
         SessionDialogComponent,
+        SessionViewerLogsDialogComponent,
         CardComponent,
         PageTopComponent,
         ButtonHeaderComponent,
