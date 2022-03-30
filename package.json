@@ -1,12 +1,19 @@
 {
   "name": "cw-booking",
   "version": "0.0.0",
-  "scripts": {
-    "start": "ng serve --watch --port=5000 --configuration=development",
-    "build": "ng build",
-    "local-backend": "cd ../cap_plat && nodemon --watch './**/*.go' --signal SIGTERM --exec 'go run' main.go"
-  },
   "private": true,
+  "scripts": {
+    "start": "npm run start:a & npm run start:b",
+    "start:a": "ng serve --watch --port=5001 -c admin-development",
+    "start:b": "ng serve --watch --port=5000 -c booking-development",
+    "local": "npm run local:a & npm run local:b",
+    "local-backend": "cd ../cap_plat && nodemon --watch './**/*.go' --signal SIGTERM --exec 'go run' main.go",
+    "local:a": "ng serve --watch --port=5001 -c admin-local",
+    "local:b": "ng serve --watch --port=5000 -c booking-local",
+    "build": "npm run build:a & npm run build:b",
+    "build:a": "ng build -c admin-production",
+    "build:b": "ng build -c booking-production"
+  },
   "dependencies": {
     "@angular/animations": "~13.2.0",
     "@angular/common": "~13.2.0",
