@@ -1,11 +1,11 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {Observable, Subject, switchMap, takeUntil, withLatestFrom} from 'rxjs';
-import {IAdminSession, ISession} from '../../core/types';
+import {lastValueFrom, Observable, Subject, switchMap, takeUntil, withLatestFrom} from 'rxjs';
+import {IAdminSession} from '../../core/types';
 import {FilterComponent} from './filter/filter.component';
 import {tap} from 'rxjs/operators';
 import {SessionService} from '../../shared/session.service';
 import {BreadCrumbsService} from '../../core/bread-crumbs.service';
-import { DateTime } from 'luxon';
+import {DateTime} from 'luxon';
 
 
 @Component({
@@ -110,8 +110,8 @@ export class SessionsPageComponent implements OnInit, AfterViewInit, OnDestroy {
         return dater
     }
 
-    public renderSessionCaptionsViewDialog(sessionId: number): any {
-        this.sessionService.getSessionCaptionLogs$(sessionId)
-            .subscribe(data => console.log(data));
+    public renderSessionCaptionsViewDialog(sessionId: number): void {
+        lastValueFrom(this.sessionService.getSessionCaptionLogs$(sessionId))
+            .then(data => this.sessionService.openSessionCaptionDialog$(sessionId, data));
     }
 }

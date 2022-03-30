@@ -7,6 +7,7 @@ import {SessionDialogComponent} from './session-dialog/session-dialog.component'
 import {filter, switchMap} from 'rxjs/operators';
 import {ConfirmationService} from './confirmation.service';
 import {SharedProviderModule} from './shared-provider.module';
+import {SessionCaptionDialogComponent} from './session-caption-dialog/session-caption-dialog.component';
 
 @Injectable({
     providedIn: SharedProviderModule
@@ -70,6 +71,21 @@ export class SessionService {
             pluck('logs')
         );
     }
+
+    public openSessionCaptionDialog$(sessionId: number, sesssionLogs$: ISessionCaptionLogs[]): Observable<unknown> {
+        return this.modalService.open$<any, SessionCaptionDialogComponent>(SessionCaptionDialogComponent, {}, (instance) => {
+            instance.data$$.next(sesssionLogs$);
+        }).pipe(
+                filter(Boolean),
+                switchMap((session) => {
+                    Object.assign(session, {
+                        sessionId
+                    });
+                    return this.updateSession$(session);
+                }),
+            )
+    }
+    
 
     private updateSession$(session: ISession | IAdminSession): Observable<unknown> {
         return this.messages.request$('updateSession', session).pipe(
