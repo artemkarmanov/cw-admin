@@ -8,7 +8,21 @@
 </cwb-page-top>
 
 <cwb-card>
-    <cwb-filter></cwb-filter>
+    <div class="row">
+        <cwb-filter class="col"></cwb-filter>
+        <div class="col action-buttons">
+            <button class="btn btn-secondary"
+                [disabled]="isRowSelected"
+                (click)="renderSessionCaptionsViewDialog(selectedSession)">
+                Caption Log
+            </button>
+            <button class="btn btn-secondary"
+                (click)="unSelectRow()"
+                [disabled]="isRowSelected">
+                Cancel
+            </button>
+        </div>
+    </div>
     <table>
         <thead>
         <tr class="table-light">
@@ -23,15 +37,13 @@
         </thead>
         <ng-container *ngIf="sessions$ | async as sessions">
             <tbody *ngIf="sessions.length;else empty">
-                <tr *ngFor="let session of sessions" (click)="renderSessionCaptionsViewDialog(session.sessionId)">
+                <tr *ngFor="let session of sessions; let i = index"
+                    (click)="selectRow(i, session.sessionId)"
+                    [class.selected]="selectedRow === i">
                     <ng-container *ngIf="isNotCancelled(session)">
-                        <td (click)="renderSessionCaptionsViewDialog(session.sessionId)">{{session.sessionId}}</td>
+                        <td>{{session.sessionId}}</td>
                         <td><a [routerLink]="'/bookings/'+session.bookingToken">{{session.title}}</a></td>
-                        <!-- I had to add this 'getAdjustedHour()' function because the backend is now (as of March 23, 2022)-->
-                        <!-- returning date startEpochs with fewer digits than before -->
-                        <!-- All bookings created from here on will display correctly now, but some past  -->
-                        <!-- bookings will not display correctly anymore -->
-                        <td>{{getAdjustedHour(session.startEpoch, session.bookingTimeZone) | date: 'short':'+0000'}}</td>
+                        <td>{{session.startEpoch | adjustTime: session.bookingTimeZone | async | date: 'd MMM, y, h:mm a'}}</td>
                         <td>{{session.sessionDurationMins}}</td>
                         <td><span cwbStatus>{{session.status}}</span></td>
                         <td>{{session | owner}}</td>

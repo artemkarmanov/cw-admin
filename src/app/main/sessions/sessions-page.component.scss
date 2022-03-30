@@ -2,3 +2,14 @@ tr:hover {
     background: rgb(0 0 0 / 2%);
     cursor: pointer;
 }
+
+.selected {
+    background: rgb(0 0 0 / 4%);
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    align-items: flex-start;
+}
