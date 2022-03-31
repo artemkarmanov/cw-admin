@@ -26,7 +26,7 @@ export class SessionCaptionDialogComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.data$.pipe(
             takeUntil(this.destroy$$.asObservable()),
-        ).subscribe(data => console.log(data))
+        ).subscribe();
     }
 
     ngOnDestroy(): void {
