@@ -1,30 +1,42 @@
 <form [formGroup]="form">
-    <div>
-        <label class="form-label" for="title">Title</label>
-        <input class="form-control form-control-lg" formControlName="title" id="title" maxlength="100" required
-               type="text">
-    </div>
-    <div class="d-flex">
-        <div class="d-flex flex-column w-100">
-            <label class="form-label" for="startDate">Start date</label>
-            <input class="form-control form-control-lg" formControlName="startDate" id="startDate" required type="date">
+    <div class="container">
+        <div class="row" style="margin-top: 10px;">
+            <div class="col">
+                <label class="form-label" for="title">Booking title</label>
+                <input class="form-control form-control-lg" formControlName="title" id="title" maxlength="100" required
+                    type="text" placeholder="Enter booking title here">
+            </div>
         </div>
-        <div class="d-flex flex-column w-100">
-            <label class="form-label" for="startTime">Start time</label>
-            <input class="form-control form-control-lg" formControlName="startTime" id="startTime" required type="time">
+    
+        <div class="d-flex" style="margin-top: 10px;">
+            <div class="d-flex flex-column w-100" style="margin-right: 10px;">
+                <label class="form-label" for="startDate">Session date</label>
+                <input class="form-control form-control-lg" formControlName="startDate" id="startDate" required type="date" placeholder="Select date">
+            </div>
+            <div class="d-flex flex-column w-100">
+                <label class="form-label" for="startTime">Session time</label>
+                <ngb-timepicker [(ngModel)]="time" [meridian]="meridian" show-spinners="false" formControlName="startTime" required></ngb-timepicker>
+            </div>
+            <!-- <div class="d-flex flex-column w-100">
+                <label class="form-label" for="startTime">Start time</label>
+                <input class="form-control form-control-lg" formControlName="startTime" id="startTime" required type="time">
+            </div> -->
         </div>
+        <div style="margin-top: 10px;">
+            <cwb-timezone-selector [required]="false" formControlName="timeZoneOverride"></cwb-timezone-selector>
+        </div>
+    <div class="form-inline" style="margin-top: 10px;">
+        <label>Total session duration</label>
+        <input formControlName="duration" id="durationMins" max="1439" min="1"
+               required type="number" style="text-align: center; width: 48pt;">
+        <label>minutes</label>
     </div>
 
-    <div>
-        <label class="form-label" for="durationMins">Duration (mins)</label>
-        <input class="form-control form-control-lg" formControlName="duration" id="durationMins" max="1439" min="1"
-               required type="number">
-    </div>
-
-    <div>
-        <label class="form-label" for="countWeeks">Weekly recurrence</label>
-        <input class="form-control form-control-lg" formControlName="countWeeks" id="countWeeks" max="100" min="1"
-               required type="number">
+    <div class="form-inline" style="margin-top: 10px;">
+        <label>Sessions repeat weekly for</label> 
+        <button (click)="minus()" class="minus-button">-</button><input formControlName="countWeeks" id="countWeeks" max="100" min="1"
+               required type="number" style="text-align: center; width: 38pt; margin: 0px;" ><button (click)="plus()" class='plus-button'>+</button>
+        <label>total sessions</label>
     </div>
     <div>
         <label class="form-label" for="oboUserId">Booking owner</label>

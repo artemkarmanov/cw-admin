@@ -28,7 +28,7 @@
                 <td><a [routerLink]="booking.bookingToken">{{booking.bookingToken}}</a></td>
                 <td>{{booking.title}}</td>         
                 <td>{{booking.date}}</td>
-                <td>{{booking.nextSessionStartEpoch | adjustTime: booking.bookingTimeZone | async | date: 'd MMM, y, h:mm a'}}</td>
+                <td>{{booking.nextSessionStartEpoch | adjustTime: booking.bookingTimeZone | async | date: 'd MMM YYYY h:mm a'}}</td>
                 <td>{{booking.nextSessionDurationMins}}</td>
                 <td>{{booking.totalSessions}}</td>
                 <td>{{booking.countFutureSessions}}</td>

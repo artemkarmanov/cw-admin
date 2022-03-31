@@ -4,7 +4,7 @@ import {NgbModal, NgbModalOptions, NgbModalRef} from '@ng-bootstrap/ng-bootstrap
 import {filter, map} from 'rxjs/operators';
 
 
-const DEFAULT_PARAMS = {centered: true, backdrop: 'static', keyboard: false,};
+const DEFAULT_PARAMS = {centered: true, backdrop: 'static', keyboard: false, width: "80%"};
 
 @Injectable()
 export class ModalService {

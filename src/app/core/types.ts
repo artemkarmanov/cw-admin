@@ -223,10 +223,6 @@ export interface IUserFilter {
 }
 
 export interface IBilling {
-    userId: number,
-    firstName: string,
-    lastName: string,
-    email: string,
     billingResultId: number,
     totalBill: number,
     success: 0 | 1,
@@ -242,3 +238,14 @@ export interface IBillingDetails extends Array<{
     duration: number,
     rate: number
 }> {}
+
+export interface ISessionViewerLog  {
+    viewerLogId: number,
+    userId: number,
+    firstName: string,
+    lastName: string,
+    email: string,
+    endEpoch: number,
+    startepoch: number
+}
+

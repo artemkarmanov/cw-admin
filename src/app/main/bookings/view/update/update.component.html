@@ -31,7 +31,7 @@
         <cwb-timezone-selector formControlName="timeZoneOverride"></cwb-timezone-selector>
         <div>
             <input class="form-check-input" formControlName="authorizedViewersOnly" id="authorizedViewersOnly" type="checkbox" style="margin-right: 10px;" (click)="switchAuthorizedViewerBool()">
-            <label class="form-label" for="authorizedViewersOnly">Only allow these authorised viewers:</label>
+            <label class="form-label" for="authorizedViewersOnly">Only allow these logged in users:</label>
         </div>
         <ng-container *ngIf="authorizedViewersOnlyChecked">
             <div>
@@ -41,11 +41,11 @@
         </ng-container>
         <div>
             <input class="form-check-input" formControlName="requireLogin" id="requireLogin" type="checkbox" style="margin-right: 10px;">
-            <label class="form-label" for="requireLogin">Require viewer has a CaptionWorks login</label>
+            <label class="form-label" for="requireLogin">Viewer must be logged into CaptionWorks</label>
         </div>
         <div>
             <input class="form-check-input" formControlName="requirePasscode" id="requirePasscode" type="checkbox" style="margin-right: 10px;">
-            <label class="form-label" for="requirePasscode">Require passcode to view (no public access)</label>
+            <label class="form-label" for="requirePasscode">Require passcode to view</label>
         </div>
         
         <textarea readonly class="form-control-lg form-control" formControlName="bookingPasscode" id="bookingPasscode"></textarea>

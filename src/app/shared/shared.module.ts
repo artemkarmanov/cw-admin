@@ -17,6 +17,8 @@ import {TableDirective} from '../table.directive';
 import {TimezonePipe} from './timezone.pipe';
 import {SessionCaptionDialogComponent} from './session-caption-dialog/session-caption-dialog.component';
 import {AdjustTimePipe} from './adjust-time.pipe';
+import { SessionViewerLogsDialogComponent } from './session-viewer-logs-dialog/session-viewer-logs-dialog.component';
+
 
 @NgModule({
     declarations: [
@@ -26,6 +28,7 @@ import {AdjustTimePipe} from './adjust-time.pipe';
         CityPipe,
         TimezonePipe,
         ConfirmationDialogComponent,
+        SessionViewerLogsDialogComponent,
         StatusDirective,
         SessionDialogComponent,
         CardComponent,
@@ -46,6 +49,7 @@ import {AdjustTimePipe} from './adjust-time.pipe';
         TimezonePipe,
         StatusDirective,
         SessionDialogComponent,
+        SessionViewerLogsDialogComponent,
         CardComponent,
         PageTopComponent,
         ButtonHeaderComponent,

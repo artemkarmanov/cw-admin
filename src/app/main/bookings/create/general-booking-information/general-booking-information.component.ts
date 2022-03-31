@@ -5,16 +5,18 @@ import {merge, Observable, Subject, takeUntil} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {UsersService} from "../../../../core/users.service";
 import {IUser} from "../../../../core/types";
+import { NgbTimepickerConfig, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'cwb-general-booking-information',
     templateUrl: './general-booking-information.component.html',
     styleUrls: ['./general-booking-information.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [NgbTimepickerConfig]
 })
 export class GeneralBookingInformationComponent implements OnInit, OnDestroy {
     private destroy$$: Subject<void> = new Subject();
-    public users$: Observable<IUser[]> = this.usersService.getUsers$()
+    public users$: Observable<IUser[]> = this.userService.getUsers$()
 
     public form: FormGroup = new FormGroup({
         title: new FormControl(this.createService.title, [Validators.required, Validators.maxLength(100)/*, Validators.minLength(10)*/]),
@@ -26,11 +28,18 @@ export class GeneralBookingInformationComponent implements OnInit, OnDestroy {
         oboUserId: new FormControl(this.createService.oboUserId, [])
     });
 
+    public time: NgbTimeStruct = {hour: 13, minute: 30, second: 0}
+    public meridian = true;
+
+
     constructor(
-      private createService: CreateService,
-      private usersService: UsersService
-    ) {
-    }
+        private createService: CreateService,
+        private userService: UsersService,
+        public config: NgbTimepickerConfig) {
+        // customize default values of ratings used by this component tree
+        config.seconds = false;
+        config.spinners = false;
+      }
 
     ngOnInit(): void {
         setTimeout(() => this.createService.currentStepFormIsValid(this.form.valid), 0);
@@ -48,7 +57,14 @@ export class GeneralBookingInformationComponent implements OnInit, OnDestroy {
             ),
             (this.form.get('startTime') as FormControl).valueChanges.pipe(
                 tap((value) => {
-                    this.createService.startTime = value;
+                    // The new time picker sends data in a different way
+                    // than the original time picker, so this transformation
+                    // is necessary.  We need to send time data as hh:mm 
+                    // So that's why we use this .slice statment (to append a zero
+                    // to the front in case it needs one)
+                    let transformedValue = ("0" + value.hour).slice(-2) + ":" + value.minute
+                    console.log(transformedValue)
+                    this.createService.startTime = transformedValue;
                 })
             ),
             (this.form.get('duration') as FormControl).valueChanges.pipe(
@@ -85,6 +101,24 @@ export class GeneralBookingInformationComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.destroy$$.next();
+    }
+
+    plus() {
+        
+        let currentVal = this.form.get("countWeeks")?.value
+        if (currentVal < 100) {
+            let nextVal = currentVal + 1
+            this.form.get("countWeeks")?.setValue(nextVal)
+        }
+        
+    }
+
+    minus() {
+        let currentVal = this.form.get("countWeeks")?.value
+        if (currentVal >= 2) {
+            let nextVal = currentVal - 1
+            this.form.get("countWeeks")?.setValue(nextVal)
+        }
     }
 
 

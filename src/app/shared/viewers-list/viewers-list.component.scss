@@ -1,0 +1,29 @@
+.form-inline {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+  }
+
+  .form-inline label {
+    margin: 5px 10px 5px 0;
+  }
+
+  .form-inline input {
+    vertical-align: middle;
+    margin: 5px 10px 5px 0;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+  }
+
+  .minus-button {
+    width: 40px;
+    margin-left: 10px;
+    background-color:#fff;
+    border-radius: 5px;
+    border-color: cadetblue;
+    border-width: 1px;
+    padding-left: 15px;
+    display: inline-flex !important;
+    align-items: center !important; 
+  }
