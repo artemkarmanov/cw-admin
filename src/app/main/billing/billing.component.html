@@ -12,7 +12,10 @@
 		</tr>
 		</thead>
 		<tbody>
-		<tr *ngFor="let billing of billings$ | async" (click)="billingPopup(billing)">
+		<tr
+			*ngFor="let billing of billings$ | async"
+			(click)="billingPopup(billing)"
+		>
 			<td>{{billing.billingResultId}}</td>
 			<td>{{billing.firstName}} {{billing.lastName}}</td>
 			<td>{{billing.email}}</td>

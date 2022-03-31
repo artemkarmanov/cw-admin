@@ -223,19 +223,23 @@ export interface IUserFilter {
 }
 
 export interface IBilling {
-    billingResultId: number,
-    totalBill: number,
-    success: 0 | 1,
-    error: string,
+    billingResultId: number
+    totalBill: number
+    success: 0 | 1
+    error: string
     billedAtEpoch: number
+    email: string
+    firstName: string
+    lastName: string
+    userId: number
 }
 
 export interface IBillingDetails extends Array<{
-    billingDetailsId: number,
-    sessionId: number,
-    sessionBill: number,
-    billedDuration: number,
-    duration: number,
+    billingDetailsId: number
+    sessionId: number
+    sessionBill: number
+    billedDuration: number
+    bookedDuration: number
     rate: number
 }> {}
 
@@ -248,4 +252,3 @@ export interface ISessionViewerLog  {
     endEpoch: number,
     startepoch: number
 }
-
