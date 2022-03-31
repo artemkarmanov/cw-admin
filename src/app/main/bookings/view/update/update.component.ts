@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {ViewService} from '../view.service';
 import {from, Observable, Subject, switchMap, takeUntil, withLatestFrom} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -17,6 +17,8 @@ import {Router} from '@angular/router';
     ]
 })
 export class UpdateComponent implements OnInit, OnDestroy {
+    @ViewChild('tooltip') clipboard: any;
+
     private destroy$$: Subject<void> = new Subject<void>();
     private data$$: Subject<IBooking> = new Subject<IBooking>();
     public data$: Observable<IBooking> = this.data$$.asObservable();
@@ -123,4 +125,10 @@ export class UpdateComponent implements OnInit, OnDestroy {
         this.authorizedViewersOnlyChecked = (this.authorizedViewersOnlyChecked) ? false : true;
     }
 
+    openTooltip(): void {
+        this.clipboard.open();
+        setTimeout(() => {
+            this.clipboard.close();
+        }, 2000);
+    }
 }

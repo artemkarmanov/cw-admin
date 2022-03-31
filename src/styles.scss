@@ -153,3 +153,27 @@ fieldset {
   border: 1px solid $blue-200;
   padding: 12px;
 }
+
+ngb-tooltip-window {
+  background: $grey-900;
+  color: $grey-200;
+  border-radius: 8px;
+  padding: 4px 8px;
+  font-size: 10px;
+  font-weight: 400;
+  opacity: 0.7;
+  z-index: 1;
+
+  &::after {
+    content: '';
+    width: 0;
+    height: 0;
+    position: absolute;
+    left: -5px;
+    top: 9px;
+    transform: rotate(90deg);
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid $grey-900;
+  }
+}
