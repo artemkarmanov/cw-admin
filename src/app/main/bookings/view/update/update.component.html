@@ -45,10 +45,26 @@
         </div>
         <div>
             <input class="form-check-input" formControlName="requirePasscode" id="requirePasscode" type="checkbox" style="margin-right: 10px;">
-            <label class="form-label" for="requirePasscode">Require passcode to view (no public access)</label>
+            <label class="form-label" for="requirePasscode">
+                Require passcode 
+            </label>
+            <label class="form-label">
+                <span class="clipboard"
+                    ngxClipboard
+                    (cbOnSuccess)="openTooltip()"
+                    [cbContent]="form.controls['bookingPasscode'].value"
+                    ngbTooltip="Copied to clipboard"
+                    triggers="manual"
+                    #tooltip="ngbTooltip"
+                    placement="bottom"
+                >
+                    {{ form.controls['bookingPasscode'].value }}
+                    <i class="bi bi-clipboard text-primary"></i>
+                </span>
+                <span>&nbsp;to view (no public access)</span>
+            </label>
         </div>
-        
-        <textarea readonly class="form-control-lg form-control" formControlName="bookingPasscode" id="bookingPasscode"></textarea>
-            
     </form>
 </ng-template>
+<ng-template #tipContent>Copied to clipboard</ng-template>
+
