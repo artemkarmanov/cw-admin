@@ -23,7 +23,7 @@
 			<tr *ngFor="let detail of billing">
 				<td>{{detail.billingDetailsId}}</td>
 				<td>{{detail.sessionId}}</td>
-				<td>{{detail.duration}}</td>
+				<td>{{detail.bookedDuration}}</td>
 				<td>{{detail.billedDuration}}</td>
 				<td>{{detail.rate}}</td>
 				<td>{{detail.sessionBill | currency: 'USD'}}</td>

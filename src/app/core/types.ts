@@ -239,6 +239,6 @@ export interface IBillingDetails extends Array<{
     sessionId: number,
     sessionBill: number,
     billedDuration: number,
-    duration: number,
+    bookedDuration: number,
     rate: number
 }> {}
