@@ -68,6 +68,7 @@
             ],
             "styles": [
               "src/styles.scss",
+              "src/scss/colors-10.scss",
               "node_modules/bootstrap-icons/font/bootstrap-icons.scss"
             ]
           },

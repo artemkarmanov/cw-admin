@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TimezoneSelectorComponent} from './timezone-selector/timezone-selector.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ViewersListComponent} from './viewers-list/viewers-list.component';
 import {RegionPipe} from './region.pipe';
 import {CityPipe} from './city.pipe';
@@ -17,6 +17,11 @@ import {TableDirective} from '../table.directive';
 import {TimezonePipe} from './timezone.pipe';
 import {SessionCaptionDialogComponent} from './session-caption-dialog/session-caption-dialog.component';
 import {AdjustTimePipe} from './adjust-time.pipe';
+import {ButtonComponent} from './components/button/button.component';
+import {FooterComponent} from "./components/footer/footer.component";
+import {InputComponent} from "./components/input/input.component";
+import {SmallButtonComponent} from "./components/small-button/small-button.component";
+import {IconComponent as Icon2Component} from './components/icon/icon.component';
 
 @NgModule({
     declarations: [
@@ -34,28 +39,36 @@ import {AdjustTimePipe} from './adjust-time.pipe';
         IconComponent,
         TableDirective,
         SessionCaptionDialogComponent,
-        AdjustTimePipe
+        AdjustTimePipe,
+        ButtonComponent,
+        FooterComponent,
+        Icon2Component,
+        InputComponent,
+        SmallButtonComponent
     ],
-    exports: [
-        CommonModule,
-        ReactiveFormsModule,
-        TimezoneSelectorComponent,
-        ViewersListComponent,
-        RegionPipe,
-        CityPipe,
-        TimezonePipe,
-        StatusDirective,
-        SessionDialogComponent,
-        CardComponent,
-        PageTopComponent,
-        ButtonHeaderComponent,
-        IconComponent,
-        TableDirective,
-        SessionCaptionDialogComponent,
-        AdjustTimePipe
-    ],
+	exports: [
+		CommonModule,
+		FormsModule,
+		ReactiveFormsModule,
+		TimezoneSelectorComponent,
+		ViewersListComponent,
+		RegionPipe,
+		CityPipe,
+		TimezonePipe,
+		StatusDirective,
+		SessionDialogComponent,
+		CardComponent,
+		PageTopComponent,
+		ButtonHeaderComponent,
+		IconComponent,
+		TableDirective,
+		SessionCaptionDialogComponent,
+		AdjustTimePipe,
+		Icon2Component
+	],
     imports: [
         CommonModule,
+        FormsModule,
         ReactiveFormsModule,
         SharedProviderModule
     ]

@@ -15,15 +15,15 @@ export class AdjustTimePipe implements PipeTransform {
 
     transform(start: number, timeZone?: string): Observable<string> {
         if (timeZone) {
-            return of(timeZone).pipe(map(tz => this.formatTime(start, tz)));
+            return of(timeZone).pipe(map(tz => AdjustTimePipe.formatTime(start, tz)));
         } else {
-            return this.userTimezone$.pipe(map(tz => this.formatTime(start, tz)));
+            return this.userTimezone$.pipe(map(tz => AdjustTimePipe.formatTime(start, tz)));
         }
     }
 
-    private formatTime(start: number, tz: string) {
+    private static formatTime(start: number, tz: string): string {
         if (!start) return String(start);
         const dt = DateTime.fromMillis(start * 1000, {zone: tz});
-        return dt.toISO({format: 'extended'}).toString();
+        return dt.toISO({format: 'extended'})?.toString();
     }
 }
