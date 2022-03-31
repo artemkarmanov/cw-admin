@@ -16,17 +16,16 @@ export class AdjustTimePipe implements PipeTransform {
         .pipe(map(data => data.timeZone ? data.timeZone : 'America/New_York'));
 
     transform(start: number, timeZone?: string): Observable<string> {
-        if (timeZone) {
-            return of(timeZone).pipe(map(tz => this.formatTime(start, tz)));
-        } else {
-            return this.userTimezone$.pipe(map(tz => this.formatTime(start, tz)));
-        }
+        return timeZone ? 
+            of(timeZone).pipe(map(tz => this.formatTime(start, tz))) :
+            this.userTimezone$.pipe(map(tz => this.formatTime(start, tz)));
     }
 
     private formatTime(start: number, tz: string) {
-        if (!start) return String(start);
-        const dt = DateTime.fromMillis(start * 1000, {zone: tz})
-            .toISO({format: 'extended'}).toString()
+        const dt = start ? 
+            DateTime.fromMillis(start * 1000, {zone: tz})
+                .toISO({format: 'extended'}).toString() :
+                String(start);
         const formattedDate = formatDate(dt, 'd MMM, y, h:mm a', this.locale)
             .replace(',', '');
         return formattedDate;
