@@ -1,13 +1,10 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {BookingService} from './booking.service';
 import {BehaviorSubject, Observable, Subject, switchMap, takeUntil} from 'rxjs';
-import {IBookingSummary, IUserSettings} from '../../core/types';
-import {map, tap} from 'rxjs/operators';
+import {IBookingSummary} from '../../core/types';
+import {tap} from 'rxjs/operators';
 import {CreateService} from './create/create.service';
 import {BreadCrumbsService} from '../../core/bread-crumbs.service';
-import {IANAZone} from 'luxon';
-import {AuthService} from "../../core/auth.service";
-import {DatePipe} from "@angular/common";
 
 @Component({
     selector: 'cwb-bookings-page',
@@ -22,29 +19,12 @@ export class BookingsPageComponent implements OnInit, OnDestroy {
     private destroy$$: Subject<void> = new Subject<void>();
     private reload$$: Subject<void> = new Subject<void>();
     private bookings$$: BehaviorSubject<IBookingSummary[]> = new BehaviorSubject<IBookingSummary[]>([]);
-    public bookings$: Observable<IBookingSummary[]> = this.authService.userSettings$.pipe(
-      switchMap((user: IUserSettings) => this.bookings$$.asObservable().pipe(
-        map((bookings: IBookingSummary[]) => bookings
-          .map(booking => ({
-              ...booking,
-              nextSessionStartEpoch: (booking.nextSessionStartEpoch * 1000)
-          }))
-          .map(booking => {
-              const offset = IANAZone
-                .create(user.timeZone)
-                .formatOffset(booking.nextSessionStartEpoch, 'techie')
-              return {
-                  ...booking,
-                  date: new DatePipe('en-US')
-                    .transform(
-                      booking.nextSessionStartEpoch,
-                      'short',
-                      offset
-                    )!
-              }
-          }))
-      ))
-    )
+
+    public bookings$: Observable<IBookingSummary[]> = this.bookings$$.asObservable().pipe(
+        //tap(console.log)
+    );
+
+    public hrsDiff: number = -9;
 
     constructor(
         private bookingService: BookingService,
@@ -54,6 +34,11 @@ export class BookingsPageComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+
+        
+
+
+
         this.breadCrumbsService.set([{
             path: '/bookings',
             title: 'Bookings'

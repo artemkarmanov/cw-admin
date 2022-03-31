@@ -24,10 +24,10 @@
         </thead>
         <ng-container *ngIf="bookings$ | async as bookings">
             <tbody *ngIf="bookings.length;else empty">
-            <tr *ngFor="let booking of bookings" style="line-height: 0;">
+            <tr *ngFor="let booking of bookings" style="line-height: 0px;">
                 <td><a [routerLink]="booking.bookingToken">{{booking.bookingToken}}</a></td>
-                <td>{{booking.title}}</td>
-                <td>{{booking.date}}</td>
+                <td>{{booking.title}}</td>         
+                <td>{{booking.nextSessionStartEpoch | adjustTime: booking.bookingTimeZone | async | date: 'd MMM, y, h:mm a'}}</td>
                 <td>{{booking.nextSessionDurationMins}}</td>
                 <td>{{booking.totalSessions}}</td>
                 <td>{{booking.countFutureSessions}}</td>
