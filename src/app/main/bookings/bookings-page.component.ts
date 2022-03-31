@@ -28,8 +28,7 @@ export class BookingsPageComponent implements OnInit, OnDestroy {
 
     constructor(
         private bookingService: BookingService,
-        private breadCrumbsService: BreadCrumbsService,
-        private authService: AuthService
+        private breadCrumbsService: BreadCrumbsService
     ) {
     }
 
