@@ -155,7 +155,7 @@ fieldset {
 }
 
 ngb-tooltip-window {
-  background: $grey-900;
+  background: $grey-900 !important;
   color: $grey-200;
   border-radius: 8px;
   padding: 4px 8px;
@@ -169,9 +169,9 @@ ngb-tooltip-window {
     width: 0;
     height: 0;
     position: absolute;
-    left: -5px;
-    top: 9px;
-    transform: rotate(90deg);
+    left: calc(50% - 4px);
+    top: -3px;
+    transform: rotate(180deg);
     border-left: 4px solid transparent;
     border-right: 4px solid transparent;
     border-top: 4px solid $grey-900;
