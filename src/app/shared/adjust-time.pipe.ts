@@ -21,12 +21,11 @@ export class AdjustTimePipe implements PipeTransform {
             this.userTimezone$.pipe(map(tz => this.formatTime(start, tz)));
     }
 
-    private formatTime(start: number, tz: string) {
-        const dt = start ? 
-            DateTime.fromMillis(start * 1000, {zone: tz})
-                .toISO({format: 'extended'}).toString() :
-                String(start);
-        const formattedDate = formatDate(dt, 'd MMM, y, h:mm a', this.locale)
+    private formatTime(start: number, tz: string): string {
+        const dateTime = DateTime.fromMillis(start * 1000, {zone: tz})
+            .toISO({format: 'extended'}) ?? start;
+        const dateTimeString = dateTime.toString();
+        const formattedDate = formatDate(dateTimeString, 'd MMM, y, h:mm a', this.locale)
             .replace(',', '');
         return formattedDate;
     }
