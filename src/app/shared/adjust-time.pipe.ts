@@ -1,29 +1,32 @@
-import {Pipe, PipeTransform} from '@angular/core';
+import {Inject, LOCALE_ID, Pipe, PipeTransform} from '@angular/core';
 import {DateTime} from 'luxon';
 import {map, Observable, of} from 'rxjs';
 import {AuthService} from 'src/app/core/auth.service';
-
+import {formatDate} from '@angular/common';
 @Pipe({
     name: 'adjustTime'
 })
 export class AdjustTimePipe implements PipeTransform {
 
-    constructor(private authService: AuthService) {}
+    constructor(
+        private authService: AuthService,
+        @Inject(LOCALE_ID) private locale: string) {}
 
     private userTimezone$: Observable<string> = this.authService.userSettings$
         .pipe(map(data => data.timeZone ? data.timeZone : 'America/New_York'));
 
     transform(start: number, timeZone?: string): Observable<string> {
-        if (timeZone) {
-            return of(timeZone).pipe(map(tz => AdjustTimePipe.formatTime(start, tz)));
-        } else {
-            return this.userTimezone$.pipe(map(tz => AdjustTimePipe.formatTime(start, tz)));
-        }
+        return timeZone ? 
+            of(timeZone).pipe(map(tz => this.formatTime(start, tz))) :
+            this.userTimezone$.pipe(map(tz => this.formatTime(start, tz)));
     }
 
-    private static formatTime(start: number, tz: string): string {
-        if (!start) return String(start);
-        const dt = DateTime.fromMillis(start * 1000, {zone: tz});
-        return dt.toISO({format: 'extended'})?.toString();
+    private formatTime(start: number, tz: string): string {
+        const dateTime = DateTime.fromMillis(start * 1000, {zone: tz})
+            .toISO({format: 'extended'}) ?? start;
+        const dateTimeString = dateTime.toString();
+        const formattedDate = formatDate(dateTimeString, 'd MMM, y, h:mm a', this.locale)
+            .replace(',', '');
+        return formattedDate;
     }
 }

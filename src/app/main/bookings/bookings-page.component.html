@@ -27,8 +27,7 @@
             <tr *ngFor="let booking of bookings" style="line-height: 0;">
                 <td><a [routerLink]="booking.bookingToken">{{booking.bookingToken}}</a></td>
                 <td>{{booking.title}}</td>         
-                <td>{{booking.date}}</td>
-                <td>{{booking.nextSessionStartEpoch | adjustTime: booking.bookingTimeZone | async | date: 'd MMM, y, h:mm a'}}</td>
+                <td>{{booking.nextSessionStartEpoch | adjustTime: booking.bookingTimeZone | async}}</td>
                 <td>{{booking.nextSessionDurationMins}}</td>
                 <td>{{booking.totalSessions}}</td>
                 <td>{{booking.countFutureSessions}}</td>
