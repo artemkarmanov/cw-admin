@@ -204,9 +204,10 @@ export interface ISessionFilter {
 
 export interface ISessionCaptionLogs {
     captionLogId: number;
+    connectionId: string;
+    email: string;
     endEpoch: number;
     firstName: string;
-    lastName: string;
     startepoch: number;
     userId: number;
 }
