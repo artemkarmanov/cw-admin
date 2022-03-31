@@ -11,7 +11,7 @@
     <tbody>
     <tr *ngFor="let session of data">
         <td>{{session.sessionId}}</td>
-        <td>{{session.startEpoch | adjustTime: bookingTimeZone | async | date: 'd MMM, y, h:mm a'}}</td>
+        <td>{{session.startEpoch | adjustTime: bookingTimeZone | async}}</td>
         <td><span cwbStatus>{{session.status}}</span></td>
         <td>{{session.sessionDurationMins}}</td>
         <td *ngIf="isAdmin">

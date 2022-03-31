@@ -38,7 +38,7 @@
                     <ng-container *ngIf="isNotCancelled(session)">
                         <td>{{session.sessionId}}</td>
                         <td><a [routerLink]="'/bookings/'+session.bookingToken">{{session.title}}</a></td>
-                        <td>{{session.startEpoch | adjustTime: session.bookingTimeZone | async | date: 'd MMM, y, h:mm a'}}</td>
+                        <td>{{session.startEpoch | adjustTime: session.bookingTimeZone | async}}</td>
                         <td>{{session.sessionDurationMins}}</td>
                         <td><span cwbStatus>{{session.status}}</span></td>
                         <td>{{session | owner}}</td>
