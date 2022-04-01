@@ -4,16 +4,18 @@ import {BillingRoutingModule} from './billing-routing.module';
 import {BillingComponent} from './billing.component';
 import {SharedModule} from "../../shared/shared.module";
 import {BillingViewComponent} from './billing-view/billing-view.component';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 @NgModule({
 	declarations: [
 		BillingComponent,
-		BillingViewComponent
+		BillingViewComponent,
 	],
 	imports: [
 		CommonModule,
 		BillingRoutingModule,
-		SharedModule
+		SharedModule,
+		Ng2SmartTableModule
 	]
 })
 export class BillingModule {

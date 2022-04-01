@@ -1,0 +1,18 @@
+<ng2-smart-table
+	class="custom-table"
+	(rowSelect)="loadData()"
+	(userRowSelect)="rowClicked.emit($event)"
+	[source]="source"
+	[settings]="{
+		columns,
+		actions: {
+			delete: false,
+			edit: false,
+			add: false
+		},
+		pager: {
+			perPage,
+			display: displayPager
+		}
+	}"
+></ng2-smart-table>

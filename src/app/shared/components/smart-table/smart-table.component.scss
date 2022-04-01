@@ -1,0 +1,49 @@
+@import "colors-10";
+
+.custom-table {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100%;
+}
+
+::ng-deep {
+	ng2-smart-table-pager {
+		display: flex;
+		justify-content: center !important;
+		flex-direction: row !important;
+	}
+
+	.ng2-smart-page-item {
+		display: flex !important;
+	}
+
+	.active {
+		span {
+			background: $blue-50 !important;
+		}
+	}
+
+	.disabled {
+		a {
+			background-color: $gray-30 !important;
+		}
+	}
+
+	.ng2-smart-pagination {
+		margin-bottom: 0 !important;
+	}
+
+	.ng2-smart-row {
+		&:not(:last-of-type) {
+			border-bottom: 1px solid $gray-30;
+		}
+	}
+
+	.page-link-prev,
+	.page-link-next {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+}
