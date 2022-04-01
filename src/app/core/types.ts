@@ -224,15 +224,14 @@ export interface IUserFilter {
 }
 
 export interface IBilling {
-    userId: number,
-    firstName: string,
-    lastName: string,
-    email: string,
     billingResultId: number,
     totalBill: number,
     success: 0 | 1,
     error: string,
-    billedAtEpoch: number
+    billedAtEpoch: number,
+    firstName: string,
+    lastName: string,
+    email: string
 }
 
 export interface IBillingDetails extends Array<{
@@ -243,3 +242,14 @@ export interface IBillingDetails extends Array<{
     bookedDuration: number,
     rate: number
 }> {}
+
+export interface ISessionViewerLog  {
+    viewerLogId: number,
+    userId: number,
+    firstName: string,
+    lastName: string,
+    email: string,
+    endEpoch: number,
+    startepoch: number
+}
+

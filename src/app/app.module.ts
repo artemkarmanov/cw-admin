@@ -10,6 +10,7 @@ import {WS_CONFIG_TOKEN} from './core/types';
 import {LOCAL_STORAGE, SESSION_STORAGE} from 'ngx-webstorage-service';
 import {TOKEN_SERVICE, USER_INFO} from './core/const';
 import {SimpleLayoutComponent} from './simple-layout/simple-layout.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import {SimpleLayoutComponent} from './simple-layout/simple-layout.component';
     imports: [
         BrowserModule,
         AppRoutingModule,
-        CoreModule
+        CoreModule,
+        NgbModule
     ],
     providers: [
         {

@@ -45,6 +45,14 @@ export class BookingService {
 
     public createBooking$(data: INewBooking): Observable<IBookingModificationResponse> {
         console.log(data)
+        // We've adjusted the code so that this "Audio Details" info
+        // is not necessary to fill in before continuing with the
+        // process.  However, a blank value throws an error  on the
+        // backend, so if it's blank, we should add a space, just
+        // so no error is thrown
+        if (data.audioDetails.length === 0) {
+            data.audioDetails = " - "
+        }
         return this.socketMessagesService.request$<IBookingModificationResponse>('createBooking', data).pipe(
             catchError((err) => {
                 this.errorHandler.handle(err);

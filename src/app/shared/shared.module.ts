@@ -17,7 +17,6 @@ import {TableDirective} from '../table.directive';
 import {TimezonePipe} from './timezone.pipe';
 import {SessionCaptionDialogComponent} from './session-caption-dialog/session-caption-dialog.component';
 import {AdjustTimePipe} from './adjust-time.pipe';
-import {ButtonComponent} from './components/button/button.component';
 import {FooterComponent} from "./components/footer/footer.component";
 import {InputComponent} from "./components/input/input.component";
 import {SmallButtonComponent} from "./components/small-button/small-button.component";
@@ -31,6 +30,7 @@ import {IconComponent as Icon2Component} from './components/icon/icon.component'
         CityPipe,
         TimezonePipe,
         ConfirmationDialogComponent,
+        SessionViewerLogsDialogComponent,
         StatusDirective,
         SessionDialogComponent,
         CardComponent,
@@ -57,6 +57,7 @@ import {IconComponent as Icon2Component} from './components/icon/icon.component'
 		TimezonePipe,
 		StatusDirective,
 		SessionDialogComponent,
+        SessionViewerLogsDialogComponent,
 		CardComponent,
 		PageTopComponent,
 		ButtonHeaderComponent,

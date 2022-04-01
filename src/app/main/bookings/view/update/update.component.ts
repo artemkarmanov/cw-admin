@@ -114,6 +114,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
     switchAuthorizedViewerBool() {
         this.authorizedViewersOnlyChecked = (this.authorizedViewersOnlyChecked) ? false : true;
+        this.form.get("requireLogin")?.setValue(this.authorizedViewersOnlyChecked)
     }
 
     openTooltip(): void {

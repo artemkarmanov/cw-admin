@@ -115,6 +115,12 @@ export class SessionsPageComponent implements OnInit, AfterViewInit, OnDestroy {
         }
     }
 
+    showLogs(s: any) {
+        this.sessionService.getSessionViewerLogs$(s.sessionId).subscribe(v => console.log(v))
+        
+    }
+
+
     public unSelectRow(): void {
         this.selectedRow = -1;
         this.selectedSession = -1;

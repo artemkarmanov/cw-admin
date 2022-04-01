@@ -1,4 +1,18 @@
 <form [formGroup]="form">
-    <textarea (input)="addViewersFromList()" class="form-control form-control-lg" formControlName="listOfViewers" id="listOfViewers"></textarea>  
+    <input class="form-check-input" formControlName="seeViewersIndividually" id="seeViewersIndividually" type="checkbox" style="margin-right: 10px;" (click)="switchSeeViewersIndividuallyBool()">
+    <label class="form-label" for="seeViewersIndividually">View addresses that have been added</label>    
+    <ng-container *ngIf="seeViewersIndividually else listOfViewersTemplate">
+        <div class="form-inline" *ngFor="let viewer of viewers.controls; index as i">
+            <input [formControl]="$any(viewers.controls[i])"/>
+            <button (click)="remove(i)" [disabled]="!viewers.controls[i].value" class="minus-button">X</button>
+        </div>
+    </ng-container>
+    <ng-template #listOfViewersTemplate>
+        <textarea class="form-control form-control-lg" formControlName="listOfViewers" id="listOfViewers"></textarea>  
+        <button (click)="addViewersFromList()" class="btn btn-sm text-primary">
+            <cwb-icon name="plus-lg"></cwb-icon>
+            Add these viewers
+        </button>
+    </ng-template>
 </form>
 
