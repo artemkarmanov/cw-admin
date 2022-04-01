@@ -1,4 +1,7 @@
-<cwb-card class="main mt-4">
+<cwb-page-top>
+	<h1>Billings</h1>
+</cwb-page-top>
+<cwb-card class="main">
 	<table>
 		<thead>
 		<tr class="table-light">
@@ -12,23 +15,22 @@
 		</tr>
 		</thead>
 		<tbody>
-		<tr
-			*ngFor="let billing of billings$ | async"
-			(click)="billingPopup(billing)"
-		>
+		<tr *ngFor="let billing of (billings$ | async)"
+		    (click)="billingPopup(billing)">
 			<td>{{billing.billingResultId}}</td>
 			<td>{{billing.firstName}} {{billing.lastName}}</td>
 			<td>{{billing.email}}</td>
 			<td>{{billing.totalBill | currency:'USD'}}</td>
-			<td>
-					<span *ngIf="billing.success">
-						<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-						     xmlns="http://www.w3.org/2000/svg">
-							<circle cx="12" cy="12" r="9" fill="#ECFCD3"/>
-							<path d="M8.5 12.3333L10.8333 14.6667L15.5 10" stroke="#48AA1C" stroke-width="1.5"
-							      stroke-linecap="round" stroke-linejoin="round"/>
-						</svg>
-					</span>
+			<td class="success">
+				<span *ngIf="billing.success">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+					     xmlns="http://www.w3.org/2000/svg">
+						<circle cx="12" cy="12" r="9" fill="#ECFCD3"/>
+						<path d="M8.5 12.3333L10.8333 14.6667L15.5 10" stroke="#48AA1C"
+						      stroke-width="1.5"
+						      stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+				</span>
 			</td>
 			<td>{{billing.error}}</td>
 			<td>{{(billing.billedAtEpoch * 1000) | date: 'd MMM YYYY h:mm aaa'}}</td>
@@ -36,3 +38,24 @@
 		</tbody>
 	</table>
 </cwb-card>
+
+<div class="d-flex paginator">
+	<cw-icon
+		[svg]="'chevron-left'"
+		class="pointer"
+		(click)="pickPage(currentPage !== 0 ? currentPage - 1 : currentPage)"
+	></cw-icon>
+	<div
+		class="page-button pointer"
+		*ngFor="let page of pages; let index = index"
+		(click)="pickPage(index)"
+		[class.current]="currentPage === index"
+	>
+		<span>{{index + 1}}</span>
+	</div>
+	<cw-icon
+		[svg]="'chevron-right'"
+		class="pointer"
+		(click)="pickPage(currentPage < pages.length - 1 ? currentPage + 1 : currentPage)"
+	></cw-icon>
+</div>

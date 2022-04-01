@@ -1,0 +1,28 @@
+@import '../../../../scss/colors-10';
+
+button {
+	background-color: $blue-50;
+	border-radius: 8px;
+	border: 0;
+	color: $white;
+	cursor: pointer;
+	font-weight: 600;
+	height: 56px;
+	width: 448px;
+	transition: background-color 200ms ease-in;
+
+	&:hover {
+		background-color: $blue-60;
+		transition: background-color 200ms ease-in;
+	}
+
+	&:disabled {
+		background-color: $blue-20;
+		cursor: not-allowed;
+	}
+
+	&:focus-visible {
+		outline: 2px solid $blue-50;
+		outline-offset: 2px;
+	}
+}

@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TimezoneSelectorComponent} from './timezone-selector/timezone-selector.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ViewersListComponent} from './viewers-list/viewers-list.component';
 import {RegionPipe} from './region.pipe';
 import {CityPipe} from './city.pipe';
@@ -17,8 +17,10 @@ import {TableDirective} from '../table.directive';
 import {TimezonePipe} from './timezone.pipe';
 import {SessionCaptionDialogComponent} from './session-caption-dialog/session-caption-dialog.component';
 import {AdjustTimePipe} from './adjust-time.pipe';
-import { SessionViewerLogsDialogComponent } from './session-viewer-logs-dialog/session-viewer-logs-dialog.component';
-
+import {FooterComponent} from "./components/footer/footer.component";
+import {InputComponent} from "./components/input/input.component";
+import {SmallButtonComponent} from "./components/small-button/small-button.component";
+import {IconComponent as Icon2Component} from './components/icon/icon.component';
 
 @NgModule({
     declarations: [
@@ -37,29 +39,37 @@ import { SessionViewerLogsDialogComponent } from './session-viewer-logs-dialog/s
         IconComponent,
         TableDirective,
         SessionCaptionDialogComponent,
-        AdjustTimePipe
+        AdjustTimePipe,
+        ButtonComponent,
+        FooterComponent,
+        Icon2Component,
+        InputComponent,
+        SmallButtonComponent
     ],
-    exports: [
-        CommonModule,
-        ReactiveFormsModule,
-        TimezoneSelectorComponent,
-        ViewersListComponent,
-        RegionPipe,
-        CityPipe,
-        TimezonePipe,
-        StatusDirective,
-        SessionDialogComponent,
+	exports: [
+		CommonModule,
+		FormsModule,
+		ReactiveFormsModule,
+		TimezoneSelectorComponent,
+		ViewersListComponent,
+		RegionPipe,
+		CityPipe,
+		TimezonePipe,
+		StatusDirective,
+		SessionDialogComponent,
         SessionViewerLogsDialogComponent,
-        CardComponent,
-        PageTopComponent,
-        ButtonHeaderComponent,
-        IconComponent,
-        TableDirective,
-        SessionCaptionDialogComponent,
-        AdjustTimePipe
-    ],
+		CardComponent,
+		PageTopComponent,
+		ButtonHeaderComponent,
+		IconComponent,
+		TableDirective,
+		SessionCaptionDialogComponent,
+		AdjustTimePipe,
+		Icon2Component
+	],
     imports: [
         CommonModule,
+        FormsModule,
         ReactiveFormsModule,
         SharedProviderModule
     ]

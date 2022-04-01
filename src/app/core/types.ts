@@ -206,9 +206,10 @@ export interface ISessionFilter {
 
 export interface ISessionCaptionLogs {
     captionLogId: number;
+    connectionId: string;
+    email: string;
     endEpoch: number;
     firstName: string;
-    lastName: string;
     startepoch: number;
     userId: number;
 }
@@ -227,7 +228,9 @@ export interface IBilling {
     totalBill: number
     success: 0 | 1
     error: string
-    billedAtEpoch: number
+    billedAtEpoch: number,
+    firstName: string,
+    lastName: string,
     email: string
     firstName: string
     lastName: string
@@ -235,11 +238,11 @@ export interface IBilling {
 }
 
 export interface IBillingDetails extends Array<{
-    billingDetailsId: number
-    sessionId: number
-    sessionBill: number
-    billedDuration: number
-    bookedDuration: number
+    billingDetailsId: number,
+    sessionId: number,
+    sessionBill: number,
+    billedDuration: number,
+    bookedDuration: number,
     rate: number
 }> {}
 

@@ -12,8 +12,9 @@
         <tr class="table-light">
             <th>Log</th>
             <th>User</th>
-            <th>Firstname</th>
-            <th>Lastname</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Connection ID</th>
             <th>Started</th>
             <th>Ended</th>
         </tr>
@@ -24,9 +25,10 @@
                     <td>{{log.captionLogId}}</td>
                     <td>{{log.userId}}</td>
                     <td>{{log.firstName}}</td>
-                    <td>{{log.lastName}}</td>
-                    <td>{{log.startepoch | adjustTime | async | date: 'd MMM, y, h:mm a'}}</td>
-                    <td>{{log.endEpoch | adjustTime | async | date: 'd MMM, y, h:mm a'}}</td>
+                    <td>{{log.email}}</td>
+                    <td>{{log.connectionId}}</td>
+                    <td>{{log.startepoch | adjustTime | async}}</td>
+                    <td>{{log.endEpoch | adjustTime | async}}</td>
                 </tr>
             </tbody>
         </ng-container>

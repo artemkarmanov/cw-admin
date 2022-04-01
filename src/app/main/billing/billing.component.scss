@@ -1,7 +1,16 @@
+:host {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100%;
+}
+
 .main {
-	height: calc(100vh - 72px - 41px - 37px - 12px);
-	overflow-y: scroll;
+	height: calc(100vh - 72px - 42px - 84px - 24px - 32px);
+	overflow-y: auto;
 	overflow-x: hidden;
+	padding-top: unset;
+	margin-top: unset;
 
 	&::-webkit-scrollbar {
 		width:  4px;
@@ -9,10 +18,44 @@
 	}
 
 	&::-webkit-scrollbar-thumb {
-		background: #7E7E7E;
+		background: silver;
 	}
 
 	&::-webkit-scrollbar-track {
-		background: silver;
+		background: #DDDDDD;
+	}
+}
+
+::ng-deep {
+	.card {
+		margin-bottom: unset;
+	}
+}
+
+.success {
+	display: flex;
+	justify-content: center;
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+.paginator {
+	margin-top: 14px;
+	display: flex;
+	flex-direction: row;
+	gap: 32px;
+
+	.page-button {
+		color: rgb(58, 142, 247);
+		border-radius: 4px;
+		min-height: 42px;
+		min-width: 42px;
+		text-align: center;
+
+		&.current {
+			background: rgb(235, 247, 255)
+		}
 	}
 }

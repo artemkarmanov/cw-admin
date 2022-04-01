@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-@import "scss/colors";
+@import "scss/_colors";
+@import '@fontsource/inter/variable-full.css';
+
+body {
+  font-family: "Inter-Variable", sans-serif;
+  min-width: 1280px;
+  overflow: hidden;
+}
 
 :root {
   font-size: 16px;
@@ -73,7 +80,7 @@ footer {
   font-size: 12px;
   line-height: 16px;
   font-weight: 400;
-  padding: 3px 32px 5px;
+  padding: 4px 32px;
 
   ul li a.nav-link {
     font-weight: 600;
@@ -118,7 +125,18 @@ footer {
 
 .table {
   font-weight: 400;
-  font-size: 20px;
+  font-size: 16px;
+
+  tbody {
+    tr {
+      line-height: 0;
+    }
+
+    td {
+      white-space: pre;
+      line-height: 0;
+    }
+  }
 }
 
 .table > *:first-child > * > * {
@@ -157,7 +175,7 @@ fieldset {
 .modal-dialog {
 
   @media (min-width: 1024px) {
-    max-width: 70%;
+    max-width: 80%;
   }
 }
 /* Importing Bootstrap SCSS file. */

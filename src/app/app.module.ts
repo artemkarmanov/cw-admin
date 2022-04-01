@@ -9,7 +9,6 @@ import {ApplicationErrorHandler} from './core/application-error-handler';
 import {WS_CONFIG_TOKEN} from './core/types';
 import {LOCAL_STORAGE, SESSION_STORAGE} from 'ngx-webstorage-service';
 import {TOKEN_SERVICE, USER_INFO} from './core/const';
-import {ErrorComponent} from './error/error.component';
 import {SimpleLayoutComponent} from './simple-layout/simple-layout.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -17,7 +16,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
     declarations: [
         AppComponent,
-        ErrorComponent,
         SimpleLayoutComponent
     ],
     imports: [

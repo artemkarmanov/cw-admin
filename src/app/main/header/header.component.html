@@ -10,7 +10,11 @@
                 <cwb-bread-crumbs></cwb-bread-crumbs>
                 <cwb-menu></cwb-menu>
             </ng-container>
-            <div *ngIf="isLoggedIn; else unauthorized" class="d-flex justify-content-between" style="width:260px">
+            <div
+                *ngIf="isLoggedIn; else unauthorized"
+                class="d-flex justify-content-between"
+                style="gap: 28px"
+            >
                 <cwb-user-info></cwb-user-info>
                 <cwb-logout-button></cwb-logout-button>
             </div>
