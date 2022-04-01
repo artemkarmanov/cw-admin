@@ -58,7 +58,7 @@ export class BookingDetailsComponent implements OnInit, OnDestroy {
     }
 
     switchAuthorizedViewerBool() {
-        this.authorizedViewersOnlyChecked = (this.authorizedViewersOnlyChecked) ? false : true;
+        this.authorizedViewersOnlyChecked = (!this.authorizedViewersOnlyChecked);
         this.form.get("requireLogin")?.setValue(this.authorizedViewersOnlyChecked)
     }
 

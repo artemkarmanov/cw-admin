@@ -1,9 +1,16 @@
 footer {
-	outline: 1px solid rgb(221 221 221 / 100%);
 	width: 100vw;
 	height: 42px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
 
 	.left-side {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
 		height: 100%;
 
 		span {
@@ -11,7 +18,7 @@ footer {
 			color: rgb(95 95 95 / 100%);
 			font-size: 12px;
 			line-height: 16px;
-			margin: 16px 32px;
+			margin: 16px 32px 16px 0;
 
 			@media only screen and (max-width: 850px) {
 				margin: 8px 16px 0;
@@ -20,7 +27,7 @@ footer {
 	}
 
 	.right-side {
-		margin-right: 32px;
+		display: flex;
 
 		span {
 			color: rgb(95 95 95 / 100%);

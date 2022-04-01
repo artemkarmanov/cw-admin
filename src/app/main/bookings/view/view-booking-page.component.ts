@@ -3,17 +3,15 @@ import {ActivatedRoute} from '@angular/router';
 import {Observable, pluck, Subject, takeUntil} from 'rxjs';
 import {map, tap} from 'rxjs/operators';
 import {ViewService} from './view.service';
-import {IBooking} from '../../../core/types';
-import {BreadCrumbsService} from '../../../core/bread-crumbs.service';
+import {BreadCrumbsService} from '@services/bread-crumbs.service';
+import {IBooking} from "@interfaces/booking.interfaces";
 
 @Component({
     selector: 'cwb-booking-page',
     templateUrl: './view-booking-page.component.html',
     styleUrls: ['./view-booking-page.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [
-        ViewService
-    ]
+    providers: [ViewService]
 })
 export class ViewBookingPageComponent implements OnInit, OnDestroy {
     private destroy$$: Subject<void> = new Subject<void>();

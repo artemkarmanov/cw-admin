@@ -1,8 +1,8 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
-import {BillingService} from "../../../core/billing.service";
+import {BillingService} from "@services/billing.service";
 import {Observable} from "rxjs";
-import {IBillingDetails} from "../../../core/types";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
+import {IBillingDetails} from "@interfaces/billing.interfaces";
 
 @Component({
   selector: 'cwb-billing-view',

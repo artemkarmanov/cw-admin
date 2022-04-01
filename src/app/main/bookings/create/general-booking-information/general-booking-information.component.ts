@@ -3,9 +3,9 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CreateService} from '../create.service';
 import {merge, Observable, Subject, takeUntil} from 'rxjs';
 import {tap} from 'rxjs/operators';
-import {UsersService} from "../../../../core/users.service";
-import {IUser} from "../../../../core/types";
-import { NgbTimepickerConfig, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
+import {UsersService} from "@services/users.service";
+import {NgbTimepickerConfig, NgbTimeStruct} from '@ng-bootstrap/ng-bootstrap';
+import {IUser} from "@interfaces/user.interfaces";
 
 @Component({
     selector: 'cwb-general-booking-information',

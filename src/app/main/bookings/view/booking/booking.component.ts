@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 import {ViewService} from '../view.service';
-import {IBooking} from '../../../../core/types';
+import {IBooking} from "@interfaces/booking.interfaces";
 
 @Component({
     selector: 'cwb-booking',

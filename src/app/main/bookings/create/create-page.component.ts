@@ -3,7 +3,7 @@ import {CreateService} from './create.service';
 import {from, Observable, Subject, switchMap, takeUntil} from 'rxjs';
 import {Router} from '@angular/router';
 import {map} from 'rxjs/operators';
-import {BreadCrumbsService} from '../../../core/bread-crumbs.service';
+import {BreadCrumbsService} from '@services/bread-crumbs.service';
 
 @Component({
     selector: 'cwb-create',
@@ -48,7 +48,7 @@ export class CreatePageComponent implements OnInit, OnDestroy {
             switchMap(() => {
                 return this.createService.create$();
             }),
-            switchMap((result) => {
+            switchMap((_) => {
                 return from(this.router.navigate(['bookings']));
             })
         ).subscribe();

@@ -1,9 +1,7 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {IBookingSummary} from '../../core/types';
+import {IBookingSummary} from "@interfaces/booking.interfaces";
 
-@Pipe({
-    name: 'sessionCounter'
-})
+@Pipe({name: 'sessionCounter'})
 export class SessionCounterPipe implements PipeTransform {
     transform(booking: IBookingSummary): string {
         return [booking.countFutureSessions, booking.totalSessions].join(' of ');

@@ -1,8 +1,8 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {checkPasswords} from '../../../core/utils';
-import {IUser} from '../../../core/types';
-import { UsersService } from 'src/app/core/users.service';
+import {UsersService} from 'src/app/shared/services/users.service';
+import {checkPasswords} from "@helpers/check-passwords";
+import {IUser} from "@interfaces/user.interfaces";
 
 @Component({
     selector: 'cwb-user-form',

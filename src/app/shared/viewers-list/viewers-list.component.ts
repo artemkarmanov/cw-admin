@@ -55,7 +55,7 @@ export class ViewersListComponent implements OnInit, OnDestroy, ControlValueAcce
     public onTouched = () => {
     }
 
-    public onChange = (value: any) => {
+    public onChange = (_: any) => {
     }
 
     registerOnChange(fn: any): void {
@@ -100,7 +100,7 @@ export class ViewersListComponent implements OnInit, OnDestroy, ControlValueAcce
         this.viewers.clear();
 
         let viewersAsArray = this.form.value.listOfViewers.split("\n")
-        for (var v in viewersAsArray) {
+        for (const v in viewersAsArray) {
             this.viewers.push(
                 new FormControl(viewersAsArray[v], [Validators.required, Validators.email])
             )
@@ -108,7 +108,7 @@ export class ViewersListComponent implements OnInit, OnDestroy, ControlValueAcce
     }
 
     switchSeeViewersIndividuallyBool() {
-        this.seeViewersIndividually = (this.seeViewersIndividually) ? false : true;
+        this.seeViewersIndividually = (!this.seeViewersIndividually);
         if (this.form.value.listOfViewers) {
             this.listForTextArea = ""
             console.log(this.form.value.listOfViewers)

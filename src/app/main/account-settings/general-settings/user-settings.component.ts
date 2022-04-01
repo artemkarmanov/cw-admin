@@ -1,13 +1,13 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {of, Subject, switchMap, take, takeUntil} from 'rxjs';
-import {AuthService} from '../../../core/auth.service';
+import {AuthService} from '@services/auth.service';
 import {tap} from 'rxjs/operators';
-import {UsersService} from '../../../core/users.service';
-import {INewUser, IUser, IUserSettings} from '../../../core/types';
+import {UsersService} from '@services/users.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {IBackFromStripe} from "../back-from-stripe.interface";
-import {ConfirmationService} from "../../../shared/confirmation.service";
+import {ConfirmationService} from "@services/confirmation.service";
+import {INewUser, IUser, IUserSettings} from "@interfaces/user.interfaces";
 
 @Component({
     selector: 'cwb-user-settings',

@@ -1,11 +1,11 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {BillingService} from "../../core/billing.service";
+import {BillingService} from "@services/billing.service";
 import {BehaviorSubject, Observable, tap} from "rxjs";
-import {IBilling} from "../../core/types";
-import {ModalService} from "../../core/modal.service";
+import {ModalService} from "@services/modal.service";
 import {BillingViewComponent} from "./billing-view/billing-view.component";
 import {map} from "rxjs/operators";
 import {UntilDestroy, untilDestroyed} from "@ngneat/until-destroy";
+import {IBilling} from "@interfaces/billing.interfaces";
 
 @UntilDestroy()
 @Component({
@@ -19,7 +19,7 @@ export class BillingComponent implements OnInit {
 	public dataSource$ = new BehaviorSubject<IBilling[]>([])
 	public billings$: Observable<IBilling[]> | undefined
 	public pages: number[] = []
-	public itemsOnPage: number = 12
+	public itemsOnPage: number = 10
 	public currentPage: number = 0
 	public length: number = 0
 

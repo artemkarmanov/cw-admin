@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
-import {IUser} from '../../../core/types';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {IUser} from "@interfaces/user.interfaces";
 
 @Component({
     selector: 'cwb-user-list',
@@ -7,14 +7,6 @@ import {IUser} from '../../../core/types';
     styleUrls: ['./user-list.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent {
     @Input() data: IUser[] = [];
-
-    constructor() {
-    }
-
-    ngOnInit(): void {
-    }
-
-
 }

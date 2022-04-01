@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable, pluck} from 'rxjs';
-import {SocketMessagesService} from '../../../core/socket-messages.service';
+import {SocketMessagesService} from '@services/socket-messages.service';
 
 @Injectable()
 export class StripeService {

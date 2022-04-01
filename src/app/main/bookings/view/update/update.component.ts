@@ -1,11 +1,11 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ViewService} from '../view.service';
 import {from, Observable, Subject, switchMap, takeUntil, withLatestFrom} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {tap} from 'rxjs/operators';
-import {IBooking, IUpdateBooking} from 'src/app/core/types';
 import {UpdateService} from './update.service';
 import {Router} from '@angular/router';
+import {IBooking, IUpdateBooking} from "@interfaces/booking.interfaces";
 
 @Component({
     selector: 'cwb-update',
@@ -113,7 +113,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
     }
 
     switchAuthorizedViewerBool() {
-        this.authorizedViewersOnlyChecked = (this.authorizedViewersOnlyChecked) ? false : true;
+        this.authorizedViewersOnlyChecked = (!this.authorizedViewersOnlyChecked);
         this.form.get("requireLogin")?.setValue(this.authorizedViewersOnlyChecked)
     }
 

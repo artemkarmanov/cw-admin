@@ -1,10 +1,10 @@
 import {ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {ISession} from '../../../../core/types';
-import {environment} from '../../../../../environments/environment';
+import {environment} from '@env';
 import {Subject, switchMap, takeUntil} from 'rxjs';
-import {SessionService} from '../../../../shared/session.service';
+import {SessionsService} from '../../../sessions/sessions.service';
 import {ViewService} from '../view.service';
 import {tap} from 'rxjs/operators';
+import {ISession} from "@interfaces/session.interfaces";
 
 @Component({
     selector: 'cwb-sessions',
@@ -20,7 +20,7 @@ export class SessionsComponent implements OnInit, OnDestroy {
     @Input() data!: ISession[];
     @Input() bookingTimeZone?: string;
 
-    constructor(private sessionService: SessionService, private viewService: ViewService) {
+    constructor(private sessionService: SessionsService, private viewService: ViewService) {
     }
 
     // This is the session card that appears on the Viewer Side

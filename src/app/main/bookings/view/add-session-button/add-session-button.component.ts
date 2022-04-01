@@ -1,9 +1,9 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {Subject, takeUntil, withLatestFrom} from 'rxjs';
 import {switchMap, tap} from 'rxjs/operators';
-import {SessionService} from '../../../../shared/session.service';
+import {SessionsService} from '../../../sessions/sessions.service';
 import {ViewService} from '../view.service';
-import {ICreateSession} from '../../../../core/types';
+import {ICreateSession} from "@interfaces/session.interfaces";
 
 @Component({
     selector: 'cwb-add-session-button',
@@ -16,7 +16,7 @@ export class AddSessionButtonComponent implements OnInit, OnDestroy {
     private click$$: Subject<void> = new Subject<void>();
 
     constructor(
-        private sessionService: SessionService,
+        private sessionService: SessionsService,
         private viewService: ViewService
     ) {
     }

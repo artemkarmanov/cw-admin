@@ -1,8 +1,10 @@
 main {
-	height: calc(100vh - 64px - 42px);
+	height: calc(100vh - 65px - 42px);
 	overflow-x: hidden;
 	overflow-y: auto;
+	justify-content: space-between;
 	padding: 24px 0;
+	border-bottom: 1px solid #DDDDDD;
 
 	&::-webkit-scrollbar {
 		width:  12px;

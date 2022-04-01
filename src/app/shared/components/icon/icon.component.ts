@@ -1,11 +1,11 @@
-import {Component, Input} from '@angular/core'
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 
 @Component({
-	selector: 'cw-icon',
-	templateUrl: './icon.component.html',
-	styleUrls: ['./icon.component.scss']
+    selector: 'cwb-icon',
+    templateUrl: './icon.component.html',
+    styleUrls: ['./icon.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class IconComponent {
-	@Input() svg: string | undefined
-	@Input() independent: boolean | undefined
+    @Input() name!: string;
 }

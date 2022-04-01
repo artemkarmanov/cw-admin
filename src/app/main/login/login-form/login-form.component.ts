@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {Subject} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {AuthService} from '../../../core/auth.service';
+import {AuthService} from '@services/auth.service';
 import {switchMap} from 'rxjs/operators';
 
 interface IUserCredentials {

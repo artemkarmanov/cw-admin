@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
-import {AuthService} from '../core/auth.service';
+import {AuthService} from '@services/auth.service';
 import {BehaviorSubject, Observable, Subject, takeUntil} from 'rxjs';
 import {NavigationEnd, Router} from '@angular/router';
 import {filter, map, tap} from 'rxjs/operators';

@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
-import {SocketMessagesService} from './core/socket-messages.service';
+import {SocketMessagesService} from '@services/socket-messages.service';
 import {filter, switchMap, tap} from 'rxjs/operators';
-import {AuthService} from './core/auth.service';
-import {TIncident} from './core/types';
+import {AuthService} from '@services/auth.service';
+import {TIncident} from "@interfaces/websocket.interfaces";
 
 @Component({
     selector: 'cwb-root',

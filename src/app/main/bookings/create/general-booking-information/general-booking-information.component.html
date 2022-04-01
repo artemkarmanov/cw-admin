@@ -15,12 +15,13 @@
             </div>
             <div class="d-flex flex-column w-100">
                 <label class="form-label" for="startTime">Session time</label>
-                <ngb-timepicker [(ngModel)]="time" [meridian]="meridian" show-spinners="false" formControlName="startTime" required></ngb-timepicker>
+                <ngb-timepicker [(ngModel)]="time" [meridian]="meridian" [spinners]="false"
+                                formControlName="startTime" required></ngb-timepicker>
             </div>
-            <!-- <div class="d-flex flex-column w-100">
+            <div class="d-flex flex-column w-100">
                 <label class="form-label" for="startTime">Start time</label>
                 <input class="form-control form-control-lg" formControlName="startTime" id="startTime" required type="time">
-            </div> -->
+            </div>
         </div>
         <div style="margin-top: 10px;">
             <cwb-timezone-selector [required]="false" formControlName="timeZoneOverride"></cwb-timezone-selector>
@@ -35,7 +36,7 @@
     <div class="form-inline" style="margin-top: 10px;">
         <label>Sessions repeat weekly for</label> 
         <button (click)="minus()" class="minus-button">-</button><input formControlName="countWeeks" id="countWeeks" max="100" min="1"
-               required type="number" style="text-align: center; width: 38pt; margin: 0px;" ><button (click)="plus()" class='plus-button'>+</button>
+               required type="number" style="text-align: center; width: 38pt; margin: 0;" ><button (click)="plus()" class='plus-button'>+</button>
         <label>total sessions</label>
     </div>
     <div>

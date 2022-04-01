@@ -1,78 +1,82 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {TimezoneSelectorComponent} from './timezone-selector/timezone-selector.component';
+import {
+	TimezoneSelectorComponent
+} from '@cmp/timezone-selector/timezone-selector.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ViewersListComponent} from './viewers-list/viewers-list.component';
-import {RegionPipe} from './region.pipe';
-import {CityPipe} from './city.pipe';
-import {ConfirmationDialogComponent} from './confirmation-dialog/confirmation-dialog.component';
+import {RegionPipe} from '@pipes/region.pipe';
+import {CityPipe} from '@pipes/city.pipe';
+import {
+	ConfirmationDialogComponent
+} from '@cmp/confirmation-dialog/confirmation-dialog.component';
 import {SharedProviderModule} from './shared-provider.module';
-import {StatusDirective} from './status.directive';
-import {SessionDialogComponent} from './session-dialog/session-dialog.component';
-import {CardComponent} from './card/card.component';
-import {PageTopComponent} from './page-top/page-top.component';
-import {ButtonHeaderComponent} from './button-header/button-header.component';
-import {IconComponent} from './icon/icon.component';
-import {TableDirective} from '../table.directive';
-import {TimezonePipe} from './timezone.pipe';
-import {SessionCaptionDialogComponent} from './session-caption-dialog/session-caption-dialog.component';
-import {AdjustTimePipe} from './adjust-time.pipe';
-import {FooterComponent} from "./components/footer/footer.component";
-import {InputComponent} from "./components/input/input.component";
-import {SmallButtonComponent} from "./components/small-button/small-button.component";
-import {IconComponent as Icon2Component} from './components/icon/icon.component';
+import {StatusDirective} from '@directives/status.directive';
+import {CardComponent} from '@cmp/card/card.component';
+import {PageTopComponent} from '@cmp/page-top/page-top.component';
+import {ButtonHeaderComponent} from '@cmp/button-header/button-header.component';
+import {IconComponent} from '@cmp/icon/icon.component';
+import {TableDirective} from '@directives/table.directive';
+import {TimezonePipe} from '@pipes/timezone.pipe';
+import {AdjustTimePipe} from '@pipes/adjust-time.pipe';
+import {FooterComponent} from "@cmp/footer/footer.component";
+import {InputComponent} from "@cmp/input/input.component";
+import {SmallButtonComponent} from "@cmp/small-button/small-button.component";
+import {SvgIconComponent} from '@cmp/svg-icon/svg-icon.component';
+import {ButtonComponent} from "@cmp/button/button.component";
+import {ErrorComponent} from "@cmp/footer/error/error.component";
+import {HeaderComponent} from "@cmp/header/header.component";
+import {BreadCrumbsComponent} from "@cmp/header/bread-crumbs/bread-crumbs.component";
+import {LogoutButtonComponent} from "@cmp/header/logout-button/logout-button.component";
+import {MenuComponent} from "@cmp/header/menu/menu.component";
+import {UserInfoComponent} from "@cmp/header/user-info/user-info.component";
+import {RouterModule} from "@angular/router";
+
+const declarationsExports = [
+	TimezoneSelectorComponent,
+	ViewersListComponent,
+	RegionPipe,
+	CityPipe,
+	TimezonePipe,
+	ConfirmationDialogComponent,
+	StatusDirective,
+	CardComponent,
+	PageTopComponent,
+	ButtonHeaderComponent,
+	IconComponent,
+	TableDirective,
+	AdjustTimePipe,
+	ButtonComponent,
+	FooterComponent,
+	SvgIconComponent,
+	InputComponent,
+	SmallButtonComponent,
+	ErrorComponent,
+	HeaderComponent,
+	BreadCrumbsComponent,
+	LogoutButtonComponent,
+	MenuComponent,
+	UserInfoComponent,
+	FooterComponent
+]
 
 @NgModule({
-    declarations: [
-        TimezoneSelectorComponent,
-        ViewersListComponent,
-        RegionPipe,
-        CityPipe,
-        TimezonePipe,
-        ConfirmationDialogComponent,
-        SessionViewerLogsDialogComponent,
-        StatusDirective,
-        SessionDialogComponent,
-        CardComponent,
-        PageTopComponent,
-        ButtonHeaderComponent,
-        IconComponent,
-        TableDirective,
-        SessionCaptionDialogComponent,
-        AdjustTimePipe,
-        ButtonComponent,
-        FooterComponent,
-        Icon2Component,
-        InputComponent,
-        SmallButtonComponent
-    ],
+	declarations: [
+		...declarationsExports
+	],
 	exports: [
+		...declarationsExports,
 		CommonModule,
 		FormsModule,
 		ReactiveFormsModule,
-		TimezoneSelectorComponent,
-		ViewersListComponent,
-		RegionPipe,
-		CityPipe,
-		TimezonePipe,
-		StatusDirective,
-		SessionDialogComponent,
-        SessionViewerLogsDialogComponent,
-		CardComponent,
-		PageTopComponent,
-		ButtonHeaderComponent,
-		IconComponent,
-		TableDirective,
-		SessionCaptionDialogComponent,
-		AdjustTimePipe,
-		Icon2Component
 	],
-    imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        SharedProviderModule
-    ]
+	imports: [
+		CommonModule,
+		FormsModule,
+		RouterModule,
+		ReactiveFormsModule,
+		SharedProviderModule
+	]
 })
 export class SharedModule {
 }

@@ -1,8 +1,8 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {Observable, ReplaySubject, Subject, switchMap, takeUntil, withLatestFrom} from 'rxjs';
-import {IBooking} from '../../../core/types';
 import {BookingService} from '../booking.service';
 import {filter, tap} from 'rxjs/operators';
+import {IBooking} from "@interfaces/booking.interfaces";
 
 @Injectable()
 export class ViewService implements OnDestroy {

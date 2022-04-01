@@ -1,8 +1,8 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {distinctUntilChanged, Subject, takeUntil} from 'rxjs';
-import {IUserFilter} from '../../../core/types';
 import {tap} from 'rxjs/operators';
+import {IUserFilter} from "@interfaces/user.interfaces";
 
 @Component({
     selector: 'cwb-user-filter',

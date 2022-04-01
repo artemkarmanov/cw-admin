@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 import {BookingService} from '../booking.service';
-import {INewBooking, INewSession} from '../../../core/types';
 import {BehaviorSubject, distinctUntilChanged, Observable, pluck} from 'rxjs';
 import {DateTime} from 'luxon';
-import {MINIMUM_SESSION_DURATION} from '../../../core/const';
-import {AuthService} from '../../../core/auth.service';
+import {MINIMUM_SESSION_DURATION} from '@constants/const';
+import {AuthService} from '@services/auth.service';
 import {map, switchMap} from 'rxjs/operators';
+import {INewSession} from "@interfaces/session.interfaces";
+import {INewBooking} from "@interfaces/booking.interfaces";
 
 @Injectable()
 export class CreateService {

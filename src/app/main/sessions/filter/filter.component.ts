@@ -1,8 +1,8 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
-import {ISessionFilter} from '../../../core/types';
 import {DateTime} from 'luxon';
 import {FormControl, FormGroup} from '@angular/forms';
+import {ISessionFilter} from "@interfaces/session.interfaces";
 
 @Component({
     selector: 'cwb-filter',

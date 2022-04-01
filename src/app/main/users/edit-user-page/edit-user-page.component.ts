@@ -2,9 +2,9 @@ import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/co
 import {from, Subject, takeUntil, withLatestFrom} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {filter, map, switchMap, tap} from 'rxjs/operators';
-import {UsersService} from '../../../core/users.service';
-import {IUser} from '../../../core/types';
-import {BreadCrumbsService} from '../../../core/bread-crumbs.service';
+import {UsersService} from '@services/users.service';
+import {BreadCrumbsService} from '@services/bread-crumbs.service';
+import {IUser} from "@interfaces/user.interfaces";
 
 @Component({
     selector: 'cwb-edit-user-page',

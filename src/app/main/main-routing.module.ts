@@ -1,9 +1,9 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {MainComponent} from './main.component';
-import {AdminGuard} from '../core/admin.guard';
-import {getStartPage} from '../core/utils';
-import {UserGuard} from '../core/user.guard';
+import {AdminGuard} from './admin.guard';
+import {UserGuard} from '../user.guard';
+import {getStartPage} from "@helpers/get-start-page";
 
 const routes: Routes = [
     {

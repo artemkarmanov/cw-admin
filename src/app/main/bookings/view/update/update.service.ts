@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import {SocketMessagesService} from '../../../../core/socket-messages.service';
+import {SocketMessagesService} from '@services/socket-messages.service';
 import {EMPTY, Observable} from 'rxjs';
-import {IBookingModificationResponse, IUpdateBooking} from '../../../../core/types';
-import {ErrorHandlerService} from '../../../../core/error-handler.service';
+import {ErrorHandlerService} from '@services/error-handler.service';
 import {catchError} from 'rxjs/operators';
+import {IBookingModificationResponse, IUpdateBooking} from "@interfaces/booking.interfaces";
 
 @Injectable()
 export class UpdateService {

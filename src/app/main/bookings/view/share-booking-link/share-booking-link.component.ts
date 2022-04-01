@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
-import {IBooking} from '../../../../core/types';
-import {environment} from '../../../../../environments/environment';
+import {environment} from '@env';
+import {IBooking} from "@interfaces/booking.interfaces";
 
 @Component({
     selector: 'cwb-share-booking-link',

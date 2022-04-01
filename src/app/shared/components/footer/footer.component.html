@@ -1,8 +1,9 @@
-<footer class="flex row j-c-sb a-i-c">
-	<div class="left-side flex">
+<footer>
+	<div class="left-side">
 		<span> © All rights reserved, CaptionWorks Pty Ltd </span>
 	</div>
-	<div class="right-side flex">
+	<cwb-error></cwb-error>
+	<div class="right-side">
 		<span *ngFor="let link of links; let last = last">
 			{{ link.title }}
 		</span>

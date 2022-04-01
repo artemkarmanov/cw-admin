@@ -1,10 +1,10 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {BookingService} from './booking.service';
 import {BehaviorSubject, Observable, Subject, switchMap, takeUntil} from 'rxjs';
-import {IBookingSummary} from '../../core/types';
 import {tap} from 'rxjs/operators';
 import {CreateService} from './create/create.service';
-import {BreadCrumbsService} from '../../core/bread-crumbs.service';
+import {BreadCrumbsService} from '@services/bread-crumbs.service';
+import {IBookingSummary} from "@interfaces/booking.interfaces";
 
 @Component({
     selector: 'cwb-bookings-page',

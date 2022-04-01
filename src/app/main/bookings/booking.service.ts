@@ -1,17 +1,21 @@
 import {Injectable} from '@angular/core';
-import {SocketMessagesService} from '../../core/socket-messages.service';
+import {SocketMessagesService} from '@services/socket-messages.service';
 import {EMPTY, Observable, pluck} from 'rxjs';
-import {IBooking, IBookingModificationResponse, IBookingSummary, INewBooking} from '../../core/types';
 import {catchError, map} from 'rxjs/operators';
-import {ErrorHandlerService} from '../../core/error-handler.service';
+import {ErrorHandlerService} from '@services/error-handler.service';
+import {
+    IBooking,
+    IBookingModificationResponse,
+    IBookingSummary,
+    INewBooking
+} from "@interfaces/booking.interfaces";
 
-interface IGetBookingRequest {
-    bookingToken?: string;
-    includePast?: 0 | 1;
-    start?: number;
-    count?: number;
-
-}
+// interface IGetBookingRequest {
+//     bookingToken?: string;
+//     includePast?: 0 | 1;
+//     start?: number;
+//     count?: number;
+// }
 
 @Injectable({
     providedIn: 'root'
@@ -24,7 +28,9 @@ export class BookingService {
     ) {
     }
 
-    public getBookings$(count?: number, start?: number, bookingToken?: string, includePast?: boolean): Observable<IBookingSummary[]> {
+    public getBookings$(
+        // count?: number, start?: number, bookingToken?: string, includePast?: boolean
+    ): Observable<IBookingSummary[]> {
         return this.socketMessagesService.request$<{ bookings?: IBookingSummary[] }>('getBookingSummary').pipe(
             pluck('bookings'),
             map(_ => _ as IBookingSummary[])

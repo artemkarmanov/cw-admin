@@ -1,10 +1,10 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {lastValueFrom, Observable, Subject, switchMap, takeUntil, withLatestFrom} from 'rxjs';
-import {IAdminSession} from '../../core/types';
 import {FilterComponent} from './filter/filter.component';
 import {tap} from 'rxjs/operators';
-import {SessionService} from '../../shared/session.service';
-import {BreadCrumbsService} from '../../core/bread-crumbs.service';
+import {SessionsService} from './sessions.service';
+import {BreadCrumbsService} from '@services/bread-crumbs.service';
+import {IAdminSession} from "@interfaces/session.interfaces";
 
 
 @Component({
@@ -31,7 +31,7 @@ export class SessionsPageComponent implements OnInit, AfterViewInit, OnDestroy {
     private filter!: FilterComponent;
 
     constructor(
-        private sessionService: SessionService,
+        private sessionService: SessionsService,
         private breadCrumbsService: BreadCrumbsService,
     ) {
     }

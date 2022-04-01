@@ -1,0 +1,51 @@
+
+<div class="modal-header">
+    <h1 class="modal-title">
+        Viewer Log
+    </h1>
+</div>
+
+<div class="modal-body">
+    <table>
+        <thead>
+        <tr class="table-light">
+            <th>Log ID</th>
+            <th>User ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Connection ID</th>
+            <th>Started</th>
+            <th>Ended</th>
+        </tr>
+        </thead>
+       
+            <ng-container *ngIf="data$ | async as loggys; else empty">
+                <tbody *ngIf="loggys.length > 0">
+                    <tr *ngFor="let loggy of loggys">
+                        <td>{{loggy.viewerLogId}}</td>
+                        <td>{{loggy.userId}}</td>
+                        <td>{{loggy.firstName}} {{loggy.lastName}}</td>
+                        <td>{{loggy.email}}</td>
+                        <td>Connection ID</td>
+                        <td>{{loggy.startEpoch*1000 | date: 'd MMM YYYY hh:mm a':'+0000'}}</td>
+                        <td>{{loggy.endEpoch*1000 | date: 'd MMM YYYY hh:mm a':'+0000'}}</td>
+                    </tr>
+                </tbody>
+            </ng-container>
+            <ng-template #empty>
+                    No!
+            </ng-template>
+        
+    </table>   
+</div>
+    
+                
+                  
+            
+        
+    
+
+
+        <div class="modal-footer d-flex justify-content-center">
+            <button (click)="close()" class="btn btn-secondary">OK</button>
+        </div>

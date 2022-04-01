@@ -1,9 +1,9 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {UsersService} from '../../core/users.service';
+import {UsersService} from '@services/users.service';
 import {BehaviorSubject, Observable, switchMap} from 'rxjs';
-import {IUser, IUserFilter} from '../../core/types';
 import {map} from 'rxjs/operators';
-import {BreadCrumbsService} from '../../core/bread-crumbs.service';
+import {BreadCrumbsService} from '@services/bread-crumbs.service';
+import {IUser, IUserFilter} from "@interfaces/user.interfaces";
 
 @Component({
     selector: 'cwb-users-page',

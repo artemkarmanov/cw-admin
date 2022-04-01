@@ -9,7 +9,7 @@ import {
 import {StripeService} from './stripe.service';
 import {filter, switchMap, tap} from 'rxjs/operators';
 import {from, Subject, takeUntil} from 'rxjs';
-import {environment} from '../../../../environments/environment';
+import {environment} from '@env';
 import {loadStripe, Stripe, StripeElements, StripePaymentElement} from '@stripe/stripe-js';
 
 @Component({

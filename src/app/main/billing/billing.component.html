@@ -40,11 +40,11 @@
 </cwb-card>
 
 <div class="d-flex paginator">
-	<cw-icon
+	<cw-svg-icon
 		[svg]="'chevron-left'"
 		class="pointer"
 		(click)="pickPage(currentPage !== 0 ? currentPage - 1 : currentPage)"
-	></cw-icon>
+	></cw-svg-icon>
 	<div
 		class="page-button pointer"
 		*ngFor="let page of pages; let index = index"
@@ -53,9 +53,9 @@
 	>
 		<span>{{index + 1}}</span>
 	</div>
-	<cw-icon
+	<cw-svg-icon
 		[svg]="'chevron-right'"
 		class="pointer"
 		(click)="pickPage(currentPage < pages.length - 1 ? currentPage + 1 : currentPage)"
-	></cw-icon>
+	></cw-svg-icon>
 </div>

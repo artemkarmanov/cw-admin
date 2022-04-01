@@ -1,10 +1,10 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
-import {INewUser} from '../../../core/types';
-import {UsersService} from '../../../core/users.service';
+import {UsersService} from '@services/users.service';
 import {from, Subject, switchMap, takeUntil} from 'rxjs';
 import {Router} from '@angular/router';
 import {tap} from 'rxjs/operators';
-import {BreadCrumbsService} from '../../../core/bread-crumbs.service';
+import {BreadCrumbsService} from '@services/bread-crumbs.service';
+import {INewUser} from "@interfaces/user.interfaces";
 
 @Component({
     selector: 'cwb-new-user-page',

@@ -1,6 +1,5 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {environment} from '../../../environments/environment';
-
+import {environment} from '@env';
 
 @Component({
     selector: 'cwb-login',
@@ -10,8 +9,4 @@ import {environment} from '../../../environments/environment';
 })
 export class LoginComponent {
     public isAdmin = environment.role === 'admin';
-
-    constructor() {
-
-    }
 }
