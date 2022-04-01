@@ -227,7 +227,10 @@ export interface IBilling {
     totalBill: number,
     success: 0 | 1,
     error: string,
-    billedAtEpoch: number
+    billedAtEpoch: number,
+    firstName: string,
+    lastName: string,
+    email: string
 }
 
 export interface IBillingDetails extends Array<{

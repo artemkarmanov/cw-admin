@@ -18,10 +18,12 @@ export class ViewersListComponent implements OnInit, OnDestroy, ControlValueAcce
     private destroy$$: Subject<void> = new Subject<void>();
     public viewers = new FormArray([]);
     public form = new FormGroup({
-        listOfViewers: new FormControl('')
+        listOfViewers: new FormControl(''),
+        seeViewersIndividually: new FormControl(false)
     });
 
     public listForTextArea: string = "";
+    public seeViewersIndividually: boolean = false;
 
     constructor() {
     }
@@ -102,6 +104,14 @@ export class ViewersListComponent implements OnInit, OnDestroy, ControlValueAcce
             this.viewers.push(
                 new FormControl(viewersAsArray[v], [Validators.required, Validators.email])
             )
+        }
+    }
+
+    switchSeeViewersIndividuallyBool() {
+        this.seeViewersIndividually = (this.seeViewersIndividually) ? false : true;
+        if (this.form.value.listOfViewers) {
+            this.listForTextArea = ""
+            console.log(this.form.value.listOfViewers)
         }
     }
 
