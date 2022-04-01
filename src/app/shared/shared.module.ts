@@ -21,6 +21,8 @@ import {FooterComponent} from "./components/footer/footer.component";
 import {InputComponent} from "./components/input/input.component";
 import {SmallButtonComponent} from "./components/small-button/small-button.component";
 import {IconComponent as Icon2Component} from './components/icon/icon.component';
+import { ButtonComponent } from './components/button/button.component';
+import { SessionViewerLogsDialogComponent } from './session-viewer-logs-dialog/session-viewer-logs-dialog.component';
 
 @NgModule({
     declarations: [
