@@ -47,8 +47,11 @@
             </option>
         </select>
     </div>
-    <div>
-        <cwb-timezone-selector [required]="false" formControlName="timeZoneOverride"></cwb-timezone-selector>
+    <div class="d-flex overrun-check">
+        <input class="form-check-input" formControlName="allowOverrun" id="allowOverrun" type="checkbox">
+        <span>
+            <label class="form-check-label form-control-lg" for="allowOverrun">Allow captioning to overrun</label>
+        </span>
     </div>
     </div>
 </form>

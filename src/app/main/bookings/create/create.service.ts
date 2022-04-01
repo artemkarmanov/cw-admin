@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {BookingService} from '../booking.service';
 import {BehaviorSubject, distinctUntilChanged, Observable, pluck} from 'rxjs';
 import {DateTime} from 'luxon';
-import {MINIMUM_SESSION_DURATION} from '@constants/const';
+import {MINIMUM_SESSION_DURATION, DEFAULT_SESSION_DURATION} from '@constants/const';
 import {AuthService} from '@services/auth.service';
 import {map, switchMap} from 'rxjs/operators';
 import {INewSession} from "@interfaces/session.interfaces";
@@ -20,7 +20,8 @@ export class CreateService {
     };
 
     private _startTime?: string;
-    private _durationMins: number = MINIMUM_SESSION_DURATION;
+    private _durationMins: number = DEFAULT_SESSION_DURATION;
+    private _overrunCaptioning = true;
 
     constructor(private bookingService: BookingService, private authService: AuthService) {
 
@@ -129,6 +130,14 @@ export class CreateService {
         this.data.viewerEmails = value;
     }
 
+    set overrunCaptioning(value: boolean) {
+        this._overrunCaptioning = value;
+    }
+
+    get overrunCaptioning(): boolean {
+        return this._overrunCaptioning;
+    }
+
 
     public getStep(): number {
         return this.step;
@@ -163,7 +172,8 @@ export class CreateService {
                 startHour: time.get('hour'),
                 startMin: time.get('minute'),
                 day: date.get('weekday') - 1,
-                durationMins: this.durationMins
+                durationMins: this.durationMins,
+                allowOverrun: this.overrunCaptioning ? 1 : 0
             }
         ];
     }

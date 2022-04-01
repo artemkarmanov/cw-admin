@@ -1,3 +1,5 @@
+@import "src/scss/_colors";
+
 .form-inline {
     display: flex;
     flex-flow: row wrap;
@@ -60,3 +62,19 @@
       vertical-align: middle;
   }
 
+
+.overrun-check {
+  align-items: center;
+
+  * {
+    margin: 0;
+  }
+
+  label {
+    padding: 0;
+    color: $grey-800;
+    line-height: 48px;
+    font-size: 20px;
+    font-weight: normal;
+  }  
+}

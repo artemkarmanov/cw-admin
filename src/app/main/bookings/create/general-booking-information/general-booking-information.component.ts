@@ -22,10 +22,11 @@ export class GeneralBookingInformationComponent implements OnInit, OnDestroy {
         title: new FormControl(this.createService.title, [Validators.required, Validators.maxLength(100)/*, Validators.minLength(10)*/]),
         startDate: new FormControl(this.createService.startDate, [Validators.required]),
         startTime: new FormControl(this.createService.startTime, [Validators.required]),
-        duration: new FormControl(this.createService.durationMins, [Validators.required]),
+        duration: new FormControl(this.createService.durationMins, [Validators.required, Validators.min(15)]),
         timeZoneOverride: new FormControl(this.createService.timeZone, []),
         countWeeks: new FormControl(this.createService.countWeeks, [Validators.required, Validators.min(1)]),
-        oboUserId: new FormControl(this.createService.oboUserId, [])
+        oboUserId: new FormControl(this.createService.oboUserId, []),
+        allowOverrun: new FormControl(this.createService.overrunCaptioning)
     });
 
     public time: NgbTimeStruct = {hour: 13, minute: 30, second: 0}
@@ -87,6 +88,11 @@ export class GeneralBookingInformationComponent implements OnInit, OnDestroy {
                     this.createService.timeZone = value;
                 })
             ),
+            (this.form.get('allowOverrun') as FormControl).valueChanges.pipe(
+                tap((value) => {
+                    this.createService.overrunCaptioning = value;
+                })
+            )
         ).pipe(
             takeUntil(this.destroy$$.asObservable()),
         ).subscribe();

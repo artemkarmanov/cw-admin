@@ -26,6 +26,7 @@ export interface INewSession {
 	startHour: number;//Hour of start time 0-23
 	startMin: number;//Minute of start time 0-59
 	durationMins: number;//Minutes duration 0-1440
+	allowOverrun: 0 | 1;
 }
 
 export interface IAdminSession {
