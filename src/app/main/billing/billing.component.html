@@ -7,13 +7,11 @@
 	</cwb-button-header>
 </cwb-page-top>
 
-<div class="wrapper" *ngIf="(dataSource$ | async)">
-	<cwb-card>
-		<cwb-smart-table
-			[source]="(dataSource$ | async) || []"
-			[perPage]="7"
-			(rowClicked)="billingPopup($event)"
-			[columns]="columnsConfig"
-		></cwb-smart-table>
-	</cwb-card>
-</div>
+<cwb-card *ngIf="(dataSource$ | async)?.length">
+	<cwb-smart-table
+		[source]="(dataSource$ | async) || []"
+		[perPage]="7"
+		(rowClicked)="billingPopup($event)"
+		[columns]="columnsConfig"
+	></cwb-smart-table>
+</cwb-card>

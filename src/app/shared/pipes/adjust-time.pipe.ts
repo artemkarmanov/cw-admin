@@ -11,7 +11,8 @@ export class AdjustTimePipe implements PipeTransform {
 
     constructor(
         private authService: AuthService,
-        @Inject(LOCALE_ID) private locale: string) {}
+        @Inject(LOCALE_ID) private locale: string
+    ) {}
 
     private userTimezone$: Observable<string> = this.authService.userSettings$
         .pipe(map(data => data.timeZone ? data.timeZone : 'America/New_York'));
@@ -26,7 +27,7 @@ export class AdjustTimePipe implements PipeTransform {
         const dateTime = DateTime.fromMillis(start * 1000, {zone: tz})
             .toISO({format: 'extended'}) ?? start;
         const dateTimeString = dateTime.toString();
-        return formatDate(dateTimeString, 'd MMM, y, h:mm a', this.locale)
+        return formatDate(dateTimeString, 'dd MMM y hh:mm aa', this.locale)
             .replace(',', '');
     }
 }

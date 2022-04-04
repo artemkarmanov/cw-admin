@@ -1,8 +1,4 @@
-<button
-	[disabled]="buttonDisabled"
-	[type]="buttonType"
-	class="flex row a-i-c j-c-c fs-s"
->
+<button [disabled]="buttonDisabled" [type]="buttonType">
 	<cw-svg-icon *ngIf="buttonIcon" [svg]="buttonIcon"></cw-svg-icon>
 	<span>
 		{{ buttonText }}

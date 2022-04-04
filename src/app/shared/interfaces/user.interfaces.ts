@@ -37,6 +37,10 @@ export interface IUser extends INewUser {
 	userId: number;
 }
 
+export interface IUserRow extends IUser {
+	role: Array<'admin' | 'captioner' | 'viewer'>
+}
+
 export interface IUserFilter {
 	emailName?: string;
 	role?: 'admin' | 'captioner';

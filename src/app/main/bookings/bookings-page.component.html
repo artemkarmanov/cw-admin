@@ -4,47 +4,19 @@
         <button (click)="reload()" class="btn btn-sm text-primary">
             <cwb-icon name="arrow-clockwise"></cwb-icon>
         </button>
-
     </cwb-button-header>
-    <cwb-create-button></cwb-create-button>
+    <cw-small-button routerLink="create" [buttonText]="'Add new booking'"
+    ></cw-small-button>
 </cwb-page-top>
 
-
-<cwb-card>
-    <table>
-        <thead>
-        <tr class="table-light">
-            <th>Booking ID</th>
-            <th>Title</th>
-            <th>Next session</th>
-            <th>Duration</th>
-            <th>Remaining</th>
-            <th>Total</th>
-            <th>Future Sessions</th>
-        </tr>
-        </thead>
-        <ng-container *ngIf="bookings$ | async as bookings">
-            <tbody *ngIf="bookings.length;else empty">
-            <tr *ngFor="let booking of bookings" style="line-height: 0;">
-                <td><a [routerLink]="booking.bookingToken">{{booking.bookingToken}}</a></td>
-                <td>{{booking.title}}</td>         
-                <td>{{booking.date}}</td>
-                <td>{{booking.nextSessionStartEpoch | adjustTime: booking.bookingTimeZone | async | date: 'd MMM YYYY h:mm a'}}</td>
-                <td>{{booking.nextSessionDurationMins}}</td>
-                <td>{{booking.totalSessions}}</td>
-                <td>{{booking.countFutureSessions}}</td>
-            </tr>
-            </tbody>
-        </ng-container>
-    </table>
-    <ng-template #empty>
-        <tr>
-            <td class="text-center" colspan="5" style="padding:48px;">
-                <div>
-                    You have no bookings yet. Click on "Add new booking" to make your first booking.
-                </div>
-                <a class="link-primary" routerLink="create">Add new booking</a>
-            </td>
-        </tr>
-    </ng-template>
+<cwb-card *ngIf="(bookings$ | async); else empty">
+    <cwb-smart-table
+        [source]="(bookings$ | async) || []"
+        [perPage]="14"
+        [columns]="columnsConfig"
+    ></cwb-smart-table>
 </cwb-card>
+
+<ng-template #empty>
+    <span> You have no bookings yet. Click on "Add new booking" to make your first booking.</span>
+</ng-template>

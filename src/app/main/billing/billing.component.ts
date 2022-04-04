@@ -6,6 +6,7 @@ import {BillingViewComponent} from "./billing-view/billing-view.component";
 import {UntilDestroy, untilDestroyed} from "@ngneat/until-destroy";
 import {IBilling} from "@interfaces/billing.interfaces";
 import {billingTableConfig} from "./billing.table.config";
+import {Title} from "@angular/platform-browser";
 
 @UntilDestroy()
 @Component({
@@ -21,11 +22,13 @@ export class BillingComponent implements OnInit {
 
 	constructor(
 		private service: BillingService,
-		private modal: ModalService
+		private modal: ModalService,
+		private titleService: Title
 	) {
 	}
 
 	ngOnInit() {
+		this.titleService.setTitle('CaptionWorks | Billing')
 		this.load()
 	}
 

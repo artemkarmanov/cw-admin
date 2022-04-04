@@ -5,11 +5,20 @@
             <cwb-icon name="arrow-clockwise"></cwb-icon>
         </button>
     </cwb-button-header>
-
-    <cwb-add-user-button></cwb-add-user-button>
+    <cw-small-button
+        routerLink="create"
+        [buttonText]="'Add new user'"
+    ></cw-small-button>
 </cwb-page-top>
 
-<cwb-card>
-    <cwb-user-filter (changed)="filterChanged($event)"></cwb-user-filter>
-    <cwb-user-list [data]="$any(users$ | async)"></cwb-user-list>
+<cwb-card *ngIf="(users$ | async); else empty">
+    <cwb-smart-table
+        [source]="(users$ | async) || []"
+        [perPage]="10"
+        [columns]="columnsConfig"
+    ></cwb-smart-table>
 </cwb-card>
+
+<ng-template #empty>
+    <span>You have no users yet. Click on "Add new user".</span>
+</ng-template>
