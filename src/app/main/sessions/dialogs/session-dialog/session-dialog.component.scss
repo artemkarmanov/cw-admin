@@ -1,0 +1,46 @@
+@import 'src/scss/_colors.scss';
+@import 'src/scss/colors-10.scss';
+
+:host { 
+    padding: 28px;
+}
+
+.modal-header {
+    border: none;
+}
+
+input {
+    height: 56px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.form-inline {
+    margin-top: 16px;
+
+    label {
+        font-size: 20px;
+        color: $grey-800;
+        font-weight: 400;
+    }
+    input {
+        width: 180px;
+        padding: 10px;
+        margin: 0px 16px;
+        vertical-align: middle;
+        background-color: $white;
+        border: 1px solid $blue-200;
+        text-align: center;
+    }
+}
+
+.d-flex {
+    div {
+        margin-right: 16px;
+
+        &:last-child {
+            margin-right: 0px;
+        }
+    }
+}

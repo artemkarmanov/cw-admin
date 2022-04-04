@@ -169,8 +169,26 @@ fieldset {
 
 .modal-dialog {
   @media (min-width: 1024px) {
-    max-width: 80%;
+    max-width: 80% !important;
   }
 }
+
+cwb-session-dialog {
+  ngb-timepicker {
+    fieldset {
+      input {
+        padding: 12px !important;
+        font-size: 20px !important;
+        font-weight: 400 !important;
+      }
+  
+      button {
+        height: 56px !important;
+        width: 62px;
+      }
+    }
+  }
+}
+
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';

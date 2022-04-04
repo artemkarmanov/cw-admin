@@ -12,6 +12,7 @@ import {
     SessionCaptionDialogComponent
 } from "./dialogs/session-caption-dialog/session-caption-dialog.component";
 import {SessionDialogComponent} from "./dialogs/session-dialog/session-dialog.component";
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import {SessionDialogComponent} from "./dialogs/session-dialog/session-dialog.co
     ],
     imports: [
         SessionsRoutingModule,
-        SharedModule
+        SharedModule,
+        NgbModule
     ]
 })
 export class SessionsModule {

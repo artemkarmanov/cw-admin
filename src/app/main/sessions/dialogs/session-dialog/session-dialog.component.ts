@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbTimeStruct} from '@ng-bootstrap/ng-bootstrap';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {MINIMUM_SESSION_DURATION} from '@constants/const';
+import {MINIMUM_SESSION_DURATION, DEFAULT_SESSION_DURATION} from '@constants/const';
 import {DateTime} from 'luxon';
 import {BehaviorSubject, Observable, Subject, takeUntil} from 'rxjs';
 import {filter, tap} from 'rxjs/operators';
@@ -34,12 +34,13 @@ export class SessionDialogComponent implements OnInit, OnDestroy {
     );
 
     public form!: FormGroup;
+    public time: NgbTimeStruct = {hour: 13, minute: 30, second: 0}
 
     constructor(private modal: NgbActiveModal) {
         const controls = {
             startDate: new FormControl('', Validators.required),
             startTime: new FormControl('', Validators.required),
-            sessionDurationMins: new FormControl(MINIMUM_SESSION_DURATION, [Validators.required, Validators.min(MINIMUM_SESSION_DURATION)]),
+            sessionDurationMins: new FormControl(DEFAULT_SESSION_DURATION, [Validators.required, Validators.min(MINIMUM_SESSION_DURATION)]),
             audioDetailsOverride: new FormControl(''),
             captionDispOverride: new FormControl(''),
         };
