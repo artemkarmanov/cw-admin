@@ -6,6 +6,7 @@ import {tap} from 'rxjs/operators';
 import {UsersService} from "@services/users.service";
 import {NgbTimepickerConfig, NgbTimeStruct} from '@ng-bootstrap/ng-bootstrap';
 import {IUser} from "@interfaces/user.interfaces";
+import {environment} from '@env';
 
 @Component({
     selector: 'cwb-general-booking-information',
@@ -31,6 +32,7 @@ export class GeneralBookingInformationComponent implements OnInit, OnDestroy {
 
     public time: NgbTimeStruct = {hour: 13, minute: 30, second: 0}
     public meridian = true;
+    public isAdmin = environment.role === 'admin';
 
 
     constructor(

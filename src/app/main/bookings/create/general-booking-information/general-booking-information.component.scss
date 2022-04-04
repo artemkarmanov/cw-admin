@@ -4,6 +4,11 @@
     display: flex;
     flex-flow: row wrap;
     align-items: center;
+    flex-wrap: wrap;
+
+    .text-danger {
+      width: 100%;
+    }
   }
 
   .form-inline label {
@@ -71,7 +76,7 @@
   }
 
   label {
-    padding: 0;
+    padding: 0 0 0 16px;
     color: $grey-800;
     line-height: 48px;
     font-size: 20px;
