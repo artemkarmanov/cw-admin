@@ -11,19 +11,6 @@
 	overflow-x: hidden;
 	padding-top: unset;
 	margin-top: unset;
-
-	&::-webkit-scrollbar {
-		width:  4px;
-		height: 4px;
-	}
-
-	&::-webkit-scrollbar-thumb {
-		background: silver;
-	}
-
-	&::-webkit-scrollbar-track {
-		background: #DDDDDD;
-	}
 }
 
 ::ng-deep {
@@ -58,8 +45,4 @@
 			background: rgb(235, 247, 255)
 		}
 	}
-}
-
-.wrapper {
-	height: 100%;
 }

@@ -5,6 +5,7 @@ import {tap} from 'rxjs/operators';
 import {SessionsService} from './sessions.service';
 import {BreadCrumbsService} from '@services/bread-crumbs.service';
 import {IAdminSession} from "@interfaces/session.interfaces";
+import {Title} from "@angular/platform-browser";
 
 
 @Component({
@@ -33,11 +34,14 @@ export class SessionsPageComponent implements OnInit, AfterViewInit, OnDestroy {
     constructor(
         private sessionService: SessionsService,
         private breadCrumbsService: BreadCrumbsService,
+        private titleService: Title
     ) {
     }
 
     // This is the edit session card that appears on the Admin Side
     ngOnInit(): void {
+        this.titleService.setTitle('CaptionWorks | Sessions')
+
         this.breadCrumbsService.set([{
             path: '/sessions',
             title: 'Sessions'

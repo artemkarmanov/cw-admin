@@ -4,6 +4,8 @@ import {BehaviorSubject, Observable, switchMap} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {BreadCrumbsService} from '@services/bread-crumbs.service';
 import {IUser, IUserFilter} from "@interfaces/user.interfaces";
+import {usersTableConfig} from "./users.table.config";
+import {Title} from "@angular/platform-browser";
 
 @Component({
     selector: 'cwb-users-page',
@@ -13,6 +15,7 @@ import {IUser, IUserFilter} from "@interfaces/user.interfaces";
 })
 export class UsersPageComponent implements OnInit {
     private filter$$: BehaviorSubject<IUserFilter> = new BehaviorSubject<IUserFilter>({});
+    public columnsConfig = usersTableConfig
 
     public users$: Observable<IUser[]> = this.filter$$.asObservable().pipe(
         switchMap(filter => {
@@ -41,11 +44,13 @@ export class UsersPageComponent implements OnInit {
 
     constructor(
         private usersService: UsersService,
-        private breadCrumbsService: BreadCrumbsService
+        private breadCrumbsService: BreadCrumbsService,
+        private titleService: Title
     ) {
     }
 
     ngOnInit(): void {
+        this.titleService.setTitle('CaptionWorks | Users')
         this.breadCrumbsService.set([{
             path: '/users',
             title: 'Users'

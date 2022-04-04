@@ -10,6 +10,10 @@ button {
 	height: 56px;
 	width: 448px;
 	transition: background-color 200ms ease-in;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: center;
+	align-items: center;
 
 	&:hover {
 		background-color: $blue-60;
