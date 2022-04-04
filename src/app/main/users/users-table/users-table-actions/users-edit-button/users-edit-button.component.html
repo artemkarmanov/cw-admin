@@ -1,3 +1,6 @@
-<button [routerLink]="'' + user.userId" class="btn">
-	<cwb-icon name="pencil"></cwb-icon>
-</button>
+<cw-svg-icon
+	style="margin: 8px"
+	[routerLink]="'' + user.userId"
+	[svg]="'edit'"
+	[independent]="true"
+></cw-svg-icon>

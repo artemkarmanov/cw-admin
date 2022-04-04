@@ -9,6 +9,10 @@
 
 :host::ng-deep {
 	table {
+		.ng2-smart-titles {
+			background: $gray-20 !important;
+		}
+
 		.ng2-smart-row {
 			&:not(:last-of-type) {
 				border-bottom: 1px solid $gray-30;

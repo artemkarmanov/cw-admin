@@ -14,7 +14,7 @@
 <cwb-card *ngIf="(users$ | async); else empty">
     <cwb-smart-table
         [source]="(users$ | async) || []"
-        [perPage]="7"
+        [perPage]="10"
         [columns]="columnsConfig"
     ></cwb-smart-table>
 </cwb-card>
