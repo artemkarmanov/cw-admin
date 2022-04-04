@@ -8,6 +8,7 @@ import {EditUserPageComponent} from './edit-user-page/edit-user-page.component';
 import {UserFormComponent} from './user-form/user-form.component';
 import {UsersEditButtonComponent} from './users-table/users-table-actions/users-edit-button/users-edit-button.component';
 import {UsersTableActionsComponent} from './users-table/users-table-actions/users-table-actions.component';
+import {UsersRoleComponent} from './users-table/users-role/users-role.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import {UsersTableActionsComponent} from './users-table/users-table-actions/user
     EditUserPageComponent,
     UserFormComponent,
     UsersEditButtonComponent,
-    UsersTableActionsComponent
+    UsersTableActionsComponent,
+    UsersRoleComponent
   ],
   imports: [
     SharedModule,

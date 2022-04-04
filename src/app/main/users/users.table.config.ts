@@ -1,4 +1,5 @@
 import {UsersTableActionsComponent} from "./users-table/users-table-actions/users-table-actions.component";
+import {UsersRoleComponent} from "./users-table/users-role/users-role.component";
 
 export const usersTableConfig = {
 	firstName: {
@@ -10,13 +11,11 @@ export const usersTableConfig = {
 	email: {
 		title: 'Email',
 	},
-	isAdmin: {
-		title: 'Admin',
-		width: '125px'
-	},
-	isCaptioner: {
-		title: 'Captioner',
-		width: '125px'
+	role: {
+		title: 'Role',
+		type: 'custom',
+		renderComponent: UsersRoleComponent,
+		width: '206px'
 	},
 	actions: {
 		title: 'Actions',

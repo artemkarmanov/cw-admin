@@ -1,0 +1,17 @@
+<cwb-badge
+	*ngIf="rowData.isAdmin"
+	[color]="'orange'"
+	[text]="'Admin'"
+></cwb-badge>
+
+<cwb-badge
+	*ngIf="rowData.isCaptioner"
+	[color]="'green'"
+	[text]="'Captioner'"
+></cwb-badge>
+
+<cwb-badge
+	*ngIf="!rowData.isAdmin && !rowData.isCaptioner"
+	[color]="'blue'"
+	[text]="'Viewer'"
+></cwb-badge>

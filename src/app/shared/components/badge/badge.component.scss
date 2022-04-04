@@ -1,0 +1,41 @@
+@import "colors-10";
+
+.badge {
+	padding: 4px 16px;
+	border-radius: 4px;
+	border: 1px solid;
+
+	.text {
+		font-family: inherit;
+		font-weight: 700;
+		font-size: 12px;
+		line-height: 16px;
+	}
+
+	&.orange {
+		border-color: rgba($orange-40, 0.2);
+		background: $orange-10;
+
+		.text {
+			color: $orange-50;
+		}
+	}
+
+	&.green {
+		border-color: rgba($green-60, 0.2);
+		background: $green-10;
+
+		.text {
+			color: $green-60;
+		}
+	}
+
+	&.blue {
+		border-color: rgba($blue-50, 0.2);
+		background: $blue-10;
+
+		.text {
+			color: $blue-50;
+		}
+	}
+}

@@ -29,6 +29,7 @@ import {UserInfoComponent} from "@cmp/header/user-info/user-info.component";
 import {RouterModule} from "@angular/router";
 import {SmartTableComponent} from '@cmp/smart-table/smart-table.component';
 import {Ng2SmartTableModule} from "ng2-smart-table";
+import {BadgeComponent} from '@cmp/badge/badge.component';
 
 const declarationsExports = [
 	TimezoneSelectorComponent,
@@ -57,6 +58,7 @@ const declarationsExports = [
 	UserInfoComponent,
 	FooterComponent,
 	SmartTableComponent,
+	BadgeComponent
 ]
 
 @NgModule({
