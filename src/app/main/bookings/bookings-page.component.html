@@ -1,7 +1,7 @@
 <cwb-page-top>
     <cwb-button-header>
         <h1>Bookings</h1>
-        <cw-svg-icon [independent]="true" [svg]="'refresh'"></cw-svg-icon>
+        <cw-svg-icon (click)="reload()" [independent]="true" [svg]="'refresh'"></cw-svg-icon>
     </cwb-button-header>
     <cw-small-button routerLink="create" [buttonText]="'Add new booking'"
     ></cw-small-button>
