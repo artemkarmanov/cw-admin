@@ -6,12 +6,10 @@ import {TIncident} from "@interfaces/websocket.interfaces";
 
 @Component({
     selector: 'cwb-root',
-    templateUrl: './app.component.html',
+    template: `<router-outlet></router-outlet>`,
     styles: []
 })
 export class AppComponent {
-    title = 'cw-booking';
-
     constructor(socketMessagesService: SocketMessagesService, authService: AuthService) {
         socketMessagesService.incidents$.pipe(
             filter(incident => (['re-connected', 'connected'] as TIncident[]).includes(incident.type)),

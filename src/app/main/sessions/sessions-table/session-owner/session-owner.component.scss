@@ -1,0 +1,13 @@
+.owner-cell {
+	display: flex;
+	flex-flow: column nowrap;
+
+	.owner-name {
+		display: flex;
+		flex-flow: row nowrap;
+	}
+
+	.owner-email {
+
+	}
+}

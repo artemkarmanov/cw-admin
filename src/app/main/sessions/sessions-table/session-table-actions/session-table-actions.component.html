@@ -1,0 +1,17 @@
+<ng-container [ngSwitch]="rowData.status">
+	<ng-container *ngSwitchCase="'Future'">
+		<cw-svg-icon [independent]="true" [svg]="'edit'" (click)="edit(rowData)"></cw-svg-icon>
+
+		<cw-svg-icon [independent]="true" [svg]="'close'" (click)="cancel(rowData)"></cw-svg-icon>
+	</ng-container>
+
+	<ng-container *ngSwitchCase="'Cancelled'"></ng-container>
+
+	<ng-container *ngSwitchDefault>
+		<cw-small-button [buttonText]="'Caption Logs'" (click)="showCaptionLogs(rowData)"
+		></cw-small-button>
+
+		<cw-small-button [buttonText]="'Viewer Logs'" (click)="showViewerLogs(rowData)"
+		></cw-small-button>
+	</ng-container>
+</ng-container>

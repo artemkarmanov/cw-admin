@@ -1,4 +1,6 @@
-<button (click)="click()" class="btn btn-secondary btn-sm">
-    <cwb-icon name="box-arrow-right"></cwb-icon>
-    Logout
-</button>
+<cw-small-button
+    (click)="click()"
+    [inverted]="true"
+    [icon]="'logout'"
+    [buttonText]="'Log out'"
+></cw-small-button>

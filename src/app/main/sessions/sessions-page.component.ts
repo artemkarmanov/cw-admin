@@ -1,35 +1,31 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {lastValueFrom, Observable, Subject, switchMap, takeUntil, withLatestFrom} from 'rxjs';
-import {FilterComponent} from './filter/filter.component';
-import {tap} from 'rxjs/operators';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    OnDestroy,
+    OnInit,
+    ViewEncapsulation
+} from '@angular/core';
+import {Observable, Subject} from 'rxjs';
 import {SessionsService} from './sessions.service';
 import {BreadCrumbsService} from '@services/bread-crumbs.service';
-import {IAdminSession} from "@interfaces/session.interfaces";
+import {IAdminSession, IRangePicker} from "@interfaces/session.interfaces";
 import {Title} from "@angular/platform-browser";
-
+import {sessionsTableConfig} from "./sessions.table.config";
+import {FormControl} from "@angular/forms";
 
 @Component({
     selector: 'cwb-sessions-page',
     templateUrl: './sessions-page.component.html',
     styleUrls: ['./sessions-page.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None
 })
-export class SessionsPageComponent implements OnInit, AfterViewInit, OnDestroy {
+export class SessionsPageComponent implements OnInit, OnDestroy {
+    public columnsConfig = sessionsTableConfig
+    public sessions$: Observable<IAdminSession[]> = this.sessionService.getSessionsSummary$()
+    public rangePicker = new FormControl(SessionsPageComponent.retrieveSavedRange());
     private destroy$$: Subject<void> = new Subject<void>();
     private reload$$: Subject<void> = new Subject<void>();
-    private cancelClick$$: Subject<number> = new Subject<number>();
-    private editClick$$: Subject<IAdminSession> = new Subject<IAdminSession>();
-    private sessions$$: Subject<IAdminSession[]> = new Subject<IAdminSession[]>();
-    public sessions$: Observable<IAdminSession[]> = this.sessions$$.asObservable();
-    public selectedRow = -1;
-    public selectedSession = -1;
-
-    public get isRowSelected() {
-        return this.selectedRow === -1
-    }
-
-    @ViewChild(FilterComponent)
-    private filter!: FilterComponent;
 
     constructor(
         private sessionService: SessionsService,
@@ -38,7 +34,6 @@ export class SessionsPageComponent implements OnInit, AfterViewInit, OnDestroy {
     ) {
     }
 
-    // This is the edit session card that appears on the Admin Side
     ngOnInit(): void {
         this.titleService.setTitle('CaptionWorks | Sessions')
 
@@ -46,87 +41,35 @@ export class SessionsPageComponent implements OnInit, AfterViewInit, OnDestroy {
             path: '/sessions',
             title: 'Sessions'
         }]);
-        this.cancelClick$$.asObservable().pipe(
-            takeUntil(this.destroy$$.asObservable()),
-            switchMap(this.sessionService.cancel$.bind(this.sessionService)),
-            tap(() => this.reload$$.next()),
-        ).subscribe();
-        this.editClick$$.asObservable().pipe(
-            takeUntil(this.destroy$$.asObservable()),
-            switchMap(this.sessionService.edit$.bind(this.sessionService)),
-            tap(() => this.reload$$.next()),
-        ).subscribe();
-
     }
 
     ngOnDestroy(): void {
         this.destroy$$.next();
     }
 
-    ngAfterViewInit(): void {
-        this.filter.get$().pipe(
-            takeUntil(this.destroy$$.asObservable()),
-            switchMap(({fromEpoch, toEpoch}) => this.sessionService.getSessionsSummary$(fromEpoch, toEpoch)),
-            tap((_) => this.sessions$$.next(_))
-        ).subscribe();
+    public changedDates() {
+        const dates = this.rangePicker.value
+        if (dates) {
+            const start = Number(new Date(dates.startDate))
+            const end = Number(new Date(dates.endDate))
 
-        this.reload$$.asObservable().pipe(
-            takeUntil(this.destroy$$.asObservable()),
-            withLatestFrom(this.filter.get$(), (_, f) => f),
-            switchMap(({fromEpoch, toEpoch}) => this.sessionService.getSessionsSummary$(fromEpoch, toEpoch)),
-            tap((_) => this.sessions$$.next(_))
-        ).subscribe();
+            localStorage.setItem('session-dates', JSON.stringify({startDate: start, endDate: end}))
 
+            this.sessions$ = this.sessionService.getSessionsSummary$(start, end)
+        }
     }
 
-    cancel(id: number) {
-        this.cancelClick$$.next(id);
-
-    }
-
-    edit(session: IAdminSession) {
-        this.editClick$$.next(session);
-
+    private static retrieveSavedRange(): {startDate: Date, endDate: Date} | null {
+        const key = localStorage.getItem('session-dates')
+        if (key) {
+            const value = JSON.parse(key) as IRangePicker
+            return {startDate: new Date(value.startDate), endDate: new Date(value.endDate)}
+        } else {
+            return null
+        }
     }
 
     reload() {
         this.reload$$.next();
-    }
-
-    isEditable(session: IAdminSession): boolean {
-        return session.status === 'Future';
-    }
-
-    // Even cancelled sessions were showing up on the admin side after they'd been cancelled
-    // which was making the list of sessions very long, so I decided to hide cancelled
-    // sessions from being displayed using this function
-    isNotCancelled(session: IAdminSession): boolean {
-        return session.status !== 'Cancelled'
-    }
-
-    public renderSessionCaptionsViewDialog(sessionId: number): void {
-        lastValueFrom(this.sessionService.getSessionCaptionLogs$(sessionId))
-            .then(data => this.sessionService.openSessionCaptionDialog$(sessionId, data));
-        this.unSelectRow();
-    }
-
-    public selectRow(i: number, sessionId: number): void {
-        if (this.selectedRow === i) {
-            this.unSelectRow()
-        } else {
-            this.selectedRow = i;
-            this.selectedSession = sessionId;
-        }
-    }
-
-    showLogs(s: any) {
-        this.sessionService.getSessionViewerLogs$(s.sessionId).subscribe(v => console.log(v))
-        
-    }
-
-
-    public unSelectRow(): void {
-        this.selectedRow = -1;
-        this.selectedSession = -1;
     }
 }

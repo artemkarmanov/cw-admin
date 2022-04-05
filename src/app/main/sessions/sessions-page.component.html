@@ -1,73 +1,40 @@
 <cwb-page-top>
-    <cwb-button-header>
-        <h1>Sessions</h1>
-        <button (click)="reload()" class="btn btn-sm text-primary">
-            <cwb-icon name="arrow-clockwise"></cwb-icon>
-        </button>
-    </cwb-button-header>
+	<cwb-button-header>
+		<h1>Sessions</h1>
+		<button (click)="reload()" class="btn btn-sm text-primary">
+			<cwb-icon name="arrow-clockwise"></cwb-icon>
+		</button>
+		<input
+			type="text"
+			class="form-control"
+			ngxDaterangepickerMd
+			placeholder="Start Time"
+			[formControl]="rangePicker"
+			[closeOnAutoApply]="true"
+			[autoApply]="true"
+			[locale]="{
+				displayFormat: 'MM/DD/YYYY',
+				daysOfWeek: ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
+			}"
+            (datesUpdated)="changedDates()"
+		/>
+	</cwb-button-header>
 </cwb-page-top>
 
-<cwb-card>
-    <div class="row">
-        <cwb-filter class="col"></cwb-filter>
-        <div class="col action-buttons">
-            <button class="btn btn-secondary"
-                [disabled]="isRowSelected"
-                (click)="renderSessionCaptionsViewDialog(selectedSession)">
-                Caption Log
-            </button>
-        </div>
-    </div>
-    <table>
-        <thead>
-        <tr class="table-light">
-            <th>Session ID</th>
-            <th>Title</th>
-            <th>Session start</th>
-            <th>Duration</th>
-            <th>Status</th>
-            <th>Owner</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <ng-container *ngIf="sessions$ | async as sessions">
-            <tbody *ngIf="sessions.length;else empty">
-                <tr *ngFor="let session of sessions; let i = index"
-                    (click)="selectRow(i, session.sessionId)"
-                    [class.selected]="selectedRow === i">
-                    <ng-container *ngIf="isNotCancelled(session)">
-                        <td>{{session.sessionId}}</td>
-                        <td><a [routerLink]="'/bookings/'+session.bookingToken">{{session.title}}</a></td>
-                        <td>{{session.startEpoch | adjustTime: session.bookingTimeZone | async | date: 'd MMM YYYY h:mm a'}}</td>
-                        <td>{{session.sessionDurationMins}}</td>
-                        <td><span cwbStatus>{{session.status}}</span></td>
-                        <td>{{session | owner}}</td>
-                        <td>
-                            <button (click)="showLogs(session)" class="btn">
-                                Logs
-                            </button>
-                            <ng-container *ngIf="isEditable(session)">
-                                <button (click)="edit(session)" class="btn">
-                                    <cwb-icon name="pencil"></cwb-icon>
-                                </button>
-                                <button (click)="cancel(session.sessionId)" class="btn">
-                                    <cwb-icon name="x-lg"></cwb-icon>
-                                </button>
-                            </ng-container>
-                        </td>
-                    </ng-container>
-                </tr>
-            </tbody>
-        </ng-container>
-    </table>
-    <ng-template #empty>
-        <tr>
-            <td class="text-center" colspan="6" style="padding:48px;">
-                <div>
-                    There are not any sessions
-                </div>
-
-            </td>
-        </tr>
-    </ng-template>
+<cwb-card *ngIf="(sessions$ | async) as sessions">
+	<cwb-smart-table
+		*ngIf="sessions.length; else empty"
+		[source]="sessions || []"
+		[perPage]="9"
+		[columns]="columnsConfig"
+	></cwb-smart-table>
 </cwb-card>
+
+<ng-template #empty>
+	<ng-container *ngIf="rangePicker.value; else notTouched">
+		No sessions for chosen period found.
+	</ng-container>
+	<ng-template #notTouched>
+		<span>You have no range selected.</span>
+	</ng-template>
+</ng-template>

@@ -1,0 +1,9 @@
+<cwb-badge
+	[text]="rowData.status"
+	[color]="rowData.status === 'Future'
+		? 'primary': rowData.status === 'Cancelled'
+			? 'gray' : rowData.status === 'Completed'
+				? 'green' : rowData.status === 'Running'
+					? 'orange' : 'orange'
+	"
+></cwb-badge>
