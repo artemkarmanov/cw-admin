@@ -1,6 +1,6 @@
 @mixin emoji($name) {
   background-image: url("../assets/#{$name}.png");
-  padding-left: 34px;
+  padding-left: 48px;
   background-repeat: no-repeat;
   background-size: 32px 32px;
   background-position: left center;

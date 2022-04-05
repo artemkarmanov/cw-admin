@@ -3,6 +3,7 @@ import {BillingService} from "@services/billing.service";
 import {Observable} from "rxjs";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {IBillingDetails} from "@interfaces/billing.interfaces";
+import {columnsConfig} from "./billing-view.table.config";
 
 @Component({
   selector: 'cwb-billing-view',
@@ -14,7 +15,7 @@ import {IBillingDetails} from "@interfaces/billing.interfaces";
 export class BillingViewComponent implements OnInit {
   @Input() private billingResultId!: number
   public billing$!: Observable<IBillingDetails>
-
+  public tableConfig = columnsConfig
   constructor(
     private service: BillingService,
     private activeModal: NgbActiveModal

@@ -1,55 +1,94 @@
 <form (ngSubmit)="save()" [formGroup]="form">
-    <div class="d-flex">
-        <div>
-            <label class="form-label" for="firstName">First name</label>
-            <input class="form-control form-control-lg" formControlName="firstName" id="firstName"
-                   placeholder="Enter your first name"
-                   required type="text">
-        </div>
-        <div>
-            <label class="form-label" for="lastName">Last name</label>
-            <input class="form-control form-control-lg" formControlName="lastName" id="lastName"
-                   placeholder="Enter your last name"
-                   required type="text">
-        </div>
-    </div>
+	<div class="d-flex">
+		<cw-input class="half"
+		          [inputLabel]="'First Name'"
+		          [inputPlaceholder]="'First Name'"
+		          [inputAutocomplete]="'firstName'"
+		          formControlName="firstName"
+		></cw-input>
+		<cw-input class="half"
+		          [inputLabel]="'Last Name'"
+		          [inputPlaceholder]="'Last Name'"
+		          [inputAutocomplete]="'lastName'"
+		          formControlName="lastName"
+		></cw-input>
+	</div>
 
-    <div>
-        <label class="form-label" for="new-email">Email</label>
-        <input class="form-control form-control-lg" formControlName="email" id="new-email"
-               placeholder="Enter your email here"
-               required type="text">
-    </div>
-    <div *ngIf="this.form.get('password')">
-        <label class="form-label" for="new-password">Password</label>
-        <input class="form-control form-control-lg" formControlName="password" id="new-password"
-               placeholder="Enter the password" required type="password">
-    </div>
-    <div *ngIf="this.form.get('password2')">
-        <label class="form-label" for="new-password2">Repeat password</label>
-        <input class="form-control form-control-lg" formControlName="password2" id="new-password2"
-               placeholder="Re-enter password" required type="password">
-    </div>
-    <div>
-        <cwb-timezone-selector formControlName="timeZone"></cwb-timezone-selector>
-    </div>
-    <div>
-        <label class="form-label" for="respeakerRate">Re-speaker rate</label>
-        <input class="form-control form-control-lg" formControlName="respeakerRate" id="respeakerRate"
-               required type="text">
-    </div>
+	<cw-input
+		[inputLabel]="'Enter your email here'"
+		[inputPlaceholder]="'your@email.com'"
+		[inputAutocomplete]="'username'"
+		formControlName="email"
+	></cw-input>
 
-    <div>
-        <input class="form-check-input" formControlName="isAdmin" id="isAdmin" type="checkbox">
-        <label class="form-check-label" for="isAdmin">User is admin</label>
-    </div>
-    <div>
-        <input class="form-check-input" formControlName="isCaptioner" id="isCaptioner" type="checkbox">
-        <label class="form-check-label" for="isCaptioner">User is captioner</label>
-    </div>
-    <div class="d-flex justify-content-between">
-        <button class="btn btn-secondary" routerLink="../">Cancel</button>
-        <button [disabled]="form.invalid || form.untouched" class="btn btn-primary" type="submit">Save</button>
-    </div>
+	<div class="d-flex">
+		<ng-container *ngIf="form.controls['password']">
+			<cw-input class="half"
+			          [inputLabel]="'Password'"
+			          [inputPlaceholder]="'Enter the password'"
+			          [inputAutocomplete]="'new-password'"
+			          formControlName="password"
+			></cw-input>
+		</ng-container>
+		<ng-container *ngIf="form.controls['password2']">
+			<cw-input class="half"
+			          [inputLabel]="'Password'"
+			          [inputPlaceholder]="'Re-enter password'"
+			          [inputAutocomplete]="'new-password'"
+			          formControlName="password2"
+			></cw-input>
+		</ng-container>
+	</div>
+	<div style="margin-bottom: 20px">
+		<cwb-timezone-selector formControlName="timeZone"></cwb-timezone-selector>
+	</div>
+	<cw-input
+		[inputLabel]="'Re-speaker rate'"
+		[inputPlaceholder]="'150'"
+		[inputAutocomplete]="'new-password'"
+		formControlName="respeakerRate"
+	></cw-input>
+
+	<div style="margin-bottom: 8px">
+		<input
+			style="margin-right: 8px"
+			class="form-check-input"
+			formControlName="isAdmin"
+			id="isAdmin"
+			type="checkbox"
+        >
+		<label
+            class="form-check-label"
+            for="isAdmin"
+        >
+			User is admin
+		</label>
+	</div>
+	<div style="margin-bottom: 8px">
+		<input
+			style="margin-right: 8px"
+			class="form-check-input"
+			formControlName="isCaptioner"
+			id="isCaptioner"
+			type="checkbox"
+        >
+		<label
+			class="form-check-label"
+			for="isCaptioner"
+        >
+			User is captioner
+		</label>
+	</div>
+
+	<div class="d-flex justify-content-between" style="margin-top: 20px">
+        <cw-small-button
+            [buttonText]="'Cancel'"
+            [inverted]="true"
+            routerLink="../"
+        ></cw-small-button>
+        <cw-small-button
+            [buttonText]="'Save'"
+            [buttonDisabled]="form.invalid || form.untouched"
+        ></cw-small-button>
+	</div>
 </form>
-
