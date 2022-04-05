@@ -5,6 +5,7 @@ import {IAdminSession} from "@interfaces/session.interfaces";
 @Component({
   selector: 'cwb-session-status-badge',
   templateUrl: './session-status-badge.component.html',
+  styleUrls: ['./session-status-badge.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SessionStatusBadgeComponent implements ViewCell {

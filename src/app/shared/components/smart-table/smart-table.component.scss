@@ -12,6 +12,18 @@ ng2-smart-table {
 		thead {
 			background: $gray-20;
 			border-bottom: 1px solid $gray-30;
+
+			.ng2-smart-sort,
+			.ng2-smart-sort-link.sort {
+				color: $blue-50;
+				font-weight: 500;
+				font-size: 14px;
+				line-height: 24px;
+				text-decoration: none;
+			}
+			.ng2-smart-sort {
+				color: $gray-80;
+			}
 		}
 
 		tbody {
@@ -23,6 +35,10 @@ ng2-smart-table {
 				&:not(:last-of-type) {
 					border-bottom: 1px solid $gray-30;
 				}
+			}
+
+			td {
+				color: $gray-90;
 			}
 		}
 	}

@@ -5,16 +5,14 @@ import {
     OnInit,
     ViewEncapsulation
 } from '@angular/core';
-import {Observable, Subject, switchMap} from 'rxjs';
+import {Observable, Subject, switchMap, take, tap} from 'rxjs';
 import {SessionsService} from './sessions.service';
 import {BreadCrumbsService} from '@services/bread-crumbs.service';
 import {IAdminSession, IRangePicker} from "@interfaces/session.interfaces";
 import {Title} from "@angular/platform-browser";
 import {sessionsTableConfig} from "./sessions.table.config";
 import {FormControl} from "@angular/forms";
-import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 
-@UntilDestroy()
 @Component({
     selector: 'cwb-sessions-page',
     templateUrl: './sessions-page.component.html',
@@ -76,8 +74,9 @@ export class SessionsPageComponent implements OnInit, AfterViewInit {
 
     private session$$(start?: number, end?: number): Observable<IAdminSession[]> {
         return this.sessions$ = this.reload$$.asObservable().pipe(
-            untilDestroyed(this),
-            switchMap(() => this.sessionService.getSessionsSummary$(start, end))
+            take(1),
+            switchMap(() => this.sessionService.getSessionsSummary$(start, end)),
+            tap(() => this.reload$$.next())
         )
     }
 }

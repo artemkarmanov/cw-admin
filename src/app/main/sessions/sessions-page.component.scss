@@ -1,5 +1,13 @@
 @import "colors-10";
 
+cwb-smart-table {
+    tbody {
+        tr {
+            height: 63px;
+        }
+    }
+}
+
 cwb-sessions-page {
     cwb-button-header {
         .form-control {

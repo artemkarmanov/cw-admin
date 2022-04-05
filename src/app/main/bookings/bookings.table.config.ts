@@ -2,6 +2,10 @@ import {AdjustTimePipe} from "@pipes/adjust-time.pipe";
 import {Injector} from "@angular/core";
 import {AsyncPipe} from "@angular/common";
 import {BookingLinkComponent} from "./bookings-table/booking-link/booking-link.component";
+import {
+	BookingSessionsRemainingComponent
+} from "./bookings-table/booking-sessions-remaining/booking-sessions-remaining.component";
+import {BookingOwnerComponent} from "./bookings-table/booking-owner/booking-owner.component";
 
 export const bookingsTableConfig = {
 	bookingToken: {
@@ -20,16 +24,21 @@ export const bookingsTableConfig = {
 	},
 	nextSessionDurationMins: {
 		title: 'Duration',
-		width: '110px'
-	},
-	totalSessions: {
-		title: 'Total',
-		width: '90px'
+		width: '110px',
+		valuePrepareFunction: (data: number) => `${data} mins`
 	},
 	countFutureSessions: {
-		title: 'Future Sessions',
-		width: '160px'
+		title: 'Sessions Remaining',
+		type: 'custom',
+		renderComponent: BookingSessionsRemainingComponent,
+		width: '200px'
+	},
+	ownerLastName: {
+		title: 'Owner',
+		type: 'custom',
+		renderComponent: BookingOwnerComponent
 	}
+
 }
 
 function prepareDate(date: number) {

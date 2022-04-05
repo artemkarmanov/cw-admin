@@ -5,6 +5,7 @@ import {IAdminSession} from "@interfaces/session.interfaces";
 @Component({
 	selector: 'cwb-session-link',
 	templateUrl: './session-link.component.html',
+	styleUrls: ['./session-link.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SessionLinkComponent implements ViewCell {

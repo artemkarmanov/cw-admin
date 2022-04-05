@@ -1,6 +1,12 @@
-@use '../../../../../scss/colors' as c;
+@import 'colors-10';
 
 small {
   font-weight: 600;
-  color: c.$grey-500;
+  color: $gray-50;
+}
+
+.name {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
 }

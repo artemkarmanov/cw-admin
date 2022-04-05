@@ -2,12 +2,10 @@
 	display: flex;
 	flex-flow: column nowrap;
 
-	.owner-name {
-		display: flex;
-		flex-flow: row nowrap;
-	}
-
+	.owner-name,
 	.owner-email {
-
+		font-weight: 400;
+		color: #3F3F3F;
+		text-align: center;
 	}
 }

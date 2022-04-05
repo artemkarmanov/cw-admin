@@ -15,21 +15,22 @@ export const sessionsTableConfig = {
 		title: 'Session ID',
 		width: '120px'
 	},
+	title: {
+		title: 'Booking',
+		type: 'custom',
+		renderComponent: SessionLinkComponent
+	},
 	startEpoch: {
-		title: 'Session start',
-		width: '211px',
+		title: 'Start time',
+		width: '200px',
 		valuePrepareFunction: prepareDate,
 		filter: false,
 		sort: false
 	},
-	title: {
-		title: 'Title',
-		type: 'custom',
-		renderComponent: SessionLinkComponent
-	},
 	sessionDurationMins: {
 		title: 'Duration',
-		width: '110px'
+		width: '110px',
+		valuePrepareFunction: (data: number) => `${data} mins`
 	},
 	status: {
 		title: 'Status',

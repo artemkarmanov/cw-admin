@@ -8,10 +8,18 @@
 	<ng-container *ngSwitchCase="'Cancelled'"></ng-container>
 
 	<ng-container *ngSwitchDefault>
-		<cw-small-button [buttonText]="'Caption Logs'" (click)="showCaptionLogs(rowData)"
-		></cw-small-button>
+		<cw-svg-icon
+			title="Captioner Log"
+			[svg]="'captions'"
+			[independent]="true"
+			(click)="showCaptionLogs(rowData)"
+		></cw-svg-icon>
 
-		<cw-small-button [buttonText]="'Viewer Logs'" (click)="showViewerLogs(rowData)"
-		></cw-small-button>
+		<cw-svg-icon
+			title="Viewer Log"
+			[svg]="'viewers'"
+			[independent]="true"
+            (click)="showViewerLogs(rowData)"
+		></cw-svg-icon>
 	</ng-container>
 </ng-container>
