@@ -10,9 +10,9 @@
             <label class="form-label" for="startDate">Session date</label>
             <input class="form-control form-control-lg" formControlName="startDate" id="startDate" required type="date" placeholder="Select date">
         </div>
-        <div class="d-flex flex-column w-100">
+        <div class="d-flex flex-column">
             <label class="form-label" for="startTime">Session time</label>
-            <ngb-timepicker [(ngModel)]="time" [meridian]="true" [spinners]="false"
+            <ngb-timepicker [meridian]="true" [spinners]="false"
                 formControlName="startTime" required></ngb-timepicker>
         </div>
     </div>
@@ -24,22 +24,36 @@
         <p class="text-danger" *ngIf="form.controls['sessionDurationMins'].invalid">Minimum duration is 15 minutes</p>
     </div>
     <div class="d-flex overrun-check">
-        <input class="form-check-input" formControlName="allowOverrun" id="allowOverrun" type="checkbox">
+        <input class="form-check-input" #audioCheck (change)="updateAudioAttribute(audioCheck.checked)" type="checkbox" >
         <span>
-            <label class="form-check-label form-control-lg" for="allowOverrun">Audio details same as booking</label>
+            <label class="form-check-label form-control-lg" for="audioCheck">Audio details same as booking</label>
         </span>
     </div>
     <div>
-        <label class="form-label" for="captionDispOverride">Caption Display Details override</label>
-        <textarea class="form-control-lg form-control" formControlName="captionDispOverride"
-                  id="captionDispOverride"></textarea>
+        <label class="form-label" for="audioDetailsOverride">Audio details</label>
+        <textarea class="form-control-lg form-control" formControlName="audioDetailsOverride"
+                  id="audioDetailsOverride" placeholder="Enter audio details here"></textarea>
     </div>
-    <div *ngIf="isAdmin">
-        <label class="form-label" for="respeakerRateOverride">Re-speaker rate override</label>
-        <input class="form-control form-control-lg" formControlName="respeakerRateOverride" id="respeakerRateOverride"
-               type="text">
+    <div class="d-flex overrun-check">
+        <input class="form-check-input" #captionCheck (change)="updateCaptionAttribute(captionCheck.checked)" type="checkbox">
+        <span>
+            <label class="form-check-label form-control-lg" for="captionCheck">Caption display same as booking</label>
+        </span>
     </div>
-    <div *ngIf="isAdmin" class="form-check">
+    <div>
+        <label class="form-label overrun-check" for="captionDispOverride">Caption display</label>
+        <textarea class="form-control form-control-lg" formControlName="captionDispOverride" id="captionDispOverride"
+            placeholder="Enter caption details here"></textarea>
+    </div>
+    <div *ngIf="isAdmin" class="d-flex flex-column w-100">
+        <label class="form-label" for="allowOverride">Re-speaker rate override</label>
+        <input class="form-control" formControlName="respeakerRateOverride" id="allowOverride" type="number">
+    </div>
+    <div class="d-flex overrun-check">
+        <input class="form-check-input" formControlName="allowOverrun" id="allowOverrun" type="checkbox">
+        <label class="form-check-label" for="allowOverrun">Allow captioning to overrun</label>
+    </div>
+    <div *ngIf="isAdmin" class="d-flex overrun-check">
         <input class="form-check-input" formControlName="nonBilled" id="nonBilled" type="checkbox">
         <label class="form-check-label" for="nonBilled">Non-billed</label>
     </div>

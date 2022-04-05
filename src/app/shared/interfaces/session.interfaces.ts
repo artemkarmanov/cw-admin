@@ -9,6 +9,7 @@ export interface ISession {
 	status: TSessionStatus;
 	nonBilled?: 0 | 1;
 	respeakerRateOverride?: number;
+	allowOverrun: 0 | 1;
 }
 
 export interface ICreateSession {
@@ -41,6 +42,7 @@ export interface IAdminSession {
 	ownerFirstName: string;
 	ownerLastName: string;
 	ownerEmail: string
+	allowOverrun: 0 | 1;
 }
 
 export interface ISessionFilter {

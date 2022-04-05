@@ -1,33 +1,53 @@
 @import 'src/scss/_colors.scss';
 @import 'src/scss/colors-10.scss';
 
+$d-size: 16px;
+$font-size: 20px;
+
+@mixin labelS {
+    label {
+        font-size: $font-size;
+        color: $grey-800;
+        font-weight: 400;
+        padding: 0;
+        line-height: 56px;
+    }
+}
+
 :host { 
     padding: 28px;
 }
 
-.modal-header {
+.modal-header, .modal-footer {
     border: none;
+    padding: $d-size 0 0 $d-size;
+}
+
+.modal-body {
+    padding: 0px $d-size 0px $d-size;
 }
 
 input {
+    margin-top: 0;
     height: 56px;
     border-radius: 8px;
-    font-size: 20px;
+    font-size: $font-size;
     font-weight: 400;
+
+    &[type="checkbox"] {
+        height: 20px;
+        margin-right: 10px;
+    }
 }
 
 .form-inline {
-    margin-top: 16px;
+    margin-top: $d-size;
+    @include labelS();
 
-    label {
-        font-size: 20px;
-        color: $grey-800;
-        font-weight: 400;
-    }
     input {
         width: 180px;
         padding: 10px;
-        margin: 0px 16px;
+        margin: 0px $d-size;
         vertical-align: middle;
         background-color: $white;
         border: 1px solid $blue-200;
@@ -36,11 +56,26 @@ input {
 }
 
 .d-flex {
-    div {
-        margin-right: 16px;
+    margin-top: $d-size;
 
-        &:last-child {
-            margin-right: 0px;
-        }
+    div:not(:last-child) {
+        margin-right: $d-size;
     }
+}
+
+textarea {
+    min-height: 100px;
+    max-height: 200px;
+}
+
+div {
+    .form-label & {
+        margin-top: $d-size;
+    }
+}
+
+.overrun-check {
+    align-items: center;
+    @include labelS();
+    margin-top: 10px !important;
 }

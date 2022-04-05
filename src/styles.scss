@@ -169,7 +169,8 @@ fieldset {
 
 .modal-dialog {
   @media (min-width: 1024px) {
-    max-width: 80% !important;
+    max-width: 70%;
+    min-width: 700px;
   }
 }
 

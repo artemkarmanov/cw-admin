@@ -16,6 +16,7 @@ interface IFormData {
     captionDispOverride?: string;
     nonBilled?: boolean;
     respeakerRateOverride?: string;
+    allowOverrun: boolean;
 }
 
 @Component({
@@ -43,6 +44,7 @@ export class SessionDialogComponent implements OnInit, OnDestroy {
             sessionDurationMins: new FormControl(DEFAULT_SESSION_DURATION, [Validators.required, Validators.min(MINIMUM_SESSION_DURATION)]),
             audioDetailsOverride: new FormControl(''),
             captionDispOverride: new FormControl(''),
+            allowOverrun: new FormControl(false)
         };
         if (this.isAdmin) {
             Object.assign(controls, {
@@ -57,6 +59,7 @@ export class SessionDialogComponent implements OnInit, OnDestroy {
         this.data$.pipe(
             takeUntil(this.destroy$$.asObservable()),
             tap((session: ISession) => {
+                console.log(session);
                 this.inEditMode = true;
                 // The backend is now returning startEpochs in a different way, so 
                 // this * 1000  is necessary now (3/23/2022)
@@ -76,6 +79,7 @@ export class SessionDialogComponent implements OnInit, OnDestroy {
                 this.form.get('captionDispOverride')?.setValue(session.captionDispOverride);
                 this.form.get('nonBilled')?.setValue(session.nonBilled);
                 this.form.get('respeakerRateOverride')?.setValue(session.respeakerRateOverride);
+                this.form.get('allowOverrun')?.setValue(session.allowOverrun ? 1 : 0);
             })
         ).subscribe()
     }
@@ -93,7 +97,8 @@ export class SessionDialogComponent implements OnInit, OnDestroy {
                 audioDetailsOverride,
                 captionDispOverride,
                 respeakerRateOverride,
-                nonBilled
+                nonBilled,
+                allowOverrun
             } = this.form.value as IFormData;
 
             const startEpoch = DateTime.fromISO([startDate, startTime].join('T')).toMillis();
@@ -104,7 +109,8 @@ export class SessionDialogComponent implements OnInit, OnDestroy {
                 ...(audioDetailsOverride && {audioDetailsOverride}),
                 ...(captionDispOverride && {captionDispOverride}),
                 ...((respeakerRateOverride && parseFloat(respeakerRateOverride)) && {respeakerRateOverride: parseFloat(respeakerRateOverride)}),
-                ...(nonBilled !== undefined && {nonBilled: nonBilled ? 1 : 0})
+                ...(nonBilled !== undefined && {nonBilled: nonBilled ? 1 : 0}),
+                ...(allowOverrun !== undefined && {allowOverrun: allowOverrun ? 1 : 0})
             });
         }
 
@@ -112,6 +118,16 @@ export class SessionDialogComponent implements OnInit, OnDestroy {
 
     close() {
         this.modal.dismiss();
+    }
+
+    updateAudioAttribute(checked: boolean): void {
+        checked ? this.form.controls['audioDetailsOverride'].disable() :
+            this.form.controls['audioDetailsOverride'].enable();
+    }
+
+    updateCaptionAttribute(checked: boolean): void {
+        checked ? this.form.controls['captionDispOverride'].disable() :
+            this.form.controls['captionDispOverride'].enable();
     }
 
 }
