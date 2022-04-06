@@ -14,11 +14,12 @@ import {
 } from './dialogs/session-viewer-logs-dialog/session-viewer-logs-dialog.component';
 import {
 	IAdminSession,
-	ICreateSession, IRangePicker,
+	ICreateSession,
 	ISession,
 	ISessionCaptionLogs,
 	ISessionViewerLog
 } from "@interfaces/session.interfaces";
+import {IDateRange} from "@cmp/range-picker/range-picker.component";
 
 @Injectable({
 	providedIn: SharedProviderModule
@@ -61,17 +62,26 @@ export class SessionsService {
 	}
 
 	public getSessionsSummary$(fromEpoch?: number, toEpoch?: number, start?: number, count?: number): Observable<IAdminSession[]> {
-		const dates = localStorage.getItem('session-dates')
-		if (dates) {
-			const parsedDates = JSON.parse(dates) as IRangePicker
-			fromEpoch = Number(parsedDates.startDate)
-			toEpoch = Number(parsedDates.endDate)
+		if (!fromEpoch && !toEpoch) {
+			const dates = localStorage.getItem('range')
+			if (dates) {
+				const parsedDates = JSON.parse(dates) as IDateRange
+				const {start, end} = parsedDates
+				fromEpoch = start
+				toEpoch = end
 
-			return this.messages.request$<{ sessions: IAdminSession[] }>('getSessionsSummary', {
-				fromEpoch, toEpoch, start, count
-			}).pipe(pluck('sessions'))
+				return this.messages.request$<{ sessions: IAdminSession[] }>('getSessionsSummary', {
+					fromEpoch, toEpoch, start, count
+				}).pipe(pluck('sessions'))
+			} else {
+
+				return of([])
+			}
 		} else {
-			return of([])
+			return this.messages.request$<{sessions: IAdminSession[]}>(
+				'getSessionsSummary',
+				{fromEpoch, toEpoch}
+			).pipe(pluck('sessions'))
 		}
 	}
 

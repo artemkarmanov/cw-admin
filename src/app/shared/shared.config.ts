@@ -23,6 +23,7 @@ import {MenuComponent} from "@cmp/header/menu/menu.component";
 import {UserInfoComponent} from "@cmp/header/user-info/user-info.component";
 import {SmartTableComponent} from "@cmp/smart-table/smart-table.component";
 import {BadgeComponent} from "@cmp/badge/badge.component";
+import {RangePickerComponent} from "@cmp/range-picker/range-picker.component";
 
 export const sharedConfig = [
 	TimezoneSelectorComponent,
@@ -50,5 +51,6 @@ export const sharedConfig = [
 	UserInfoComponent,
 	FooterComponent,
 	SmartTableComponent,
-	BadgeComponent
+	BadgeComponent,
+	RangePickerComponent
 ]

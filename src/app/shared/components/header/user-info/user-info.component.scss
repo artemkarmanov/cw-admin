@@ -1,6 +1,8 @@
 @import 'colors-10';
 
-small {
+.head {
+  font-size: 12px;
+  line-height: 16px;
   font-weight: 600;
   color: $gray-50;
 }

@@ -1,21 +1,15 @@
 <cwb-page-top>
 	<cwb-button-header>
 		<h1>Sessions</h1>
-		<cw-svg-icon (click)="reload()" [independent]="true" [svg]="'refresh'"></cw-svg-icon>
-		<input
-			type="text"
-			class="form-control"
-			ngxDaterangepickerMd
-			placeholder="Start Time"
+		<cw-svg-icon
+			(click)="load()"
+			[independent]="true"
+			[svg]="'refresh'"
+		></cw-svg-icon>
+		<cwb-range-picker
+			(picked)="changedDates($event)"
 			[formControl]="rangePicker"
-			[closeOnAutoApply]="true"
-			[autoApply]="true"
-			[locale]="{
-				displayFormat: 'MM/DD/YYYY',
-				daysOfWeek: ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
-			}"
-            (datesUpdated)="changedDates()"
-		/>
+		></cwb-range-picker>
 	</cwb-button-header>
 </cwb-page-top>
 

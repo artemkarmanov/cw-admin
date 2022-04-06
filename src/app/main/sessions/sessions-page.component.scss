@@ -1,23 +1,4 @@
-@import "colors-10";
-
-cwb-smart-table {
-    tbody {
-        tr {
-            height: 63px;
-        }
-    }
-}
-
 cwb-sessions-page {
-    cwb-button-header {
-        .form-control {
-            padding: 5px 16px !important;
-            text-align: center;
-            width: 300px !important;
-            user-input: none;
-        }
-    }
-
     .ng2-smart-th.actions {
         text-align: end;
 
@@ -26,64 +7,10 @@ cwb-sessions-page {
         }
     }
 
-    .md-drppicker.double {
-        padding: 18px 28px 4px;
-        font-family: 'Inter', sans-serif;
-        background-color: $white;
-
-        .calendar.left {
-            margin-right: 32px;
-        }
-
-        th,
-        .week-days,
-        .shown.calendar {
-            color: $gray-80;
-        }
-
-        .month {
-            font-weight: 600;
-            font-size: 18px;
-            line-height: 28px;
-            vertical-align: middle;
-        }
-
-        .week-days {
-            font-weight: 400;
-            font-size: 12px;
-            line-height: 16px;
-        }
-
-        .available {
-            font-weight: 600;
-            font-size: 17px;
-            line-height: 24px;
-            padding: 16px 8px;
-
-            &:hover {
-                border-radius: 0;
-            }
-        }
-
-        .available.in-range {
-            background: $blue-10;
-            color: $blue-50;
-        }
-
-
-        .available.active {
-            &.start-date {
-                color: white;
-                background: $blue-50;
-                border-radius: 8px 0 0 8px;
-            }
-            &.end-date {
-                color: white;
-                background: $blue-50;
-                border-radius: 0 8px 8px 0;
-            }
-            &.start-date.end-date {
-                border-radius: 8px;
+    cwb-smart-table {
+        tbody {
+            tr {
+                height: 63px;
             }
         }
     }

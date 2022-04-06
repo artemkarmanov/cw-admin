@@ -44,7 +44,7 @@ export const sessionsTableConfig = {
 		renderComponent: SessionOwnerComponent
 	},
 	actions: {
-		title: 'Actions',
+		title: 'Logs',
 		type: 'custom',
 		renderComponent: SessionTableActionsComponent,
 		filter: false,

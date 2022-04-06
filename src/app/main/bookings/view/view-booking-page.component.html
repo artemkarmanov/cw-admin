@@ -3,11 +3,11 @@
 </ng-container>
 
 <ng-template #asyncTemplate let-booking="booking">
-    <ng-container *ngIf="booking;else empty">
+    <ng-container *ngIf="booking; else empty">
         <cwb-page-top>
             <div>
                 <h1>{{booking.title}}</h1>
-                <small class="text-muted">Booking ID:{{booking.bookingToken}}</small>
+                <span>Booking ID:{{booking.bookingToken}}</span>
             </div>
         </cwb-page-top>
 

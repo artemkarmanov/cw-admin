@@ -88,7 +88,7 @@
         ></cw-small-button>
         <cw-small-button
             [buttonText]="'Save'"
-            [buttonDisabled]="form.invalid || form.untouched"
+            [buttonDisabled]="form.invalid || !form.touched"
         ></cw-small-button>
 	</div>
 </form>

@@ -1,82 +1,66 @@
 import {
-    AfterViewInit,
-    ChangeDetectionStrategy,
-    Component,
-    OnInit,
-    ViewEncapsulation
+	AfterViewInit,
+	ChangeDetectionStrategy,
+	Component,
+	OnInit,
+	ViewEncapsulation
 } from '@angular/core';
-import {Observable, Subject, switchMap, take, tap} from 'rxjs';
+import {BehaviorSubject, distinctUntilChanged, Observable, switchMap, tap} from 'rxjs';
 import {SessionsService} from './sessions.service';
 import {BreadCrumbsService} from '@services/bread-crumbs.service';
-import {IAdminSession, IRangePicker} from "@interfaces/session.interfaces";
+import {IAdminSession} from "@interfaces/session.interfaces";
 import {Title} from "@angular/platform-browser";
 import {sessionsTableConfig} from "./sessions.table.config";
 import {FormControl} from "@angular/forms";
+import {IDateRange} from "@cmp/range-picker/range-picker.component";
 
 @Component({
-    selector: 'cwb-sessions-page',
-    templateUrl: './sessions-page.component.html',
-    styleUrls: ['./sessions-page.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+	selector: 'cwb-sessions-page',
+	templateUrl: './sessions-page.component.html',
+	styleUrls: ['./sessions-page.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	encapsulation: ViewEncapsulation.None
 })
 export class SessionsPageComponent implements OnInit, AfterViewInit {
-    public rangePicker = new FormControl(SessionsPageComponent.retrieveSavedRange());
-    public columnsConfig = sessionsTableConfig
-    public sessions$!: Observable<IAdminSession[]>
-    private reload$$: Subject<void> = new Subject<void>();
+	public rangePicker = new FormControl();
+	public columnsConfig = sessionsTableConfig
+	public sessions$!: Observable<IAdminSession[]>
+	private reload$$: BehaviorSubject<null> = new BehaviorSubject<null>(null);
 
-    constructor(
-        private sessionService: SessionsService,
-        private breadCrumbsService: BreadCrumbsService,
-        private titleService: Title
-    ) {
-    }
+	constructor(
+		private sessionService: SessionsService,
+		private breadCrumbsService: BreadCrumbsService,
+		private titleService: Title
+	) {
+	}
 
-    private static retrieveSavedRange(): { startDate: Date, endDate: Date } | null {
-        const key = localStorage.getItem('session-dates')
-        if (key) {
-            const value = JSON.parse(key) as IRangePicker
-            return {startDate: new Date(value.startDate), endDate: new Date(value.endDate)}
-        } else {
-            return null
-        }
-    }
+	ngOnInit(): void {
+		this.titleService.setTitle('CaptionWorks | Sessions')
+		this.breadCrumbsService.set([{
+			path: '/sessions',
+			title: 'Sessions'
+		}]);
+		this.sessions$ = this.session$$()
+	}
 
-    ngOnInit(): void {
-        this.titleService.setTitle('CaptionWorks | Sessions')
-        this.breadCrumbsService.set([{
-            path: '/sessions',
-            title: 'Sessions'
-        }]);
-        this.sessions$ = this.session$$()
-    }
+	ngAfterViewInit() {
+		this.load()
+	}
 
-    ngAfterViewInit() {
-        this.reload$$.next()
-    }
+	public load() {
+		this.reload$$.next(null)
+	}
 
-    public changedDates() {
-        const dates = this.rangePicker.value
-        if (dates) {
-            const start = Number(new Date(dates.startDate))
-            const end = Number(new Date(dates.endDate))
+	public changedDates($event: IDateRange | null) {
+		this.sessions$ = this.session$$($event?.start, $event?.end)
+	}
 
-            localStorage.setItem('session-dates', JSON.stringify({startDate: start, endDate: end}))
-
-            this.sessions$ = this.session$$(start, end)
-        }
-    }
-
-    public reload() {
-        this.reload$$.next();
-    }
-
-    private session$$(start?: number, end?: number): Observable<IAdminSession[]> {
-        return this.sessions$ = this.reload$$.asObservable().pipe(
-            take(1),
-            switchMap(() => this.sessionService.getSessionsSummary$(start, end)),
-            tap(() => this.reload$$.next())
-        )
-    }
+	private session$$(start?: number, end?: number): Observable<IAdminSession[]> {
+		return this.sessions$ = this.reload$$.asObservable()
+			.pipe(
+				distinctUntilChanged(),
+				switchMap(() => this.sessionService.getSessionsSummary$(start, end)),
+				tap(() => this.load()),
+			)
+	}
 }

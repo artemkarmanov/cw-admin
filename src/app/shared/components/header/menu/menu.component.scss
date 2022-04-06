@@ -1,30 +1,39 @@
-.nav-link {
-  padding-left: 25px;
-  background-repeat: no-repeat;
-  background-size: 25px 24px;
-  background-position: left center;
+@import "colors-10";
 
-  &[routerLink=bookings] {
-    background-image: url("../../../../../assets/bookings.svg");
-  }
+%row-c {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
 
-  &[routerLink=account-settings] {
-    background-image: url("../../../../../assets/account.svg");
-  }
+nav {
+  @extend %row-c;
+  gap: 12px;
 
-  &[routerLink=sessions] {
-    background-image: url("../../../../../assets/sessions.svg");
-  }
+  a {
+    @extend %row-c;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 8px 16px;
 
-  &[routerLink=users] {
-    background-image: url("../../../../../assets/users.svg");
-  }
+    span {
+      margin-left: 2px;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 1.5;
+    }
 
-  &[routerLink=billing] {
-    background-image: url("../../../../../assets/bookings.svg");
-  }
+    &.active {
+      background: $blue-10;
+      border-radius: 8px;
+    }
 
-  &:not(.active) {
-    color: #3F3F3F;
+    &:not(.active) {
+      color: $gray-80;
+    }
+
+    &:hover {
+      color: $blue-60;
+    }
   }
 }

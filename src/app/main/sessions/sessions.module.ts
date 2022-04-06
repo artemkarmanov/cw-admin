@@ -10,7 +10,6 @@ import {
 	SessionCaptionDialogComponent
 } from "./dialogs/session-caption-dialog/session-caption-dialog.component";
 import {SessionDialogComponent} from "./dialogs/session-dialog/session-dialog.component";
-import {NgxDaterangepickerMd} from 'ngx-daterangepicker-material';
 import {SessionLinkComponent} from './sessions-table/session-link/session-link.component';
 import {
 	SessionTableActionsComponent
@@ -19,7 +18,7 @@ import {SessionsService} from "./sessions.service";
 import {
 	SessionStatusBadgeComponent
 } from './sessions-table/session-status-badge/session-status-badge.component';
-import { SessionOwnerComponent } from './sessions-table/session-owner/session-owner.component';
+import {SessionOwnerComponent} from './sessions-table/session-owner/session-owner.component';
 
 @NgModule({
 	declarations: [
@@ -31,12 +30,11 @@ import { SessionOwnerComponent } from './sessions-table/session-owner/session-ow
 		SessionLinkComponent,
 		SessionTableActionsComponent,
 		SessionStatusBadgeComponent,
-  SessionOwnerComponent,
+		SessionOwnerComponent,
 	],
 	imports: [
 		SessionsRoutingModule,
-		SharedModule,
-		NgxDaterangepickerMd.forRoot()
+		SharedModule
 	],
 	providers: [
 		SessionsService

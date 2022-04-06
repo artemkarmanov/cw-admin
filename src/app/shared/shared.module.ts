@@ -5,10 +5,11 @@ import {SharedProviderModule} from './shared-provider.module';
 import {RouterModule} from "@angular/router";
 import {Ng2SmartTableModule} from "ng2-smart-table";
 import {sharedConfig} from "./shared.config";
+import {NgxDaterangepickerMd} from "ngx-daterangepicker-material";
 
 @NgModule({
 	declarations: [
-		...sharedConfig,
+		...sharedConfig
 	],
 	exports: [
 		...sharedConfig,
@@ -22,7 +23,8 @@ import {sharedConfig} from "./shared.config";
 		RouterModule,
 		ReactiveFormsModule,
 		SharedProviderModule,
-		Ng2SmartTableModule
+		Ng2SmartTableModule,
+		NgxDaterangepickerMd.forRoot()
 	]
 })
 export class SharedModule {

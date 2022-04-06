@@ -67,8 +67,3 @@ export interface ISessionViewerLog  {
 	endEpoch: number,
 	startEpoch: number
 }
-
-export interface IRangePicker {
-	startDate:  string
-	endDate: string
-}
