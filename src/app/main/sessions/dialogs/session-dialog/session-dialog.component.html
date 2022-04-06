@@ -41,9 +41,14 @@
     </div>
 </div>
 <div class="modal-footer d-flex justify-content-between">
-    <button (click)="close()" class="btn btn-secondary">Cancel</button>
-    <button (click)="save()" [disabled]="form.invalid || form.pristine" class="btn btn-primary">
-        <ng-container *ngIf="!inEditMode; else edit">Create</ng-container>
-        <ng-template #edit>Save</ng-template>
-    </button>
+    <cw-small-button
+        (click)="close()"
+        [buttonText]="'Cancel'"
+        [inverted]="true"
+    ></cw-small-button>
+    <cw-small-button
+        (click)="save()"
+        [buttonDisabled]="form.invalid || form.pristine"
+        [buttonText]="inEditMode ? 'Save' : 'Create'"
+    ></cw-small-button>
 </div>

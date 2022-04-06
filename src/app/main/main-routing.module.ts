@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {MainComponent} from './main.component';
 import {AdminGuard} from './admin.guard';
-import {UserGuard} from '../user.guard';
+import {UserGuard} from '../account/create-user/user.guard';
 import {getStartPage} from "@helpers/get-start-page";
 
 const routes: Routes = [

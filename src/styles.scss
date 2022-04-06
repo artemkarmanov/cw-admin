@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-@import "scss/_colors";
+@import 'colors-10';
 @import '@fontsource/inter/variable-full.css';
 
 body {
@@ -41,7 +41,7 @@ cwb-account-settings-page {
 }
 
 main {
-  background-color: $grey-200;
+  background-color: $gray-20;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -65,9 +65,9 @@ main {
   user-select: none;
 }
 
-$blue: $blue-500;
-$secondary: $blue-100;
-$light: $grey-200;
+$blue: $blue-50;
+$secondary: $blue-10;
+$light: $gray-20;
 @import "node_modules/bootstrap/scss/functions";
 @import "scss/vars";
 @import "../node_modules/bootstrap/scss/variables";

@@ -1,5 +1,0 @@
-@use "../../../scss/utils" as utils;
-
-h1 {
-  @include utils.emoji('gear');
-}

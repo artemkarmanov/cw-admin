@@ -1,8 +1,16 @@
 @import "colors-10";
 
-.custom-table {
+%column {
 	display: flex;
-	flex-direction: column;
+	flex-flow: column nowrap;
+}
+
+%border {
+	border-bottom: 1px solid $gray-30;
+}
+
+.custom-table {
+	@extend %column;
 	height: 100%;
 	justify-content: space-between;
 }
@@ -10,17 +18,18 @@
 ng2-smart-table {
 	table {
 		thead {
+			@extend %border;
 			background: $gray-20;
-			border-bottom: 1px solid $gray-30;
 
 			.ng2-smart-sort,
 			.ng2-smart-sort-link.sort {
 				color: $blue-50;
-				font-weight: 500;
 				font-size: 14px;
+				font-weight: 500;
 				line-height: 24px;
 				text-decoration: none;
 			}
+
 			.ng2-smart-sort {
 				color: $gray-80;
 			}
@@ -33,7 +42,7 @@ ng2-smart-table {
 				}
 
 				&:not(:last-of-type) {
-					border-bottom: 1px solid $gray-30;
+					@extend %border;
 				}
 			}
 
@@ -51,8 +60,6 @@ ng2-smart-table {
 			margin-bottom: 0;
 
 			li.ng2-smart-page-item {
-				user-select: none;
-
 				a {
 					text-decoration: none;
 				}
@@ -71,11 +78,10 @@ ng2-smart-table {
 				}
 
 				.page-link {
+					@extend %column;
 					align-items: center;
 					border: none;
 					color: $blue-50;
-					display: flex;
-					flex-direction: column;
 					font-size: 16px;
 					font-weight: 600;
 					height: 44px;
@@ -84,14 +90,11 @@ ng2-smart-table {
 					width: 44px;
 				}
 
-				.page-link-prev,
-				.page-link-next {
+				.page-link-prev {
 					span {
 						display: none;
 					}
-				}
 
-				.page-link-prev {
 					&:after {
 						content: url("../../../../assets/chevron-left.svg");
 						margin-top: 7px;
@@ -99,6 +102,10 @@ ng2-smart-table {
 				}
 
 				.page-link-next {
+					span {
+						display: none;
+					}
+
 					&:after {
 						content: url("../../../../assets/chevron-right.svg");
 						margin-top: 7px;
