@@ -9,6 +9,8 @@ export interface IBookingSummary {
 	nextSessionDurationMins: number;
 	totalSessions: number;
 	countFutureSessions: number;
+	ownerFirstName: string
+	ownerLastName: string
 }
 
 export interface IBooking {

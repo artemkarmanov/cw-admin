@@ -31,15 +31,17 @@
         <input formControlName="duration" id="durationMins" max="1439" min="1"
                required type="number" style="text-align: center; width: 48pt;">
         <label>minutes</label>
+        <div class="text-danger" *ngIf="form.controls['duration'].invalid">
+            Minimum duration is 15 minutes
+        </div>
     </div>
-
     <div class="form-inline" style="margin-top: 10px;">
         <label>Sessions repeat weekly for</label> 
         <button (click)="minus()" class="minus-button">-</button><input formControlName="countWeeks" id="countWeeks" max="100" min="1"
                required type="number" style="text-align: center; width: 38pt; margin: 0;" ><button (click)="plus()" class='plus-button'>+</button>
         <label>total sessions</label>
     </div>
-    <div>
+    <div *ngIf="isAdmin">
         <label class="form-label" for="oboUserId">Booking owner</label>
         <select class="form-select form-select-lg" formControlName="oboUserId" id="oboUserId" type="number">
             <option *ngFor="let user of (users$ | async)" [value]="user.userId">

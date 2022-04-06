@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes, UrlSegment} from '@angular/router';
-import {ChangePasswordGuard} from './change-password.guard';
-import {UserGuard} from './user.guard';
+import {ChangePasswordGuard} from './account/change-password/change-password.guard';
+import {UserGuard} from './account/create-user/user.guard';
 import {SimpleLayoutComponent} from "./account/simple-layout/simple-layout.component";
 
 const routes: Routes = [

@@ -12,6 +12,23 @@
 		line-height: 16px;
 	}
 
+	&.primary {
+		background: rgb(58, 142, 247);
+
+		.text {
+			color: white;
+		}
+	}
+
+	&.gray {
+		border-color: rgba($gray-30, 0.2);
+		background: $gray-20;
+
+		.text {
+			color: $gray-80;
+		}
+	}
+
 	&.orange {
 		border-color: rgba($orange-40, 0.2);
 		background: $orange-10;

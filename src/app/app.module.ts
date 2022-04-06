@@ -7,8 +7,6 @@ import {ApplicationErrorHandler} from '@services/application-error-handler';
 import {LOCAL_STORAGE, SESSION_STORAGE} from 'ngx-webstorage-service';
 import {TOKEN_SERVICE, USER_INFO} from '@constants/const';
 import {SimpleLayoutComponent} from './account/simple-layout/simple-layout.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {SharedModule} from "./shared/shared.module";
 import {WS_CONFIG_TOKEN} from "@interfaces/websocket.interfaces";
 import {SocketMessagesService} from "@services/socket-messages.service";
 import {AuthService} from "@services/auth.service";
@@ -25,9 +23,7 @@ import {UsersService} from "@services/users.service";
 	],
 	imports: [
 		BrowserModule,
-		AppRoutingModule,
-		NgbModule,
-		SharedModule,
+		AppRoutingModule
 	],
 	providers: [
 		{

@@ -1,6 +1,6 @@
 import {Inject, Injectable, OnDestroy} from '@angular/core';
 import {
-    BehaviorSubject,
+    BehaviorSubject, distinctUntilChanged,
     EMPTY,
     Observable,
     of,
@@ -37,6 +37,7 @@ export class AuthService implements OnDestroy {
         @Inject(USER_INFO) private userStorage: StorageService,
     ) {
         this.loadUserSettings$$.asObservable().pipe(
+            distinctUntilChanged(),
             takeUntil(this.destroy$$.asObservable()),
             switchMap(() => {
                 return this.messages.request$<IUserSettings>('getUserSettings');

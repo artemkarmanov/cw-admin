@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-@import "scss/_colors";
+@import 'colors-10';
 @import '@fontsource/inter/variable-full.css';
 
 body {
@@ -14,16 +14,65 @@ body, html {
   height: 100%;
 }
 
-$blue: $blue-500;
-$secondary: $blue-100;
-$light: $grey-200;
+cwb-root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+cwb-main,
+cwb-simple-layout {
+  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+cwb-booking-page,
+cwb-bookings-page,
+cwb-users-page,
+cwb-sessions-page,
+cwb-account-settings-page {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+main {
+  background-color: $gray-20;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-dialog {
+  @media (min-width: 1024px) {
+    max-width: 80%;
+  }
+}
+
+* {
+  user-select: none;
+}
+
+$blue: $blue-50;
+$secondary: $blue-10;
+$light: $gray-20;
 @import "node_modules/bootstrap/scss/functions";
 @import "scss/vars";
 @import "../node_modules/bootstrap/scss/variables";
 @import "../node_modules/bootstrap/scss/mixins";
 @import "../node_modules/bootstrap/scss/root";
-
-//@debug $primary;
 
 @import "../node_modules/bootstrap/scss/utilities";
 @import "../node_modules/bootstrap/scss/reboot";
@@ -43,6 +92,8 @@ $light: $grey-200;
 @import "../node_modules/bootstrap/scss/modal";
 @import "../node_modules/bootstrap/scss/breadcrumb";
 @import "../node_modules/bootstrap/scss/badge";
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
 
 
 cwb-root {
@@ -191,5 +242,4 @@ cwb-session-dialog {
   }
 }
 
-/* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';
+

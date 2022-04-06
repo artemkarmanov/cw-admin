@@ -1,5 +1,4 @@
 import {NgModule} from '@angular/core';
-
 import {CreateRoutingModule} from './create-routing.module';
 import {CreatePageComponent} from './create-page.component';
 import {CreateServiceProviderModule} from './create-service-provider.module';
@@ -8,8 +7,9 @@ import {InOutBookingInformationComponent} from './in-out-booking-information/in-
 import {BookingDetailsComponent} from './booking-details/booking-details.component';
 import {StepTitleComponent} from './step-title/step-title.component';
 import {SharedModule} from '../../../shared/shared.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {FormsModule} from '@angular/forms';
+import {ViewersListComponent} from "./booking-details/viewers-list/viewers-list.component";
 
 
 @NgModule({
@@ -18,7 +18,8 @@ import { FormsModule } from '@angular/forms';
         GeneralBookingInformationComponent,
         InOutBookingInformationComponent,
         BookingDetailsComponent,
-        StepTitleComponent
+        StepTitleComponent,
+        ViewersListComponent
     ],
     imports: [
         SharedModule,

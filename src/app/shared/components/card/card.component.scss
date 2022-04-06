@@ -1,10 +1,32 @@
+@import 'colors-10';
+
 :host {
   display: flex;
   flex-direction: column;
   flex: 1;
   height: 100%;
+  min-height: 300px;
 }
 
 .card {
   flex: 1;
+
+  .card-body {
+    overflow: auto;
+    height: 0;
+    padding: 12px;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: $gray-40;
+    }
+
+    &::-webkit-scrollbar-track {
+      color: $gray-10;                                                                      background: #DDDDDD;
+    }
+  }
 }

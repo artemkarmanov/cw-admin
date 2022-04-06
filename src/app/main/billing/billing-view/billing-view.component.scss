@@ -11,7 +11,9 @@
 }
 
 ::ng-deep {
-	.card {
-		margin-bottom: 0;
+	.billing-view {
+		.card-body {
+			margin-bottom: 24px;
+		}
 	}
 }

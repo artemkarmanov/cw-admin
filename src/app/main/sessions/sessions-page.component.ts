@@ -1,132 +1,66 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {lastValueFrom, Observable, Subject, switchMap, takeUntil, withLatestFrom} from 'rxjs';
-import {FilterComponent} from './filter/filter.component';
-import {tap} from 'rxjs/operators';
+import {
+	AfterViewInit,
+	ChangeDetectionStrategy,
+	Component,
+	OnInit,
+	ViewEncapsulation
+} from '@angular/core';
+import {BehaviorSubject, distinctUntilChanged, Observable, switchMap, tap} from 'rxjs';
 import {SessionsService} from './sessions.service';
 import {BreadCrumbsService} from '@services/bread-crumbs.service';
 import {IAdminSession} from "@interfaces/session.interfaces";
 import {Title} from "@angular/platform-browser";
-
+import {sessionsTableConfig} from "./sessions.table.config";
+import {FormControl} from "@angular/forms";
+import {IDateRange} from "@cmp/range-picker/range-picker.component";
 
 @Component({
-    selector: 'cwb-sessions-page',
-    templateUrl: './sessions-page.component.html',
-    styleUrls: ['./sessions-page.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+	selector: 'cwb-sessions-page',
+	templateUrl: './sessions-page.component.html',
+	styleUrls: ['./sessions-page.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	encapsulation: ViewEncapsulation.None
 })
-export class SessionsPageComponent implements OnInit, AfterViewInit, OnDestroy {
-    private destroy$$: Subject<void> = new Subject<void>();
-    private reload$$: Subject<void> = new Subject<void>();
-    private cancelClick$$: Subject<number> = new Subject<number>();
-    private editClick$$: Subject<IAdminSession> = new Subject<IAdminSession>();
-    private sessions$$: Subject<IAdminSession[]> = new Subject<IAdminSession[]>();
-    public sessions$: Observable<IAdminSession[]> = this.sessions$$.asObservable();
-    public selectedRow = -1;
-    public selectedSession = -1;
+export class SessionsPageComponent implements OnInit, AfterViewInit {
+	public rangePicker = new FormControl();
+	public columnsConfig = sessionsTableConfig
+	public sessions$!: Observable<IAdminSession[]>
+	private reload$$: BehaviorSubject<null> = new BehaviorSubject<null>(null);
 
-    public get isRowSelected() {
-        return this.selectedRow === -1
-    }
+	constructor(
+		private sessionService: SessionsService,
+		private breadCrumbsService: BreadCrumbsService,
+		private titleService: Title
+	) {
+	}
 
-    @ViewChild(FilterComponent)
-    private filter!: FilterComponent;
+	ngOnInit(): void {
+		this.titleService.setTitle('CaptionWorks | Sessions')
+		this.breadCrumbsService.set([{
+			path: '/sessions',
+			title: 'Sessions'
+		}]);
+		this.sessions$ = this.session$$()
+	}
 
-    constructor(
-        private sessionService: SessionsService,
-        private breadCrumbsService: BreadCrumbsService,
-        private titleService: Title
-    ) {
-    }
+	ngAfterViewInit() {
+		this.load()
+	}
 
-    // This is the edit session card that appears on the Admin Side
-    ngOnInit(): void {
-        this.titleService.setTitle('CaptionWorks | Sessions')
+	public load() {
+		this.reload$$.next(null)
+	}
 
-        this.breadCrumbsService.set([{
-            path: '/sessions',
-            title: 'Sessions'
-        }]);
-        this.cancelClick$$.asObservable().pipe(
-            takeUntil(this.destroy$$.asObservable()),
-            switchMap(this.sessionService.cancel$.bind(this.sessionService)),
-            tap(() => this.reload$$.next()),
-        ).subscribe();
-        this.editClick$$.asObservable().pipe(
-            takeUntil(this.destroy$$.asObservable()),
-            switchMap(this.sessionService.edit$.bind(this.sessionService)),
-            tap(() => this.reload$$.next()),
-        ).subscribe();
+	public changedDates($event: IDateRange | null) {
+		this.sessions$ = this.session$$($event?.start, $event?.end)
+	}
 
-    }
-
-    ngOnDestroy(): void {
-        this.destroy$$.next();
-    }
-
-    ngAfterViewInit(): void {
-        this.filter.get$().pipe(
-            takeUntil(this.destroy$$.asObservable()),
-            switchMap(({fromEpoch, toEpoch}) => this.sessionService.getSessionsSummary$(fromEpoch, toEpoch)),
-            tap((_) => this.sessions$$.next(_))
-        ).subscribe();
-
-        this.reload$$.asObservable().pipe(
-            takeUntil(this.destroy$$.asObservable()),
-            withLatestFrom(this.filter.get$(), (_, f) => f),
-            switchMap(({fromEpoch, toEpoch}) => this.sessionService.getSessionsSummary$(fromEpoch, toEpoch)),
-            tap((_) => this.sessions$$.next(_))
-        ).subscribe();
-
-    }
-
-    cancel(id: number) {
-        this.cancelClick$$.next(id);
-
-    }
-
-    edit(session: IAdminSession) {
-        this.editClick$$.next(session);
-
-    }
-
-    reload() {
-        this.reload$$.next();
-    }
-
-    isEditable(session: IAdminSession): boolean {
-        return session.status === 'Future';
-    }
-
-    // Even cancelled sessions were showing up on the admin side after they'd been cancelled
-    // which was making the list of sessions very long, so I decided to hide cancelled
-    // sessions from being displayed using this function
-    isNotCancelled(session: IAdminSession): boolean {
-        return session.status !== 'Cancelled'
-    }
-
-    public renderSessionCaptionsViewDialog(sessionId: number): void {
-        lastValueFrom(this.sessionService.getSessionCaptionLogs$(sessionId))
-            .then(data => this.sessionService.openSessionCaptionDialog$(sessionId, data));
-        this.unSelectRow();
-    }
-
-    public selectRow(i: number, sessionId: number): void {
-        if (this.selectedRow === i) {
-            this.unSelectRow()
-        } else {
-            this.selectedRow = i;
-            this.selectedSession = sessionId;
-        }
-    }
-
-    showLogs(s: any) {
-        this.sessionService.getSessionViewerLogs$(s.sessionId).subscribe(v => console.log(v))
-        
-    }
-
-
-    public unSelectRow(): void {
-        this.selectedRow = -1;
-        this.selectedSession = -1;
-    }
+	private session$$(start?: number, end?: number): Observable<IAdminSession[]> {
+		return this.sessions$ = this.reload$$.asObservable()
+			.pipe(
+				distinctUntilChanged(),
+				switchMap(() => this.sessionService.getSessionsSummary$(start, end)),
+				tap(() => this.load()),
+			)
+	}
 }

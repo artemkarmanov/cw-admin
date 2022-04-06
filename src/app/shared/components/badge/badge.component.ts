@@ -8,5 +8,5 @@ import {Component, ChangeDetectionStrategy, Input} from '@angular/core';
 })
 export class BadgeComponent {
   @Input() public text!: string | number
-  @Input() public color!: 'blue' | 'orange' | 'green'
+  @Input() public color!: 'blue' | 'orange' | 'green' | 'primary' | 'gray'
 }

@@ -1,15 +1,11 @@
-@use "../../../../scss/utils" as utils;
-
-
 :host {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
 }
 
 section {
   width: 460px;
-}
-
-h1 {
-  @include utils.emoji('gear');
 }

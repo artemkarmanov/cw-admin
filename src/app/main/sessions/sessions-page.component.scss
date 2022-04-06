@@ -1,14 +1,17 @@
-tr:hover {
-    background: rgb(0 0 0 / 2%);
-    cursor: pointer;
-}
+cwb-sessions-page {
+    .ng2-smart-th.actions {
+        text-align: end;
 
-.selected {
-    background: rgb(0 0 0 / 4%);
-}
+        .ng2-smart-title {
+            margin-right: 8px;
+        }
+    }
 
-.action-buttons {
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
+    cwb-smart-table {
+        tbody {
+            tr {
+                height: 63px;
+            }
+        }
+    }
 }

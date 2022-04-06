@@ -1,14 +1,33 @@
-<div *ngIf="isAdmin; else user_menu">
-    <nav class="nav nav-pills">
-        <a class="nav-link" routerLink="sessions" routerLinkActive="active">Sessions</a>
-        <a class="nav-link" routerLink="bookings" routerLinkActive="active">Bookings</a>
-        <a class="nav-link" routerLink="users" routerLinkActive="active">Users</a>
-        <a class="nav-link" routerLink="billing" routerLinkActive="active">Billing</a>
-    </nav>
-</div>
-<ng-template #user_menu>
-    <nav class="nav nav-pills">
-        <a class="nav-link" routerLink="bookings" routerLinkActive="active">Bookings</a>
-        <a class="nav-link" routerLink="account-settings" routerLinkActive="active">Account</a>
-    </nav>
+<ng-container *ngIf="isAdmin; else booking">
+	<nav>
+		<a routerLink="sessions" routerLinkActive="active">
+			<cw-svg-icon [svg]="'sessions'"></cw-svg-icon>
+			<span>Sessions</span>
+		</a>
+		<a routerLink="bookings" routerLinkActive="active">
+			<cw-svg-icon [svg]="'bookings'"></cw-svg-icon>
+			<span>Bookings</span>
+		</a>
+		<a routerLink="users" routerLinkActive="active">
+			<cw-svg-icon [svg]="'users'"></cw-svg-icon>
+			<span>Users</span>
+		</a>
+		<a routerLink="billing" routerLinkActive="active">
+			<cw-svg-icon [svg]="'billings'"></cw-svg-icon>
+			<span>Billings</span>
+		</a>
+	</nav>
+</ng-container>
+
+<ng-template #booking>
+	<nav>
+		<a routerLink="bookings" routerLinkActive="active">
+			<cw-svg-icon [svg]="'account'"></cw-svg-icon>
+			<span>Bookings</span>
+		</a>
+		<a routerLink="account-settings" routerLinkActive="active">
+			<cw-svg-icon [svg]="'bookings'"></cw-svg-icon>
+			<span>Account</span>
+		</a>
+	</nav>
 </ng-template>

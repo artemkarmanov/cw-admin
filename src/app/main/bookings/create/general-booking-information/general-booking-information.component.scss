@@ -1,9 +1,14 @@
-@import "src/scss/_colors";
+@import "colors-10";
 
 .form-inline {
     display: flex;
     flex-flow: row wrap;
     align-items: center;
+    flex-wrap: wrap;
+
+    .text-danger {
+      width: 100%;
+    }
   }
 
   .form-inline label {
@@ -23,7 +28,7 @@
   margin-left: 10px;
   background-color:#fff;
   border-radius: 5px;
-  border-color: cadetblue;
+  border-color: $blue-10;
   border-width: 1px;
   padding-left: 15px;
   display: inline-flex !important;
@@ -33,9 +38,9 @@
 .plus-button {
   width: 40px;
   margin-right: 10px;
-  background-color:#fff;
+  background-color: $white;
   border-radius: 5px;
-  border-color: cadetblue;
+  border-color: $blue-10;
   border-width: 1px;
   padding-left: 15px;
   display: inline-flex !important;
@@ -71,8 +76,8 @@
   }
 
   label {
-    padding: 0;
-    color: $grey-800;
+    padding: 0 0 0 16px;
+    color: $gray-80;
     line-height: 48px;
     font-size: 20px;
     font-weight: normal;

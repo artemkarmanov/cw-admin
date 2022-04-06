@@ -29,6 +29,10 @@ button {
 	line-height: 24px;
 	font-family: inherit;
 	padding: 8px 16px;
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	white-space: nowrap;
 
 	&:disabled {
 		background-color: $gray-10;
@@ -44,5 +48,11 @@ button {
 	&:focus-visible {
 		outline: 2px solid $blue-50;
 		outline-offset: 2px;
+	}
+
+	&:hover.inverted {
+		background-color: $blue-60;
+		color: $white;
+		transition: all 200ms ease-in;
 	}
 }

@@ -1,4 +1,10 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    OnDestroy,
+    OnInit,
+    ViewEncapsulation
+} from '@angular/core';
 import {BookingService} from './booking.service';
 import {BehaviorSubject, Observable, Subject, switchMap, takeUntil} from 'rxjs';
 import {tap} from 'rxjs/operators';
@@ -13,6 +19,7 @@ import {bookingsTableConfig} from "./bookings.table.config";
     templateUrl: './bookings-page.component.html',
     styleUrls: ['./bookings-page.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
     providers: [CreateService]
 })
 export class BookingsPageComponent implements OnInit, OnDestroy {

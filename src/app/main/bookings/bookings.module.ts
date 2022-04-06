@@ -6,6 +6,10 @@ import {SessionDurationPipe} from './session-duration.pipe';
 import {SessionCounterPipe} from './remaining-sessions.pipe';
 import {SharedModule} from '../../shared/shared.module';
 import {BookingLinkComponent} from './bookings-table/booking-link/booking-link.component';
+import {
+    BookingSessionsRemainingComponent
+} from './bookings-table/booking-sessions-remaining/booking-sessions-remaining.component';
+import {BookingOwnerComponent} from './bookings-table/booking-owner/booking-owner.component';
 
 @NgModule({
     declarations: [
@@ -14,6 +18,8 @@ import {BookingLinkComponent} from './bookings-table/booking-link/booking-link.c
         SessionDurationPipe,
         SessionCounterPipe,
         BookingLinkComponent,
+        BookingSessionsRemainingComponent,
+        BookingOwnerComponent,
     ],
     imports: [
         BookingsRoutingModule,

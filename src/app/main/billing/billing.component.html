@@ -1,9 +1,7 @@
 <cwb-page-top>
 	<cwb-button-header>
 		<h1 style="margin-right: 12px">Billings</h1>
-		<button (click)="load()" class="btn btn-sm text-primary">
-			<cwb-icon name="arrow-clockwise"></cwb-icon>
-		</button>
+		<cw-svg-icon (click)="load()" [independent]="true" [svg]="'refresh'"></cw-svg-icon>
 	</cwb-button-header>
 </cwb-page-top>
 

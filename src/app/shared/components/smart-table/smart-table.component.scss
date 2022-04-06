@@ -1,61 +1,117 @@
 @import "colors-10";
 
-.custom-table {
+%column {
 	display: flex;
-	flex-direction: column;
+	flex-flow: column nowrap;
+}
+
+%border {
+	border-bottom: 1px solid $gray-30;
+}
+
+.custom-table {
+	@extend %column;
 	height: 100%;
 	justify-content: space-between;
 }
 
-:host::ng-deep {
+ng2-smart-table {
 	table {
-		.ng2-smart-titles {
-			background: $gray-20 !important;
+		thead {
+			@extend %border;
+			background: $gray-20;
+
+			.ng2-smart-sort,
+			.ng2-smart-sort-link.sort {
+				color: $blue-50;
+				font-size: 14px;
+				font-weight: 500;
+				line-height: 24px;
+				text-decoration: none;
+			}
+
+			.ng2-smart-sort {
+				color: $gray-80;
+			}
 		}
 
-		.ng2-smart-row {
-			&:not(:last-of-type) {
-				border-bottom: 1px solid $gray-30;
+		tbody {
+			.ng2-smart-row {
+				&.selected {
+					background: $blue-10 !important;
+				}
+
+				&:not(:last-of-type) {
+					@extend %border;
+				}
+			}
+
+			td {
+				color: $gray-90;
 			}
 		}
 	}
 
 	ng2-smart-table-pager {
-		display: flex;
-		flex-direction: row !important;
-		justify-content: center !important;
-
-		.ng2-smart-page-item {
-			display: flex !important;
-		}
-
-		.active {
-			span {
-				background: $blue-50 !important;
-			}
-		}
-
-		.disabled {
-			a {
-				background-color: $gray-30 !important;
-			}
-		}
-
-		.ng2-smart-pagination {
-			margin-bottom: 0 !important;
-			font-size: 16px;
-
-			li > a {
-				text-decoration: none;
-			}
-		}
-
-		.page-link-prev,
-		.page-link-next {
+		ul.ng2-smart-pagination {
 			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			font-size: 16px !important;
+			font-size: 16px;
+			gap: 32px;
+			margin-bottom: 0;
+
+			li.ng2-smart-page-item {
+				a {
+					text-decoration: none;
+				}
+
+				&.disabled {
+					a {
+						background: $gray-20;
+					}
+				}
+
+				&.active {
+					span {
+						background: $blue-10;
+						color: $blue-50;
+					}
+				}
+
+				.page-link {
+					@extend %column;
+					align-items: center;
+					border: none;
+					color: $blue-50;
+					font-size: 16px;
+					font-weight: 600;
+					height: 44px;
+					justify-content: center;
+					text-align: center;
+					width: 44px;
+				}
+
+				.page-link-prev {
+					span {
+						display: none;
+					}
+
+					&:after {
+						content: url("../../../../assets/chevron-left.svg");
+						margin-top: 7px;
+					}
+				}
+
+				.page-link-next {
+					span {
+						display: none;
+					}
+
+					&:after {
+						content: url("../../../../assets/chevron-right.svg");
+						margin-top: 7px;
+					}
+				}
+			}
 		}
 	}
 }

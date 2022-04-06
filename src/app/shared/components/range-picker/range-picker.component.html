@@ -1,0 +1,13 @@
+<input
+	type="text"
+	class="form-control"
+	ngxDaterangepickerMd
+	placeholder="Time Range"
+	[closeOnAutoApply]="true"
+	[autoApply]="true"
+	[locale]="locale"
+	(datesUpdated)="writeValue($event)"
+	(input)="registerOnChange($event)"
+	(blur)="registerOnTouched()"
+	[value]="formatValue()"
+/>
