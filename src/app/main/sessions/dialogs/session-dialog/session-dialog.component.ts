@@ -102,6 +102,7 @@ export class SessionDialogComponent implements OnInit, OnDestroy {
 
             this.modal.close({
                 startEpoch,
+                SetRespeakerRateOverride: 1,
                 sessionDurationMins: parseInt(sessionDurationMins),
                 ...(audioDetailsOverride && {audioDetailsOverride}),
                 ...(captionDispOverride && {captionDispOverride}),

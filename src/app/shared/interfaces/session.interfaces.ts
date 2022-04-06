@@ -10,6 +10,7 @@ export interface ISession {
 	nonBilled?: 0 | 1;
 	respeakerRateOverride?: number;
 	allowOverrun: 0 | 1;
+	SetRespeakerRateOverride?: 0 | 1;
 }
 
 export interface ICreateSession {
