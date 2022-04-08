@@ -3,7 +3,6 @@
     <cwb-payment></cwb-payment>
 </ng-container>
 <ng-template #showUserInfoForm>
-<h2>General settings</h2>
 <form (ngSubmit)="save()" [formGroup]="form">
     <div class="d-flex">
         <div>
@@ -27,21 +26,20 @@
                required type="text">
     </div>
 
-    <div>
+    <div class="timezone">
         <cwb-timezone-selector formControlName="timeZone"></cwb-timezone-selector>
     </div>
 
     <div class="container">
         <div class="row">
           <div class="col text-center">
-           
             <ng-container *ngIf="paymentMethodComplete===1; else notComplete">
-                <div style="margin: 5%;">
+                <div>
                     You have a payment method saved with CaptionWorks.
                 </div>
             </ng-container>
             <ng-template #notComplete>
-                <div style="margin: 5%;">
+                <div>
                     You don't have a payment method set up yet.
                 </div>
             </ng-template>
