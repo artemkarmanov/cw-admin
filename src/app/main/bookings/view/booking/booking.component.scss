@@ -1,4 +1,12 @@
-@import 'colors-10';
+@import '_colors';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  height: 100%;
+}
 
 fieldset {
   border-radius: 8px;
@@ -15,6 +23,8 @@ fieldset {
   font-size: 12px;
   line-height: 16px;
   color: $gray-50;
+  margin-bottom: 4px;
+  display: flex;
 }
 
 .parameter {

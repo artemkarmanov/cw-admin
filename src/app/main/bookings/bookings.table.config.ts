@@ -10,7 +10,7 @@ import {BookingOwnerComponent} from "./bookings-table/booking-owner/booking-owne
 export const bookingsTableConfig = {
 	bookingToken: {
 		title: 'Booking ID',
-		width: '130px',
+		// width: '130px',
 		type: 'custom',
 		renderComponent: BookingLinkComponent
 	},
@@ -19,12 +19,15 @@ export const bookingsTableConfig = {
 	},
 	nextSessionStartEpoch: {
 		title: 'Next session',
-		valuePrepareFunction: prepareDate,
-		width: '211px'
+		type: 'html',
+		valuePrepareFunction: (date: number) => (
+			'<span class="next-session">' + prepareDate(date) + '</span>'
+		),
+		class: 'next-session'
 	},
 	nextSessionDurationMins: {
 		title: 'Duration',
-		width: '110px',
+		width: '150px',
 		valuePrepareFunction: (data: number) => `${data} mins`
 	},
 	countFutureSessions: {

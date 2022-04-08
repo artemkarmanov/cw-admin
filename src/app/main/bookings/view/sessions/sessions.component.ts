@@ -16,7 +16,7 @@ export class SessionsComponent implements OnInit, OnDestroy {
     private destroy$$: Subject<void> = new Subject<void>();
     private editClick$$: Subject<ISession> = new Subject<ISession>();
     private cancelClick$$: Subject<number> = new Subject<number>();
-    public isAdmin = environment.role;
+    public isAdmin = environment.role === 'admin';
     @Input() data!: ISession[];
     @Input() bookingTimeZone?: string;
 

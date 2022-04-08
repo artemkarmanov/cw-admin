@@ -4,7 +4,6 @@ import {CreateService} from '../create.service';
 import {merge, Observable, Subject, takeUntil} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {UsersService} from "@services/users.service";
-import {NgbTimepickerConfig, NgbTimeStruct} from '@ng-bootstrap/ng-bootstrap';
 import {IUser} from "@interfaces/user.interfaces";
 import {environment} from '@env';
 
@@ -12,8 +11,7 @@ import {environment} from '@env';
     selector: 'cwb-general-booking-information',
     templateUrl: './general-booking-information.component.html',
     styleUrls: ['./general-booking-information.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [NgbTimepickerConfig]
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GeneralBookingInformationComponent implements OnInit, OnDestroy {
     private destroy$$: Subject<void> = new Subject();
@@ -30,18 +28,19 @@ export class GeneralBookingInformationComponent implements OnInit, OnDestroy {
         allowOverrun: new FormControl(this.createService.overrunCaptioning)
     });
 
-    public time: NgbTimeStruct = {hour: 13, minute: 30, second: 0}
-    public meridian = true;
+    // public time: NgbTimeStruct = {hour: 13, minute: 30, second: 0}
+    // public meridian = true;
     public isAdmin = environment.role === 'admin';
 
 
     constructor(
         private createService: CreateService,
         private userService: UsersService,
-        public config: NgbTimepickerConfig) {
+    ) {
+        // public config: NgbTimepickerConfig) {
         // customize default values of ratings used by this component tree
-        config.seconds = false;
-        config.spinners = false;
+        // config.seconds = false;
+        // config.spinners = false;
       }
 
     ngOnInit(): void {

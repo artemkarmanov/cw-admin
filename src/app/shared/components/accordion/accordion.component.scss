@@ -1,0 +1,79 @@
+@import "_colors";
+
+:host {
+  width: 100%;
+}
+
+$accordion-header-height: 50px;
+$accordion-disabled: hsl(0, 0%, 60%);
+$accordion-border-radius: 8px;
+
+.accordion {
+  // border: 1px solid $blue-50;
+  border-radius: $accordion-border-radius;
+  background: $gray-10;
+}
+
+.accordion__item:first-child .accordion__header {
+  border-radius: $accordion-border-radius $accordion-border-radius 0 0;
+}
+
+.accordion__item:last-child .accordion__header {
+  border-radius: 0 0 $accordion-border-radius $accordion-border-radius;
+}
+
+.accordion__header {
+  display: flex;
+  padding: 0 1rem;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid transparent;
+  height: $accordion-header-height;
+  cursor: pointer;
+  background: $blue-10;
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 24px;
+  color: #3A8EF7;
+}
+
+.accordion__toggle-btn {
+  border: none;
+  transition: transform 0.1s ease-in;
+  background: none;
+}
+
+.accordion__item.disabled .accordion__header {
+  color: $accordion-disabled;
+  cursor: not-allowed;
+}
+
+.accordion__toggle-btn:disabled {
+  cursor: not-allowed;
+}
+
+.accordion__toggle-btn {
+  transform: rotate(270deg);
+}
+
+.accordion__toggle-btn:disabled svg path:nth-child(2) {
+  fill: $accordion-disabled;
+}
+
+.accordion__item.active .accordion__toggle-btn {
+  transform: rotate(90deg);
+}
+
+.accordion__item .accordion__header:focus-within {
+  border-color: $blue-50;
+  border-radius: $accordion-border-radius;
+}
+
+.accordion__toggle-btn:focus {
+  outline: none;
+  transform: rotate(270deg);
+}
+
+.accordion__content {
+  padding: 16px;
+}

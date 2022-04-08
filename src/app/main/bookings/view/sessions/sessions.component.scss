@@ -1,0 +1,49 @@
+@import "_colors";
+
+table {
+	width: 100%;
+	text-align: left;
+	border-collapse: collapse;
+
+	thead {
+		tr {
+			background: $gray-20;
+			border-radius: 4px;
+
+			th {
+				font-weight: 500;
+				font-size: 14px;
+				line-height: 24px;
+				color: $gray-80;
+				padding: 8px 16px;
+			}
+		}
+	}
+
+	tbody {
+		td {
+			padding: 16px;
+		}
+
+		.session-id {
+			font-weight: 400;
+			font-size: 20px;
+			line-height: 24px;
+			color: $gray-70;
+		}
+
+		.start-time {
+			font-weight: 600;
+			font-size: 18px;
+			line-height: 28px;
+			color: $gray-80;
+		}
+
+		.duration {
+			font-weight: 400;
+			font-size: 20px;
+			line-height: 24px;
+			color: $gray-70;
+		}
+	}
+}

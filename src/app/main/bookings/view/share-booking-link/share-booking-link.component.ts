@@ -10,6 +10,7 @@ import {IBooking} from "@interfaces/booking.interfaces";
 })
 export class ShareBookingLinkComponent implements OnInit {
     public href!: string;
+    public copied: boolean = false
 
     constructor() {
     }
@@ -26,4 +27,8 @@ export class ShareBookingLinkComponent implements OnInit {
     ngOnInit(): void {
     }
 
+    copy() {
+        window.navigator.clipboard.writeText(this.href!).then()
+        this.copied = true
+    }
 }

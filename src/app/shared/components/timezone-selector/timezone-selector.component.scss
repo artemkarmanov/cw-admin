@@ -1,9 +1,12 @@
-$base-margin: 16px;
+:host {
+    display: flex;
+    margin-bottom: 20px;
 
-.con {
-    gap: $base-margin;
-}
-
-select {
-    font-weight: normal;
+    label {
+        margin-bottom: 4px;
+        font-size: 12px;
+        line-height: 16px;
+        color: #7e7e7e;
+        font-weight: 600;
+    }
 }

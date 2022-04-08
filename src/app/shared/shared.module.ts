@@ -6,6 +6,8 @@ import {RouterModule} from "@angular/router";
 import {Ng2SmartTableModule} from "ng2-smart-table";
 import {sharedConfig} from "./shared.config";
 import {NgxDaterangepickerMd} from "ngx-daterangepicker-material";
+import {AccordionModule} from "@cmp/accordion/accordion.module";
+import {NgSelectModule} from "@ng-select/ng-select";
 
 @NgModule({
 	declarations: [
@@ -16,15 +18,18 @@ import {NgxDaterangepickerMd} from "ngx-daterangepicker-material";
 		CommonModule,
 		FormsModule,
 		ReactiveFormsModule,
+		AccordionModule
 	],
 	imports: [
 		CommonModule,
 		FormsModule,
-		RouterModule,
 		ReactiveFormsModule,
+		RouterModule,
+		NgSelectModule,
 		SharedProviderModule,
 		Ng2SmartTableModule,
-		NgxDaterangepickerMd.forRoot()
+		NgxDaterangepickerMd.forRoot(),
+		AccordionModule
 	]
 })
 export class SharedModule {

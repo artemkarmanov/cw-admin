@@ -1,70 +1,103 @@
 <ng-container
-        *ngTemplateOutlet="asyncTemplate; context:{
+	*ngTemplateOutlet="asyncTemplate; context:{
             data: data$ | async
         }">
 </ng-container>
-<ng-template #asyncTemplate let-data="data">
-    <form [formGroup]="form">
-        <div class="d-flex justify-content-between align-items-center">
-            <h2>Edit booking details</h2>
-            <div class="d-flex">
-                <a class="btn btn-sm text-primary" routerLink="../">Cancel</a>
-                <button (click)="update()" [disabled]="form.invalid || form.pristine" class="btn btn-primary btn-sm">
-                    <cwb-icon name="save"></cwb-icon>
-                    Save
-                </button>
-            </div>
-        </div>
-        <div>
-            <label class="form-label" for="title">Title</label>
-            <input class="form-control form-control-lg" formControlName="title" id="title" type="text">
-        </div>
-        <div>
-            <label class="form-label" for="audioDetails">Audio details</label>
-            <textarea class="form-control-lg form-control" formControlName="audioDetails" id="audioDetails"></textarea>
-        </div>
-        <div>
-            <label class="form-label" for="captionDispDetails">Caption Display Details</label>
-            <textarea class="form-control-lg form-control" formControlName="captionDispDetails"
-                      id="captionDispDetails"></textarea>
-        </div>
-        <cwb-timezone-selector formControlName="timeZoneOverride"></cwb-timezone-selector>
-        <div>
-            <input class="form-check-input" formControlName="authorizedViewersOnly" id="authorizedViewersOnly" type="checkbox" style="margin-right: 10px;" (click)="switchAuthorizedViewerBool()">
-            <label class="form-label" for="authorizedViewersOnly">Only allow these logged in users:</label>
-        </div>
-        <ng-container *ngIf="authorizedViewersOnlyChecked">
-            <div>
-                <label class="form-label" for="viewerEmails">List of emails for authorised viewers (separated by linebreaks)</label>
-                <textarea class="form-control form-control-lg" formControlName="viewerEmails" id="viewerEmails"></textarea>  
-            </div>
-        </ng-container>
-        <div>
-            <input class="form-check-input" formControlName="requireLogin" id="requireLogin" type="checkbox" style="margin-right: 10px;">
-            <label class="form-label" for="requireLogin">Viewer must be logged into CaptionWorks</label>
-        </div>
-        <div>
-            <input class="form-check-input" formControlName="requirePasscode" id="requirePasscode" type="checkbox" style="margin-right: 10px;">
-            <label class="form-label" for="requirePasscode">
-                Require passcode 
-            </label>
-            <label class="form-label">
-                <span class="clipboard"
-                    ngxClipboard
-                    (cbOnSuccess)="openTooltip()"
-                    [cbContent]="form.controls['bookingPasscode'].value"
-                    ngbTooltip="Copied to clipboard"
-                    triggers="manual"
-                    #tooltip="ngbTooltip"
-                    placement="bottom"
-                >
-                    {{ form.controls['bookingPasscode'].value }}
-                    <i class="bi bi-clipboard text-primary"></i>
-                </span>
-                <span>&nbsp;to view (no public access)</span>
-            </label>
-        </div>
-    </form>
-</ng-template>
-<ng-template #tipContent>Copied to clipboard</ng-template>
+<ng-template #asyncTemplate>
+	<form [formGroup]="form" class="form">
+		<div class="flex j-c-sb a-i-c mb-20">
+			<h4>Edit booking details</h4>
+			<div class="flex" style="gap: 12px;">
+				<cw-small-button
+					[buttonText]="'Cancel'"
+					[inverted]="true"
+					routerLink="../"
+				></cw-small-button>
+				<cw-small-button
+					[icon]="'save-white'"
+					(click)="update()"
+					[buttonText]="'Save'"
+					[buttonDisabled]="form.invalid || form.pristine"
+				></cw-small-button>
+			</div>
+		</div>
+		<cw-accordion [collapsing]="true">
+			<accordion-item title="About the booking">
+				<ng-template accordionContent>
+					<cw-input
+						[inputLabel]="'Title'"
+						formControlName="title"
+					></cw-input>
+					<cwb-timezone-selector
+						formControlName="timeZoneOverride"></cwb-timezone-selector>
+				</ng-template>
+			</accordion-item>
+			<accordion-item title="Access">
+				<ng-template accordionContent>
 
+					<div>
+						<label class="form-label" for="audioDetails">Audio details</label>
+						<textarea rows="3" class="form-control-lg form-control"
+						          formControlName="audioDetails" id="audioDetails"></textarea>
+					</div>
+					<div>
+						<label class="form-label" for="captionDispDetails">Caption Display
+							Details</label>
+						<textarea rows="3" class="form-control-lg form-control"
+						          formControlName="captionDispDetails"
+						          id="captionDispDetails"></textarea>
+					</div>
+					<cw-input
+						[inputLabel]="'Captioner Passcode'"
+						formControlName="bookingCaptionerPasscode"
+					></cw-input>
+
+					<cw-input
+						[inputLabel]="'Require passcode'"
+						formControlName="requirePasscode"
+					></cw-input>
+					<div>
+						<input class="form-check-input" formControlName="requireLogin"
+						       id="requireLogin" type="checkbox" style="margin-right: 10px;">
+						<label class="form-label" for="requireLogin">Viewer must be logged into
+							CaptionWorks</label>
+					</div>
+
+					<div>
+						<input class="form-check-input" formControlName="authorizedViewersOnly"
+						       id="authorizedViewersOnly" type="checkbox"
+						       style="margin-right: 10px;" (click)="switchAuthorizedViewerBool()">
+						<label class="form-label" for="authorizedViewersOnly">Only allow these
+							logged in users:</label>
+					</div>
+
+					<ng-container *ngIf="authorizedViewersOnlyChecked">
+						<div>
+							<label class="form-label" for="viewerEmails">List of emails for
+								authorised viewers (separated by linebreaks)</label>
+							<textarea rows="3" class="form-control form-control-lg"
+							          formControlName="viewerEmails" id="viewerEmails"></textarea>
+						</div>
+					</ng-container>
+				</ng-template>
+			</accordion-item>
+		</cw-accordion>
+		<!--        <div>-->
+		<!--            <label class="form-label">-->
+		<!--                <span class="clipboard"-->
+		<!--                    ngxClipboard-->
+		<!--                    (cbOnSuccess)="openTooltip()"-->
+		<!--                    [cbContent]="form.controls['bookingPasscode'].value"-->
+		<!--                    ngbTooltip="Copied to clipboard"-->
+		<!--                    triggers="manual"-->
+		<!--                    #tooltip="ngbTooltip"-->
+		<!--                    placement="bottom"-->
+		<!--                >-->
+		<!--                    {{ form.controls['bookingPasscode'].value }}-->
+		<!--                    <i class="bi bi-clipboard text-primary"></i>-->
+		<!--                </span>-->
+		<!--                <span>&nbsp;to view (no public access)</span>-->
+		<!--            </label>-->
+		<!--        </div>-->
+	</form>
+</ng-template>

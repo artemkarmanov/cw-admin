@@ -3,7 +3,6 @@ import {ViewCell} from "ng2-smart-table";
 import {IAdminSession} from "@interfaces/session.interfaces";
 import {SessionsService} from "../../sessions.service";
 import {SocketMessagesService} from "@services/socket-messages.service";
-import {ModalService} from "@services/modal.service";
 
 @Component({
   selector: 'cwb-session-table-actions',
@@ -17,7 +16,6 @@ export class SessionTableActionsComponent implements ViewCell {
 
   constructor(
       private messages: SocketMessagesService,
-      private modalService: ModalService,
       private sessionService: SessionsService
   ) {
   }

@@ -1,5 +1,4 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MINIMUM_SESSION_DURATION} from '@constants/const';
 import {DateTime} from 'luxon';
@@ -7,6 +6,7 @@ import {BehaviorSubject, Observable, Subject, takeUntil} from 'rxjs';
 import {filter, tap} from 'rxjs/operators';
 import {environment} from '@env';
 import {ISession} from "@interfaces/session.interfaces";
+import {DialogRef} from "@services/dialog.service";
 
 interface IFormData {
     startDate: string;
@@ -35,7 +35,7 @@ export class SessionDialogComponent implements OnInit, OnDestroy {
 
     public form!: FormGroup;
 
-    constructor(private modal: NgbActiveModal) {
+    constructor(private modal: DialogRef) {
         const controls = {
             startDate: new FormControl('', Validators.required),
             startTime: new FormControl('', Validators.required),
@@ -110,7 +110,7 @@ export class SessionDialogComponent implements OnInit, OnDestroy {
     }
 
     close() {
-        this.modal.dismiss();
+        this.modal.close();
     }
 
 }

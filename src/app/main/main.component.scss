@@ -1,10 +1,13 @@
+@import "_colors";
+
 main {
 	height: calc(100vh - 65px - 42px);
 	overflow-x: hidden;
 	overflow-y: auto;
 	justify-content: space-between;
-	padding: 24px 0;
+	background: $gray-20;
 	border-bottom: 1px solid #DDDDDD;
+	padding: 28px 32px;
 
 	&::-webkit-scrollbar {
 		width:  12px;

@@ -1,11 +1,9 @@
 import {Injectable} from '@angular/core';
 import {SocketMessagesService} from '@services/socket-messages.service';
 import {Observable, of, pluck} from 'rxjs';
-import {ModalService} from '@services/modal.service';
 import {SessionDialogComponent} from './dialogs/session-dialog/session-dialog.component';
 import {filter, switchMap} from 'rxjs/operators';
 import {ConfirmationService} from '@services/confirmation.service';
-import {SharedProviderModule} from '../../shared/shared-provider.module';
 import {
 	SessionCaptionDialogComponent
 } from './dialogs/session-caption-dialog/session-caption-dialog.component';
@@ -20,35 +18,36 @@ import {
 	ISessionViewerLog
 } from "@interfaces/session.interfaces";
 import {IDateRange} from "@cmp/range-picker/range-picker.component";
+import {DialogService} from "@services/dialog.service";
+import {SharedModule} from "../../shared/shared.module";
 
-@Injectable({
-	providedIn: SharedProviderModule
-})
+@Injectable({providedIn: SharedModule})
 export class SessionsService {
 
 	constructor(
-		private modalService: ModalService,
+		private dialog: DialogService,
 		private messages: SocketMessagesService,
 		private confirmationService: ConfirmationService,
 	) {
 	}
 
 	public add$(): Observable<unknown> {
-		return this.modalService.open$(SessionDialogComponent).pipe(
+		return this.dialog.open(SessionDialogComponent).afterClosed().pipe(
 			//filter(Boolean),
 		)
 	}
 
 	public edit$(sessionData: ISession | IAdminSession): Observable<unknown> {
-		return this.modalService.open$<any, SessionDialogComponent>(SessionDialogComponent, {}, (instance) => {
-			instance.data$$.next(sessionData);
-		}).pipe(
-			filter(Boolean),
-			switchMap((session) => {
-				Object.assign(session, {
-					sessionId: sessionData.sessionId
-				});
-				return this.updateSession$(session);
+		return this.dialog
+			.open(SessionDialogComponent, {data: sessionData})
+			.afterClosed()
+			.pipe(
+				filter(Boolean),
+				switchMap((session: ISession | IAdminSession) => {
+					Object.assign(session, {
+						sessionId: sessionData.sessionId
+					});
+					return this.updateSession$(session);
 			}),
 		)
 	}
@@ -78,7 +77,7 @@ export class SessionsService {
 				return of([])
 			}
 		} else {
-			return this.messages.request$<{sessions: IAdminSession[]}>(
+			return this.messages.request$<{ sessions: IAdminSession[] }>(
 				'getSessionsSummary',
 				{fromEpoch, toEpoch}
 			).pipe(pluck('sessions'))
@@ -93,12 +92,7 @@ export class SessionsService {
 			)
 			.pipe(
 				pluck('logs'),
-				switchMap((logs) =>
-					this.modalService.open$<any, SessionViewerLogsDialogComponent>(
-						SessionViewerLogsDialogComponent,
-						{size: "xl"},
-						(instance) => instance.data$$.next(logs))
-				)
+				switchMap((logs) => this.dialog.open(SessionViewerLogsDialogComponent, {data: logs}).afterClosed())
 			)
 	}
 
@@ -110,13 +104,9 @@ export class SessionsService {
 			)
 			.pipe(
 				pluck('logs'),
-                switchMap((logs) =>
-                    this.modalService.open$<any, SessionCaptionDialogComponent>(
-                        SessionCaptionDialogComponent,
-                        {size: "xl"},
-                        (instance) => instance.data$$.next(logs))
-                )
-            )
+				switchMap((logs) => this.dialog.open(SessionCaptionDialogComponent, {data: logs}).afterClosed()
+				)
+			)
 	}
 
 	public addSession$(session: ICreateSession): Observable<number> {
@@ -126,10 +116,10 @@ export class SessionsService {
 	}
 
 
-	public openSessionCaptionDialog$(sessionId: number, sesssionLogs$: ISessionCaptionLogs[]): Observable<unknown> {
-		return this.modalService.open$<any, SessionCaptionDialogComponent>(SessionCaptionDialogComponent, {}, (instance) => {
-			instance.data$$.next(sesssionLogs$);
-		}).pipe(
+	public openSessionCaptionDialog$(sessionId: number, sessionLogs$: ISessionCaptionLogs[]): Observable<unknown> {
+		return this.dialog.open(SessionCaptionDialogComponent, {
+			data: sessionLogs$
+		}).afterClosed().pipe(
 			filter(Boolean),
 			switchMap((session) => {
 				Object.assign(session, {

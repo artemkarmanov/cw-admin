@@ -15,7 +15,7 @@
             <cwb-in-out-booking-information *ngSwitchCase="2"></cwb-in-out-booking-information>
             <cwb-booking-details *ngSwitchCase="3"></cwb-booking-details>
         </ng-container>
-        <div [class.justify-content-between]="s!==1" [class.justify-content-end]="s===1" class="d-flex pt-4">
+        <div [class.justify-content-between]="s!==1" [class.justify-content-end]="s===1" class="flex pt-4">
             <button (click)="back()" *ngIf="s>1" class="btn btn-secondary">Back</button>
             <button (click)="next()" *ngIf="s<3" [disabled]="disabledNext" class="btn btn-primary">Next</button>
             <button (click)="save()" *ngIf="s===3" [disabled]="disabledNext" class="btn-primary btn">Save</button>

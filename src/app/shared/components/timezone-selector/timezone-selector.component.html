@@ -1,17 +1,30 @@
-<div *ngIf="regions$ | async as regions" class="d-flex con">
-    <div class="d-flex flex-column w-100" style="margin-right: 10px;">
-        <label class="form-label" for="region">Select time zone/country</label>
-        <select *ngIf="regions.length" [formControl]="region" class="form-select form-select-lg"
-                id="region">
-            <option *ngIf="!required"></option>
-            <option *ngFor="let region of regions" [value]="region.regionId">{{region.region}}</option>
-        </select></div>
-    <div class="d-flex flex-column w-100">
-        <label class="form-label" for="city">Select time zone/city</label>
-        <select *ngIf="cities$ | async as cities" [formControl]="city" class="form-select form-select-lg" id="city">
-            <option *ngIf="!required"></option>
-            <option *ngFor="let city of cities" [value]="city">{{city}}</option>
-        </select>
-    </div>
+<div *ngIf="regions$ | async as regions" class="flex row gap w-100">
+	<div class="w-100 flex col">
+		<label for="region">Country</label>
+		<ng-select
+			[clearable]="false"
+			[formControl]="region"
+			[items]="regions"
+			[notFoundText]="'Loading regions...'"
+			[placeholder]="'Region'"
+			(change)="pickedCountry($event)"
+			bindLabel="region"
+			class="select region"
+			id="region"
+		></ng-select>
+	</div>
 
+	<div class="w-100 flex col" *ngIf="cities">
+		<label for="city">City</label>
+		<ng-select
+			[clearable]="false"
+			[formControl]="city"
+			[items]="cities"
+			(input)="registerOnChange($event)"
+			(change)="pickedCity($event)"
+			class="select city"
+			id="city"
+			placeholder="City"
+		></ng-select>
+	</div>
 </div>

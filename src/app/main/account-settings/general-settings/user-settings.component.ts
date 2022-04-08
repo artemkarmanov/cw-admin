@@ -104,10 +104,7 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
     }
 
     save() {
-        if (this.form.valid) {
-            this.save$$.next();
-        }
-
+        this.save$$.next();
     }
 
     showPaymentSettingForm()  {

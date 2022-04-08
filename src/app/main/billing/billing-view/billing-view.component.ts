@@ -1,9 +1,9 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {BillingService} from "@services/billing.service";
 import {Observable} from "rxjs";
-import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {IBillingDetails} from "@interfaces/billing.interfaces";
 import {columnsConfig} from "./billing-view.table.config";
+import {DialogRef} from "@services/dialog.service";
 
 @Component({
   selector: 'cwb-billing-view',
@@ -18,7 +18,7 @@ export class BillingViewComponent implements OnInit {
   public tableConfig = columnsConfig
   constructor(
     private service: BillingService,
-    private activeModal: NgbActiveModal
+    private activeModal: DialogRef
   ) {
   }
 

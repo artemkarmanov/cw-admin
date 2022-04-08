@@ -32,7 +32,8 @@ export class UpdateComponent implements OnInit, OnDestroy {
         requireLogin: new FormControl(false),
         viewerEmails: new FormControl(''),
         bookingPasscode: new FormControl(''),
-        authorizedViewersOnly: new FormControl(false)
+        authorizedViewersOnly: new FormControl(false),
+        bookingCaptionerPasscode: new FormControl('')
     });
 
     public authorizedViewersOnlyChecked: boolean =  false;
@@ -76,7 +77,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
             takeUntil(this.destroy$$.asObservable()),
             tap(this.data$$.next.bind(this.data$$)),
             tap(data => {
-                const {title, audioDetails, captionDispDetails, viewerEmails, bookingTimeZone, requirePasscode, requireLogin, bookingPasscode} = data;
+                const {title, audioDetails, captionDispDetails, viewerEmails, bookingTimeZone, requirePasscode, requireLogin, bookingPasscode, bookingCaptionerPasscode} = data;
                 let hasAuthorizedViewers = 0
                 if (viewerEmails) {
                     if (viewerEmails.split("\n").length > 0) {
@@ -93,7 +94,8 @@ export class UpdateComponent implements OnInit, OnDestroy {
                     requireLogin: requireLogin,
                     bookingPasscode: (bookingPasscode.length < 5) ? "not required" : bookingPasscode,
                     authorizedViewersOnly: hasAuthorizedViewers,
-                    viewerEmails: viewerEmails
+                    viewerEmails: viewerEmails,
+                    bookingCaptionerPasscode
                 });
 
             })
@@ -115,12 +117,5 @@ export class UpdateComponent implements OnInit, OnDestroy {
     switchAuthorizedViewerBool() {
         this.authorizedViewersOnlyChecked = (!this.authorizedViewersOnlyChecked);
         this.form.get("requireLogin")?.setValue(this.authorizedViewersOnlyChecked)
-    }
-
-    openTooltip(): void {
-        this.clipboard.open();
-        setTimeout(() => {
-            this.clipboard.close();
-        }, 2000);
     }
 }

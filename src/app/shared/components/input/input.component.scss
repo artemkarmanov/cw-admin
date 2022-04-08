@@ -1,9 +1,8 @@
-@import 'colors-10';
+@import '_colors';
 
 .text-input-block {
 	display: flex;
 	flex-direction: column;
-	margin-bottom: 20px;
 
 	.input-error,
 	.text-input-label {
@@ -18,8 +17,9 @@
 	}
 
 	.text-input {
-		border-radius: 4px;
-		padding: 10px 16px;
+		border-radius: 8px;
+		padding: 12px 16px;
+		font-size: 18px;
 	}
 
 	.input-error {
@@ -36,13 +36,32 @@
 	}
 
 	input {
-		border: 1px solid #C8E7FE;
+		border: 1px solid $blue-20;
 		box-shadow: inset 0 1px 2px rgb(0 0 0 / 8%);
+		height: calc(56px - 12px - 12px);
+		font-size: 20px;
+		line-height: 24px;
+
+		&::placeholder {
+			font-size: 20px;
+			line-height: 24px;
+			color: $gray-50;
+		}
 
 		&:focus-visible {
 			background: $blue-10;
 			border: 1px solid $blue-20;
 			outline: 0;
+		}
+
+		&:focus {
+			outline: 0;
+			border-color: $blue-20;
+			box-shadow:
+				0 1px 1px rgba($white, 0.03),
+				0 3px 6px rgba($white, 0.02),
+				0 0 0 3px rgba($blue-50, 25%),
+				0 1px 1px 0 rgba($white, 0.08);
 		}
 
 		&:disabled {

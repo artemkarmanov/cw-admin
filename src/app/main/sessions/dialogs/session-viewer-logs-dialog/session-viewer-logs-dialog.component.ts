@@ -1,9 +1,9 @@
 import {Component, OnInit, ChangeDetectionStrategy, OnDestroy} from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {Subject, BehaviorSubject, Observable, filter, takeUntil, map} from 'rxjs';
 import {environment} from 'src/environments/environment';
 import {ISessionViewerLog} from "@interfaces/session.interfaces";
+import {DialogRef} from "@services/dialog.service";
 
 @Component({
   selector: 'cwb-session-viewer-logs-dialog',
@@ -22,7 +22,7 @@ export class SessionViewerLogsDialogComponent implements OnInit, OnDestroy {
 
   public form!: FormGroup;
 
-  constructor(private modal: NgbActiveModal) {}
+  constructor(private modal: DialogRef) {}
 
   ngOnInit(): void {
       this.data$.pipe(
@@ -40,6 +40,6 @@ export class SessionViewerLogsDialogComponent implements OnInit, OnDestroy {
   }
 
   close() {
-      this.modal.dismiss();
+      this.modal.close();
   }
 }

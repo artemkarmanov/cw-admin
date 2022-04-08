@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UsersService} from 'src/app/shared/services/users.service';
 import {checkPasswords} from "@helpers/check-passwords";
@@ -10,7 +10,7 @@ import {IUser} from "@interfaces/user.interfaces";
     styleUrls: ['./user-form.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UserFormComponent implements OnInit {
+export class UserFormComponent {
     @Output() dataChange = new EventEmitter<any>();
 
     public form: FormGroup = new FormGroup({
@@ -45,10 +45,6 @@ export class UserFormComponent implements OnInit {
     constructor(private usersService: UsersService) {
     }
 
-
-    ngOnInit(): void {
-    }
-
     save() {
         if (this.form.valid) {
             const data = this.form.value;
@@ -81,7 +77,6 @@ export class UserFormComponent implements OnInit {
             // is not updating once a user clicks "Save", so I added the final "this.userService.reload()"
             // line in this function.  It reloads the user service, grabbing all the 
             // newest users from the DB and displaying them.
-            console.log(data)
             this.dataChange.emit(data);
             this.usersService.reload();
         }
