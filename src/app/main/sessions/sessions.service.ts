@@ -53,7 +53,7 @@ export class SessionsService {
 	}
 
 	public cancel$(id: number): Observable<unknown> {
-		return this.confirmationService.open$('Are you sure you want to cancel the session?', 'Cancel', 'Abort').pipe(
+		return this.confirmationService.open$('Are you sure you want to cancel the session?', 'Yes', 'No').pipe(
 			switchMap(() => {
 				return this.cancelSession$(id);
 			}),
