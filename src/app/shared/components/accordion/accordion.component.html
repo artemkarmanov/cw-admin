@@ -1,7 +1,7 @@
 <section class="accordion">
 	<div
 		*ngFor="let item of items;index as i"
-		class="accordion__item"
+		class="item"
 		[class.disabled]="item.disabled"
 		[class.active]="expanded.has(i)"
 	>
@@ -10,7 +10,7 @@
 			[ngTemplateOutletContext]="{$implicit: item, index: i, toggle: i | getToggleFunction: toggleState}"
 		></ng-container>
 		<div
-            class="accordion__content"
+            class="content"
             [class.expanded]="expanded.has(i)"
             [@contentExpansion]="expanded.has(i) ? 'expanded':'collapsed'"
         >
@@ -21,14 +21,14 @@
 
 <ng-template #defaultHeader let-item let-index="index">
 	<header
-        class="accordion__header"
+        class="header"
         (click)="!item.disabled && toggleState(index)"
     >
 		<ng-container
 			*ngTemplateOutlet="item?.customTitle?.templateRef || defaultTitle"
         ></ng-container>
 		<button
-            class="accordion__toggle-btn"
+            class="toggle-btn"
             [disabled]="item.disabled"
         >
 			<div style="height: 24px; width: 24px;" class="flex col a-i-c j-c-c">
@@ -39,6 +39,6 @@
 		</button>
 	</header>
 	<ng-template #defaultTitle>
-		<p class="accordion__title">{{item?.title}}</p>
+		<p class="title">{{item?.title}}</p>
 	</ng-template>
 </ng-template>

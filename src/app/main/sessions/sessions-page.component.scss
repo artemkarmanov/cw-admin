@@ -1,4 +1,9 @@
 cwb-sessions-page {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+
     .ng2-smart-th.actions {
         text-align: end;
 

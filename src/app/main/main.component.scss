@@ -1,24 +1,13 @@
 @import "_colors";
 
 main {
-	height: calc(100vh - 65px - 42px);
-	overflow-x: hidden;
-	overflow-y: auto;
+	display: flex;
 	justify-content: space-between;
+	align-items: center;
+	flex: 1;
+	height: calc(100vh - 62px - 42px);
+	overflow: hidden;
 	background: $gray-20;
 	border-bottom: 1px solid #DDDDDD;
 	padding: 28px 32px;
-
-	&::-webkit-scrollbar {
-		width:  12px;
-		height: 4px;
-	}
-
-	&::-webkit-scrollbar-thumb {
-		background: silver;
-	}
-
-	&::-webkit-scrollbar-track {
-		background: #DDDDDD;
-	}
 }

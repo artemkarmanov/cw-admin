@@ -1,5 +1,12 @@
 import {animate, state, style, transition, trigger} from "@angular/animations"
-import {ChangeDetectionStrategy, Component, ContentChildren, Input, QueryList} from "@angular/core"
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ContentChildren,
+  Input,
+  QueryList,
+  ViewEncapsulation
+} from "@angular/core"
 import {AccordionItem} from "./directives/accordion-item.directive"
 
 @Component({
@@ -7,12 +14,13 @@ import {AccordionItem} from "./directives/accordion-item.directive"
   templateUrl: "./accordion.component.html",
   styleUrls: ["./accordion.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
   animations: [
     trigger('contentExpansion', [
       state('expanded', style({height: '*', opacity: 1, visibility: 'visible'})),
       state('collapsed', style({height: '0px', opacity: 0, visibility: 'hidden'})),
       transition('expanded <=> collapsed',
-          animate('100ms cubic-bezier(.37,1.04,.68,.98)')),
+          animate('200ms cubic-bezier(.37,1.04,.68,.98)')),
     ])
   ]
 })

@@ -9,6 +9,7 @@
 			[placeholder]="'Region'"
 			(change)="pickedCountry($event)"
 			bindLabel="region"
+			[appendTo]="'body'"
 			class="select region"
 			id="region"
 		></ng-select>
@@ -22,6 +23,7 @@
 			[items]="cities"
 			(input)="registerOnChange($event)"
 			(change)="pickedCity($event)"
+			[appendTo]="'body'"
 			class="select city"
 			id="city"
 			placeholder="City"

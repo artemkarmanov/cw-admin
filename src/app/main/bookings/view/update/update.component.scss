@@ -1,6 +1,10 @@
 @import "_colors";
 
 :host {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+
     .card {
         border: 1px solid $blue-50;
     }
@@ -10,11 +14,10 @@
     padding: 0 1px 0 2px;
 }
 
-.form {
-    display: flex;
-    flex-direction: column;
-
-    .accordion {
-        margin-top: 16px;
-    }
+.form-label {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    color: $gray-50;
+    margin-bottom: 4px;
 }

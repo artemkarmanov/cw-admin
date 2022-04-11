@@ -15,7 +15,24 @@
 	justify-content: space-between;
 }
 
+cwb-smart-table {
+	height: 100%;
+}
+
+.selector {
+	margin-top: 14px !important;
+	max-height: 44px;
+	border: none;
+	outline: none;
+	font-size: 16px !important;
+	font-weight: 600 !important;
+	color: $blue-50 !important;
+	background: $gray-20;
+	border-radius: 4px;
+}
+
 ng2-smart-table {
+
 	table {
 		thead {
 			@extend %border;

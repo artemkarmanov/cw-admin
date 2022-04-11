@@ -2,7 +2,11 @@
 	<cw-loader *ngIf="!loaded"></cw-loader>
 </ng-container>
 
-<form (submit)="submit($event)" class="mt-20" id="payment-form">
+<form
+	class="payment-form mt-20"
+	(submit)="submit($event)"
+	id="payment-form"
+>
 	<div class="mb-20" id="payment-element">
 		<div #cardInfo id="card-info"></div>
 	</div>

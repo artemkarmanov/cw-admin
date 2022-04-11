@@ -17,7 +17,7 @@
 					[icon]="'save-white'"
 					(click)="update()"
 					[buttonText]="'Save'"
-					[buttonDisabled]="form.invalid || form.pristine"
+					[buttonDisabled]="form.invalid"
 				></cw-small-button>
 			</div>
 		</div>
@@ -35,12 +35,12 @@
 			<accordion-item title="Access">
 				<ng-template accordionContent>
 
-					<div>
+					<div class="flex col">
 						<label class="form-label" for="audioDetails">Audio details</label>
 						<textarea rows="3" class="form-control-lg form-control"
 						          formControlName="audioDetails" id="audioDetails"></textarea>
 					</div>
-					<div>
+					<div class="flex col">
 						<label class="form-label" for="captionDispDetails">Caption Display
 							Details</label>
 						<textarea rows="3" class="form-control-lg form-control"
@@ -56,14 +56,14 @@
 						[inputLabel]="'Require passcode'"
 						formControlName="requirePasscode"
 					></cw-input>
-					<div>
+					<div class="flex row" style="gap: 8px">
 						<input class="form-check-input" formControlName="requireLogin"
 						       id="requireLogin" type="checkbox" style="margin-right: 10px;">
 						<label class="form-label" for="requireLogin">Viewer must be logged into
 							CaptionWorks</label>
 					</div>
 
-					<div>
+					<div class="flex row" style="gap: 8px">
 						<input class="form-check-input" formControlName="authorizedViewersOnly"
 						       id="authorizedViewersOnly" type="checkbox"
 						       style="margin-right: 10px;" (click)="switchAuthorizedViewerBool()">
@@ -72,10 +72,11 @@
 					</div>
 
 					<ng-container *ngIf="authorizedViewersOnlyChecked">
-						<div>
+						<div class="flex col mt-16">
 							<label class="form-label" for="viewerEmails">List of emails for
-								authorised viewers (separated by linebreaks)</label>
-							<textarea rows="3" class="form-control form-control-lg"
+								authorised viewers (separated by linebreaks):</label>
+							<textarea class="form-control form-control-lg" style="resize: vertical; height:
+							max-content; overflow: auto"
 							          formControlName="viewerEmails" id="viewerEmails"></textarea>
 						</div>
 					</ng-container>

@@ -6,7 +6,7 @@
 <ng-template #showUserInfoForm>
 	<h2>General settings</h2>
 	<form (ngSubmit)="save()" [formGroup]="form">
-		<div class="flex row j-c-sb">
+		<div class="flex row j-c-sb gap">
 			<cw-input
 				formControlName="firstName"
 				inputLabel="First name"

@@ -2,7 +2,8 @@
 
 :host {
   display: flex;
-  flex: 1;
+  height: 100%;
+  width: 100%;
   flex-direction: column;
 }
 
@@ -25,6 +26,7 @@
 .info {
   gap: 16px;
   height: 100%;
+  display: flex;
 
   .left {
     flex: 35%;

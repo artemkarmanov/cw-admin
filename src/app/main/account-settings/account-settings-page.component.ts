@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 
 @Component({
     selector: 'cwb-account-settings-page',
@@ -6,12 +6,5 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
     styleUrls: ['./account-settings-page.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AccountSettingsPageComponent implements OnInit {
-
-    constructor() {
-    }
-
-    ngOnInit(): void {
-    }
-
+export class AccountSettingsPageComponent {
 }

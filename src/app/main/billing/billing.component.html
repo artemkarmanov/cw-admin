@@ -1,6 +1,6 @@
 <cwb-page-top>
 	<cwb-button-header>
-		<h1 style="margin-right: 12px">Billings</h1>
+		<h3 style="margin-right: 12px">Billings</h3>
 		<cw-svg-icon (click)="load()" [independent]="true" [svg]="'refresh'"></cw-svg-icon>
 	</cwb-button-header>
 </cwb-page-top>
@@ -8,7 +8,7 @@
 <cwb-card *ngIf="(dataSource$ | async)?.length">
 	<cwb-smart-table
 		[source]="(dataSource$ | async) || []"
-		[perPage]="7"
+		[perPage]="6"
 		(rowClicked)="billingPopup($event)"
 		[columns]="columnsConfig"
 	></cwb-smart-table>

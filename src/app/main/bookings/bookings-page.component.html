@@ -13,8 +13,9 @@
 <cwb-card *ngIf="(bookings$ | async); else empty">
     <cwb-smart-table
         [source]="(bookings$ | async) || []"
-        [perPage]="9"
+        [perPage]="7"
         [columns]="columnsConfig"
+        (reloadPaginator)="reload()"
     ></cwb-smart-table>
 </cwb-card>
 

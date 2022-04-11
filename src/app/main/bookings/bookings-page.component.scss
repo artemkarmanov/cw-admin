@@ -1,5 +1,12 @@
 @import '_colors';
 
+cwb-bookings-page {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+}
+
 cwb-smart-table {
 	tbody {
 		td {
