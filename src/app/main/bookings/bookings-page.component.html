@@ -1,17 +1,21 @@
 <cwb-page-top>
     <cwb-button-header>
-        <h1>Bookings</h1>
+        <h3>Bookings</h3>
         <cw-svg-icon (click)="reload()" [independent]="true" [svg]="'refresh'"></cw-svg-icon>
     </cwb-button-header>
-    <cw-small-button routerLink="create" [buttonText]="'Add new booking'"
+    <cw-small-button
+      routerLink="create"
+      [buttonText]="'Add new booking'"
+      [icon]="'add-white'"
     ></cw-small-button>
 </cwb-page-top>
 
 <cwb-card *ngIf="(bookings$ | async); else empty">
     <cwb-smart-table
         [source]="(bookings$ | async) || []"
-        [perPage]="14"
+        [perPage]="7"
         [columns]="columnsConfig"
+        (reloadPaginator)="reload()"
     ></cwb-smart-table>
 </cwb-card>
 

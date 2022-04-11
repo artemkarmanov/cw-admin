@@ -1,6 +1,6 @@
 <cwb-page-top>
     <cwb-button-header>
-        <h1>Users</h1>
+        <h3>Users</h3>
         <cw-svg-icon [independent]="true" [svg]="'refresh'" (click)="reload()"></cw-svg-icon>
     </cwb-button-header>
     <cw-small-button
@@ -12,7 +12,7 @@
 <cwb-card *ngIf="(users$ | async); else empty">
     <cwb-smart-table
         [source]="(users$ | async) || []"
-        [perPage]="8"
+        [perPage]="7"
         [columns]="columnsConfig"
     ></cwb-smart-table>
 </cwb-card>

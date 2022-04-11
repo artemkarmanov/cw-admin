@@ -1,0 +1,44 @@
+@import '_colors';
+
+:host {
+	height: 100%;
+	width: 100%;
+	background: white;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+h1 {
+	font-family: 'Inter', sans-serif;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 32px;
+	line-height: 40px;
+	color: $gray-90;
+	margin: 0 0 36px;
+}
+
+.left,
+.right {
+	flex: 50%;
+}
+
+.left {
+	max-width: min-content;
+}
+
+.right {
+	max-width: 753px;
+	max-height: 634px;
+}
+
+.forgot {
+	font-size: 17px;
+	line-height: 24px;
+	color: $gray-60;
+
+	.reset {
+		color: $blue-50;
+	}
+}

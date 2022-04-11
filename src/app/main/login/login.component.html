@@ -1,17 +1,18 @@
-<div>
-    <div class="row">
-        <div class="col-sm-4">
-            <h1 class="display-6">
-                <ng-container *ngIf="isAdmin;else bookings_title">Admin</ng-container>
-                <ng-template #bookings_title>Bookings</ng-template>
-            </h1>
-            <cwb-login-form></cwb-login-form>
-            <div class="text-center pt-4">
-                Forgot the password? <a class="link-primary" routerLink="../../reset-password">Reset</a>
+<div class="flex row j-c-c a-i-c">
+    <div class="left">
+        <h1>
+            <ng-container *ngIf="isAdmin;else bookings_title">Admin</ng-container>
+            <ng-template #bookings_title>Bookings</ng-template>
+        </h1>
+        <cwb-login-form></cwb-login-form>
+        <div class="flex row j-c-c a-i-c mt-20 forgot">
+            <div class="mr-20 fw-6">
+                Forgot the password?
             </div>
-        </div>
-        <div class="col-sm-8">
-            <img src="assets/first-page.png" alt="first-page"/>
+            <a class="link-primary reset fw-6" routerLink="../../reset-password">
+                Reset
+            </a>
         </div>
     </div>
+    <img class="flex right graphic" src="assets/first-page.png" alt="first-page"/>
 </div>

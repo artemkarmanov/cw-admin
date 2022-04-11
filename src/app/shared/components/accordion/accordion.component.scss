@@ -1,0 +1,88 @@
+@import "_colors";
+@import "scrollbars";
+
+:host {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+$accordion-header-height: 50px;
+$accordion-disabled: hsl(0, 0%, 60%);
+$accordion-border-radius: 8px;
+
+.accordion {
+  // border-radius: $accordion-border-radius;
+  background: $gray-10;
+
+  // .item:first-child .header {
+  //   border-radius: $accordion-border-radius;
+  // }
+  //
+  // .item:last-child .header {
+  //   border-radius: $accordion-border-radius;
+  // }
+
+  .header {
+    display: flex;
+    padding: 0 1rem;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid transparent;
+    height: $accordion-header-height;
+    cursor: pointer;
+    background: $blue-10;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 24px;
+    color: #3A8EF7;
+  }
+
+  .toggle-btn {
+    border: none;
+    transition: transform 0.2s ease-in;
+    background: none;
+  }
+
+  .item.disabled .header {
+    color: $accordion-disabled;
+    cursor: not-allowed;
+  }
+
+  .toggle-btn:disabled {
+    cursor: not-allowed;
+  }
+
+  .toggle-btn {
+    transform: rotate(270deg);
+  }
+
+  .toggle-btn:disabled svg path:nth-child(2) {
+    fill: $accordion-disabled;
+  }
+
+  .item.active .toggle-btn {
+    transform: rotate(90deg);
+  }
+
+  .item .header:focus-within {
+    border-color: $blue-50;
+    border-radius: $accordion-border-radius;
+  }
+
+  .toggle-btn:focus {
+    outline: none;
+    transform: rotate(270deg);
+  }
+
+  .content {
+    @include scrollbars(4px, $blue-20);
+    padding: 16px;
+    overflow: hidden auto;
+    display: flex;
+    flex-direction: column;
+    max-height: 500px;
+    opacity: 1;
+  }
+}

@@ -1,14 +1,19 @@
-@import 'colors-10';
+@import '_colors';
+
+.head,
+.name {
+  white-space: nowrap;
+}
 
 .head {
   font-size: 12px;
   line-height: 16px;
-  font-weight: 600;
   color: $gray-50;
 }
 
 .name {
-  font-weight: 500;
   font-size: 14px;
   line-height: 24px;
+  color: $gray-80;
+  font-weight: 500;
 }

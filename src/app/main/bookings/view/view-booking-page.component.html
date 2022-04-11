@@ -1,32 +1,28 @@
 <ng-container
-        *ngTemplateOutlet="asyncTemplate;context:{ booking:booking$ | async }">
+        *ngTemplateOutlet="asyncTemplate; context: { booking:booking$ | async }">
 </ng-container>
 
 <ng-template #asyncTemplate let-booking="booking">
     <ng-container *ngIf="booking; else empty">
-        <cwb-page-top>
+        <cwb-page-top class="left">
             <div>
-                <h1>{{booking.title}}</h1>
-                <span>Booking ID:{{booking.bookingToken}}</span>
+                <h3 class="title">{{booking.title}}</h3>
+                <span class="booking-id">Booking ID:{{booking.bookingToken}}</span>
             </div>
         </cwb-page-top>
 
-        <div class="row">
-            <div class="col-sm-5 d-flex">
-                <cwb-card>
-                    <router-outlet></router-outlet>
-                </cwb-card>
+        <div class="flex row info">
+            <cwb-card class="left">
+                <router-outlet></router-outlet>
+            </cwb-card>
 
-            </div>
-            <div class="col-sm-7 d-flex">
-                <cwb-card>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h2>Sessions</h2>
-                        <cwb-add-session-button></cwb-add-session-button>
-                    </div>
-                    <cwb-sessions [data]="booking.sessions" [bookingTimeZone]="booking.bookingTimeZone"></cwb-sessions>
-                </cwb-card>
-            </div>
+            <cwb-card class="right">
+                <div class="flex j-c-sb a-i-c mb-20">
+                    <h4>Sessions</h4>
+                    <cwb-add-session-button></cwb-add-session-button>
+                </div>
+                <cwb-sessions [data]="booking.sessions" [bookingTimeZone]="booking.bookingTimeZone"></cwb-sessions>
+            </cwb-card>
         </div>
     </ng-container>
 </ng-template>

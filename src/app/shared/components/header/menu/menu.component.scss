@@ -1,4 +1,4 @@
-@import "colors-10";
+@import "_colors";
 
 %row-c {
   display: flex;
@@ -33,7 +33,7 @@ nav {
     }
 
     &:hover {
-      color: $blue-60;
+      color: $blue-50;
     }
   }
 }

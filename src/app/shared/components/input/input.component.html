@@ -1,6 +1,12 @@
 <div [style]="errorMessage && {marginBottom: 0}" class="text-input-block w-100">
-	<span class="text-input-label fs-xs">{{ inputLabel }}</span>
+	<span
+		(click)="input.focus()"
+		class="text-input-label fs-xs"
+	>
+		{{ inputLabel }}
+	</span>
 	<input
+		#input
 		(blur)="onTouch()"
 		(ngModelChange)="onChange($event)"
 		[autocomplete]="inputAutocomplete"
@@ -8,11 +14,14 @@
 		[class.mb-20]="!errorMessage"
 		[disabled]="!!inputDisabled"
 		[ngModel]="value"
-		[placeholder]="inputPlaceholder"
+		[placeholder]="inputPlaceholder || ''"
 		class="text-input fs-m"
-		type="{{ inputType }}"
+		[type]="inputType"
 	/>
-	<div *ngIf="errorMessage" class="input-error flex row a-i-c fs-xs">
+	<div
+		*ngIf="errorMessage"
+		class="input-error flex row a-i-c fs-xs"
+	>
 		<div class="point"></div>
 		<span>
 			{{ errorMessage }}

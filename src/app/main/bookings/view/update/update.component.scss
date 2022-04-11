@@ -1,4 +1,23 @@
+@import "_colors";
+
+:host {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+
+    .card {
+        border: 1px solid $blue-50;
+    }
+}
 .clipboard {
     cursor: pointer;
     padding: 0 1px 0 2px;
+}
+
+.form-label {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    color: $gray-50;
+    margin-bottom: 4px;
 }

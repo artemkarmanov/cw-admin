@@ -1,35 +1,36 @@
 <ng-container
-        *ngTemplateOutlet="asyncTemplate; context:{
+	*ngTemplateOutlet="asyncTemplate; context:{
             isLoggedIn: isLoggedIn$ | async
         }">
 </ng-container>
 <ng-template #asyncTemplate let-isLoggedIn="isLoggedIn">
-    <div class="navbar shadow-sm navbar-light">
-        <div class="container-fluid">
-            <ng-container *ngIf="isLoggedIn; else unauthorized_logo">
-                <cwb-bread-crumbs></cwb-bread-crumbs>
-                <cwb-menu></cwb-menu>
-            </ng-container>
-            <div
-                *ngIf="isLoggedIn; else unauthorized"
-                class="d-flex justify-content-between"
-                style="gap: 28px"
-            >
-                <cwb-user-info></cwb-user-info>
-                <cwb-logout-button></cwb-logout-button>
-            </div>
-        </div>
-    </div>
-    <ng-template #unauthorized_logo>
-        <a [routerLink]="''" class="navbar-brand" href="#">
-            <img alt="CaptionWorks" height="48" src="../../../../assets/logo.svg" width="172">
-        </a>
-    </ng-template>
-    <ng-template #unauthorized>
-        <div *ngIf="!isAdmin" class="d-flex justify-content-between" style="width:300px;">
-            <span class="navbar-text">Not a member yet?</span>
-            <a class="btn btn-sm btn-primary" routerLink="../../../sign-up">Get started</a>
-        </div>
-    </ng-template>
+	<ng-container *ngIf="isLoggedIn; else unauthorized_logo">
+		<cwb-bread-crumbs></cwb-bread-crumbs>
+		<cwb-menu></cwb-menu>
+	</ng-container>
+	<ng-template #unauthorized_logo>
+		<div class="flex col a-i-c j-c-c logo">
+			<img [routerLink]="''" alt="CaptionWorks" height="48" src="../../../../assets/logo.svg"
+			     width="172">
+		</div>
+	</ng-template>
+	<div>
+		<div
+			*ngIf="isLoggedIn; else unauthorized"
+			class="flex j-c-sb gap right"
+		>
+			<cwb-user-info></cwb-user-info>
+			<cwb-logout-button></cwb-logout-button>
+		</div>
+		<ng-template #unauthorized>
+			<div *ngIf="!isAdmin" class="flex j-c-sb a-i-c gap right">
+				<span class="not-member fw-6">Not a member yet?</span>
+				<cw-small-button
+					[buttonText]="'Get started'"
+					routerLink="../../../sign-up"
+				></cw-small-button>
+			</div>
+		</ng-template>
+	</div>
 
 </ng-template>

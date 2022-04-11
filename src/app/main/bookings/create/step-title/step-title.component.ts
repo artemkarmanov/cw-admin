@@ -7,9 +7,7 @@ const TITLES: string[] = ['Tell us about your captioning requirements', 'Add aud
 @Component({
     selector: 'cwb-step-title',
     templateUrl: './step-title.component.html',
-    styleUrls: ['./step-title.component.scss'],
-    //@todo fix onPush
-    //changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrls: ['./step-title.component.scss']
 })
 export class StepTitleComponent implements OnInit {
 

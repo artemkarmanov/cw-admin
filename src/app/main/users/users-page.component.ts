@@ -10,6 +10,7 @@ import {Title} from "@angular/platform-browser";
 @Component({
 	selector: 'cwb-users-page',
 	templateUrl: './users-page.component.html',
+	styleUrls: ['users-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsersPageComponent implements OnInit {

@@ -3,18 +3,14 @@
 </header>
 
 <ng-container [ngSwitch]="isAuthorized$ | async">
-    <ng-container *ngSwitchCase="true" class="container">
+    <ng-container *ngSwitchCase="true">
         <main [class.bg-white]="pageHasSimpleLayout$ | async">
-            <div class="container">
-                <router-outlet></router-outlet>
-            </div>
+            <router-outlet></router-outlet>
         </main>
     </ng-container>
-    <ng-container *ngSwitchDefault class="container d-flex flex-column justify-content-center">
-        <main class="bg-white">
-            <div class="container d-flex flex-column justify-content-center" style="height: 100%;">
-                <cwb-login></cwb-login>
-            </div>
+    <ng-container *ngSwitchDefault class="flex flex-column justify-content-center">
+        <main class="flex col j-c-c h-100">
+            <cwb-login></cwb-login>
         </main>
     </ng-container>
 </ng-container>

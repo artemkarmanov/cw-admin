@@ -4,9 +4,9 @@ import {CityPipe} from "@pipes/city.pipe";
 import {TimezonePipe} from "@pipes/timezone.pipe";
 import {ConfirmationDialogComponent} from "@cmp/confirmation-dialog/confirmation-dialog.component";
 import {StatusDirective} from "@directives/status.directive";
-import {CardComponent} from "@cmp/card/card.component";
-import {PageTopComponent} from "@cmp/page-top/page-top.component";
-import {ButtonHeaderComponent} from "@cmp/button-header/button-header.component";
+import {CardComponent} from "./layouts/card/card.component";
+import {PageTopComponent} from "./layouts/page-top/page-top.component";
+import {ButtonHeaderComponent} from "./layouts/button-header/button-header.component";
 import {IconComponent} from "@cmp/icon/icon.component";
 import {TableDirective} from "@directives/table.directive";
 import {AdjustTimePipe} from "@pipes/adjust-time.pipe";
@@ -24,6 +24,9 @@ import {UserInfoComponent} from "@cmp/header/user-info/user-info.component";
 import {SmartTableComponent} from "@cmp/smart-table/smart-table.component";
 import {BadgeComponent} from "@cmp/badge/badge.component";
 import {RangePickerComponent} from "@cmp/range-picker/range-picker.component";
+import {LoaderComponent} from "@cmp/loader/loader.component";
+import {LoadedDirective} from "@directives/loaded.directive";
+import {SmartTablePaginatorDirective} from "@cmp/smart-table/smart-table.paginator.directive";
 
 export const sharedConfig = [
 	TimezoneSelectorComponent,
@@ -52,5 +55,8 @@ export const sharedConfig = [
 	FooterComponent,
 	SmartTableComponent,
 	BadgeComponent,
-	RangePickerComponent
+	RangePickerComponent,
+	LoaderComponent,
+	LoadedDirective,
+	SmartTablePaginatorDirective
 ]

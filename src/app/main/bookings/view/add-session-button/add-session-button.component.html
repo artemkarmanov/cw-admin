@@ -1,4 +1,6 @@
-<button (click)="click()" class="btn btn-sm text-primary">
-    <cwb-icon name="plus-lg"></cwb-icon>
-    Add session
-</button>
+<cw-small-button
+    [buttonText]="'Add session'"
+    [icon]="'add'"
+    (click)="click()"
+    [inverted]="true"
+></cw-small-button>

@@ -1,29 +1,42 @@
 <table>
-    <thead>
-    <tr class="table-light">
-        <th>Session ID</th>
-        <th>Start time</th>
-        <th>Status</th>
-        <th>Duration</th>
-        <th *ngIf="isAdmin">&nbsp;</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let session of data">
-        <td>{{session.sessionId}}</td>
-        <td>{{session.startEpoch | adjustTime: bookingTimeZone | async | date: 'd MMM YYYY h:mm a'}}</td>
-        <td><span cwbStatus>{{session.status}}</span></td>
-        <td>{{session.sessionDurationMins}}</td>
-        <td *ngIf="isAdmin">
-            <ng-container *ngIf="isEditable(session)">
-                <button (click)="edit(session)" [disabled]="!isEditable(session)" class="btn">
-                    <cwb-icon name="pencil"></cwb-icon>
-                </button>
-                <button (click)="cancel(session.sessionId)" [disabled]="!isEditable(session)" class="btn">
-                    <cwb-icon name="x-lg"></cwb-icon>
-                </button>
-            </ng-container>
-        </td>
-    </tr>
-    </tbody>
+	<thead>
+	<tr>
+		<th>Session ID</th>
+		<th>Start time</th>
+		<th>Status</th>
+		<th>Duration</th>
+		<th *ngIf="isAdmin">Actions</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr *ngFor="let session of data">
+		<td class="session-id">{{session.sessionId}}</td>
+		<td class="start-time">
+			{{session.startEpoch
+        | adjustTime: bookingTimeZone
+        | async
+        | date:'d MMM YYYY h:mm a'}}
+		</td>
+		<td>
+			<cwb-badge
+				[color]="session.status === 'Future' ? 'green' :
+								 session.status === 'Cancelled' ? 'gray' :
+								 session.status === 'Completed' ? 'blue' :
+								 session.status === 'Running' ? 'orange' : 'primary'"
+				[text]="session.status"
+			></cwb-badge>
+		</td>
+		<td class="duration">{{session.sessionDurationMins}}</td>
+		<td *ngIf="isAdmin">
+			<ng-container *ngIf="isEditable(session)">
+				<button (click)="edit(session)" [disabled]="!isEditable(session)" class="btn">
+					<cwb-icon name="pencil"></cwb-icon>
+				</button>
+				<button (click)="cancel(session.sessionId)" [disabled]="!isEditable(session)" class="btn">
+					<cwb-icon name="x-lg"></cwb-icon>
+				</button>
+			</ng-container>
+		</td>
+	</tr>
+	</tbody>
 </table>

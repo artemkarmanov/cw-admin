@@ -1,4 +1,38 @@
-.row {
+@import "_colors";
+
+:host {
   display: flex;
-  flex: 1;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 36px;
+  color: $gray-90;
+  margin: 0;
+}
+
+.booking-id {
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 16px;
+  color: $gray-70;
+}
+
+
+.info {
+  gap: 16px;
+  height: 100%;
+  display: flex;
+
+  .left {
+    flex: 35%;
+  }
+
+  .right {
+    flex: 65%;
+  }
 }

@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {DialogRef} from "@services/dialog.service";
 
 @Component({
     selector: 'cwb-confirmation-dialog',
@@ -13,18 +13,17 @@ export class ConfirmationDialogComponent implements OnInit {
     public cancelText = 'Cancel';
     public confirmText = 'Confirm';
 
-    constructor(private modal: NgbActiveModal) {
+    constructor(private dialogRef: DialogRef) {
     }
 
     ngOnInit(): void {
     }
 
     cancel() {
-        this.modal.dismiss();
+        this.dialogRef.close();
     }
 
     confirm() {
-        this.modal.close(true);
+        this.dialogRef.close(true);
     }
-
 }

@@ -11,10 +11,12 @@ import {WS_CONFIG_TOKEN} from "@interfaces/websocket.interfaces";
 import {SocketMessagesService} from "@services/socket-messages.service";
 import {AuthService} from "@services/auth.service";
 import {ErrorHandlerService} from "@services/error-handler.service";
-import {ModalService} from "@services/modal.service";
 import {BreadCrumbsService} from "@services/bread-crumbs.service";
 import {TimezoneService} from "@services/timezone.service";
 import {UsersService} from "@services/users.service";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {DialogService} from "@services/dialog.service";
+import {OverlayModule} from "@angular/cdk/overlay";
 
 @NgModule({
 	declarations: [
@@ -23,7 +25,9 @@ import {UsersService} from "@services/users.service";
 	],
 	imports: [
 		BrowserModule,
-		AppRoutingModule
+		AppRoutingModule,
+		BrowserAnimationsModule,
+		OverlayModule
 	],
 	providers: [
 		{
@@ -38,8 +42,8 @@ import {UsersService} from "@services/users.service";
 		SocketMessagesService,
 		AuthService,
 		ApplicationErrorHandler,
+		DialogService,
 		ErrorHandlerService,
-		ModalService,
 		BreadCrumbsService,
 		TimezoneService,
 		UsersService

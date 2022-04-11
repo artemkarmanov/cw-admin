@@ -1,4 +1,4 @@
-@import 'colors-10';
+@import '_colors';
 
 button {
 	background-color: $blue-50;
@@ -7,6 +7,8 @@ button {
 	color: $white;
 	cursor: pointer;
 	font-weight: 600;
+	font-size: 16px;
+	line-height: 24px;
 	height: 56px;
 	width: 448px;
 	transition: background-color 200ms ease-in;

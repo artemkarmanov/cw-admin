@@ -1,0 +1,27 @@
+.overlay-panel {
+	background-color: white;
+	border-radius: 4px;
+	padding: 24px;
+}
+
+.cdk-overlay-2 {
+	z-index: 2002;
+}
+
+.overlay-backdrop {
+	background-color: rgb(158 158 158 / 66%);
+}
+
+.snack {
+	background: #fcfcfc;
+	color: #202020;
+}
+
+.mat-simple-snack-bar-content {
+	font-size: 20px;
+	line-height: 24px;
+}
+
+.cdk-global-overlay-wrapper {
+	z-index: 2001;
+}

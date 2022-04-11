@@ -1,4 +1,4 @@
-@import "colors-10";
+@import "_colors";
 
 %column {
 	display: flex;
@@ -15,23 +15,50 @@
 	justify-content: space-between;
 }
 
+cwb-smart-table {
+	height: 100%;
+}
+
+.selector {
+	margin-top: 14px !important;
+	max-height: 44px;
+	border: none;
+	outline: none;
+	font-size: 16px !important;
+	font-weight: 600 !important;
+	color: $blue-50 !important;
+	background: $gray-20;
+	border-radius: 4px;
+}
+
 ng2-smart-table {
+
 	table {
 		thead {
 			@extend %border;
 			background: $gray-20;
 
+
 			.ng2-smart-sort,
 			.ng2-smart-sort-link.sort {
-				color: $blue-50;
+				color: $gray-80;
 				font-size: 14px;
-				font-weight: 500;
+				font-weight: 600;
 				line-height: 24px;
 				text-decoration: none;
+
+				&:hover {
+					color: $blue-50;
+				}
 			}
 
 			.ng2-smart-sort {
 				color: $gray-80;
+			}
+
+
+			.ng2-smart-title {
+				text-align: left;
 			}
 		}
 
@@ -46,7 +73,14 @@ ng2-smart-table {
 				}
 			}
 
+			tr {
+				height: 60px !important;
+			}
+
 			td {
+				font-weight: 400;
+				font-size: 20px !important;
+				line-height: 24px;
 				color: $gray-90;
 			}
 		}
@@ -56,6 +90,7 @@ ng2-smart-table {
 		ul.ng2-smart-pagination {
 			display: flex;
 			font-size: 16px;
+			line-height: 24px;
 			gap: 32px;
 			margin-bottom: 0;
 

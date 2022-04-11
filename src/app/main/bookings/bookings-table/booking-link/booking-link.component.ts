@@ -5,6 +5,7 @@ import {IBooking} from "@interfaces/booking.interfaces";
 @Component({
   selector: 'cwb-booking-link',
   templateUrl: './booking-link.component.html',
+  styleUrls: ['booking-link.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BookingLinkComponent implements ViewCell {

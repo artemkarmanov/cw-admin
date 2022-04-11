@@ -1,12 +1,12 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {BillingService} from "@services/billing.service";
 import {BehaviorSubject, tap} from "rxjs";
-import {ModalService} from "@services/modal.service";
 import {BillingViewComponent} from "./billing-view/billing-view.component";
 import {UntilDestroy, untilDestroyed} from "@ngneat/until-destroy";
 import {IBilling} from "@interfaces/billing.interfaces";
 import {billingTableConfig} from "./billing.table.config";
 import {Title} from "@angular/platform-browser";
+import {DialogService} from "@services/dialog.service";
 
 @UntilDestroy()
 @Component({
@@ -22,7 +22,7 @@ export class BillingComponent implements OnInit {
 
 	constructor(
 		private service: BillingService,
-		private modal: ModalService,
+		private modal: DialogService,
 		private titleService: Title
 	) {
 	}
@@ -43,7 +43,9 @@ export class BillingComponent implements OnInit {
 	}
 
 	public billingPopup($event: {data: IBilling}) {
-		const modal = this.modal.open(BillingViewComponent)
-		modal.componentInstance.billingResultId = $event.data.billingResultId
+		this.modal.open(
+			BillingViewComponent,
+			{data: $event.data.billingResultId}
+		)
 	}
 }

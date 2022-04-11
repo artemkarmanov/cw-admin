@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import {BookingService} from './booking.service';
 import {BehaviorSubject, Observable, Subject, switchMap, takeUntil} from 'rxjs';
-import {tap} from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
 import {CreateService} from './create/create.service';
 import {BreadCrumbsService} from '@services/bread-crumbs.service';
 import {IBookingSummary} from "@interfaces/booking.interfaces";
@@ -26,8 +26,7 @@ export class BookingsPageComponent implements OnInit, OnDestroy {
     private destroy$$: Subject<void> = new Subject<void>();
     private reload$$: Subject<void> = new Subject<void>();
     private bookings$$: BehaviorSubject<IBookingSummary[]> = new BehaviorSubject<IBookingSummary[]>([]);
-    public bookings$: Observable<IBookingSummary[]> = this.bookings$$.asObservable();
-    public hrsDiff: number = -9;
+    public bookings$: Observable<IBookingSummary[]> = this.bookings$$.asObservable().pipe(map((bookings) => [...bookings].reverse()));
     public columnsConfig = bookingsTableConfig;
 
     constructor(

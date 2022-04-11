@@ -1,20 +1,46 @@
-@import 'colors-10';
+@import '_colors';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  height: 100%;
+}
 
 fieldset {
   border-radius: 8px;
-  border: 1px solid $blue-20;
+  border: 2px solid $blue-10;
   padding: 12px;
+
+  .mt-16 {
+    margin-top: 16px;
+  }
+
+  .form-label {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    color: $gray-50;
+    margin-bottom: 0;
+  }
+
+  .text-field {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 28px;
+    color: $gray-80;
+  }
 }
 
-.form-label {
-  margin-bottom: 0;
-}
 
 .share-label {
   font-weight: 600;
   font-size: 12px;
   line-height: 16px;
   color: $gray-50;
+  margin-bottom: 4px;
+  display: flex;
 }
 
 .parameter {

@@ -1,147 +1,131 @@
-import {ChangeDetectionStrategy, Component, forwardRef, Input, OnDestroy, OnInit} from '@angular/core';
-import {BehaviorSubject, exhaustMap, Observable, Subject, switchMap, takeUntil, withLatestFrom} from 'rxjs';
-import {filter, tap} from 'rxjs/operators';
-import {ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators} from '@angular/forms';
-import {DateTime} from 'luxon';
+import {ChangeDetectionStrategy, Component, forwardRef, Input, OnInit} from '@angular/core';
+import {combineLatest, delayWhen, distinctUntilChanged, Observable, of, take} from 'rxjs';
+import {filter, map, tap} from 'rxjs/operators';
+import {
+	ControlValueAccessor,
+	FormControl,
+	NG_VALIDATORS,
+	NG_VALUE_ACCESSOR,
+	Validators
+} from '@angular/forms';
 import {IRegion} from "@interfaces/user.interfaces";
 import {TimezoneService} from "@services/timezone.service";
+import {UntilDestroy, untilDestroyed} from "@ngneat/until-destroy";
 
+@UntilDestroy()
 @Component({
-    selector: 'cwb-timezone-selector',
-    templateUrl: './timezone-selector.component.html',
-    styleUrls: ['./timezone-selector.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [{
-        provide: NG_VALUE_ACCESSOR,
-        useExisting: forwardRef(() => TimezoneSelectorComponent),
-        multi: true
-    },
-        {
-            provide: NG_VALIDATORS,
-            useExisting: forwardRef(() => TimezoneSelectorComponent),
-            multi: true
-        }
-    ]
+	selector: 'cwb-timezone-selector',
+	templateUrl: './timezone-selector.component.html',
+	styleUrls: ['./timezone-selector.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [
+		{
+			provide: NG_VALUE_ACCESSOR,
+			useExisting: forwardRef(() => TimezoneSelectorComponent),
+			multi: true
+		},
+		{
+			provide: NG_VALIDATORS,
+			useExisting: forwardRef(() => TimezoneSelectorComponent),
+			multi: true
+		}
+	]
 })
-export class TimezoneSelectorComponent implements OnInit, OnDestroy, ControlValueAccessor {
-    @Input() required = true;
-    private destroy$$: Subject<void> = new Subject<void>();
-    private writeValue$$: Subject<string> = new Subject<string>();
-    private cities$$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
-    public region: FormControl = new FormControl('', Validators.required);
-    public city: FormControl = new FormControl('', Validators.required);
-    public regions$: Observable<IRegion[]> = this.timezoneService.getRegions$().pipe(
-        tap((regions) => {
-            if (regions.length && !this.region.value && this.required) {
-                this.region.setValue(regions[0].regionId);
-            }
+export class TimezoneSelectorComponent implements OnInit, ControlValueAccessor {
+	public region: FormControl = new FormControl('', Validators.required);
+	public city: FormControl = new FormControl('', Validators.required);
 
-        })
-    );
-    public cities$: Observable<string[]> = this.cities$$.asObservable();
+	public cities: string[] = []
+	private regions: IRegion[] = []
+	public regions$: Observable<IRegion[]> = this.timezoneService.getRegions$()
+		.pipe(
+			tap(result => this.regions = result)
+		);
 
+	private _value: string | undefined;
 
-    constructor(private timezoneService: TimezoneService) {
+	get value() {
+		return this._value;
+	}
 
-    }
+	@Input()
+	set value(val) {
+		this._value = val;
+	}
 
-    ngOnInit(): void {
-        this.city.statusChanges.pipe(
-            tap(console.log)
-        ).subscribe();
-        this.writeValue$$.asObservable().pipe(
-            takeUntil(this.destroy$$.asObservable()),
-            exhaustMap((timezone) => this.timezoneService.getRegions$().pipe(
-                tap((regions) => {
-                    const [region, city] = timezone.split('/');
+	constructor(private timezoneService: TimezoneService) {
+	}
 
-                    const regionId = regions.filter(_ => _.region === region).pop()?.regionId;
-                    if (regionId) {
-                        this.region.setValue(regionId,);
-                        this.city.setValue(city);
-                    }
-                })
-            )),
-        ).subscribe();
+	public cities$(regionId: number): Observable<string[]> {
+		return this.timezoneService.getCities$(regionId)
+			.pipe(tap((result) => this.cities = result))
+	}
 
-        this.region.valueChanges.pipe(
-            takeUntil(this.destroy$$.asObservable()),
-            tap((_) => {
-                if (!_) {
-                    this.city.setValue('');
-                    this.cities$$.next([]);
-                }
-            }),
-            filter(Boolean),
-            switchMap((region) => {
-                return this.timezoneService.getCities$(parseInt(region));
-            }),
-            tap(this.cities$$.next.bind(this.cities$$)),
-            tap(cities => {
-                if (!this.city.value || !cities.includes(this.city.value)) {
-                    this.city.setValue(cities[0]);
-                }
-            }),
-            //tap(() => this.onTouched())
-        ).subscribe();
+	ngOnInit(): void {
+		combineLatest([
+			this.region.valueChanges,
+			this.city.valueChanges
+		])
+			.pipe(
+				untilDestroyed(this),
+				filter(([region, city]: [IRegion, string]) => Boolean(region?.regionId && city)),
+				distinctUntilChanged(([region, city], [region2, city2]) => region.regionId === region2.regionId && city === city2),
+			)
+			.subscribe(([region, city]) => this.writeValue(`${region.region}/${city}+`))
+	}
 
-        this.city.valueChanges.pipe(
-            takeUntil(this.destroy$$.asObservable()),
-            tap((_) => {
-                if (!_ && this.region.value) {
-                    this.onChange('')
-                }
-            }),
-            filter(Boolean),
-            //@todo better to fix it
-            withLatestFrom(this.regions$),
-            tap(([city, regions]) => {
+	pickedCountry(region: IRegion) {
+		this.cities$(region.regionId)
+			.pipe(untilDestroyed(this))
+			.subscribe()
+		this.city.reset()
+		this.value = undefined
+	}
 
-                const {region} = regions.filter(region => region.regionId === parseInt(this.region.value)).pop() as IRegion;
-                const zone = [region, city].join('/');
-                this.onChange(zone);
-            }),
-            //tap(() => this.onTouched())
-        ).subscribe();
-    }
+	pickedCity(_: string) {
+		this.onTouched()
+	}
 
-    ngOnDestroy(): void {
-        this.destroy$$.next();
-    }
+	writeValue(timezone: string): void {
+		// user picked
+		if (!timezone) return
 
-    public onTouched = () => {
-    }
+		if (timezone.includes('+')) {
+			this.value = timezone.replace('+', '')
+			// set by outside form
+		} else {
+			of(timezone).pipe(
+				filter((timezone) => Boolean(timezone)),
+				take(1),
+				delayWhen(() => this.regions$),
+				map((timezone) => {
+					const region = this.regions!.find(el => el.region === timezone.split('/')[0])
+					this.region.setValue(region || null)
+					return {region: region!, city: timezone.split('/')[1]}
+				}),
+				delayWhen(({region}) => this.cities$(region.regionId)),
+				tap(({city}) => this.city.setValue(city)),
+				tap(({region, city}) => this.writeValue(region.region + '/' + city)),
+			).subscribe()
+		}
+	}
 
-    public onChange = (_: any) => {
-    }
+	onChange(value: any): any {
+		this.value = value
+	}
 
-    registerOnChange(fn: any): void {
-        this.onChange = fn;
-    }
+	registerOnChange(fn: any): void {
+		this.registerOnTouched(fn)
+		this.onChange = fn;
+	}
 
-    registerOnTouched(fn: any): void {
-        this.onTouched = fn;
-    }
+	onTouched = () => {};
 
-    setDisabledState(isDisabled: boolean): void {
-    }
+	registerOnTouched(fn: any): void {
+		this.onTouched = fn;
+	}
 
-    writeValue(timezone: string): void {
-        this.writeValue$$.next(timezone || DateTime.now().zoneName);
-    }
-
-    validate() {
-        let result: any = {
-            invalid_timezone: true
-        };
-        if (this.city.value && this.region.value) {
-            result = null;
-        } else if (!this.required) {
-            if ((!this.region.value && !this.city.value)) {
-                result = null;
-            }
-
-        }
-        return result;
-    }
+	validate(): boolean {
+		return Boolean(this.region.value && this.city.value)
+	}
 }

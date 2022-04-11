@@ -1,9 +1,11 @@
-@import "colors-10";
+@import "_colors";
 
 .badge {
 	padding: 4px 16px;
 	border-radius: 4px;
 	border: 1px solid;
+	width: max-content;
+	display: flex;
 
 	.text {
 		font-family: inherit;
@@ -13,7 +15,8 @@
 	}
 
 	&.primary {
-		background: rgb(58, 142, 247);
+		background: $blue-40;
+		border-color: $blue-50;
 
 		.text {
 			color: white;

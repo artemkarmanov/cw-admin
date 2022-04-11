@@ -1,5 +1,5 @@
 <form [formGroup]="form">
-    <div class="container">
+    <div>
         <div class="row" style="margin-top: 10px;">
             <div class="col">
                 <label class="form-label" for="title">Booking title</label>
@@ -8,17 +8,17 @@
             </div>
         </div>
     
-        <div class="d-flex" style="margin-top: 10px;">
-            <div class="d-flex flex-column w-100" style="margin-right: 10px;">
+        <div class="flex" style="margin-top: 10px;">
+            <div class="flex flex-column w-100" style="margin-right: 10px;">
                 <label class="form-label" for="startDate">Session date</label>
                 <input class="form-control form-control-lg" formControlName="startDate" id="startDate" required type="date" placeholder="Select date">
             </div>
-            <div class="d-flex flex-column w-100">
+            <div class="flex flex-column w-100">
                 <label class="form-label" for="startTime">Session time</label>
-                <ngb-timepicker [(ngModel)]="time" [meridian]="meridian" [spinners]="false"
-                                formControlName="startTime" required></ngb-timepicker>
+<!--                <ngb-timepicker [(ngModel)]="time" [meridian]="meridian" [spinners]="false"-->
+<!--                                formControlName="startTime" required></ngb-timepicker>-->
             </div>
-            <div class="d-flex flex-column w-100">
+            <div class="flex flex-column w-100">
                 <label class="form-label" for="startTime">Start time</label>
                 <input class="form-control form-control-lg" formControlName="startTime" id="startTime" required type="time">
             </div>
@@ -43,13 +43,13 @@
     </div>
     <div *ngIf="isAdmin">
         <label class="form-label" for="oboUserId">Booking owner</label>
-        <select class="form-select form-select-lg" formControlName="oboUserId" id="oboUserId" type="number">
+        <select class="form-select form-select-lg" formControlName="oboUserId" id="oboUserId">
             <option *ngFor="let user of (users$ | async)" [value]="user.userId">
                 {{user.firstName}} {{user.lastName}}
             </option>
         </select>
     </div>
-    <div class="d-flex overrun-check">
+    <div class="flex overrun-check">
         <input class="form-check-input" formControlName="allowOverrun" id="allowOverrun" type="checkbox">
         <span>
             <label class="form-check-label form-control-lg" for="allowOverrun">Allow captioning to overrun</label>

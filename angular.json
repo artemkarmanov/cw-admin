@@ -73,8 +73,14 @@
             },
             "styles": [
               "src/styles.scss",
-              "src/scss/colors-10.scss",
-              "node_modules/bootstrap-icons/font/bootstrap-icons.scss"
+              "src/scss/flex.scss",
+              "src/scss/overlays.scss",
+              "src/scss/overrides.scss",
+              "src/scss/scrollbars.scss",
+              "src/scss/shadows.scss",
+              "src/scss/spacings.scss",
+              "src/scss/typography.scss",
+              "src/scss/utilities.scss"
             ]
           },
           "configurations": {
