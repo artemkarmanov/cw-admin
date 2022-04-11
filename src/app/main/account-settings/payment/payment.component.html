@@ -1,12 +1,17 @@
-<form class="mt-20" id="payment-form" (submit)="submit($event)">
-	<div id="payment-element" class="mb-20">
+<ng-container *ngIf="!loaded">
+	<cw-loader *ngIf="!loaded"></cw-loader>
+</ng-container>
+
+<form (submit)="submit($event)" class="mt-20" id="payment-form">
+	<div class="mb-20" id="payment-element">
 		<div #cardInfo id="card-info"></div>
 	</div>
 	<div class="flex row j-c-fe">
 		<cw-small-button
+			*ngIf="loaded"
 			buttonText="Submit"
 			id="submit"
 		></cw-small-button>
 	</div>
-	<div id="error-message" #error></div>
+	<div #error id="error-message"></div>
 </form>
