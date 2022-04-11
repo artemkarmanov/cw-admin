@@ -19,7 +19,6 @@ import {
 	SessionStatusBadgeComponent
 } from './sessions-table/session-status-badge/session-status-badge.component';
 import {SessionOwnerComponent} from './sessions-table/session-owner/session-owner.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
 	declarations: [
@@ -35,8 +34,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 	],
 	imports: [
 		SessionsRoutingModule,
-		SharedModule,
-		NgbModule
+		SharedModule
 	],
 	providers: [
 		SessionsService

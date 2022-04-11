@@ -11,9 +11,7 @@
             <input class="form-control form-control-lg" formControlName="startDate" id="startDate" required type="date" placeholder="Select date">
         </div>
         <div class="d-flex flex-column">
-            <label class="form-label" for="startTime">Session time</label>
-            <ngb-timepicker [meridian]="true" [spinners]="false"
-                formControlName="startTime" required></ngb-timepicker>
+            <label class="form-label">Session time</label>
         </div>
     </div>
     <div class="form-inline">
@@ -26,7 +24,7 @@
     <div class="d-flex overrun-check">
         <input class="form-check-input" #audioCheck (change)="updateAudioAttribute(audioCheck.checked)" type="checkbox" checked>
         <span>
-            <label class="form-check-label form-control-lg" for="audioCheck">Audio details same as booking</label>
+            <label class="form-check-label form-control-lg">Audio details same as booking</label>
         </span>
     </div>
     <div>
@@ -37,7 +35,7 @@
     <div class="d-flex overrun-check">
         <input class="form-check-input" #captionCheck (change)="updateCaptionAttribute(captionCheck.checked)" type="checkbox" checked>
         <span>
-            <label class="form-check-label form-control-lg" for="captionCheck">Caption display same as booking</label>
+            <label class="form-check-label form-control-lg">Caption display same as booking</label>
         </span>
     </div>
     <div>

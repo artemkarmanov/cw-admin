@@ -1,5 +1,4 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
-import {NgbActiveModal, NgbModule, NgbTimeStruct} from '@ng-bootstrap/ng-bootstrap';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MINIMUM_SESSION_DURATION, DEFAULT_SESSION_DURATION} from '@constants/const';
 import {DateTime} from 'luxon';
@@ -7,6 +6,7 @@ import {BehaviorSubject, Observable, Subject, takeUntil} from 'rxjs';
 import {filter, tap} from 'rxjs/operators';
 import {environment} from '@env';
 import {ISession} from "@interfaces/session.interfaces";
+import {DialogRef} from "@services/dialog.service";
 
 interface IFormData {
     startDate: string;
@@ -24,7 +24,6 @@ interface IFormData {
     templateUrl: './session-dialog.component.html',
     styleUrls: ['./session-dialog.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [NgbModule]
 })
 export class SessionDialogComponent implements OnInit, OnDestroy {
     private destroy$$: Subject<void> = new Subject<void>();
@@ -36,11 +35,10 @@ export class SessionDialogComponent implements OnInit, OnDestroy {
     );
 
     public form!: FormGroup;
-    public time: NgbTimeStruct = {hour: NaN, minute: NaN, second: NaN}
 
-    constructor(private modal: NgbActiveModal) {
+    constructor(private modal: DialogRef) {
         const controls = {
-            startDate: new FormControl(this.time, Validators.required),
+            startDate: new FormControl(new Date(), Validators.required),
             startTime: new FormControl('', Validators.required),
             sessionDurationMins: new FormControl(DEFAULT_SESSION_DURATION, [Validators.required, Validators.min(MINIMUM_SESSION_DURATION)]),
             audioDetailsOverride: new FormControl({value: '', disabled: true }),
@@ -74,7 +72,6 @@ export class SessionDialogComponent implements OnInit, OnDestroy {
                 this.form.get('nonBilled')?.setValue(session.nonBilled);
                 this.form.get('respeakerRateOverride')?.setValue(session.respeakerRateOverride);
                 this.form.get('allowOverrun')?.setValue(session.allowOverrun ? 1 : 0);
-                this.time = startTime;
             })
         ).subscribe()
     }
@@ -86,7 +83,6 @@ export class SessionDialogComponent implements OnInit, OnDestroy {
     save() {
         if (this.form.valid) {
             const {
-                startTime,
                 startDate,
                 sessionDurationMins,
                 audioDetailsOverride,
@@ -96,8 +92,7 @@ export class SessionDialogComponent implements OnInit, OnDestroy {
                 allowOverrun
             } = this.form.value as IFormData;
 
-            const time = startTime as any as NgbTimeStruct;
-            const transformedValue = ('0' + time.hour).slice(-2) + ':' + time.minute;
+            const transformedValue = ('0' + new Date().getHours()).slice(-2) + ':' + new Date().getMinutes();
             const startEpoch = DateTime.fromISO([startDate, transformedValue].join('T')).toSeconds();
 
             this.modal.close({
@@ -115,7 +110,7 @@ export class SessionDialogComponent implements OnInit, OnDestroy {
     }
 
     close() {
-        this.modal.dismiss();
+        this.modal.close();
     }
 
     updateAudioAttribute(checked: boolean): void {

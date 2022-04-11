@@ -1,4 +1,4 @@
-@import 'src/scss/colors-10.scss';
+@import '_colors';
 
 $d-size: 16px;
 $font-size: 20px;
@@ -23,7 +23,7 @@ $font-size: 20px;
 }
 
 .modal-body {
-    padding: 0px $d-size 0px $d-size;
+    padding: 0 $d-size 0 $d-size;
 }
 
 input {
@@ -46,7 +46,7 @@ input {
     input {
         width: 180px;
         padding: 10px;
-        margin: 0px $d-size;
+        margin: 0 $d-size;
         vertical-align: middle;
         background-color: $white;
         border: 1px solid $blue-20;

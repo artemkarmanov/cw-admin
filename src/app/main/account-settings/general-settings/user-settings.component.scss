@@ -1,5 +1,5 @@
 
-@import 'colors-10';
+@import '_colors';
 
 form {
     & > div {
@@ -22,7 +22,6 @@ form {
     .text-center {
         display: flex;
         padding: 0;
-        padding-top: 0px;
 
         div {
             text-align: left;
