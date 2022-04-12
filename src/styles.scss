@@ -1,33 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import '_colors';
 @import '@fontsource/inter/variable-full.css';
+@import "~@ng-select/ng-select/scss/default.theme";
 
 body {
   font-family: "Inter-Variable", sans-serif;
-  margin: 0;
 }
 
-:root {
-  font-size: 16px;
-}
-
-body, html {
-  height: 100%;
+@supports (font-variation-settings: normal) {
+  body {
+    font-family: "InterVariable", sans-serif;
+  }
 }
 
 cwb-root {
   display: flex;
   flex-direction: column;
   height: 100%;
-  justify-content: space-between;
-}
-
-cwb-main,
-cwb-simple-layout {
-  height: 100%;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
   justify-content: space-between;
 }
 
@@ -46,6 +34,7 @@ main {
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 100%;
   justify-content: flex-start;
   align-items: stretch;
 }
@@ -56,31 +45,6 @@ main {
   flex-direction: column;
 }
 
-.modal-dialog {
-  @media (min-width: 1024px) {
-    max-width: 80%;
-    min-width: 700px;
-  }
-
-  cwb-session-dialog {
-    ngb-timepicker {
-      fieldset {
-        input {
-          padding: 12px !important;
-          font-size: 20px !important;
-          font-weight: 400 !important;
-        }
-    
-        button {
-          height: 56px !important;
-          width: 62px;
-        }
-      }
-    }
-  }
-}
-
-* {
-  user-select: none;
-  box-sizing: border-box;
+router-outlet {
+  display: none;
 }
