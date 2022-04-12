@@ -1,5 +1,15 @@
 @import '_colors';
 
+body {
+	margin: 0;
+	height: 100%;
+	width: 100%;
+	max-width: 100vw;
+	max-height: 100vh;
+	min-width: 100vw;
+	min-height: 100vh;
+}
+
 h1 {
 	color: $gray-80;
 	display: flex;
@@ -77,4 +87,12 @@ textarea {
 hr {
 	border-top: 1px solid $gray-30;
 	margin: 36px 0;
+}
+
+label {
+	margin-bottom: 4px;
+	font-size: 12px;
+	line-height: 16px;
+	color: #7e7e7e;
+	font-weight: 600;
 }
