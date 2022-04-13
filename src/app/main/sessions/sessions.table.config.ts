@@ -36,10 +36,22 @@ export const sessionsTableConfig = {
 		title: 'Status',
 		type: 'custom',
 		renderComponent: SessionStatusBadgeComponent,
-		width: '100px'
+		width: '130px',
+		filter: {
+			type: 'list',
+			config: {
+				selectText: 'All',
+				list: [
+					{value: 'future', title: 'Future'},
+					{value: 'cancelled', title: 'Cancelled'},
+					{value: 'completed', title: 'Completed'},
+					{value: 'running', title: 'Running'},
+				],
+			},
+		}
 	},
 	ownerEmail: {
-		title: 'Owner',
+		title: 'Owner Email',
 		type: 'custom',
 		renderComponent: SessionOwnerComponent
 	},
