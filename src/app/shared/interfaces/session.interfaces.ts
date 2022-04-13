@@ -52,21 +52,22 @@ export interface ISessionFilter {
 }
 
 export interface ISessionCaptionLogs {
-	captionLogId: number;
-	connectionId: string;
-	email: string;
-	endEpoch: number;
-	firstName: string;
-	startepoch: number;
-	userId: number;
+	captionLogId: number
+	connectionId: string
+	email: string
+	endEpoch: number
+	firstName: string
+	startepoch: number
+	userId: number
 }
 
 export interface ISessionViewerLog  {
-	viewerLogId: number,
-	userId: number,
-	firstName: string,
-	lastName: string,
-	email: string,
-	endEpoch: number,
-	startEpoch: number
+	viewerLogId: number
+	userId: number
+	firstName: string
+	lastName: string
+	email: string
+	endEpoch: number
+	startepoch: number
+	connectionId: string
 }

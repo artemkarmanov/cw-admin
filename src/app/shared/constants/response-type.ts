@@ -23,4 +23,7 @@ export enum ResponseType {
 	GetSessionStatusResponse = 'getSessionStatusResp',
 	GetBookingSummaryResponse = 'getBookingSummaryResp',
 	GetBookingsResponse = 'getBookingsResp',
+	GetSessionViewerLogsResponse = 'getSessionViewerLogsResp',
+	GetSessionsSummaryResponse = 'getSessionsSummaryResp',
+	GetSessionCaptionLogsResponse = 'getSessionCaptionLogsResp'
 }

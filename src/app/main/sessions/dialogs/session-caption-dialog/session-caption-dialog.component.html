@@ -1,45 +1,47 @@
-<div class="modal-header">
-    <h1 class="modal-title">
-        Caption Log
-    </h1>
-    <button (click)="close()"  type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
+<div class="flex row j-c-sb a-i-c w-100 mb-20">
+	<h4>Caption Log</h4>
+	<cw-svg-icon
+		svg="close"
+		(click)="close()"
+		[independent]="true"
+	></cw-svg-icon>
 </div>
-<cwb-card>
-    <table>
-        <thead>
-        <tr class="table-light">
-            <th>Log</th>
-            <th>User</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Connection ID</th>
-            <th>Started</th>
-            <th>Ended</th>
-        </tr>
-        </thead>
-        <ng-container *ngIf="data$$ | async as logs">
-            <tbody *ngIf="logs.length; else empty">
-                <tr *ngFor="let log of logs">
-                    <td>{{log.captionLogId}}</td>
-                    <td>{{log.userId}}</td>
-                    <td>{{log.firstName}}</td>
-                    <td>{{log.email}}</td>
-                    <td>{{log.connectionId}}</td>
-                    <td>{{log.startepoch | adjustTime | async}}</td>
-                    <td>{{log.endEpoch | adjustTime | async}}</td>
-                </tr>
-            </tbody>
-        </ng-container>
-    </table>
-    <ng-template #empty>
-        <tr>
-            <td class="text-center" colspan="6" style="padding:48px;">
-                <div>
-                    There is no caption log
-                </div>
-            </td>
-        </tr>
-    </ng-template>
-</cwb-card>
+
+<ng-container *ngIf="captionLogs | async as logs">
+	<table *ngIf="logs.length; else empty">
+		<thead>
+		<tr>
+			<th>Log ID</th>
+			<th>User ID</th>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Connection ID</th>
+			<th>Started</th>
+			<th>Ended</th>
+		</tr>
+		</thead>
+
+		<tbody>
+		<tr *ngFor="let log of logs">
+			<td>{{log.captionLogId}}</td>
+			<td>{{log.userId}}</td>
+			<td>{{log.firstName}}</td>
+			<td>{{log.email}}</td>
+			<td>{{log.connectionId}}</td>
+			<td>{{log.startepoch | adjustTime | async}}</td>
+			<td>{{log.endEpoch | adjustTime | async}}</td>
+		</tr>
+		</tbody>
+	</table>
+
+	<div class="flex row j-c-fe w-100 mt-20">
+		<cw-small-button
+			(click)="close()"
+			buttonText="OK"
+		></cw-small-button>
+	</div>
+
+	<ng-template #empty>
+		<div>There are no caption logs!</div>
+	</ng-template>
+</ng-container>

@@ -1,44 +1,47 @@
-
-<div class="modal-header">
-    <h1 class="modal-title">
-        Viewer Log
-    </h1>
+<div class="flex row j-c-sb a-i-c mb-20">
+	<h4 class="">Viewer Log</h4>
+	<cw-svg-icon
+		svg="close"
+		(click)="close()"
+		[independent]="true"
+	></cw-svg-icon>
 </div>
 
-<div class="modal-body">
-    <table>
-        <thead>
-        <tr class="table-light">
-            <th>Log ID</th>
-            <th>User ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Connection ID</th>
-            <th>Started</th>
-            <th>Ended</th>
-        </tr>
-        </thead>
-       
-            <ng-container *ngIf="data$ | async as loggys; else empty">
-                <tbody *ngIf="loggys.length > 0">
-                    <tr *ngFor="let loggy of loggys">
-                        <td>{{loggy.viewerLogId}}</td>
-                        <td>{{loggy.userId}}</td>
-                        <td>{{loggy.firstName}} {{loggy.lastName}}</td>
-                        <td>{{loggy.email}}</td>
-                        <td>Connection ID</td>
-                        <td>{{loggy.startEpoch*1000 | date: 'd MMM YYYY hh:mm a':'+0000'}}</td>
-                        <td>{{loggy.endEpoch*1000 | date: 'd MMM YYYY hh:mm a':'+0000'}}</td>
-                    </tr>
-                </tbody>
-            </ng-container>
-            <ng-template #empty>
-                    No!
-            </ng-template>
-        
-    </table>   
-</div>
+<ng-container *ngIf="sessionViewerLogs$ | async as logs">
+	<table *ngIf="logs.length; else empty">
+		<thead>
+		<tr>
+			<th>Log ID</th>
+			<th>User ID</th>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Connection ID</th>
+			<th>Started</th>
+			<th>Ended</th>
+		</tr>
+		</thead>
 
-<div class="modal-footer flex j-c-c">
-    <button (click)="close()" class="btn btn-secondary">OK</button>
-</div>
+		<tbody>
+		<tr *ngFor="let log of logs">
+			<td>{{log.viewerLogId}}</td>
+			<td>{{log.userId}}</td>
+			<td>{{log.firstName}} {{log.lastName}}</td>
+			<td>{{log.email}}</td>
+			<td>{{log.connectionId}}</td>
+			<td>{{log.startepoch * 1000 | date: 'd MMM YYYY hh:mm a':'+0000'}}</td>
+			<td>{{log.endEpoch * 1000 | date: 'd MMM YYYY hh:mm a':'+0000'}}</td>
+		</tr>
+		</tbody>
+	</table>
+
+	<div class="mt-20 flex j-c-fe w-100 row">
+		<cw-small-button
+			(click)="close()"
+			buttonText="OK"
+		></cw-small-button>
+	</div>
+
+	<ng-template #empty>
+		<div>No logs captured!</div>
+	</ng-template>
+</ng-container>

@@ -9,6 +9,13 @@ import {SharedModule} from "../../shared/shared.module";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {Send} from "@store/websocket.send.actions";
 import {MessageType} from "@constants/message-types";
+import {
+	SessionViewerLogsDialogComponent
+} from "./dialogs/session-viewer-logs-dialog/session-viewer-logs-dialog.component";
+import {
+	SessionCaptionDialogComponent
+} from "./dialogs/session-caption-dialog/session-caption-dialog.component";
+import {ClearCaptionLogs, ClearSessionViewerLogs} from "@store/sessions.actions";
 
 @Injectable({providedIn: SharedModule})
 export class SessionsService {
@@ -58,18 +65,26 @@ export class SessionsService {
 
 	@Dispatch()
 	public getSessionViewerLogs$(sessionId: number) {
-		return new Send({
-			type: MessageType.GetSessionViewerLogs,
-			data: {sessionId}
-		})
+		this.dialog.open(SessionViewerLogsDialogComponent)
+		return [
+			new ClearSessionViewerLogs(),
+			new Send({
+				type: MessageType.GetSessionViewerLogs,
+				data: {sessionId}
+			})
+		]
 	}
 
 	@Dispatch()
 	public getSessionCaptionLogs$(sessionId: number) {
-		return new Send({
-			type: MessageType.GetSessionCaptionLogs,
-			data: {sessionId}
-		})
+		this.dialog.open(SessionCaptionDialogComponent)
+		return [
+			new ClearCaptionLogs(),
+			new Send({
+				type: MessageType.GetSessionCaptionLogs,
+				data: {sessionId}
+			})
+		]
 	}
 
 	@Dispatch()
