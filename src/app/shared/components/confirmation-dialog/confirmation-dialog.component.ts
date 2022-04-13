@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {DialogRef} from "@services/dialog.service";
+import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
+import {DIALOG_DATA, DialogRef} from "@services/dialog.service";
 
 @Component({
     selector: 'cwb-confirmation-dialog',
@@ -13,10 +13,19 @@ export class ConfirmationDialogComponent implements OnInit {
     public cancelText = 'Cancel';
     public confirmText = 'Confirm';
 
-    constructor(private dialogRef: DialogRef) {
+    constructor(
+        private dialogRef: DialogRef,
+        @Inject(DIALOG_DATA) public data: {
+            title: string
+            cancelText: string
+            confirmText: string
+            text: string
+        }
+    ) {
     }
 
     ngOnInit(): void {
+        Object.assign(this, this.data)
     }
 
     cancel() {

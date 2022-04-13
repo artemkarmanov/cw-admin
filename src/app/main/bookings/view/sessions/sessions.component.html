@@ -27,14 +27,18 @@
 			></cwb-badge>
 		</td>
 		<td class="duration">{{session.sessionDurationMins}}</td>
-		<td *ngIf="isAdmin">
+		<td *ngIf="isAdmin" class="flex row gap-16">
 			<ng-container *ngIf="isEditable(session)">
-				<button (click)="edit(session)" [disabled]="!isEditable(session)" class="btn">
-					<cwb-icon name="pencil"></cwb-icon>
-				</button>
-				<button (click)="cancel(session.sessionId)" [disabled]="!isEditable(session)" class="btn">
-					<cwb-icon name="x-lg"></cwb-icon>
-				</button>
+				<cw-svg-icon
+					svg="edit"
+					[independent]="true"
+					(click)="edit(session)"
+				></cw-svg-icon>
+				<cw-svg-icon
+					svg="close"
+					[independent]="true"
+					(click)="cancel(session.sessionId)"
+				></cw-svg-icon>
 			</ng-container>
 		</td>
 	</tr>

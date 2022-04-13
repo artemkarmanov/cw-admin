@@ -1,14 +1,16 @@
-<div class="modal-header">
-    <h1 class="modal-title">{{title}}</h1>
-</div>
+<h1 class="modal-title">{{title}}</h1>
 
-<div class="modal-body">
-    {{text}}
-</div>
-<div class="modal-footer flex justify-content-between">
-     <button (click)="cancel()" class="btn btn-secondary">{{cancelText}}</button>
-    <!-- This button is currently only being used as an alert dialog -->
-    <!-- (in payment-component.ts) so it really doesn't need a Cancel button -->
-    <!-- which is why this is commented out -->
-    <button (click)="confirm()" class="btn btn-primary">{{confirmText}}</button>
+<span>{{text}}</span>
+
+<div class="flex row w-100 j-c-fe gap-16 mt-20">
+  <cw-small-button
+    [inverted]="true"
+    [buttonText]="cancelText"
+    (click)="cancel()"
+  ></cw-small-button>
+
+  <cw-small-button
+    [buttonText]="confirmText"
+    (click)="confirm()"
+  ></cw-small-button>
 </div>
