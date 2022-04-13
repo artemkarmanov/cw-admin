@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable, tap} from 'rxjs';
+import {Observable, take, tap} from 'rxjs';
 import {SessionDialogComponent} from './dialogs/session-dialog/session-dialog.component';
 import {filter} from 'rxjs/operators';
 import {ConfirmationService} from '@services/confirmation.service';
@@ -47,12 +47,14 @@ export class SessionsService {
 			)
 	}
 
-	public cancel$(id: number): Observable<unknown> {
-		return this.confirmationService.open$('Are you sure you want to cancel the session?', 'Yes', 'No').pipe(
-			tap(() => {
-				return this.cancelSession$(id);
-			}),
-		);
+	public cancel$(id: number) {
+		this.confirmationService.open$('Are you sure you want to cancel the session?', 'Yes', 'No')
+			.pipe(
+				take(1),
+				filter(Boolean),
+				tap(() => this.cancelSession$(id))
+			)
+			.subscribe()
 	}
 
 	@Dispatch()

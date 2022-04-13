@@ -1,4 +1,4 @@
-<table>
+<table *ngIf="bookingSessions | async as bookingSessions">
 	<thead>
 	<tr>
 		<th>Session ID</th>
@@ -9,7 +9,7 @@
 	</tr>
 	</thead>
 	<tbody>
-	<tr *ngFor="let session of data">
+	<tr *ngFor="let session of bookingSessions">
 		<td class="session-id">{{session.sessionId}}</td>
 		<td class="start-time">
 			{{session.startEpoch

@@ -1,4 +1,9 @@
-export type TSessionStatus = 'Future' | 'Cancelled' | 'Running' | 'Completed';
+export enum TSessionStatus {
+	Future = 'Future',
+	Cancelled = 'Cancelled',
+	Running = 'Running',
+	Completed = 'Completed'
+}
 
 export interface ISession {
 	sessionId: number;

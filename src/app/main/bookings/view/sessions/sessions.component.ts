@@ -2,6 +2,9 @@ import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {environment} from '@env';
 import {SessionsService} from '../../../sessions/sessions.service';
 import {ISession} from "@interfaces/session.interfaces";
+import {Select} from "@ngxs/store";
+import {BookingsState} from "@store/bookings.state";
+import {Observable} from "rxjs";
 
 @Component({
     selector: 'cwb-sessions',
@@ -11,7 +14,7 @@ import {ISession} from "@interfaces/session.interfaces";
 })
 export class SessionsComponent {
     public isAdmin = environment.role === 'admin';
-    @Input() data!: ISession[];
+    @Select(BookingsState.bookingSessions) bookingSessions!: Observable<ISession[]>
     @Input() bookingTimeZone?: string;
 
     constructor(private sessionService: SessionsService) {

@@ -26,6 +26,14 @@ export class GetBookingsResponse {
 	}
 }
 
-export class Booking {
+export class CancelSessionResponse {
+	static readonly type = ResponseType.CancelSessionResponse
 
+	constructor(
+		public data: {sessionId: number},
+		public code: HttpStatusCode,
+		public p: number,
+		public error: string
+	) {
+	}
 }

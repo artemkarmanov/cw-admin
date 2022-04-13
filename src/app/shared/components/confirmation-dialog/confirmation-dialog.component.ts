@@ -16,7 +16,6 @@ export class ConfirmationDialogComponent implements OnInit {
     constructor(
         private dialogRef: DialogRef,
         @Inject(DIALOG_DATA) public data: {
-            title: string
             cancelText: string
             confirmText: string
             text: string
@@ -29,7 +28,7 @@ export class ConfirmationDialogComponent implements OnInit {
     }
 
     cancel() {
-        this.dialogRef.close();
+        this.dialogRef.close(false);
     }
 
     confirm() {

@@ -24,7 +24,7 @@ export class SessionTableActionsComponent implements ViewCell {
   }
 
   public cancel({sessionId}: IAdminSession) {
-    this.sessionService.cancel$(sessionId).subscribe()
+    this.sessionService.cancel$(sessionId)
   }
 
   public edit(session: IAdminSession) {
