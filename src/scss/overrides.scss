@@ -2,6 +2,7 @@
 
 body {
 	margin: 0;
+	overflow: hidden;
 	height: 100%;
 	width: 100%;
 	max-width: 100vw;
@@ -18,6 +19,15 @@ h1 {
 	line-height: 48px;
 }
 
+h2 {
+	display: flex;
+	font-weight: 700;
+	font-size: 32px;
+	line-height: 40px;
+	color: $gray-90;
+	margin-bottom: 8px;
+}
+
 h3 {
 	color: $gray-90;
 	font-size: 24px;
@@ -30,6 +40,14 @@ h4 {
 	font-weight: 600;
 	font-size: 20px;
 	line-height: 32px;
+	color: $gray-90;
+	margin: 0;
+}
+
+h5 {
+	font-weight: 600;
+	font-size: 18px;
+	line-height: 28px;
 	color: $gray-90;
 	margin: 0;
 }
@@ -54,6 +72,7 @@ input {
 	border: 1px solid $blue-20;
 	box-shadow: inset 0 1px 2px rgb(0 0 0 / 8%);
 	font-size: 18px;
+	height: calc(52px - 24px);
 
 	&:focus {
 		border-color: $blue-20;
@@ -90,9 +109,16 @@ hr {
 }
 
 label {
+	display: flex;
 	margin-bottom: 4px;
 	font-size: 12px;
 	line-height: 16px;
 	color: #7e7e7e;
 	font-weight: 600;
+}
+
+.ng-select-container {
+	height: 52px !important;
+	border: 1px solid $blue-20 !important;
+	border-radius: 6px !important;
 }

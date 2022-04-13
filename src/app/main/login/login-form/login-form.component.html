@@ -1,21 +1,26 @@
-<form (ngSubmit)="login()" [formGroup]="form" class="flex col">
+<form
+	(ngSubmit)="login()"
+	[formGroup]="form"
+	class="flex col"
+>
 	<cw-input
-		[inputLabel]="'Email'"
+		inputLabel="Email"
 		formControlName="email"
-		[inputPlaceholder]="'Enter email here'"
-		[inputAutocomplete]="'email'"
-		[inputType]="'text'"
+		inputPlaceholder="Enter email here"
+		inputAutocomplete="email"
+		inputType="text"
 	></cw-input>
 	<cw-input
-        [inputLabel]="'Password'"
-        [inputPlaceholder]="'Your password here'"
-        [inputAutocomplete]="'password'"
-        [inputType]="'password'"
-        formControlName="password"
+		inputLabel="Password"
+		inputPlaceholder="Your password here"
+		inputAutocomplete="password"
+		inputType="password"
+		formControlName="password"
 	></cw-input>
-    <cw-button
-	    class="button"
-        [buttonText]="'Login'"
-        [buttonType]="'submit'"
-    ></cw-button>
+	<cw-button
+		class="button"
+		buttonText="Login"
+		buttonType="submit"
+		[buttonDisabled]="form.invalid"
+	></cw-button>
 </form>

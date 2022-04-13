@@ -29,7 +29,7 @@ const routes: Routes = [
                 canLoad: [UserGuard]
             },
             {
-                path: 'billing',
+                path: 'billings',
                 loadChildren: () => import('./billing/billing.module').then(m => m.BillingModule)
             },
             {

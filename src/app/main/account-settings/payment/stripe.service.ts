@@ -1,16 +1,13 @@
 import {Injectable} from '@angular/core';
-import {Observable, pluck} from 'rxjs';
-import {SocketMessagesService} from '@services/socket-messages.service';
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {Send} from "@store/websocket.send.actions";
+import {MessageType} from "@constants/message-types";
 
 @Injectable()
 export class StripeService {
 
-    constructor(private messages: SocketMessagesService) {
-    }
-
-    getStripeClientSecret$(): Observable<string> {
-        return this.messages.request$<{ stripeClientSecret: string }>('getStripeClientSecret').pipe(
-            pluck('stripeClientSecret')
-        )
-    }
+	@Dispatch()
+	getStripeClientSecret$() {
+		return new Send({type: MessageType.GetStripeClientSecret})
+	}
 }

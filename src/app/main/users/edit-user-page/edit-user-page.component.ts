@@ -1,11 +1,13 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {from, Subject, withLatestFrom} from 'rxjs';
+import {Observable} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
-import {filter, map, switchMap, tap} from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
 import {UsersService} from '@services/users.service';
 import {BreadCrumbsService} from '@services/bread-crumbs.service';
 import {IUser} from "@interfaces/user.interfaces";
-import {UntilDestroy, untilDestroyed} from "@ngneat/until-destroy";
+import {UntilDestroy} from "@ngneat/until-destroy";
+import {Select} from "@ngxs/store";
+import {UsersState} from "@store/users.state";
 
 @UntilDestroy()
 @Component({
@@ -15,8 +17,8 @@ import {UntilDestroy, untilDestroyed} from "@ngneat/until-destroy";
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditUserPageComponent implements OnInit {
-    public user!: IUser;
-    private save$$: Subject<IUser> = new Subject<IUser>();
+    public user$!: Observable<IUser>
+    @Select(UsersState.users) private users$!: Observable<IUser[]>
 
     constructor(
         private route: ActivatedRoute,
@@ -27,43 +29,26 @@ export class EditUserPageComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.save$$.asObservable()
-            .pipe(
-                untilDestroyed(this),
-                switchMap(this.usersService.update$.bind(this.usersService)),
-                tap(() => this.usersService.reload()),
-                switchMap(() => from(this.router.navigate(['/users'])))
+        const {id} = this.route.snapshot.params
+        this.user$ = this.users$.pipe(
+            map(users => users.find(user => user.userId === Number(id))!),
+            tap((user) =>
+                this.breadCrumbsService.set([
+                    {
+                        path: '/users',
+                        title: 'Users'
+                    },
+                    {
+                        title: ['Edit', user.firstName, user.lastName].join(' '),
+                        path: ['users', user.userId].join('/')
+                    }
+                ])
             )
-            .subscribe();
-
-        this.usersService.getUsers$()
-            .pipe(
-                untilDestroyed(this),
-                withLatestFrom(this.route.params, (users, {id}) => users.filter(user => user.userId === parseInt(id))),
-                map((users) => {
-                    if (!users.length) throw new Error('User not found');
-                    return users.pop();
-                }),
-                filter(Boolean),
-                tap(user => this.user = user),
-                tap(user => {
-                    this.breadCrumbsService.set([
-                        {
-                            path: '/users',
-                            title: 'Users'
-                        },
-                        {
-                            title: ['Edit', user.firstName, user.lastName].join(' '),
-                            path: ['users', user.userId].join('/')
-                        }
-                    ])
-                })
-            )
-            .subscribe();
+        )
     }
 
     save(user: IUser) {
-        this.save$$.next(user);
+        this.usersService.update$(user)
+        this.router.navigate(['/', 'users']).then()
     }
-
 }

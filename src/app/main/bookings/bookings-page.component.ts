@@ -1,32 +1,22 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    OnDestroy,
-    OnInit,
-    ViewEncapsulation
-} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {BookingService} from './booking.service';
-import {BehaviorSubject, Observable, Subject, switchMap, takeUntil} from 'rxjs';
-import {map, tap} from 'rxjs/operators';
-import {CreateService} from './create/create.service';
+import {Observable} from 'rxjs';
 import {BreadCrumbsService} from '@services/bread-crumbs.service';
 import {IBookingSummary} from "@interfaces/booking.interfaces";
 import {Title} from "@angular/platform-browser";
 import {bookingsTableConfig} from "./bookings.table.config";
+import {Select} from "@ngxs/store";
+import {BookingsState} from "@store/bookings.state";
 
 @Component({
     selector: 'cwb-bookings-page',
     templateUrl: './bookings-page.component.html',
     styleUrls: ['./bookings-page.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
-    providers: [CreateService]
+    encapsulation: ViewEncapsulation.None
 })
-export class BookingsPageComponent implements OnInit, OnDestroy {
-    private destroy$$: Subject<void> = new Subject<void>();
-    private reload$$: Subject<void> = new Subject<void>();
-    private bookings$$: BehaviorSubject<IBookingSummary[]> = new BehaviorSubject<IBookingSummary[]>([]);
-    public bookings$: Observable<IBookingSummary[]> = this.bookings$$.asObservable().pipe(map((bookings) => [...bookings].reverse()));
+export class BookingsPageComponent implements OnInit {
+    @Select(BookingsState.bookings) public bookings$!: Observable<IBookingSummary[]>;
     public columnsConfig = bookingsTableConfig;
 
     constructor(
@@ -38,29 +28,11 @@ export class BookingsPageComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.titleService.setTitle('CaptionWorks | Bookings')
-
-        this.breadCrumbsService.set([{
-            path: '/bookings',
-            title: 'Bookings'
-        }]);
-
-        this.bookingService.getBookings$().pipe(
-            takeUntil(this.destroy$$.asObservable()),
-            tap(this.bookings$$.next.bind(this.bookings$$)),
-        ).subscribe();
-
-        this.reload$$.asObservable().pipe(
-            takeUntil(this.destroy$$.asObservable()),
-            switchMap(() => this.bookingService.getBookings$()),
-            tap(this.bookings$$.next.bind(this.bookings$$))
-        ).subscribe();
+        this.bookingService.getBookings$()
+        this.breadCrumbsService.set([{path: '/bookings', title: 'Bookings'}]);
     }
 
-    ngOnDestroy(): void {
-        this.destroy$$.next();
-    }
-
-    public reload(): void {
-        this.reload$$.next();
+    reload() {
+        this.bookingService.getBookings$()
     }
 }

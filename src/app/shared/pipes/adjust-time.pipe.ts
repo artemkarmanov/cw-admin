@@ -1,21 +1,15 @@
 import {Inject, LOCALE_ID, Pipe, PipeTransform} from '@angular/core';
 import {DateTime} from 'luxon';
 import {map, Observable, of} from 'rxjs';
-import {AuthService} from 'src/app/shared/services/auth.service';
 import {formatDate} from '@angular/common';
+import {UserState} from "@store/user.state";
+import {Select} from "@ngxs/store";
 
-@Pipe({
-    name: 'adjustTime'
-})
+@Pipe({name: 'adjustTime'})
 export class AdjustTimePipe implements PipeTransform {
+    @Select(UserState.userTimeZone) userTimezone$!: Observable<string>
 
-    constructor(
-        private authService: AuthService,
-        @Inject(LOCALE_ID) private locale: string
-    ) {}
-
-    private userTimezone$: Observable<string> = this.authService.userSettings$
-        .pipe(map(data => data.timeZone ? data.timeZone : 'America/New_York'));
+    constructor(@Inject(LOCALE_ID) private locale: string) {}
 
     transform(start: number, timeZone?: string): Observable<string> {
         return timeZone ? 

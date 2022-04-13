@@ -1,64 +1,61 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {Observable, pluck, Subject, takeUntil} from 'rxjs';
-import {map, tap} from 'rxjs/operators';
-import {ViewService} from './view.service';
+import {Observable, switchMap} from 'rxjs';
+import {tap} from 'rxjs/operators';
 import {BreadCrumbsService} from '@services/bread-crumbs.service';
 import {IBooking} from "@interfaces/booking.interfaces";
+import {Select} from "@ngxs/store";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {Send} from "@store/websocket.send.actions";
+import {MessageType} from "@constants/message-types";
+import {BookingsState} from "@store/bookings.state";
+import {SessionsService} from "../../sessions/sessions.service";
 
 @Component({
     selector: 'cwb-booking-page',
     templateUrl: './view-booking-page.component.html',
     styleUrls: ['./view-booking-page.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [ViewService]
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ViewBookingPageComponent implements OnInit, OnDestroy {
-    private destroy$$: Subject<void> = new Subject<void>();
-
-    public booking$: Observable<IBooking> = this.viewService.currentBookingData$.pipe(
-        map((booking) => {
-            const {sessions} = booking;
-            sessions.sort((a, b) => {
-                return a.startEpoch - b.startEpoch;
-            });
-
-            return booking;
-        })
-    );
+export class ViewBookingPageComponent implements OnInit {
+    @Select(BookingsState.booking) booking$!: Observable<IBooking>
 
     constructor(
         private route: ActivatedRoute,
-        private viewService: ViewService,
-        private breadCrumbsService: BreadCrumbsService
+        private breadCrumbsService: BreadCrumbsService,
+        private sessionsService: SessionsService
     ) {
     }
 
     ngOnInit(): void {
-
         this.route.params.pipe(
-            takeUntil(this.destroy$$.asObservable()),
-            pluck('booking_id'),
-            tap(this.viewService.loadBooking.bind(this.viewService))
-        ).subscribe();
-        this.booking$.pipe(
-            takeUntil(this.destroy$$.asObservable()),
-        ).subscribe((booking) => {
-            this.breadCrumbsService.set([
-                {
-                    path: '/bookings',
-                    title: 'Bookings'
-                },
-                {
-                    title: booking.title,
-                    path: ['bookings', booking.bookingToken].join('/')
-                }
-            ])
-        });
+            switchMap(() => this.booking$),
+            tap((booking: IBooking) => {
+                this.breadCrumbsService.set([
+                    {
+                        path: '/bookings',
+                        title: 'Bookings'
+                    },
+                    {
+                        title: booking.title,
+                        path: ['bookings', booking.bookingToken].join('/')
+                    }
+                ])
+            })
+        ).subscribe()
+
+        this.getBooking()
     }
 
-    ngOnDestroy(): void {
-        this.destroy$$.next();
+    @Dispatch()
+    getBooking() {
+        return new Send({
+            type: MessageType.GetBookings,
+            data: {bookingToken: this.route.snapshot.params['booking_id']}
+        })
     }
 
+    addSession() {
+        this.sessionsService.add$()
+    }
 }

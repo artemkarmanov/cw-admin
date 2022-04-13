@@ -1,11 +1,12 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {mapTo, Observable, of, Subject, switchMap, takeUntil, withLatestFrom} from 'rxjs';
+import {mapTo, Observable, of, Subject, takeUntil, withLatestFrom} from 'rxjs';
 import {ChangePasswordService} from './change-password.service';
 import {ActivatedRoute} from '@angular/router';
 import {catchError, tap} from 'rxjs/operators';
-import {AuthService} from '@services/auth.service';
 import {checkPasswords} from "@helpers/check-passwords";
+import {Select} from "@ngxs/store";
+import {UserState} from "@store/user.state";
 
 @Component({
     selector: 'cwb-change-password',
@@ -22,7 +23,7 @@ export class ChangePasswordPageComponent implements OnInit, OnDestroy {
     private isTokenValid$$: Subject<boolean> = new Subject();
     public isTokenValid$: Observable<boolean> = this.isTokenValid$$.asObservable().pipe(
     );
-    public isAuthorized: Observable<boolean> = this.auth.isAuthorized$;
+    @Select(UserState.logged) public isAuthorized!: Observable<boolean>
 
     public form: FormGroup = new FormGroup({
         password: new FormControl('', Validators.required),
@@ -33,8 +34,7 @@ export class ChangePasswordPageComponent implements OnInit, OnDestroy {
 
     constructor(
         private changePasswordService: ChangePasswordService,
-        private route: ActivatedRoute,
-        private auth: AuthService
+        private route: ActivatedRoute
     ) {
     }
 
@@ -43,7 +43,7 @@ export class ChangePasswordPageComponent implements OnInit, OnDestroy {
         this.change$$.asObservable().pipe(
             takeUntil(this.destroy$$.asObservable()),
             withLatestFrom(this.route.queryParamMap),
-            switchMap(([password, params]) => {
+            tap(([password, params]) => {
                 const email = atob(params.get('email') as string);
                 const token = params.get('token') as string;
                 return this.changePasswordService.changePassword$(email, token, password);
@@ -51,7 +51,7 @@ export class ChangePasswordPageComponent implements OnInit, OnDestroy {
         ).subscribe();
         this.route.queryParamMap.pipe(
             takeUntil(this.destroy$$.asObservable()),
-            switchMap((params) => {
+            tap((params) => {
                 return this.changePasswordService.checkResetPassword$(
                     atob(params.get('email') as string),
                     params.get('token') as string

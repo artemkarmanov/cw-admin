@@ -1,0 +1,15 @@
+<section class="flex col gap-16">
+	<header>
+		<label>Step {{ selectedIndex + 1 }}/{{ steps.length }}</label>
+	</header>
+
+	<ng-container *ngIf="selected && selected.label">
+		<h5>{{selected.label}}</h5>
+	</ng-container>
+
+	<div class="flex col j-c-sb h-100 w-100">
+		<ng-template
+			[ngTemplateOutlet]="selected ? selected.content : null"
+		></ng-template>
+	</div>
+</section>

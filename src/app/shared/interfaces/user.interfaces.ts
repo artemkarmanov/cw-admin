@@ -3,9 +3,14 @@ export interface ILoginResponse {
 	connectionId?: number | string;
 }
 
+
 export interface IRegion {
-	regionId: number;
-	region: string;
+	regionId: number
+	region: string
+}
+
+export interface IRegions {
+	regions: Array<IRegion>
 }
 
 // interface ITimeZone extends IRegion {
@@ -39,9 +44,4 @@ export interface IUser extends INewUser {
 
 export interface IUserRow extends IUser {
 	role: Array<'admin' | 'captioner' | 'viewer'>
-}
-
-export interface IUserFilter {
-	emailName?: string;
-	role?: 'admin' | 'captioner';
 }

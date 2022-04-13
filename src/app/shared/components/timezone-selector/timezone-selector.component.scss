@@ -1,4 +1,4 @@
-:host {
+cwb-timezone-selector {
     display: flex;
     margin-bottom: 20px;
 
@@ -8,5 +8,9 @@
         line-height: 16px;
         color: #7e7e7e;
         font-weight: 600;
+    }
+
+    input {
+        caret-color: transparent;
     }
 }

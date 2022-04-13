@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ResetPasswordService} from './reset-password.service';
-import {from, Subject, switchMap, takeUntil} from 'rxjs';
+import {from, Subject, switchMap, takeUntil, tap} from 'rxjs';
 import {Router} from '@angular/router';
 import { environment } from 'src/environments/environment';
 
@@ -30,7 +30,7 @@ export class PasswordResetPageComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.send$$.asObservable().pipe(
             takeUntil(this.destroy$$.asObservable()),
-            switchMap((email) => this.resetPasswordService.reset$(email, this.role)),
+            tap((email) => this.resetPasswordService.reset$(email, this.role)),
             switchMap(() => from(this.router.navigate(['/'])))
         ).subscribe();
     }

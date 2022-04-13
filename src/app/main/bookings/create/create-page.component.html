@@ -1,24 +1,193 @@
-<ng-container
-        *ngTemplateOutlet="asyncTemplate; context:{
-            disableNext: disableNext$ | async,
-            step:getStep()
-        }">
-</ng-container>
-<ng-template #asyncTemplate let-disabledNext="disableNext" let-s=step>
-    <div style="width:680px;margin: 0 auto;">
-        <h1 class="display-6">
-            ⏰ Create new booking
-        </h1>
-        <cwb-step-title></cwb-step-title>
-        <ng-container [ngSwitch]="s">
-            <cwb-general-booking-information *ngSwitchCase="1"></cwb-general-booking-information>
-            <cwb-in-out-booking-information *ngSwitchCase="2"></cwb-in-out-booking-information>
-            <cwb-booking-details *ngSwitchCase="3"></cwb-booking-details>
-        </ng-container>
-        <div [class.justify-content-between]="s!==1" [class.justify-content-end]="s===1" class="flex pt-4">
-            <button (click)="back()" *ngIf="s>1" class="btn btn-secondary">Back</button>
-            <button (click)="next()" *ngIf="s<3" [disabled]="disabledNext" class="btn btn-primary">Next</button>
-            <button (click)="save()" *ngIf="s===3" [disabled]="disabledNext" class="btn-primary btn">Save</button>
-        </div>
-    </div>
+<h2>⏰ Create new booking</h2>
+
+<cw-stepper #stepper [linear]="true">
+	<cdk-step [stepControl]="firstFormGroup" label="Tell us about your captioning requirements">
+		<ng-container *ngTemplateOutlet="first"></ng-container>
+		<div class="flex row w-100 j-c-fe">
+			<button cdkStepperNext [disabled]="firstFormGroup.invalid">Next</button>
+		</div>
+	</cdk-step>
+	<cdk-step [stepControl]="secondFormGroup" label="Add audio and caption details">
+		<ng-container *ngTemplateOutlet="second"></ng-container>
+		<div class="flex row w-100 j-c-fe gap">
+			<button cdkStepperPrevious>Back</button>
+			<button cdkStepperNext [disabled]="secondFormGroup.invalid">Next</button>
+		</div>
+	</cdk-step>
+	<cdk-step [stepControl]="thirdFormGroup" label="Tell us about your security requirements">
+		<ng-container *ngTemplateOutlet="third"></ng-container>
+
+		<div class="flex row w-100 j-c-fe gap">
+			<button cdkStepperPrevious>Back</button>
+			<button (click)="stepper.reset()">Reset</button>
+			<button [disabled]="thirdFormGroup.invalid" (click)="send()">Go!</button>
+		</div>
+	</cdk-step>
+</cw-stepper>
+
+<ng-template #first>
+	<form [formGroup]="firstFormGroup" class="flex col">
+		<cw-input
+			inputPlaceholder="Enter booking title here"
+			formControlName="title"
+			inputLabel="Booking Title"
+			id="title"
+		></cw-input>
+
+		<div class="flex row gap mb-20 w-100">
+			<div class="flex row gap-16 w-100">
+				<div class="flex col flex-1">
+					<label for="timePicker">Session Date</label>
+					<input
+						id="timePicker"
+						type="text"
+						class="form-control"
+						autocomplete="off"
+						ngxDaterangepickerMd
+						placeholder="Select Date"
+						[singleDatePicker]="true"
+						(startDateChanged)="firstFormGroup.patchValue($event)"
+					/>
+				</div>
+				<div class="flex col flex-1">
+					<label>Select Time</label>
+					<input
+						type="time"
+					/>
+				</div>
+			</div>
+		</div>
+
+		<cwb-timezone-selector formControlName="timeZoneOverride"></cwb-timezone-selector>
+
+		<div class="flex row gap a-i-c">
+			<span class="body-field">Total session duration</span>
+			<input
+				formControlName="duration"
+				id="durationMins"
+				max="1439"
+				min="1"
+				required
+				type="number"
+				style="text-align: center; width: 48pt;"
+			>
+			<span class="body-field">minutes</span>
+			<label
+				*ngIf="firstFormGroup.controls['duration'].invalid"
+				style="margin-bottom: unset"
+			>
+				Minimum duration is 15 minutes
+			</label>
+		</div>
+
+		<div class="flex row gap a-i-c mt-16">
+			<span class="body-field">Sessions repeat weekly for</span>
+			<input
+				formControlName="countWeeks"
+				id="countWeeks"
+				max="100"
+				min="1"
+				required
+				type="number"
+				style="text-align: center; width: 38pt; margin: 0;"
+			>
+			<span class="body-field">total sessions</span>
+		</div>
+
+		<div *ngIf="isAdmin">
+			<label for="oboUserId">Booking owner</label>
+			<select
+				class="form-select form-select-lg"
+				formControlName="oboUserId"
+				id="oboUserId"
+			>
+				<option *ngFor="let user of (users$ | async)" [value]="user.userId">
+					{{user.firstName}} {{user.lastName}}
+				</option>
+			</select>
+		</div>
+
+		<div class="flex row gap a-i-c mt-16">
+			<input
+				class="form-check-input"
+				formControlName="allowOverrun"
+				id="allowOverrun"
+				type="checkbox"
+				#allowOverrun
+			/>
+			<span
+				class="body-field"
+				(click)="allowOverrun.click()"
+			>
+				Allow captioning to overrun
+			</span>
+		</div>
+	</form>
+</ng-template>
+
+<ng-template #second>
+	<form [formGroup]="secondFormGroup" class="flex col">
+		<div>
+			<label for="audioDetails">
+				Tell us how the captioner can hear the audio of the session.
+				Typically this is the login details for a Zoom or Teams meeting, etc. Otherwise, the
+				viewer can share their audio directly from the CaptionWorks viewer.
+			</label>
+			<textarea
+				class="form-control form-control-lg"
+				formControlName="audioDetails"
+				id="audioDetails"
+			></textarea>
+		</div>
+		<div>
+			<label for="captionDispDetails">
+				Where would you like your captions displayed?
+			</label>
+			<textarea
+				readonly
+				class="form-control form-control-lg"
+				formControlName="captionDispDetails"
+				id="captionDispDetails"
+			></textarea>
+		</div>
+	</form>
+</ng-template>
+
+<ng-template #third>
+	<form [formGroup]="thirdFormGroup" class="ml-20">
+		<div class="flex row gap a-i-c">
+			<input
+				class="form-check-input"
+				formControlName="requireLogin"
+				id="requireLogin"
+				type="checkbox"
+				#requireLogin
+			/>
+			<span
+				(click)="requireLogin.click()"
+	      class="body-field"
+			>
+				Viewer must be logged into CaptionWorks
+			</span>
+		</div>
+		<div class="flex row gap a-i-c">
+			<input #authorizedViewersOnly class="form-check-input" formControlName="authorizedViewersOnly"
+			       id="authorizedViewersOnly" type="checkbox">
+			<span (click)="authorizedViewersOnly.click()" class="body-field">Only allow these logged in users:</span>
+		</div>
+		<ng-container *ngIf="thirdFormGroup.controls['authorizedViewersOnly'].value">
+			<div class="flex col">
+				<span
+					class="body-field">List of emails for authorised viewers(separated bylinebreaks)</span>
+				<cwb-viewers-list formControlName="viewerEmails" id="viewerEmails"></cwb-viewers-list>
+			</div>
+		</ng-container>
+		<div class="flex row gap a-i-c">
+			<input class="form-check-input" formControlName="requirePasscode" id="requirePasscode"
+			       type="checkbox" #requirePasscode>
+			<span class="body-field" (click)="requirePasscode.click()">
+				Require passcode to view
+			</span>
+		</div>
+	</form>
 </ng-template>

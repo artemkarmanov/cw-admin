@@ -5,14 +5,15 @@ import {
 	OnInit,
 	ViewEncapsulation
 } from '@angular/core';
-import {BehaviorSubject, distinctUntilChanged, Observable, switchMap, tap} from 'rxjs';
+import {Observable} from 'rxjs';
 import {SessionsService} from './sessions.service';
 import {BreadCrumbsService} from '@services/bread-crumbs.service';
 import {IAdminSession} from "@interfaces/session.interfaces";
 import {Title} from "@angular/platform-browser";
 import {sessionsTableConfig} from "./sessions.table.config";
 import {FormControl} from "@angular/forms";
-import {IDateRange} from "@cmp/range-picker/range-picker.component";
+import {Select} from "@ngxs/store";
+import {SessionsState} from "@store/sessions.state";
 
 @Component({
 	selector: 'cwb-sessions-page',
@@ -24,8 +25,7 @@ import {IDateRange} from "@cmp/range-picker/range-picker.component";
 export class SessionsPageComponent implements OnInit, AfterViewInit {
 	public rangePicker = new FormControl();
 	public columnsConfig = sessionsTableConfig
-	public sessions$!: Observable<IAdminSession[]>
-	private reload$$: BehaviorSubject<null> = new BehaviorSubject<null>(null);
+	@Select(SessionsState.sessions) public sessions$!: Observable<IAdminSession[]>
 
 	constructor(
 		private sessionService: SessionsService,
@@ -40,7 +40,6 @@ export class SessionsPageComponent implements OnInit, AfterViewInit {
 			path: '/sessions',
 			title: 'Sessions'
 		}]);
-		this.sessions$ = this.session$$()
 	}
 
 	ngAfterViewInit() {
@@ -48,19 +47,10 @@ export class SessionsPageComponent implements OnInit, AfterViewInit {
 	}
 
 	public load() {
-		this.reload$$.next(null)
 	}
 
-	public changedDates($event: IDateRange | null) {
-		this.sessions$ = this.session$$($event?.start, $event?.end)
-	}
-
-	private session$$(start?: number, end?: number): Observable<IAdminSession[]> {
-		return this.sessions$ = this.reload$$.asObservable()
-			.pipe(
-				distinctUntilChanged(),
-				switchMap(() => this.sessionService.getSessionsSummary$(start, end)),
-				tap(() => this.load()),
-			)
+	public changedDates($event: any) {
+		const {start, end} = $event
+		this.sessionService.getSessionsSummary$(start, end)
 	}
 }

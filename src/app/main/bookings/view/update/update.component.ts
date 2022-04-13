@@ -1,28 +1,20 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ViewService} from '../view.service';
-import {from, Observable, Subject, switchMap, takeUntil, withLatestFrom} from 'rxjs';
+import {ChangeDetectionStrategy, Component, OnInit, ViewChild} from '@angular/core';
+import {Observable, Subject} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {tap} from 'rxjs/operators';
 import {UpdateService} from './update.service';
-import {Router} from '@angular/router';
-import {IBooking, IUpdateBooking} from "@interfaces/booking.interfaces";
+import {IBooking} from "@interfaces/booking.interfaces";
+import {BookingsState} from "@store/bookings.state";
+import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 
 @Component({
     selector: 'cwb-update',
     templateUrl: './update.component.html',
     styleUrls: ['./update.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [
-        UpdateService
-    ]
+    providers: [UpdateService]
 })
-export class UpdateComponent implements OnInit, OnDestroy {
+export class UpdateComponent implements OnInit {
     @ViewChild('tooltip') clipboard: any;
-
-    private destroy$$: Subject<void> = new Subject<void>();
-    private data$$: Subject<IBooking> = new Subject<IBooking>();
-    public data$: Observable<IBooking> = this.data$$.asObservable();
-    public saveChanges$$: Subject<IUpdateBooking> = new Subject<IUpdateBooking>();
     public form = new FormGroup({
         title: new FormControl('', Validators.required),
         audioDetails: new FormControl('', Validators.required),
@@ -35,83 +27,64 @@ export class UpdateComponent implements OnInit, OnDestroy {
         authorizedViewersOnly: new FormControl(false),
         bookingCaptionerPasscode: new FormControl('')
     });
+    public authorizedViewersOnlyChecked: boolean = false;
+    @SelectSnapshot(BookingsState.booking) private booking!: IBooking
+    private data$$: Subject<IBooking> = new Subject<IBooking>();
+    public data$: Observable<IBooking> = this.data$$.asObservable();
 
-    public authorizedViewersOnlyChecked: boolean =  false;
-
-    constructor(
-        private viewService: ViewService,
-        private updateService: UpdateService,
-        private router: Router
-    ) {
+    constructor(private updateService: UpdateService) {
     }
 
     ngOnInit(): void {
-        this.saveChanges$$.asObservable().pipe(
-            takeUntil(this.destroy$$.asObservable()),
-            withLatestFrom(this.data$),
-            switchMap(([newData, {
-                bookingToken,
-            }]) => {
-                let data = {
-                    title: newData.title,
-                    audioDetails: newData.audioDetails,
-                    captionDispDetails: newData.captionDispDetails,
-                    timeZoneOverride: newData.timeZoneOverride,
-                    bookingPasscode: newData.bookingPasscode,
-                    requirePasscode: (newData.requirePasscode) ? 1 : 0,
-                    requireLogin: (newData.requireLogin) ? 1 : 0,
-                    authorisedViewersOnly: newData.authorisedViewersOnly ? 1 : 0,
-                    authorisedViewerEmails: newData.viewerEmails ?? ''
-                }
-            
-                return this.updateService.updateBooking$(bookingToken, data).pipe(
-                    tap(() => this.viewService.reload()),
-                    switchMap(() => {
-                        return from(this.router.navigate(['bookings', bookingToken]))
-                    })
-                );
-            }),
-        ).subscribe();
-
-        this.viewService.currentBookingData$.pipe(
-            takeUntil(this.destroy$$.asObservable()),
-            tap(this.data$$.next.bind(this.data$$)),
-            tap(data => {
-                const {title, audioDetails, captionDispDetails, viewerEmails, bookingTimeZone, requirePasscode, requireLogin, bookingPasscode, bookingCaptionerPasscode} = data;
-                let hasAuthorizedViewers = 0
-                if (viewerEmails) {
-                    if (viewerEmails.split("\n").length > 0) {
-                        hasAuthorizedViewers = 1
-                        this.authorizedViewersOnlyChecked = true;
-                    }
-                }
-                this.form.setValue({
-                    title: title,
-                    audioDetails: audioDetails,
-                    captionDispDetails: captionDispDetails,
-                    timeZoneOverride: bookingTimeZone,
-                    requirePasscode: requirePasscode,
-                    requireLogin: requireLogin,
-                    bookingPasscode: (bookingPasscode.length < 5) ? "not required" : bookingPasscode,
-                    authorizedViewersOnly: hasAuthorizedViewers,
-                    viewerEmails: viewerEmails,
-                    bookingCaptionerPasscode
-                });
-
-            })
-        ).subscribe();
-
-    }
-
-    ngOnDestroy(): void {
-        this.destroy$$.next();
-    }
-
-    update(): void {
-        if (this.form.valid) {
-            this.saveChanges$$.next(this.form.value as IUpdateBooking);
+        const {
+            title,
+            audioDetails,
+            captionDispDetails,
+            viewerEmails,
+            bookingTimeZone,
+            requirePasscode,
+            requireLogin,
+            bookingPasscode,
+            bookingCaptionerPasscode
+        } = this.booking;
+        let hasAuthorizedViewers = 0
+        if (viewerEmails) {
+            if (viewerEmails.split("\n").length > 0) {
+                hasAuthorizedViewers = 1
+                this.authorizedViewersOnlyChecked = true;
+            }
         }
+        this.form.setValue({
+            title,
+            audioDetails,
+            captionDispDetails,
+            timeZoneOverride: bookingTimeZone,
+            requirePasscode,
+            requireLogin,
+            bookingPasscode: (bookingPasscode.length < 5) ? "not required" : bookingPasscode,
+            authorizedViewersOnly: hasAuthorizedViewers,
+            viewerEmails,
+            bookingCaptionerPasscode
+        });
+    }
 
+    update() {
+        if (this.form.valid) {
+            const newData = this.form.value
+            const data = {
+                title: newData.title,
+                audioDetails: newData.audioDetails,
+                captionDispDetails: newData.captionDispDetails,
+                timeZoneOverride: newData.timeZoneOverride,
+                bookingPasscode: newData.bookingPasscode,
+                requirePasscode: (newData.requirePasscode) ? 1 : 0,
+                requireLogin: (newData.requireLogin) ? 1 : 0,
+                authorisedViewersOnly: newData.authorisedViewersOnly ? 1 : 0,
+                authorisedViewerEmails: newData.viewerEmails ?? ''
+            }
+
+            this.updateService.updateBooking$(this.booking.bookingToken, data)
+        }
     }
 
     switchAuthorizedViewerBool() {

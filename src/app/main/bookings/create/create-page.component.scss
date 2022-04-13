@@ -1,0 +1,136 @@
+@import "colors";
+
+.gap-16 {
+	gap: 16px;
+}
+
+:host {
+	display: flex;
+	flex-direction: column;
+	background: white;
+	flex: 1;
+	width: 100%;
+	border-radius: 8px;
+	padding: 24px;
+	max-width: 800px;
+
+	.body-field {
+		font-weight: 400;
+		font-size: 20px;
+		line-height: 24px;
+		display: flex;
+		align-items: center;
+		letter-spacing: 0.005em;
+		color: #3F3F3F;
+	}
+
+	input {
+		font-size: 14px !important;
+	}
+
+	input[type="checkbox"] {
+		all: unset;
+		width: 20px;
+		height: 20px;
+		border: 1px solid $blue-60;
+		border-radius: 2px;
+
+		&:checked {
+			width: 12px;
+			height: 12px;
+			margin: 4px;
+			outline: 1px solid $blue-60;
+			background: $blue-60;
+			outline-offset: 3px;
+			border-radius: 0;
+		}
+	}
+
+	button {
+		padding: 16px;
+		width: 120px;
+		height: 56px;
+		background: #2A6ED4;
+		box-shadow: 0 6px 10px -6px rgba(58, 142, 247, 0.08), 0px 10px 28px -4px rgba(58, 142, 247, 0.06);
+		border-radius: 8px;
+		// text
+		font-style: normal;
+		font-weight: 600;
+		font-size: 17px;
+		text-align: center;
+		color: white;
+
+		outline: none;
+		border: none;
+		cursor: pointer;
+
+		&:disabled {
+			background: gray;
+			cursor: not-allowed;
+		}
+	}
+}
+
+::ng-deep.md-drppicker {
+	background-color: white;
+	font-family: 'Inter', sans-serif;
+	padding: 18px 28px 4px;
+
+	.calendar.left {
+		margin-right: 32px;
+	}
+
+	th,
+	.week-days,
+	.shown.calendar {
+		color: $gray-80;
+	}
+
+	.month {
+		font-size: 18px;
+		font-weight: 600;
+		line-height: 28px;
+		vertical-align: middle;
+	}
+
+	.week-days {
+		font-size: 12px;
+		font-weight: 400;
+		line-height: 16px;
+	}
+
+	.available {
+		font-size: 17px;
+		font-weight: 600;
+		line-height: 24px;
+		padding: 16px 8px;
+
+		&:hover {
+			border-radius: 0;
+		}
+	}
+
+	.available.in-range {
+		background: $blue-10;
+		color: $blue-50;
+	}
+
+
+	.available.active {
+		&.start-date {
+			background: $blue-50;
+			border-radius: 8px 0 0 8px;
+			color: white;
+		}
+
+		&.end-date {
+			background: $blue-50;
+			border-radius: 0 8px 8px 0;
+			color: white;
+		}
+
+		&.start-date.end-date {
+			border-radius: 8px;
+		}
+	}
+}

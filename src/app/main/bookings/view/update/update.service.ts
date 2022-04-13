@@ -1,26 +1,18 @@
 import {Injectable} from '@angular/core';
-import {SocketMessagesService} from '@services/socket-messages.service';
-import {EMPTY, Observable} from 'rxjs';
-import {ErrorHandlerService} from '@services/error-handler.service';
-import {catchError} from 'rxjs/operators';
-import {IBookingModificationResponse, IUpdateBooking} from "@interfaces/booking.interfaces";
+import {IUpdateBooking} from "@interfaces/booking.interfaces";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {Send} from "@store/websocket.send.actions";
+import {MessageType} from "@constants/message-types";
 
 @Injectable()
 export class UpdateService {
-
-    constructor(
-        private messages: SocketMessagesService,
-        private error: ErrorHandlerService
-    ) {
-    }
-
-    public updateBooking$(bookingToken: string, userData: IUpdateBooking): Observable<IBookingModificationResponse> {
+    @Dispatch()
+    public updateBooking$(bookingToken: string, userData: IUpdateBooking) {
         const data = Object.assign({}, userData, {bookingToken});
-        return this.messages.request$<IBookingModificationResponse>('updateBooking', data).pipe(
-            catchError(e => {
-                this.error.handle(e);
-                return EMPTY;
-            })
-        )
+
+        return new Send({
+            type: MessageType.UpdateBooking,
+            data
+        })
     }
 }

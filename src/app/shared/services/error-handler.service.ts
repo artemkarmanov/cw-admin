@@ -8,8 +8,10 @@ export class ErrorHandlerService {
     constructor() {
     }
 
-    public handle(error: Error) {
-        this.error$$.next(error);
+    public handle(error: Error | string) {
+        typeof error === 'string'
+            ? this.error$$.next(new Error(error))
+            : this.error$$.next(error);
         console.error(error);
     }
 

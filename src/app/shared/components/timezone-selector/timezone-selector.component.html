@@ -1,27 +1,26 @@
-<div *ngIf="regions$ | async as regions" class="flex row gap w-100">
+<div *ngIf="regions$ | async as regions" class="flex row gap gap-16 w-100">
     <div class="w-100 flex col">
         <label for="region">Country</label>
         <ng-select
+          (ngModelChange)="onChange($event)"
           [clearable]="false"
           [formControl]="region"
           [items]="regions"
           [notFoundText]="'Loading regions...'"
-          [placeholder]="'Region'"
-          (change)="pickedCountry($event)"
           bindLabel="region"
           class="select region"
           id="region"
+          placeholder="Region"
         ></ng-select>
     </div>
 
     <div class="w-100 flex col" *ngIf="cities">
         <label for="city">City</label>
         <ng-select
+          (ngModelChange)="onChange($event)"
           [clearable]="false"
           [formControl]="city"
-          [items]="cities"
-          (input)="registerOnChange($event)"
-          (change)="pickedCity($event)"
+          [items]="cities$ | async"
           class="select city"
           id="city"
           placeholder="City"

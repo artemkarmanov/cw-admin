@@ -1,36 +1,22 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, pluck, takeUntil, tap} from "rxjs";
-import {SocketMessagesService} from "./socket-messages.service";
-import {filter, map} from "rxjs/operators";
-import {IBilling, IBillingDetails} from "@interfaces/billing.interfaces";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {Send} from "@store/websocket.send.actions";
+import {MessageType} from "@constants/message-types";
 
 @Injectable({providedIn: 'root'})
 export class BillingService {
-	private loaded$ = new BehaviorSubject(false)
-
-	constructor(
-		private messages: SocketMessagesService
-	) {
+	@Dispatch()
+	public billings$() {
+		return new Send({
+			type: MessageType.GetBillingResults
+		})
 	}
 
-	public billings$(): Observable<IBilling[]> {
-		return this.messages
-			.request$<{ billing_results: IBilling[] }>('getBillingResults')
-			.pipe(
-				takeUntil(this.loaded$.pipe(filter((Boolean)))),
-				tap(() => this.loaded$.next.bind(true)),
-				pluck('billing_results'),
-				map((results) => [...results].reverse())
-			)
-	}
-
-	public billing$(billingResultId: number): Observable<IBillingDetails> {
-		return this.messages
-			.request$<{billing_details: IBillingDetails}>('getBillingDetails', {billingResultId})
-			.pipe(
-				takeUntil(this.loaded$.pipe(filter(Boolean))),
-				tap(() => this.loaded$.next.bind(true)),
-				pluck('billing_details')
-			)
+	@Dispatch()
+	public billing$(billingResultId: number) {
+		return new Send({
+			type: MessageType.GetBillingDetails,
+			data: {billingResultId}
+		})
 	}
 }

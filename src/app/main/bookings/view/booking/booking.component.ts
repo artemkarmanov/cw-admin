@@ -1,7 +1,8 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
-import {ViewService} from '../view.service';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {Observable} from 'rxjs';
 import {IBooking} from "@interfaces/booking.interfaces";
+import {Select} from "@ngxs/store";
+import {BookingsState} from "@store/bookings.state";
 
 @Component({
     selector: 'cwb-booking',
@@ -9,23 +10,6 @@ import {IBooking} from "@interfaces/booking.interfaces";
     styleUrls: ['./booking.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BookingComponent implements OnInit, OnDestroy {
-    private destroy$$: Subject<void> = new Subject<void>();
-    public data$: Observable<IBooking> = this.viewService.currentBookingData$.pipe(
-    )
-
-    constructor(
-        private viewService: ViewService
-    ) {
-    }
-
-    ngOnInit(): void {
-
-    }
-
-    ngOnDestroy(): void {
-        this.destroy$$.next();
-    }
-
-
+export class BookingComponent {
+    @Select(BookingsState.booking) public booking$!: Observable<IBooking>
 }

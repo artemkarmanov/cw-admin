@@ -1,4 +1,4 @@
 <div *ngIf="user$ | async as user" class="flex col">
     <span class="head fw-6">Logged in as:</span>
-    <span class="name">{{user}}</span>
+    <span class="name">{{user.firstName}} {{user.lastName}}</span>
 </div>

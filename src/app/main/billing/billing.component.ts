@@ -1,23 +1,23 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {BillingService} from "@services/billing.service";
-import {BehaviorSubject, tap} from "rxjs";
+import {Observable} from "rxjs";
 import {BillingViewComponent} from "./billing-view/billing-view.component";
-import {UntilDestroy, untilDestroyed} from "@ngneat/until-destroy";
 import {IBilling} from "@interfaces/billing.interfaces";
 import {billingTableConfig} from "./billing.table.config";
 import {Title} from "@angular/platform-browser";
 import {DialogService} from "@services/dialog.service";
+import {Select} from "@ngxs/store";
+import {BillingsState} from "@store/billings.state";
 
-@UntilDestroy()
 @Component({
-	selector: 'cwb-billing',
+	selector: 'cwb-billings',
 	templateUrl: './billing.component.html',
 	styleUrls: ['./billing.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [BillingService]
 })
 export class BillingComponent implements OnInit {
-	public dataSource$ = new BehaviorSubject<IBilling[]>([])
+	@Select(BillingsState.billings) public dataSource$!: Observable<IBilling[]>
 	public columnsConfig = billingTableConfig
 
 	constructor(
@@ -33,16 +33,10 @@ export class BillingComponent implements OnInit {
 	}
 
 	public load() {
-		this.service
-			.billings$()
-			.pipe(
-				untilDestroyed(this),
-				tap((result) => this.dataSource$.next(result)),
-			)
-			.subscribe()
+		this.service.billings$()
 	}
 
-	public billingPopup($event: {data: IBilling}) {
+	public billingPopup($event: { data: IBilling }) {
 		this.modal.open(
 			BillingViewComponent,
 			{data: $event.data.billingResultId}

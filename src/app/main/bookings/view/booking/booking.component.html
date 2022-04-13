@@ -1,4 +1,4 @@
-<div *ngIf="(data$|async) as data" class="flex col" style="gap: 16px">
+<div *ngIf="(booking$|async) as data" class="flex col" style="gap: 16px">
 	<div class="flex j-c-sb a-i-c">
 		<h4>Booking details</h4>
 
@@ -11,15 +11,15 @@
 	</div>
 	<fieldset>
 		<div>
-			<label class="form-label">Title</label>
+			<label>Title</label>
 			<div class="text-field">{{data.title}}</div>
 		</div>
 		<div class="flex col mt-16">
-			<label class="form-label">Booking ID</label>
+			<label>Booking ID</label>
 			<div class="text-field">{{data.bookingToken}}</div>
 		</div>
 		<div class="flex col mt-16">
-			<label class="form-label">Timezone</label>
+			<label>Timezone</label>
 			<div class="text-field">
 				{{data.bookingTimeZone | region}},
 				{{data.bookingTimeZone | city}}
@@ -30,31 +30,31 @@
 
 	<fieldset>
 		<div>
-			<label class="form-label">Audio details</label>
+			<label>Audio details</label>
 			<div class="text-field">{{data.audioDetails}}</div>
 		</div>
 		<div class="flex col mt-16">
-			<label class="form-label">Caption details</label>
+			<label>Caption details</label>
 			<div class="text-field">{{data.captionDispDetails}}</div>
 		</div>
 		<div class="flex row gap mt-16">
 			<div *ngIf="data.bookingPasscode && data.requirePasscode">
 				<div class="flex col">
-					<label class="form-label">Booking passcode</label>
+					<label>Booking passcode</label>
 					<div class="text-field">{{data.bookingPasscode}}</div>
 				</div>
 			</div>
 			<ng-container *ngIf="data.viewerEmails">
 				<ng-container *ngIf="data.viewerEmails.split('\n').length > 0">
 					<div class="flex col">
-						<label class="form-label">Number of authorized viewers:</label>
+						<label>Number of authorized viewers:</label>
 						<div class="text-field">{{data.viewerEmails.split('\n').length}}</div>
 					</div>
 				</ng-container>
 			</ng-container>
 		</div>
 		<div class="flex col mt-16">
-			<label class="form-label">Captioner passcode</label>
+			<label>Captioner passcode</label>
 			<div class="text-field">{{data.bookingCaptionerPasscode}}</div>
 		</div>
 		<ng-container *ngIf="data.requirePasscode">
@@ -72,7 +72,7 @@
 	</fieldset>
 
 	<div>
-		<span class="share-label">Share viewing details</span>
+		<label>Share viewing details</label>
 		<cwb-share-booking-link [booking]="data"></cwb-share-booking-link>
 	</div>
 </div>

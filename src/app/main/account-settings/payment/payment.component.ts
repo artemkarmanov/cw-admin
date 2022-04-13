@@ -3,15 +3,17 @@ import {
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
-	ElementRef,
+	ElementRef, OnInit,
 	ViewChild
 } from '@angular/core';
 import {StripeService} from './stripe.service';
 import {filter, switchMap, tap} from 'rxjs/operators';
-import {from} from 'rxjs';
+import {from, Observable} from 'rxjs';
 import {environment} from '@env';
 import {loadStripe, Stripe, StripeElements, StripePaymentElement} from '@stripe/stripe-js';
 import {UntilDestroy, untilDestroyed} from "@ngneat/until-destroy";
+import {UserState} from "@store/user.state";
+import {Select} from "@ngxs/store";
 
 @UntilDestroy()
 @Component({
@@ -21,10 +23,11 @@ import {UntilDestroy, untilDestroyed} from "@ngneat/until-destroy";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [StripeService]
 })
-export class PaymentComponent implements AfterViewInit {
+export class PaymentComponent implements OnInit, AfterViewInit {
 	public loaded: boolean = false;
 	@ViewChild('error') errorMessage?: ElementRef;
 	@ViewChild('cardInfo') cardInfo?: ElementRef;
+	@Select(UserState.stripeClientSecret) private clientSecret!: Observable<string>
 	private card?: StripePaymentElement;
 	private elementsInstance?: StripeElements;
 	private stripe?: Stripe;
@@ -35,9 +38,14 @@ export class PaymentComponent implements AfterViewInit {
 	) {
 	}
 
+	ngOnInit() {
+		this.stripeService.getStripeClientSecret$()
+	}
+
 	ngAfterViewInit(): void {
-		this.stripeService.getStripeClientSecret$().pipe(
+		this.clientSecret.pipe(
 			untilDestroyed(this),
+			filter(Boolean),
 			switchMap((clientSecret) => from(loadStripe(environment.stripe.pk)).pipe(
 				filter(Boolean),
 				tap((stripe: Stripe) => this.stripe = stripe),

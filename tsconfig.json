@@ -46,6 +46,15 @@
       ],
       "@env": [
         "src/environments/environment.ts"
+      ],
+      "@store/*": [
+        "src/app/shared/store/billings/*",
+        "src/app/shared/store/bookings/*",
+        "src/app/shared/store/breadcrumbs/*",
+        "src/app/shared/store/sessions/*",
+        "src/app/shared/store/user/*",
+        "src/app/shared/store/users/*",
+        "src/app/shared/store/websocket/*"
       ]
     }
   },

@@ -1,50 +1,28 @@
 import {Injectable} from '@angular/core';
-import {SocketMessagesService} from './socket-messages.service';
-import {EMPTY, exhaustMap, Observable, of, pluck, ReplaySubject, Subject, take, tap} from 'rxjs';
-import {catchError} from 'rxjs/operators';
-import {ErrorHandlerService} from './error-handler.service';
-import {IRegion} from "@interfaces/user.interfaces";
+import {Observable} from 'rxjs';
+import {IRegions} from "@interfaces/user.interfaces";
+import {Send} from "@store/websocket.send.actions";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {MessageType} from "@constants/message-types";
+import {Select} from "@ngxs/store";
+import {UserState} from "@store/user.state";
 
 @Injectable({providedIn: 'root'})
 export class TimezoneService {
-    private loadRegions$$: Subject<void> = new Subject();
-    private regions$$: ReplaySubject<IRegion[]> = new ReplaySubject<IRegion[]>(1);
-    private citiesCache: Map<number, string[]> = new Map();
+    @Select(UserState.regions) private regions$$!: Observable<IRegions>
 
-    constructor(private messages: SocketMessagesService, errors: ErrorHandlerService) {
-        this.loadRegions$$.pipe(
-            exhaustMap(() => this.messages.request$<{ regions: IRegion[] }>('getTimeZoneRegions')),
-            pluck('regions'),
-            tap(this.regions$$.next.bind(this.regions$$)),
-            catchError(err => {
-                errors.handle(err);
-                return EMPTY;
-            }),
-            //get regions list only one time
-            take(1),
-
-            //shareReplay(1)
-        ).subscribe();
+    @Dispatch()
+    public getRegions$() {
+        return new Send({
+            type: MessageType.GetTimeZoneRegions
+        })
     }
 
-    public getRegions$(): Observable<IRegion[]> {
-
-        this.loadRegions$$.next();
-        return this.regions$$.asObservable().pipe(
-            //shareReplay(1)
-        );
-    }
-
-    public getCities$(regionId: number): Observable<string[]> {
-        if (this.citiesCache.has(regionId)) {
-            return of(this.citiesCache.get(regionId) as string[]);
-        } else {
-            return this.messages.request$<{ regionId: number, cities: string[] }>('getTimeZoneCities', {regionId}).pipe(
-                pluck('cities'),
-                tap((cities) => {
-                    this.citiesCache.set(regionId, cities);
-                })
-            );
-        }
+    @Dispatch()
+    public getCities$(regionId: number) {
+        return new Send({
+            type: MessageType.GetTimeZoneCities,
+            data: {regionId}
+        })
     }
 }

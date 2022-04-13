@@ -1,25 +1,23 @@
 import {Injectable} from '@angular/core';
-import {SocketMessagesService} from '@services/socket-messages.service';
-import {Observable} from 'rxjs';
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {Send} from "@store/websocket.send.actions";
+import {MessageType} from "@constants/message-types";
 
 @Injectable()
 export class ChangePasswordService {
-
-    constructor(private messages: SocketMessagesService) {
-    }
-
-    public checkResetPassword$(email: string, token: string): Observable<boolean> {
-        return this.messages.request$<boolean>('checkResetPassword', {
-            Email: email,
-            Token: token
+    @Dispatch()
+    public checkResetPassword$(email: string, token: string) {
+        return new Send({
+            type: MessageType.CheckResetPassword,
+            data: {email, token}
         })
     }
 
-    public changePassword$(email: string, token: string, password: string): Observable<boolean> {
-        return this.messages.request$<boolean>('changePassword', {
-            Email: email,
-            Token: token,
-            Password: password
+    @Dispatch()
+    public changePassword$(email: string, token: string, password: string) {
+        return new Send({
+            type: MessageType.ChangePassword,
+            data: {email, token, password}
         })
     }
 }

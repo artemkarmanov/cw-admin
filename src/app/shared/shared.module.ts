@@ -8,17 +8,22 @@ import {sharedConfig} from "./shared.config";
 import {NgxDaterangepickerMd} from "ngx-daterangepicker-material";
 import {AccordionModule} from "@cmp/accordion/accordion.module";
 import {NgSelectModule} from "@ng-select/ng-select";
+import {CdkStepper, CdkStepperModule} from "@angular/cdk/stepper";
 
 @NgModule({
 	declarations: [
 		...sharedConfig
+	],
+	providers: [
+		CdkStepper
 	],
 	exports: [
 		...sharedConfig,
 		CommonModule,
 		FormsModule,
 		ReactiveFormsModule,
-		AccordionModule
+		AccordionModule,
+		CdkStepperModule
 	],
 	imports: [
 		CommonModule,
@@ -29,7 +34,8 @@ import {NgSelectModule} from "@ng-select/ng-select";
 		SharedProviderModule,
 		Ng2SmartTableModule,
 		NgxDaterangepickerMd.forRoot(),
-		AccordionModule
+		AccordionModule,
+		CdkStepperModule
 	]
 })
 export class SharedModule {

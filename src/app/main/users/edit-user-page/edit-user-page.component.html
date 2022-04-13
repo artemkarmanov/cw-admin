@@ -1,4 +1,4 @@
-<section>
+<section *ngIf="(user$ | async) as user">
     <h1 class="mt-20">⚙️ Edit user</h1>
     <cwb-user-form (dataChange)="save($event)" [data]="user"></cwb-user-form>
 </section>

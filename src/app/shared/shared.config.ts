@@ -27,6 +27,7 @@ import {RangePickerComponent} from "@cmp/range-picker/range-picker.component";
 import {LoaderComponent} from "@cmp/loader/loader.component";
 import {LoadedDirective} from "@directives/loaded.directive";
 import {SmartTablePaginatorDirective} from "@cmp/smart-table/smart-table.paginator.directive";
+import {StepperComponent} from "@cmp/stepper/stepper.component";
 
 export const sharedConfig = [
 	TimezoneSelectorComponent,
@@ -58,5 +59,6 @@ export const sharedConfig = [
 	RangePickerComponent,
 	LoaderComponent,
 	LoadedDirective,
-	SmartTablePaginatorDirective
+	SmartTablePaginatorDirective,
+	StepperComponent
 ]

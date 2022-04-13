@@ -4,7 +4,6 @@ import {from, Subject, switchMap, takeUntil} from 'rxjs';
 import {Router} from '@angular/router';
 import {UsersService} from '@services/users.service';
 import {tap} from 'rxjs/operators';
-import {AuthService} from '@services/auth.service';
 import {checkPasswords} from "@helpers/check-passwords";
 import {INewUser} from "@interfaces/user.interfaces";
 
@@ -31,24 +30,23 @@ export class CreateUserPageComponent implements OnInit, OnDestroy {
 
     constructor(
         private createUserService: UsersService, 
-        private router: Router,
-        private authService: AuthService
+        private router: Router
     ) {
     }
 
     ngOnInit(): void {  
         this.create$$.asObservable().pipe(
             takeUntil(this.destroy$$.asObservable()),
-            switchMap(() => {
+            tap(() => {
                 const data: INewUser = this.form.value;
 
                 return this.createUserService.create$(
                     data
                 );
             }),
-             tap(token => {
-                this.authService.authorize(token)
-             }),
+             // tap(token => {
+             //    this.authService.authorize(token)
+             // }),
              switchMap(() => {         
                 return from(this.router.navigate(['bookings']))
              })

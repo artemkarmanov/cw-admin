@@ -1,11 +1,12 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {UsersService} from '@services/users.service';
 import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {BreadCrumbsService} from '@services/bread-crumbs.service';
 import {IUserRow} from "@interfaces/user.interfaces";
 import {usersTableConfig} from "./users.table.config";
 import {Title} from "@angular/platform-browser";
+import {Select} from "@ngxs/store";
+import {UsersState} from "@store/users.state";
 
 @Component({
 	selector: 'cwb-users-page',
@@ -15,19 +16,7 @@ import {Title} from "@angular/platform-browser";
 })
 export class UsersPageComponent implements OnInit {
 	public columnsConfig = usersTableConfig
-
-	public users$: Observable<IUserRow[]> = this.usersService
-		.getUsers$()
-		.pipe(
-			map((users) => users.map((user) =>
-				({
-					...user, role: user.isCaptioner && user.isAdmin
-						? ['captioner', 'admin'] :
-						user.isCaptioner
-							? ['captioner']
-							: user.isAdmin ? ['admin'] : ['viewer']
-				} as IUserRow)))
-		);
+	@Select(UsersState.users) public users$!: Observable<IUserRow[]>
 
 	constructor(
 		private usersService: UsersService,
@@ -37,6 +26,7 @@ export class UsersPageComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		this.usersService.load$()
 		this.titleService.setTitle('CaptionWorks | Users')
 		this.breadCrumbsService.set([{
 			path: '/users',
@@ -45,7 +35,5 @@ export class UsersPageComponent implements OnInit {
 	}
 
 	reload() {
-		this.usersService.reload();
 	}
-
 }

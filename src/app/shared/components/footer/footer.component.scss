@@ -24,10 +24,6 @@ footer {
 			font-size: 12px;
 			line-height: 16px;
 			margin: 16px 32px 16px 0;
-
-			@media only screen and (max-width: 850px) {
-				margin: 8px 16px 0;
-			}
 		}
 	}
 
@@ -46,10 +42,5 @@ footer {
 				cursor: default;
 			}
 		}
-	}
-
-	@media only screen and (max-width: 850px) {
-		flex-direction: column;
-		height: unset;
 	}
 }

@@ -17,35 +17,10 @@ fieldset {
     margin-top: 16px;
   }
 
-  .form-label {
-    font-weight: 600;
-    font-size: 12px;
-    line-height: 16px;
-    color: $gray-50;
-    margin-bottom: 0;
-  }
-
   .text-field {
     font-weight: 600;
     font-size: 18px;
     line-height: 28px;
     color: $gray-80;
   }
-}
-
-
-.share-label {
-  font-weight: 600;
-  font-size: 12px;
-  line-height: 16px;
-  color: $gray-50;
-  margin-bottom: 4px;
-  display: flex;
-}
-
-.parameter {
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 28px;
-  color: $gray-80;
 }

@@ -1,8 +1,9 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
-import {AuthService} from '@services/auth.service';
 import {BehaviorSubject, Observable, Subject, takeUntil} from 'rxjs';
 import {NavigationEnd, Router} from '@angular/router';
 import {filter, map, tap} from 'rxjs/operators';
+import {Select} from "@ngxs/store";
+import {UserState} from "@store/user.state";
 
 @Component({
     selector: 'cwb-main',
@@ -12,14 +13,11 @@ import {filter, map, tap} from 'rxjs/operators';
 })
 export class MainComponent implements OnInit, OnDestroy {
     private destroy$$: Subject<void> = new Subject<void>();
-    public isAuthorized$: Observable<boolean> = this.authService.isAuthorized$;
+    @Select(UserState.logged) public isAuthorized$!: Observable<boolean>
     private pageHasSimpleLayout$$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     public pageHasSimpleLayout$: Observable<boolean> = this.pageHasSimpleLayout$$.asObservable();
 
-    constructor(
-        private authService: AuthService,
-        private router: Router
-    ) {
+    constructor(private router: Router) {
         this.router.events.pipe(
             takeUntil(this.destroy$$.asObservable()),
             filter(event => event instanceof NavigationEnd),

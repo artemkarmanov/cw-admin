@@ -1,7 +1,8 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {AuthService} from '@services/auth.service';
 import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {Select} from "@ngxs/store";
+import {UserState} from "@store/user.state";
+import {IUserSettings} from "@interfaces/user.interfaces";
 
 @Component({
     selector: 'cwb-user-info',
@@ -10,18 +11,7 @@ import {map} from 'rxjs/operators';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserInfoComponent implements OnInit {
-    public user$: Observable<string> = this.auth.userSettings$.pipe(
-        map(userData => {
-            if (!userData.firstName && !userData.lastName) {
-                return 'Unknown user';
-            } else {
-                return [userData.firstName, userData.lastName].join(' ');
-            }
-        })
-    );
-
-    constructor(private auth: AuthService) {
-    }
+    @Select(UserState.userInfo) public user$!: Observable<IUserSettings>
 
     ngOnInit(): void {
     }

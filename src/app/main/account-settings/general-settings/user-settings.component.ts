@@ -1,13 +1,14 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {of, Subject, switchMap, take, takeUntil} from 'rxjs';
-import {AuthService} from '@services/auth.service';
+import {Observable, of, Subject, switchMap, take, takeUntil} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {UsersService} from '@services/users.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {IBackFromStripe} from "../back-from-stripe.interface";
 import {ConfirmationService} from "@services/confirmation.service";
 import {INewUser, IUser, IUserSettings} from "@interfaces/user.interfaces";
+import {Select} from "@ngxs/store";
+import {UserState} from "@store/user.state";
 
 @Component({
     selector: 'cwb-user-settings',
@@ -16,6 +17,7 @@ import {INewUser, IUser, IUserSettings} from "@interfaces/user.interfaces";
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserSettingsComponent implements OnInit, OnDestroy {
+    @Select(UserState.userInfo) private userSettings$!: Observable<IUserSettings>
     private destroy$$: Subject<void> = new Subject<void>();
     private save$$: Subject<void> = new Subject<void>();
     public form: FormGroup = new FormGroup({
@@ -35,7 +37,6 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
     public showCreditCardForm: boolean = false;
 
     constructor(
-      private auth: AuthService,
       private usersService: UsersService,
       public router: Router,
       public route: ActivatedRoute,
@@ -64,7 +65,7 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
           )
           .subscribe()
       }
-        this.auth.userSettings$.pipe(
+        this.userSettings$.pipe(
             takeUntil(this.destroy$$.asObservable()),
             tap((data) => {
                 this.form.patchValue(data);
@@ -73,8 +74,8 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
         ).subscribe();
         this.save$$.asObservable().pipe(
             takeUntil(this.destroy$$.asObservable()),
-            switchMap(() => this.auth.userSettings$),
-            switchMap((oldUserData) => {
+            switchMap(() => this.userSettings$),
+            tap((oldUserData) => {
                 const oldData = JSON.parse(JSON.stringify(oldUserData)) as IUserSettings;
 
                 const newData = this.form.value as INewUser;

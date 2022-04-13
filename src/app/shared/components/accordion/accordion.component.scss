@@ -77,7 +77,7 @@ $accordion-border-radius: 8px;
   }
 
   .content {
-    @include scrollbars(4px, $blue-20);
+    @include scrollbars(4px, $blue-10);
     padding: 16px;
     overflow: hidden auto;
     display: flex;

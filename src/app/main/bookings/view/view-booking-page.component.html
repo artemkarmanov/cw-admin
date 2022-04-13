@@ -19,7 +19,12 @@
             <cwb-card class="right">
                 <div class="flex j-c-sb a-i-c mb-20">
                     <h4>Sessions</h4>
-                    <cwb-add-session-button></cwb-add-session-button>
+                    <cw-small-button
+                      buttonText="Add session"
+                      [icon]="'add'"
+                      (click)="addSession()"
+                      [inverted]="true"
+                    ></cw-small-button>
                 </div>
                 <cwb-sessions [data]="booking.sessions" [bookingTimeZone]="booking.bookingTimeZone"></cwb-sessions>
             </cwb-card>

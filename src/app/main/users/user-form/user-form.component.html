@@ -1,41 +1,45 @@
 <form (ngSubmit)="save()" [formGroup]="form">
 	<div class="flex">
-		<cw-input class="half"
-		          [inputLabel]="'First Name'"
-		          [inputPlaceholder]="'First Name'"
-		          [inputAutocomplete]="'firstName'"
-		          formControlName="firstName"
+		<cw-input
+			class="half"
+			inputLabel="First Name"
+			inputPlaceholder="First Name"
+			inputAutocomplete="firstName"
+			formControlName="firstName"
 		></cw-input>
-		<cw-input class="half"
-		          [inputLabel]="'Last Name'"
-		          [inputPlaceholder]="'Last Name'"
-		          [inputAutocomplete]="'lastName'"
-		          formControlName="lastName"
+		<cw-input
+			class="half"
+			inputLabel="Last Name"
+			inputPlaceholder="Last Name"
+			inputAutocomplete="lastName"
+			formControlName="lastName"
 		></cw-input>
 	</div>
 
 	<cw-input
-		[inputLabel]="'Enter your email here'"
-		[inputPlaceholder]="'your@email.com'"
-		[inputAutocomplete]="'username'"
+		inputLabel="Enter your email here"
+		inputPlaceholder="your@email.com"
+		inputAutocomplete="username"
 		formControlName="email"
 	></cw-input>
 
 	<div class="flex">
 		<ng-container *ngIf="form.controls['password']">
-			<cw-input class="half"
-			          [inputLabel]="'Password'"
-			          [inputPlaceholder]="'Enter the password'"
-			          [inputAutocomplete]="'new-password'"
-			          formControlName="password"
+			<cw-input
+				class="half"
+				inputLabel="Password"
+				inputPlaceholder="Enter the password"
+				inputAutocomplete="new-password"
+				formControlName="password"
 			></cw-input>
 		</ng-container>
 		<ng-container *ngIf="form.controls['password2']">
-			<cw-input class="half"
-			          [inputLabel]="'Password'"
-			          [inputPlaceholder]="'Re-enter password'"
-			          [inputAutocomplete]="'new-password'"
-			          formControlName="password2"
+			<cw-input
+				class="half"
+				inputLabel="Password"
+				inputPlaceholder="Re-enter password"
+				inputAutocomplete="new-password"
+				formControlName="password2"
 			></cw-input>
 		</ng-container>
 	</div>
@@ -43,9 +47,9 @@
 		<cwb-timezone-selector formControlName="timeZone"></cwb-timezone-selector>
 	</div>
 	<cw-input
-		[inputLabel]="'Re-speaker rate'"
-		[inputPlaceholder]="'150'"
-		[inputAutocomplete]="'new-password'"
+		inputLabel="Re-speaker rate"
+		inputPlaceholder="150"
+		inputAutocomplete="new-password"
 		formControlName="respeakerRate"
 	></cw-input>
 
@@ -56,11 +60,8 @@
 			formControlName="isAdmin"
 			id="isAdmin"
 			type="checkbox"
-        >
-		<label
-            class="form-check-label"
-            for="isAdmin"
-        >
+		>
+		<label for="isAdmin">
 			User is admin
 		</label>
 	</div>
@@ -71,24 +72,22 @@
 			formControlName="isCaptioner"
 			id="isCaptioner"
 			type="checkbox"
-        >
-		<label
-			class="form-check-label"
-			for="isCaptioner"
-        >
+		>
+		<label for="isCaptioner">
 			User is captioner
 		</label>
 	</div>
 
 	<div class="flex j-c-sb mt-20">
-        <cw-small-button
-            [buttonText]="'Cancel'"
-            [inverted]="true"
-            routerLink="../"
-        ></cw-small-button>
-        <cw-small-button
-            [buttonText]="'Save'"
-            [buttonDisabled]="form.invalid || !form.touched"
-        ></cw-small-button>
+		<cw-small-button
+			buttonText="Cancel"
+			[inverted]="true"
+			routerLink="../"
+		></cw-small-button>
+		<cw-small-button
+			buttonText="Save"
+			[buttonDisabled]="form.invalid || !form.touched"
+			(click)="save()"
+		></cw-small-button>
 	</div>
 </form>
