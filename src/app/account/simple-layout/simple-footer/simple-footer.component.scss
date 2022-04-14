@@ -1,0 +1,33 @@
+:host {
+	width: 100vw;
+}
+
+footer {
+	height: 42px;
+	padding: 0 32px;
+	border-top: 1px solid silver;
+
+	.left-side {
+		span {
+			cursor: default;
+			color: rgb(95 95 95 / 100%);
+			font-size: 12px;
+			line-height: 16px;
+			margin: 16px 32px 16px 0;
+		}
+	}
+
+	.right-side {
+		span {
+			color: rgb(95 95 95 / 100%);
+			font-size: 14px;
+			line-height: 24px;
+			font-weight: 600;
+			margin: 8px;
+
+			&:nth-of-type(4) {
+				cursor: default;
+			}
+		}
+	}
+}

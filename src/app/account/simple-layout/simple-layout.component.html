@@ -1,2 +1,11 @@
-<div><a class="link-primary" routerLink="../">Back</a></div>
-<router-outlet></router-outlet>
+<cwb-simple-header></cwb-simple-header>
+<div>
+	<div class="flex row a-i-c">
+		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M14 7L9 12L14 17" stroke="#2A6ED4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+		</svg>
+		<a [routerLink]="['/']">Back to login</a>
+	</div>
+	<router-outlet></router-outlet>
+</div>
+<cwb-simple-footer></cwb-simple-footer>

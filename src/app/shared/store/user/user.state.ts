@@ -26,6 +26,7 @@ import {Observable, of} from 'rxjs'
 import {switchMap} from 'rxjs/operators'
 import {IRegion, IUserSettings} from "@interfaces/user.interfaces";
 import {ErrorHandlerService} from "@services/error-handler.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 export interface UserStateModel {
 	logged?: boolean
@@ -49,7 +50,8 @@ const freshUser = {
 export class UserState {
 	constructor(
 		private error: ErrorHandlerService,
-		private actions: Actions
+		private actions: Actions,
+		private snack: MatSnackBar
 	) {
 	}
 
@@ -116,7 +118,7 @@ export class UserState {
 		} else {
 			setState({...getState(), ...freshUser, loginToken: undefined})
 
-			this.snack(error!)
+			this.snack.open(error!)
 			return getState()
 		}
 	}
@@ -135,7 +137,7 @@ export class UserState {
 		{data, code, error}: LogInResponse
 	): UserStateModel {
 		if (code !== 200) {
-			this.snack(error!)
+			this.snack.open(error!)
 			return getState()
 		}
 		dispatch(new GetUserSettings())
@@ -195,7 +197,7 @@ export class UserState {
 		} else {
 			setState({...getState(), ...freshUser, loginToken: undefined})
 
-			this.snack(error!)
+			this.snack.open(error!)
 
 			return dispatch(new Navigate(['/']))
 		}
@@ -232,8 +234,8 @@ export class UserState {
 		{}: StateContext<UserStateModel>,
 		{code, error}: StartResetPasswordResponse
 	) {
-		this.snack(code === 200
-			? 'We just have sent you an email!'
+		this.snack.open(code === 200
+			? 'we have sent you a password reset link, please check your email inbox'
 			: error || 'Something gone wrong...')
 	}
 
@@ -243,7 +245,7 @@ export class UserState {
 		{code, error}: CheckResetPasswordResponse
 	) {
 		if (code !== 200 && error) {
-			this.snack(error)
+			this.snack.open(error)
 		}
 	}
 
@@ -253,7 +255,7 @@ export class UserState {
 		{code, error}: ChangePasswordResponse
 	) {
 		if (code !== 200 && error) {
-			return this.snack(error)
+			return this.snack.open(error)
 		}
 		return dispatch(new Navigate(['/']))
 	}
@@ -265,9 +267,5 @@ export class UserState {
 	) {
 		console.log()
 		return patchState({stripeClientSecret: data.stripeClientSecret})
-	}
-
-	private snack(error: string) {
-		this.error.handle(error)
 	}
 }

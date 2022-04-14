@@ -7,7 +7,7 @@ import {SimpleLayoutComponent} from "./account/simple-layout/simple-layout.compo
 const routes: Routes = [
     {
         matcher: function (segments: UrlSegment[]) {
-            if (segments.length && ['checkResetPassword', 'reset-password', 'sign-up'].includes(segments[0].path)) {
+            if (segments.length && ['checkResetPassword', 'sign-up', 'passwordreset', 'reset-password'].includes(segments[0].path)) {
                 return {
                     consumed: [],
                 };
@@ -17,9 +17,13 @@ const routes: Routes = [
         component: SimpleLayoutComponent,
         children: [
             {
-                path: 'checkResetPassword',
+                path: 'passwordreset',
                 canActivate: [ChangePasswordGuard],
                 loadChildren: () => import('./account/change-password/change-password.module').then(m => m.ChangePasswordModule)
+            },
+            {
+                path: 'sign-up',
+                loadChildren: () => import('./account/create-user/create-user.module').then(m => m.CreateUserModule)
             },
             {
                 path: 'reset-password',
@@ -40,7 +44,8 @@ const routes: Routes = [
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
+    providers: [ChangePasswordGuard]
 })
 export class AppRoutingModule {
 }
