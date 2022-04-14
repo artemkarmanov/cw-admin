@@ -5,7 +5,16 @@ cwb-sessions-page {
     height: 100%;
     width: 100%;
 
+    .preserve {
+        white-space: pre;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
     select {
+        height: 28px;
         outline: none;
         border-radius: 8px;
         padding: 4px !important;

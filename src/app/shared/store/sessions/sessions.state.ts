@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {
-	IAdminSession,
+	IAdminSession, IAdminSessionRow,
 	ISessionCaptionLogs,
 	ISessionViewerLog
 } from "@interfaces/session.interfaces";
@@ -26,8 +26,11 @@ export interface SessionsStateModel {
 })
 export class SessionsState {
 	@Selector()
-	public static sessions(state: SessionsStateModel) {
-		return state.sessions
+	public static sessions(state: SessionsStateModel): IAdminSessionRow[] {
+		return state.sessions.map((session) => ({
+			...session,
+			owner: `${session.ownerEmail}\n${session.ownerFirstName} ${session.ownerLastName}`
+		}) as IAdminSessionRow)
 	}
 
 	@Selector()

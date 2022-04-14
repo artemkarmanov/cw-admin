@@ -8,7 +8,6 @@ import {
 import {
 	SessionStatusBadgeComponent
 } from "./sessions-table/session-status-badge/session-status-badge.component";
-import {SessionOwnerComponent} from "./sessions-table/session-owner/session-owner.component";
 
 export const sessionsTableConfig = {
 	sessionId: {
@@ -22,15 +21,14 @@ export const sessionsTableConfig = {
 	},
 	startEpoch: {
 		title: 'Start time',
-		width: '200px',
+		width: '256px',
 		valuePrepareFunction: prepareDate,
 		filter: false,
 		sort: false
 	},
 	sessionDurationMins: {
-		title: 'Duration',
-		width: '110px',
-		valuePrepareFunction: (data: number) => `${data} mins`
+		title: 'Duration (mins)',
+		width: '152px',
 	},
 	status: {
 		title: 'Status',
@@ -50,13 +48,16 @@ export const sessionsTableConfig = {
 			},
 		}
 	},
-	ownerEmail: {
-		title: 'Owner Email',
-		type: 'custom',
-		renderComponent: SessionOwnerComponent
+	owner: {
+		title: 'Owner',
+		class: 'preserve',
+		type: 'html',
+		valuePrepareFunction: (owner: string) => (
+			'<span class="preserve">' + owner + '</span>'
+		),
 	},
 	actions: {
-		title: 'Logs',
+		title: 'Actions / Logs',
 		type: 'custom',
 		renderComponent: SessionTableActionsComponent,
 		filter: false,

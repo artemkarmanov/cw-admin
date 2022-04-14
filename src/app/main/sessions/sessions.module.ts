@@ -18,7 +18,6 @@ import {SessionsService} from "./sessions.service";
 import {
 	SessionStatusBadgeComponent
 } from './sessions-table/session-status-badge/session-status-badge.component';
-import {SessionOwnerComponent} from './sessions-table/session-owner/session-owner.component';
 
 @NgModule({
 	declarations: [
@@ -29,8 +28,7 @@ import {SessionOwnerComponent} from './sessions-table/session-owner/session-owne
 		SessionDialogComponent,
 		SessionLinkComponent,
 		SessionTableActionsComponent,
-		SessionStatusBadgeComponent,
-		SessionOwnerComponent,
+		SessionStatusBadgeComponent
 	],
 	imports: [
 		SessionsRoutingModule,

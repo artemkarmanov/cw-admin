@@ -8,7 +8,7 @@ import {
 import {Observable} from 'rxjs';
 import {SessionsService} from './sessions.service';
 import {BreadCrumbsService} from '@services/bread-crumbs.service';
-import {IAdminSession} from "@interfaces/session.interfaces";
+import {IAdminSessionRow} from "@interfaces/session.interfaces";
 import {Title} from "@angular/platform-browser";
 import {sessionsTableConfig} from "./sessions.table.config";
 import {FormControl} from "@angular/forms";
@@ -25,7 +25,7 @@ import {SessionsState} from "@store/sessions.state";
 export class SessionsPageComponent implements OnInit, AfterViewInit {
 	public rangePicker = new FormControl();
 	public columnsConfig = sessionsTableConfig
-	@Select(SessionsState.sessions) public sessions$!: Observable<IAdminSession[]>
+	@Select(SessionsState.sessions) public sessions$!: Observable<IAdminSessionRow[]>
 
 	constructor(
 		private sessionService: SessionsService,
