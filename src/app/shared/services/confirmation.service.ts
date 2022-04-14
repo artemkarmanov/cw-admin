@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {SharedProviderModule} from '../shared-provider.module';
+import {SharedProviderModule} from '../../shared-provider.module';
 import {Observable} from 'rxjs';
 import {ConfirmationDialogComponent} from '@cmp/confirmation-dialog/confirmation-dialog.component';
 import {DialogService} from "@services/dialog.service";

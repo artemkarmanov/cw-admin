@@ -1,0 +1,13 @@
+<form class="viewer-form flex w-100" [formGroup]="viewerForm">
+	<div formArrayName="viewers" class="flex col w-100 gap-16">
+		<div class="flex row viewer" *ngFor="let control of viewerArray.controls; let i=index">
+			<input class="w-100" type="text" [formControlName]="i">
+			<cw-svg-icon svg="close" class="pointer" (click)="removeViewer(i)"></cw-svg-icon>
+		</div>
+
+		<div class="flex row a-i-c pointer mb-20" (click)="newViewer()">
+			<cw-svg-icon svg="add"></cw-svg-icon>
+			<span class="add-new">Add viewer</span>
+		</div>
+	</div>
+</form>

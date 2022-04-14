@@ -74,11 +74,7 @@
 
 					<ng-container *ngIf="authorizedViewersOnlyChecked">
 						<div class="flex col mt-16">
-							<label class="form-label" for="viewerEmails">List of emails for
-								authorised viewers (separated by linebreaks):</label>
-							<textarea class="form-control form-control-lg" style="resize: vertical; height:
-							max-content; overflow: auto"
-							          formControlName="viewerEmails" id="viewerEmails"></textarea>
+							<cwb-viewers-list formControlName="viewerEmails"></cwb-viewers-list>
 						</div>
 					</ng-container>
 				</ng-template>

@@ -28,6 +28,7 @@ import {LoaderComponent} from "@cmp/loader/loader.component";
 import {LoadedDirective} from "@directives/loaded.directive";
 import {SmartTablePaginatorDirective} from "@cmp/smart-table/smart-table.paginator.directive";
 import {StepperComponent} from "@cmp/stepper/stepper.component";
+import {ViewersListComponent} from "@cmp/viewers-list/viewers-list.component";
 
 export const sharedConfig = [
 	TimezoneSelectorComponent,
@@ -60,5 +61,6 @@ export const sharedConfig = [
 	LoaderComponent,
 	LoadedDirective,
 	SmartTablePaginatorDirective,
-	StepperComponent
+	StepperComponent,
+	ViewersListComponent
 ]

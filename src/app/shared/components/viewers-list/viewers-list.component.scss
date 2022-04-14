@@ -1,0 +1,29 @@
+@import "colors";
+
+.viewer-form {
+  .viewer {
+    border: 1px solid $blue-20;
+    border-radius: 8px;
+    max-width: 680px;
+
+    input {
+      border: none;
+      box-shadow: none;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 24px;
+      color: $gray-80;
+    }
+
+    .pointer {
+      margin-right: 16px;
+    }
+  }
+
+  .add-new {
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 24px;
+    color: $blue-50;
+  }
+}

@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {SharedProviderModule} from './shared-provider.module';
+import {SharedProviderModule} from '../shared-provider.module';
 import {RouterModule} from "@angular/router";
 import {Ng2SmartTableModule} from "ng2-smart-table";
 import {sharedConfig} from "./shared.config";
