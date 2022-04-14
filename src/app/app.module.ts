@@ -25,6 +25,9 @@ import {UsersState} from "@store/users.state";
 import {BillingsState} from "@store/billings.state";
 import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";
 import {NgxsRouterPluginModule} from "@ngxs/router-plugin";
+import {SimpleHeaderComponent} from './account/simple-layout/simple-header/simple-header.component';
+import {SimpleFooterComponent} from './account/simple-layout/simple-footer/simple-footer.component';
+import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule} from "@angular/material/snack-bar";
 
 function initialize(store: Store) {
 	return () => store.dispatch(new ConnectWebSocket())
@@ -33,13 +36,16 @@ function initialize(store: Store) {
 @NgModule({
 	declarations: [
 		AppComponent,
-		SimpleLayoutComponent
+		SimpleLayoutComponent,
+		SimpleHeaderComponent,
+		SimpleFooterComponent
 	],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
 		BrowserAnimationsModule,
 		OverlayModule,
+		MatSnackBarModule,
 		NgxsModule.forRoot([
 				BookingsState,
 				WebsocketState,
@@ -79,6 +85,12 @@ function initialize(store: Store) {
 		{
 			provide: ErrorHandler,
 			useClass: ApplicationErrorHandler
+		},
+		{
+			provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+			useValue: {
+				duration: 5000
+			}
 		},
 		DialogService,
 		ErrorHandlerService,

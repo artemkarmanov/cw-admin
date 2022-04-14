@@ -24,7 +24,7 @@ export class LoginFormComponent {
 
         return new Send({
             type: MessageType.LogIn,
-            data: {...form, role}
+            data: {...form, role: role === 'booking' ? 'viewer' : role}
         })
     }
 }

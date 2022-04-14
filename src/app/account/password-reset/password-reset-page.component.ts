@@ -18,7 +18,7 @@ export class PasswordResetPageComponent implements OnInit, OnDestroy {
     private destroy$$: Subject<void> = new Subject<void>();
     private send$$: Subject<string> = new Subject<string>();
     public form: FormGroup = new FormGroup({
-        email: new FormControl('', [Validators.required, Validators.email])
+        email: new FormControl('', [Validators.required, Validators.email]),
     });
 
     public role = environment.role;
