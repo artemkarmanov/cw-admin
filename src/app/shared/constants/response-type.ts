@@ -27,4 +27,5 @@ export enum ResponseType {
 	GetSessionsSummaryResponse = 'getSessionsSummaryResp',
 	GetSessionCaptionLogsResponse = 'getSessionCaptionLogsResp',
 	CancelSessionResponse = 'cancelSessionResp',
+	CreateBookingResponse = 'createBookingResp',
 }

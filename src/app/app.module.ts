@@ -25,6 +25,7 @@ import {UsersState} from "@store/users.state";
 import {BillingsState} from "@store/billings.state";
 import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";
 import {NgxsRouterPluginModule} from "@ngxs/router-plugin";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 function initialize(store: Store) {
 	return () => store.dispatch(new ConnectWebSocket())
@@ -38,6 +39,7 @@ function initialize(store: Store) {
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
+		MatSnackBarModule,
 		BrowserAnimationsModule,
 		OverlayModule,
 		NgxsModule.forRoot([
