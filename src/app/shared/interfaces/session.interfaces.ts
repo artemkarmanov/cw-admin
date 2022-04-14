@@ -51,6 +51,10 @@ export interface IAdminSession {
 	allowOverrun: 0 | 1;
 }
 
+export interface IAdminSessionRow extends IAdminSession{
+	owner: string
+}
+
 export interface ISessionFilter {
 	fromEpoch: number;
 	toEpoch: number;
