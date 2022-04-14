@@ -37,3 +37,20 @@ export class CancelSessionResponse {
 	) {
 	}
 }
+
+export class CreateBookingResponse {
+	static readonly type = ResponseType.CreateBookingResponse
+
+	constructor(
+		public data: {
+			bookingToken: number
+			bookingPasscode: string
+			bookingPasscodeHash: string
+			bookingCaptionerPasscode: string
+		},
+		public code: HttpStatusCode,
+		public p: number,
+		public error: string
+	) {
+	}
+}

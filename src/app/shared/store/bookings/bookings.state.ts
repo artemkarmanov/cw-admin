@@ -1,12 +1,14 @@
 import {Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {
-	CancelSessionResponse,
+	CancelSessionResponse, CreateBookingResponse,
 	GetBookingsResponse,
 	GetBookingSummaryResponse
 } from "./bookings.actions";
 import {IBooking, IBookingSummary} from "@interfaces/booking.interfaces";
 import {TSessionStatus} from "@interfaces/session.interfaces";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {Navigate} from "@ngxs/router-plugin";
 
 export interface BookingStateModel {
 	bookings: IBookingSummary[]
@@ -17,6 +19,9 @@ export interface BookingStateModel {
 @Injectable()
 @State<null>({name: 'bookings'})
 export class BookingsState {
+	constructor(private snack: MatSnackBar) {
+	}
+
 	@Selector()
 	public static bookings(state: BookingStateModel) {
 		return state.bookings
@@ -68,5 +73,15 @@ export class BookingsState {
 				sessions: updatedSessions
 			}
 		})
+	}
+
+	@Action(CreateBookingResponse)
+	private createBookingResponse(
+		{dispatch}: StateContext<BookingStateModel>,
+		{code, error}: CreateBookingResponse
+	) {
+		code === 200
+			? dispatch(new Navigate(['/']))
+			: this.snack.open(error)
 	}
 }

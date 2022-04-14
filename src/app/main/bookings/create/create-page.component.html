@@ -20,7 +20,7 @@
 		<div class="flex row w-100 j-c-fe gap">
 			<button cdkStepperPrevious>Back</button>
 			<button (click)="stepper.reset()">Reset</button>
-			<button [disabled]="thirdFormGroup.invalid" (click)="send()">Go!</button>
+			<button [disabled]="thirdFormGroup.invalid" (click)="createBooking()">Go!</button>
 		</div>
 	</cdk-step>
 </cw-stepper>
@@ -44,15 +44,16 @@
 						class="form-control"
 						autocomplete="off"
 						ngxDaterangepickerMd
+						formControlName="startDate"
 						placeholder="Select Date"
 						[singleDatePicker]="true"
-						(startDateChanged)="firstFormGroup.patchValue($event)"
 					/>
 				</div>
 				<div class="flex col flex-1">
 					<label>Select Time</label>
 					<input
 						type="time"
+						formControlName="startTime"
 					/>
 				</div>
 			</div>
@@ -63,7 +64,7 @@
 		<div class="flex row gap a-i-c">
 			<span class="body-field">Total session duration</span>
 			<input
-				formControlName="duration"
+				formControlName="durationMins"
 				id="durationMins"
 				max="1439"
 				min="1"
@@ -73,7 +74,7 @@
 			>
 			<span class="body-field">minutes</span>
 			<label
-				*ngIf="firstFormGroup.controls['duration'].invalid"
+				*ngIf="firstFormGroup.controls['durationMins'].invalid"
 				style="margin-bottom: unset"
 			>
 				Minimum duration is 15 minutes
@@ -95,16 +96,20 @@
 		</div>
 
 		<div *ngIf="isAdmin">
-			<label for="oboUserId">Booking owner</label>
-			<select
-				class="form-select form-select-lg"
-				formControlName="oboUserId"
-				id="oboUserId"
-			>
-				<option *ngFor="let user of (users$ | async)" [value]="user.userId">
-					{{user.firstName}} {{user.lastName}}
-				</option>
-			</select>
+			<ng-container *ngIf="users$ | async as users">
+				<ng-container *ngIf="users.length">
+					<label for="oboUserId">Booking owner</label>
+					<select
+						class="form-select form-select-lg"
+						formControlName="oboUserId"
+						id="oboUserId"
+					>
+						<option *ngFor="let user of users" [value]="user.userId">
+							{{user.firstName}} {{user.lastName}}
+						</option>
+					</select>
+				</ng-container>
+			</ng-container>
 		</div>
 
 		<div class="flex row gap a-i-c mt-16">
@@ -171,15 +176,16 @@
 			</span>
 		</div>
 		<div class="flex row gap a-i-c">
-			<input #authorizedViewersOnly class="form-check-input" formControlName="authorizedViewersOnly"
-			       id="authorizedViewersOnly" type="checkbox">
-			<span (click)="authorizedViewersOnly.click()" class="body-field">Only allow these logged in users:</span>
+			<input #authorisedViewersOnly class="form-check-input" formControlName="authorisedViewersOnly"
+			       id="authorisedViewersOnly" type="checkbox">
+			<span (click)="authorisedViewersOnly.click()" class="body-field">Only allow these logged in
+				users:</span>
 		</div>
-		<ng-container *ngIf="thirdFormGroup.controls['authorizedViewersOnly'].value">
+		<ng-container *ngIf="thirdFormGroup.controls['authorisedViewersOnly'].value">
 			<div class="flex col">
 				<span
 					class="body-field">List of emails for authorised viewers(separated bylinebreaks)</span>
-				<cwb-viewers-list formControlName="viewerEmails" id="viewerEmails"></cwb-viewers-list>
+				<cwb-viewers-list formControlName="authorisedViewerEmails" id="viewerEmails"></cwb-viewers-list>
 			</div>
 		</ng-container>
 		<div class="flex row gap a-i-c">
