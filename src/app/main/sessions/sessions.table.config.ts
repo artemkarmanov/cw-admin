@@ -17,7 +17,8 @@ export const sessionsTableConfig = {
 	title: {
 		title: 'Booking',
 		type: 'custom',
-		renderComponent: SessionLinkComponent
+		renderComponent: SessionLinkComponent,
+		width: '192px'
 	},
 	startEpoch: {
 		title: 'Start time',
@@ -34,7 +35,7 @@ export const sessionsTableConfig = {
 		title: 'Status',
 		type: 'custom',
 		renderComponent: SessionStatusBadgeComponent,
-		width: '130px',
+		width: '132px',
 		filter: {
 			type: 'list',
 			config: {
@@ -57,11 +58,12 @@ export const sessionsTableConfig = {
 		),
 	},
 	actions: {
-		title: 'Actions / Logs',
+		title: 'Actions',
 		type: 'custom',
 		renderComponent: SessionTableActionsComponent,
 		filter: false,
-		sort: false
+		sort: false,
+		width: '132px'
 	}
 }
 

@@ -9,6 +9,8 @@ cwb-range-picker {
 
 	input {
 		font-size: 14px !important;
+		caret-color: transparent;
+		background: $gray-20;
 	}
 
 	.md-drppicker.double {

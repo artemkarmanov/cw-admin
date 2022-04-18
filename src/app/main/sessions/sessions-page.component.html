@@ -17,7 +17,6 @@
 	<cwb-smart-table
 		*ngIf="sessions.length; else empty"
 		[source]="sessions || []"
-		[perPage]="8"
 		[columns]="columnsConfig"
 	></cwb-smart-table>
 </cwb-card>

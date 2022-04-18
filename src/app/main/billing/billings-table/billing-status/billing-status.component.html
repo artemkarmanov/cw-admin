@@ -1,0 +1,11 @@
+<ng-container *ngIf="rowData.error; else success">
+	<cw-svg-icon
+		svg="error"
+		[title]="rowData.error"
+	></cw-svg-icon>
+</ng-container>
+<ng-template #success>
+	<cw-svg-icon
+		svg="checked"
+	></cw-svg-icon>
+</ng-template>

@@ -4,6 +4,7 @@ cwb-sessions-page {
     flex: 1;
     height: 100%;
     width: 100%;
+    max-width: 1216px;
 
     .preserve {
         white-space: pre;
@@ -29,14 +30,6 @@ cwb-sessions-page {
 
         .ng2-smart-title {
             margin-right: 8px;
-        }
-    }
-
-    cwb-smart-table {
-        tbody {
-            tr {
-                height: 63px;
-            }
         }
     }
 }

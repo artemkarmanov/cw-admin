@@ -5,11 +5,13 @@ import {BillingComponent} from './billing.component';
 import {SharedModule} from "../../shared/shared.module";
 import {BillingViewComponent} from './billing-view/billing-view.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { BillingStatusComponent } from './billings-table/billing-status/billing-status.component';
 
 @NgModule({
 	declarations: [
 		BillingComponent,
 		BillingViewComponent,
+  BillingStatusComponent,
 	],
 	imports: [
 		CommonModule,

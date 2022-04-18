@@ -1,36 +1,30 @@
-<ng-container
-        *ngTemplateOutlet="asyncTemplate; context: { booking:booking$ | async }">
-</ng-container>
-
-<ng-template #asyncTemplate let-booking="booking">
-    <ng-container *ngIf="booking; else empty">
-        <cwb-page-top class="left">
-            <div>
-                <h3 class="title">{{booking.title}}</h3>
-                <span class="booking-id">Booking ID:{{booking.bookingToken}}</span>
-            </div>
-        </cwb-page-top>
-
-        <div class="flex row info">
-            <cwb-card class="left">
-                <router-outlet></router-outlet>
-            </cwb-card>
-
-            <cwb-card class="right">
-                <div class="flex j-c-sb a-i-c mb-20">
-                    <h4>Sessions</h4>
-                    <cw-small-button
-                      buttonText="Add session"
-                      [icon]="'add'"
-                      (click)="addSession()"
-                      [inverted]="true"
-                    ></cw-small-button>
-                </div>
-                <cwb-sessions [bookingTimeZone]="booking.bookingTimeZone"></cwb-sessions>
-            </cwb-card>
+<ng-container *ngIf="(booking$ |async) as booking; else empty">
+    <cwb-page-top class="left">
+        <div>
+            <h3 class="title">{{booking.title}}</h3>
+            <span class="booking-id">Booking ID:{{booking.bookingToken}}</span>
         </div>
-    </ng-container>
-</ng-template>
+    </cwb-page-top>
+
+    <div class="flex row info">
+        <cwb-card class="left">
+            <router-outlet></router-outlet>
+        </cwb-card>
+
+        <cwb-card class="right">
+            <div class="flex j-c-sb a-i-c mb-20">
+                <h4>Sessions</h4>
+                <cw-small-button
+                  buttonText="Add session"
+                  [icon]="'add'"
+                  (click)="addSession()"
+                  [inverted]="true"
+                ></cw-small-button>
+            </div>
+            <cwb-sessions [bookingTimeZone]="booking.bookingTimeZone"></cwb-sessions>
+        </cwb-card>
+    </div>
+</ng-container>
 
 <ng-template #empty>
     <div>No booking with this identifier exists</div>

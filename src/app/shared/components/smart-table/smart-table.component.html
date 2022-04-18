@@ -1,7 +1,6 @@
 <ng2-smart-table
 	(rowSelect)="loadData()"
 	(userRowSelect)="rowClicked.emit($event)"
-	[ref]="paginator"
 	[settings]="{
 		columns,
 		actions: {
@@ -11,28 +10,11 @@
 		},
 		pager: {
 			perPageSelect: true,
-			perPage: perPage,
+			perPage: 5,
 			display: displayPager
 		}
 	}"
 	[source]="source"
 	class="custom-table"
-	cwbSmartTablePaginator
 >
 </ng2-smart-table>
-
-<select
-		class="selector"
-		#paginator
-		[(ngModel)]="perPage"
-		(ngModelChange)="reloadPaginator.emit()"
-		[hidden]="true"
->
-	<option
-		*ngFor="let pagesPer of paginatorData"
-		[ngValue]="pagesPer"
-		[selected]="perPage === pagesPer"
-	>
-		{{pagesPer}}
-	</option>
-</select>

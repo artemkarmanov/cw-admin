@@ -15,11 +15,12 @@ export const usersTableConfig = {
 		title: 'Role',
 		type: 'custom',
 		renderComponent: UsersRoleComponent,
-		width: '206px'
+		width: '218px'
 	},
 	actions: {
 		title: 'Actions',
 		sort: false,
+		width: '102px',
 		filter: false,
 		type: 'custom',
 		renderComponent: UsersTableActionsComponent

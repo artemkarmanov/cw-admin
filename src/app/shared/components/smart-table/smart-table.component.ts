@@ -17,13 +17,9 @@ import {
 export class SmartTableComponent {
   @Input() public source: any[] = []
   @Input() public columns: any = {}
-  @Input() public perPage: number = 0
   @Input() public displayPager: boolean = true
   @Output() public rowClicked = new EventEmitter()
   @Output() public reloadPaginator = new EventEmitter()
-  public paginatorData = [
-    5, 6, 7, 8, 9, 10, 11, 12, 13
-  ]
 
   public loadData() {
   }

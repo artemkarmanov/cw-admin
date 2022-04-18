@@ -1,14 +1,29 @@
 import {DatePipe} from "@angular/common";
+import {BillingStatusComponent} from "./billings-table/billing-status/billing-status.component";
 
 export const billingTableConfig = {
 	billingResultId: {
-		title: 'ResultId'
-	},
-	error: {
-		title: 'Error'
+		title: 'Result ID',
+		width: '110px'
 	},
 	success: {
-		title: 'Success'
+		title: 'Status',
+		type: 'custom',
+		renderComponent: BillingStatusComponent,
+		valuePrepareFunction: (success: number) => {
+			return success || 0
+		},
+		width: '120px',
+		filter: {
+			type: 'list',
+			config: {
+				selectText: 'All',
+				list: [
+					{value: '1', title: 'Success'},
+					{value: '0', title: 'Error'}
+				],
+			},
+		}
 	},
 	totalBill: {
 		title: 'Total Bill'
@@ -23,11 +38,13 @@ export const billingTableConfig = {
 		title: 'Email'
 	},
 	userId: {
-		title: 'User Id'
+		title: 'User Id',
+		width: '100px'
 	},
 	billedAtEpoch: {
 		title: 'Billed At',
-		valuePrepareFunction: prepareDate
+		valuePrepareFunction: prepareDate,
+		width: '256px'
 	}
 }
 

@@ -25,7 +25,6 @@ import {BadgeComponent} from "@cmp/badge/badge.component";
 import {RangePickerComponent} from "@cmp/range-picker/range-picker.component";
 import {LoaderComponent} from "@cmp/loader/loader.component";
 import {LoadedDirective} from "@directives/loaded.directive";
-import {SmartTablePaginatorDirective} from "@cmp/smart-table/smart-table.paginator.directive";
 import {StepperComponent} from "@cmp/stepper/stepper.component";
 import {ViewersListComponent} from "@cmp/viewers-list/viewers-list.component";
 
@@ -58,7 +57,6 @@ export const sharedConfig = [
 	RangePickerComponent,
 	LoaderComponent,
 	LoadedDirective,
-	SmartTablePaginatorDirective,
 	StepperComponent,
 	ViewersListComponent
 ]
