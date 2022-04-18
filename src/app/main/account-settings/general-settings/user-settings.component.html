@@ -1,60 +1,62 @@
 <ng-container *ngIf="showCreditCardForm; else showUserInfoForm">
-    <h2>Payment settings</h2>
-    <cwb-payment></cwb-payment>
+	<h2>Payment settings</h2>
+	<cwb-payment></cwb-payment>
 </ng-container>
+
 <ng-template #showUserInfoForm>
-<form (ngSubmit)="save()" [formGroup]="form">
-    <div class="flex row gap-16">
-        <div>
-            <label class="form-label" for="firstName">First name</label>
-            <input class="form-control form-control-lg" formControlName="firstName" id="firstName"
-                   placeholder="Enter your first name"
-                   required type="text">
-        </div>
-        <div>
-            <label class="form-label" for="lastName">Last name</label>
-            <input class="form-control form-control-lg" formControlName="lastName" id="lastName"
-                   placeholder="Enter your last name"
-                   required type="text">
-        </div>
-    </div>
+	<form [formGroup]="form">
+		<div class="flex row w-100 gap-16">
+			<cw-input
+				class="flex-1"
+				formControlName="firstName"
+				inputLabel="First Name"
+				inputPlaceholder="Enter your first name"
+				inputType="text"
+			></cw-input>
+			<cw-input
+				class="flex-1"
+				formControlName="lastName"
+				inputLabel="Last name"
+				inputPlaceholder="Enter your last name"
+				inputType="text"
+			></cw-input>
+		</div>
 
-    <div>
-        <label class="form-label" for="new-email">Email</label>
-        <input class="form-control form-control-lg" formControlName="email" id="new-email"
-               placeholder="Enter your email here"
-               required type="text">
-    </div>
+		<cw-input
+			formControlName="email"
+			inputLabel="Email"
+			inputPlaceholder="Enter your email here"
+			inputType="text"
+		></cw-input>
 
-    <div class="timezone">
-        <cwb-timezone-selector formControlName="timeZone"></cwb-timezone-selector>
-    </div>
+		<cwb-timezone-selector formControlName="timeZone"></cwb-timezone-selector>
 
-    <div class="container">
-        <div class="row">
-          <div class="col text-center">
-            <ng-container *ngIf="paymentMethodComplete===1; else notComplete">
-                <div>
-                    You have a payment method saved with CaptionWorks.
-                </div>
-            </ng-container>
-            <ng-template #notComplete>
-                <div>
-                    You don't have a payment method set up yet.
-                </div>
-            </ng-template>
-            
-            <button class="btn btn-secondary" (click)="showPaymentSettingForm()">Update payment method</button>
-          </div>
-        </div>
-    
+		<cw-small-button
+			(click)="save()"
+			[buttonDisabled]="form.invalid || form.untouched"
+			buttonText="Save"
+			class="flex mt-16 j-c-fe"
+		></cw-small-button>
 
-        <div class="row">
-            <div class="col text-right">
-                <button [disabled]="form.invalid || form.untouched" class="btn btn-primary" style="text-align: right" type="submit">Save</button>
-            </div>
-        </div>
-        
-    </div>
-</form>
+	</form>
+
+	<hr/>
+
+	<div class="flex col a-i-fe">
+		<ng-container *ngIf="userSettings.paymentMethodComplete; else notComplete">
+			<div>
+				You have a payment method saved with CaptionWorks.
+			</div>
+		</ng-container>
+		<ng-template #notComplete>
+			<div>
+				You don't have a payment method set up yet.
+			</div>
+		</ng-template>
+		<cw-small-button
+			(click)="showPaymentSettingForm()"
+			buttonText="Update payment method"
+			class="flex mt-16"
+		></cw-small-button>
+	</div>
 </ng-template>
