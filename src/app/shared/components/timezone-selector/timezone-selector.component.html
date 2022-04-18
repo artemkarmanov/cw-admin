@@ -1,12 +1,13 @@
-<div *ngIf="regions$ | async as regions" class="flex row gap gap-16 w-100">
+<div [formGroup]="timeZoneForm" class="flex row gap gap-16 w-100">
     <div class="w-100 flex col">
         <label for="region">Country</label>
         <ng-select
-          (ngModelChange)="onChange($event)"
           [clearable]="false"
-          [formControl]="region"
-          [items]="regions"
+          [items]="$any(timezones)"
           [notFoundText]="'Loading regions...'"
+          (change)="markAsTouched()"
+          formControlName="region"
+          appendTo="body"
           bindLabel="region"
           class="select region"
           id="region"
@@ -14,13 +15,14 @@
         ></ng-select>
     </div>
 
-    <div class="w-100 flex col" *ngIf="cities">
+    <div class="w-100 flex col" *ngIf="timeZoneForm.get('region')?.value as chosenRegion">
         <label for="city">City</label>
         <ng-select
-          (ngModelChange)="onChange($event)"
+          [items]="chosenRegion.cities"
           [clearable]="false"
-          [formControl]="city"
-          [items]="cities$ | async"
+          (change)="markAsTouched()"
+          formControlName="city"
+          appendTo="body"
           class="select city"
           id="city"
           placeholder="City"

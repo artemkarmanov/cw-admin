@@ -1,25 +1,16 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	forwardRef,
-	OnInit,
-	ViewEncapsulation
-} from '@angular/core';
-import {delayWhen, Observable, of, take} from 'rxjs';
+import {ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {combineLatest, startWith} from 'rxjs';
 import {map, tap} from 'rxjs/operators';
 import {
+	AbstractControl,
 	ControlValueAccessor,
-	FormControl,
+	FormBuilder,
 	NG_VALIDATORS,
 	NG_VALUE_ACCESSOR,
 	Validators
 } from '@angular/forms';
-import {IRegion} from "@interfaces/user.interfaces";
-import {TimezoneService} from "@services/timezone.service";
 import {UntilDestroy, untilDestroyed} from "@ngneat/until-destroy";
-import {Select} from "@ngxs/store";
-import {UserState} from "@store/user.state";
-import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
+import {timezones} from "@constants/timezones";
 
 @UntilDestroy()
 @Component({
@@ -31,95 +22,83 @@ import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 	providers: [
 		{
 			provide: NG_VALUE_ACCESSOR,
-			useExisting: forwardRef(() => TimezoneSelectorComponent),
+			useExisting: TimezoneSelectorComponent,
 			multi: true
 		},
 		{
 			provide: NG_VALIDATORS,
-			useExisting: forwardRef(() => TimezoneSelectorComponent),
+			useValue: Validators.pattern(new RegExp(/^((?!null).)*$/)),
 			multi: true
-		}
+		},
 	]
 })
 export class TimezoneSelectorComponent implements OnInit, ControlValueAccessor {
-	public region: FormControl = new FormControl('', Validators.required);
-	public city: FormControl = new FormControl('', Validators.required);
-	public cities: string[] = []
-	@Select(UserState.regions) public regions$!: Observable<IRegion[]>
-	@Select(UserState.cities) public cities$!: Observable<string[]>
-	@SelectSnapshot(UserState.regions) private regions!: IRegion[]
-	private rValue: { region?: string, city?: string } = {}
+	public timezones = timezones
+	public timeZoneForm = this.fb.group({
+		region: ['', [Validators.required]],
+		city: ['', [Validators.required]]
+	})
 
-	constructor(private timezoneService: TimezoneService) {
+	constructor(private fb: FormBuilder) {
 	}
 
-	get value() {
-		return `${this.rValue?.region}/${this.rValue?.city}`
+	get regionControl(): AbstractControl {
+		return this.timeZoneForm.controls['region']
+	}
+
+	get cityControl(): AbstractControl {
+		return this.timeZoneForm.controls['city']
 	}
 
 	ngOnInit() {
-		this.region
-			.valueChanges
-			.pipe(untilDestroyed(this))
-			.pipe(tap(() => this.city.reset()))
-			.subscribe(({region}) => this.rValue = {region, city: ''})
-
-		this.city
-			.valueChanges
-			.pipe(untilDestroyed(this))
-			.subscribe((city) => this.rValue = {region: this.rValue!.region, city})
-
-		this.timezoneService.getRegions$()
+		combineLatest([
+			this.regionControl.valueChanges
+				.pipe(
+					untilDestroyed(this),
+					tap(() => this.cityControl.reset()),
+					startWith(this.regionControl.value)
+				),
+			this.cityControl.valueChanges
+				.pipe(
+					untilDestroyed(this)
+				)
+		])
+			.pipe(
+				untilDestroyed(this),
+				map(([region, city]) => `${region.region}/${city}`),
+			)
+			.subscribe((timezone) => this.onChange(timezone))
 	}
 
 	writeValue(timezone: string): void {
 		if (!timezone) return
+		const timezoneSplit = timezone.split('/')
+		const writtenRegion = this.timezones
+			.find((region) => region.region === timezoneSplit[0])
 
-		if (timezone.includes('+')) {
-			const scooped = timezone.replace('+', '').split('/')
-			this.rValue = {region: scooped[0], city: scooped[1]}
-		} else {
-			of(timezone)
-				.pipe(
-					untilDestroyed(this),
-					delayWhen(() => this.regions$),
-					take(1),
-					map((timezone) => {
-						const region = this.regions!.find(el => el.region === timezone.split('/')[0])
-						this.region.setValue(region || null)
-						return {region: region!, city: timezone.split('/')[1]}
-					}),
-					tap(({city}) => this.city.setValue(city)),
-					delayWhen(() => this.cities$),
-				)
-				.subscribe()
-		}
+		this.timeZoneForm.setValue({
+			region: writtenRegion,
+			city: timezoneSplit[1]
+		})
+
+		this.onChange(timezone)
 	}
 
-	onChange(value: IRegion | string): any {
-		if (typeof value === "string") {
-			this.rValue.city = value
-		} else {
-			this.city.reset()
-			this.timezoneService.getCities$(value.regionId)
-			this.rValue.region = value.region
-		}
-		this.onTouched()
-	}
-
-	registerOnChange(fn: any): void {
-		this.registerOnTouched(fn)
+	registerOnChange(fn: (timezone: string) => void): void {
 		this.onChange = fn;
 	}
 
-	onTouched = () => {
-	};
-
-	registerOnTouched(fn: any): void {
+	registerOnTouched(fn: () => void): void {
 		this.onTouched = fn;
 	}
 
-	validate(): boolean {
-		return Boolean(this.rValue?.region && this.rValue.city)
+	markAsTouched(): void {
+		this.onTouched();
+	}
+
+	private onChange = (_: string) => {
+	};
+
+	private onTouched = () => {
 	}
 }

@@ -12,7 +12,7 @@ import {
 	NgControl,
 	Validators
 } from '@angular/forms';
-import {map, tap} from "rxjs/operators";
+import {map, pluck, tap} from "rxjs/operators";
 import {UntilDestroy, untilDestroyed} from "@ngneat/until-destroy";
 
 @UntilDestroy()
@@ -59,7 +59,7 @@ export class ViewersListComponent implements OnInit, ControlValueAccessor {
 			.valueChanges
 			.pipe(
 				untilDestroyed(this),
-				map(({viewers}) => viewers),
+				pluck('viewers'),
 				map((viewers: string[]) => viewers.join('\n')),
 				tap(this.onChange)
 			)
@@ -93,12 +93,4 @@ export class ViewersListComponent implements OnInit, ControlValueAccessor {
 
 	private onTouched = () => {
 	}
-
-	// public get invalid(): boolean {
-	// 	return this.viewerForm.invalid
-	// }
-	//
-	// public get valid(): boolean {
-	// 	return this.viewerForm.valid
-	// }
 }

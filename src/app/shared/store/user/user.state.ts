@@ -12,8 +12,6 @@ import {
 import {
 	ChangePasswordResponse,
 	CheckResetPasswordResponse,
-	GetTimeZoneCitiesResponse,
-	GetTimeZoneRegionsResponse,
 	GetUserSettingsResponse,
 	LogInResponse,
 	LogOutResponse,
@@ -24,7 +22,7 @@ import {
 import {Send} from '@store/websocket.send.actions'
 import {Observable, of} from 'rxjs'
 import {switchMap} from 'rxjs/operators'
-import {IRegion, IUserSettings} from "@interfaces/user.interfaces";
+import {IUserSettings} from "@interfaces/user.interfaces";
 import {ErrorHandlerService} from "@services/error-handler.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
@@ -34,8 +32,6 @@ export interface UserStateModel {
 	loginToken?: string
 	userInfo?: IUserSettings
 	requestedPasscode?: boolean
-	regions?: IRegion[]
-	cities?: string[]
 	stripeClientSecret?: string
 }
 
@@ -88,16 +84,6 @@ export class UserState {
 	@Selector()
 	public static logged(state: UserStateModel) {
 		return state.logged
-	}
-
-	@Selector()
-	public static regions(state: UserStateModel) {
-		return state.regions
-	}
-
-	@Selector()
-	public static cities(state: UserStateModel) {
-		return state.cities
 	}
 
 	@Selector()
@@ -211,22 +197,6 @@ export class UserState {
 	@Action(LogOutResponse)
 	private logOutResponse({getState, setState}: StateContext<UserStateModel>) {
 		return setState({...getState(), ...freshUser, loginToken: undefined})
-	}
-
-	@Action(GetTimeZoneRegionsResponse)
-	private GetTimeZoneRegionsResponse(
-		{getState, setState}: StateContext<UserStateModel>,
-		{data}: GetTimeZoneRegionsResponse
-	) {
-		return setState({...getState(), regions: data.regions})
-	}
-
-	@Action(GetTimeZoneCitiesResponse)
-	private getTimeZoneCitiesResponse(
-		{getState, setState}: StateContext<UserStateModel>,
-		{data}: GetTimeZoneCitiesResponse
-	) {
-		return setState({...getState(), cities: data.cities})
 	}
 
 	@Action(StartResetPasswordResponse)

@@ -12,6 +12,7 @@ import {
 	GetSessionsSummaryResponse,
 	GetSessionViewerLogsResponse
 } from "@store/sessions.actions";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 export interface SessionsStateModel {
 	sessions: IAdminSession[]
@@ -25,6 +26,9 @@ export interface SessionsStateModel {
 	defaults: {sessions: [], viewerLogs: [], captionLogs: []}
 })
 export class SessionsState {
+	constructor(private snack: MatSnackBar) {
+	}
+
 	@Selector()
 	public static sessions(state: SessionsStateModel): IAdminSessionRow[] {
 		return state.sessions.map((session) => ({
@@ -46,9 +50,11 @@ export class SessionsState {
 	@Action(GetSessionsSummaryResponse)
 	private getSessionsSummaryResponse(
 		{patchState}: StateContext<SessionsStateModel>,
-		{data}: GetSessionsSummaryResponse
+		{data, code, error}: GetSessionsSummaryResponse
 	) {
-		return patchState({sessions: data.sessions})
+		return code === 200
+			? patchState({sessions: data.sessions})
+			: this.snack.open(error)
 	}
 
 	@Action(GetSessionViewerLogsResponse)

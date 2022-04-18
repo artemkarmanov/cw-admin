@@ -7,7 +7,6 @@ import {ApplicationErrorHandler} from '@services/application-error-handler';
 import {SimpleLayoutComponent} from './account/simple-layout/simple-layout.component';
 import {ErrorHandlerService} from "@services/error-handler.service";
 import {BreadCrumbsService} from "@services/bread-crumbs.service";
-import {TimezoneService} from "@services/timezone.service";
 import {UsersService} from "@services/users.service";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {DialogService} from "@services/dialog.service";
@@ -95,7 +94,6 @@ function initialize(store: Store) {
 		DialogService,
 		ErrorHandlerService,
 		BreadCrumbsService,
-		TimezoneService,
 		UsersService
 	],
 	bootstrap: [AppComponent]
