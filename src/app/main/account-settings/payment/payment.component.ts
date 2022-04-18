@@ -64,8 +64,7 @@ export class PaymentComponent implements OnInit, AfterViewInit {
 		this.cdr.markForCheck()
 	}
 
-	public submit(event: Event) {
-		event.preventDefault();
+	public submit() {
 		if (!this.stripe || !this.elementsInstance) return
 
 		from(this.stripe.confirmSetup({
