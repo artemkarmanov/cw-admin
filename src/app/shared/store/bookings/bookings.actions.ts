@@ -54,3 +54,17 @@ export class CreateBookingResponse {
 	) {
 	}
 }
+
+export class UpdateBookingResponse {
+	static readonly type = ResponseType.UpdateBookingResponse
+
+	constructor(
+		public data: {
+			bookingToken: string
+		},
+		public code: HttpStatusCode,
+		public p: number,
+		public error: string
+	) {
+	}
+}

@@ -1,14 +1,18 @@
 import {Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {
-	CancelSessionResponse, CreateBookingResponse,
+	CancelSessionResponse,
+	CreateBookingResponse,
 	GetBookingsResponse,
-	GetBookingSummaryResponse
+	GetBookingSummaryResponse,
+	UpdateBookingResponse
 } from "./bookings.actions";
 import {IBooking, IBookingSummary} from "@interfaces/booking.interfaces";
 import {TSessionStatus} from "@interfaces/session.interfaces";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Navigate} from "@ngxs/router-plugin";
+import {Send} from "@store/websocket.send.actions";
+import {MessageType} from "@constants/message-types";
 
 export interface BookingStateModel {
 	bookings: IBookingSummary[]
@@ -82,6 +86,19 @@ export class BookingsState {
 	) {
 		code === 200
 			? dispatch(new Navigate(['/']))
+			: this.snack.open(error)
+	}
+
+	@Action(UpdateBookingResponse)
+	private updateBookingResponse(
+		{dispatch}: StateContext<BookingStateModel>,
+		{code, data, error}: UpdateBookingResponse
+	) {
+		return code === 200
+			? dispatch(new Send({
+				type: MessageType.GetBookings,
+				data: {bookingToken: data.bookingToken}
+			}))
 			: this.snack.open(error)
 	}
 }

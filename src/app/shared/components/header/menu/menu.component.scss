@@ -8,6 +8,7 @@
 
 nav {
   @extend %row-c;
+  background: $white;
   gap: 12px;
 
   a {
