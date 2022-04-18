@@ -1,4 +1,3 @@
-import {TimezoneSelectorComponent} from "@cmp/timezone-selector/timezone-selector.component";
 import {RegionPipe} from "@pipes/region.pipe";
 import {CityPipe} from "@pipes/city.pipe";
 import {TimezonePipe} from "@pipes/timezone.pipe";
@@ -31,7 +30,6 @@ import {StepperComponent} from "@cmp/stepper/stepper.component";
 import {ViewersListComponent} from "@cmp/viewers-list/viewers-list.component";
 
 export const sharedConfig = [
-	TimezoneSelectorComponent,
 	RegionPipe,
 	CityPipe,
 	TimezonePipe,

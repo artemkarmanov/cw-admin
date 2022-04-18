@@ -23,7 +23,7 @@ export class CreateUserPageComponent implements OnInit, OnDestroy {
         email: new FormControl('', [Validators.required, Validators.email]),
         password: new FormControl('', [Validators.required]),
         password2: new FormControl('', [Validators.required]),
-        timeZone: new FormControl('Australia/Perth', [Validators.required]),
+        timeZone: new FormControl('', [Validators.required]),
     }, {
         validators: checkPasswords()
     })
