@@ -3,11 +3,10 @@
         <h3>Bookings</h3>
         <cw-svg-icon (click)="reload()" [independent]="true" [svg]="'refresh'"></cw-svg-icon>
     </cwb-button-header>
-    <cw-small-button
+    <cw-button
       routerLink="create"
-      [buttonText]="'Add new booking'"
-      [icon]="'add-white'"
-    ></cw-small-button>
+      buttonText="Add new booking"
+    ></cw-button>
 </cwb-page-top>
 
 <cwb-card *ngIf="(bookings$ | async); else empty">

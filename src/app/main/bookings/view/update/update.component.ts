@@ -72,7 +72,7 @@ export class UpdateComponent implements OnInit {
 
         return new SetBreadcrumbs([
             {title: 'Bookings', path: 'bookings'},
-            {title: 'Edit booking ' + this.booking.title}
+            {title: 'Edit booking: ' + this.booking.title}
         ])
     }
 

@@ -3,10 +3,10 @@
         <h3>Users</h3>
         <cw-svg-icon [independent]="true" [svg]="'refresh'" (click)="reload()"></cw-svg-icon>
     </cwb-button-header>
-    <cw-small-button
+    <cw-button
         routerLink="create"
-        [buttonText]="'Add new user'"
-    ></cw-small-button>
+        buttonText="Add new user"
+    ></cw-button>
 </cwb-page-top>
 
 <cwb-card *ngIf="(users$ | async); else empty">

@@ -8,23 +8,21 @@
 </ng-container>
 
 <ng-template #showUserInfoForm>
+	<h4 style="margin-bottom: 16px">General settings</h4>
 	<form [formGroup]="form">
-		<div class="flex row w-100 gap-16">
-			<cw-input
-				class="flex-1"
-				formControlName="firstName"
-				inputLabel="First Name"
-				inputPlaceholder="Enter your first name"
-				inputType="text"
-			></cw-input>
-			<cw-input
-				class="flex-1"
-				formControlName="lastName"
-				inputLabel="Last name"
-				inputPlaceholder="Enter your last name"
-				inputType="text"
-			></cw-input>
-		</div>
+		<cw-input
+			formControlName="firstName"
+			inputLabel="First Name"
+			inputPlaceholder="Enter your first name"
+			inputType="text"
+		></cw-input>
+
+		<cw-input
+			formControlName="lastName"
+			inputLabel="Last name"
+			inputPlaceholder="Enter your last name"
+			inputType="text"
+		></cw-input>
 
 		<cw-input
 			formControlName="email"
@@ -33,34 +31,38 @@
 			inputType="text"
 		></cw-input>
 
-		<cwb-timezone-selector formControlName="timeZone"></cwb-timezone-selector>
+		<div class="flex w-100" style="margin-bottom: 16px">
+			<cwb-timezone-selector
+				formControlName="timeZone"
+				class="flex mb-20 w-100"
+			></cwb-timezone-selector>
+		</div>
 
 		<cw-small-button
 			(click)="save()"
 			[buttonDisabled]="form.invalid || form.untouched"
 			buttonText="Save"
-			class="flex mt-16 j-c-fe"
+			class="flex mt-16 j-c-fs"
 		></cw-small-button>
-
 	</form>
 
 	<hr/>
 
-	<div class="flex col a-i-fe">
+	<div class="flex col a-i-fs">
+		<h4>Payment method</h4>
 		<ng-container *ngIf="userSettings.paymentMethodComplete; else notComplete">
-			<div>
+			<div class="flex mt-16">
 				You have a payment method saved with CaptionWorks.
 			</div>
 		</ng-container>
 		<ng-template #notComplete>
-			<div>
+			<div class="flex mt-16">
 				You don't have a payment method set up yet.
 			</div>
 		</ng-template>
-		<cw-small-button
-			(click)="showPaymentSettingForm()"
-			buttonText="Update payment method"
-			class="flex mt-16"
-		></cw-small-button>
+		<div class="flex row a-i-c j-c-c pointer mt-16" (click)="showPaymentSettingForm()">
+			<cw-svg-icon svg="edit"></cw-svg-icon>
+			<span class="update-label">Update payment method</span>
+		</div>
 	</div>
 </ng-template>

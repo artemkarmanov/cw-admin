@@ -15,7 +15,18 @@ export const usersTableConfig = {
 		title: 'Role',
 		type: 'custom',
 		renderComponent: UsersRoleComponent,
-		width: '218px'
+		width: '218px',
+		filter: {
+			type: 'list',
+			config: {
+				selectText: 'All',
+				list: [
+					{value: 'admin', title: 'Admin'},
+					{value: 'captioner', title: 'Captioner'},
+					{value: 'viewer', title: 'Viewer'}
+				],
+			},
+		}
 	},
 	actions: {
 		title: 'Actions',

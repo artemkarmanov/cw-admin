@@ -27,9 +27,6 @@
 
 .info {
   @include scrollbars(4px, $gray-40);
-  gap: 16px;
-  height: 100%;
-  display: flex;
   overflow-y: auto;
 
   .left {

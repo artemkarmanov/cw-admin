@@ -1,43 +1,24 @@
 @use '@angular/material' as mat;
+
 @include mat.core();
 @import '_colors';
 @import '@fontsource/inter/variable-full.css';
 @import "~@ng-select/ng-select/scss/default.theme";
 
 body {
-  font-family: "Inter-Variable", sans-serif;
-}
-
-@supports (font-variation-settings: normal) {
-  body {
-    font-family: "InterVariable", sans-serif;
-  }
-}
-
-cwb-root {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  flex: 1;
-  height: 100vh;
-  width: 100vw;
-}
-
-cwb-booking-page,
-cwb-bookings-page,
-cwb-users-page,
-cwb-sessions-page,
-cwb-account-settings-page {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
+	@supports (font-variation-settings: normal) {
+		font-family: "InterVariable", sans-serif;
+	}
+	@supports not (font-variation-settings: normal) {
+		font-family: "Inter-Variable", sans-serif;
+	}
 }
 
 router-outlet {
-  display: none;
+	display: none;
 }
 
 .mat-snack-bar-container {
-  background: white;
-  border: 1px solid silver;
+	background: white;
+	border: 1px solid silver;
 }

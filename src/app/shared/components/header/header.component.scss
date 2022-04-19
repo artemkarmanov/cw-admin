@@ -22,14 +22,8 @@
 		color: $gray-60;
 	}
 
-	.right {
-		width: 315px;
-		align-items: center;
-		justify-content: flex-end;
-	}
-
+	.right,
 	.logo {
 		width: 315px;
-		align-items: flex-start;
 	}
 }

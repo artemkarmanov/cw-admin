@@ -1,4 +1,4 @@
-<div *ngIf="(booking$|async) as data" class="flex col" style="gap: 16px">
+<div *ngIf="(booking$|async) as data" class="flex col gap-16">
 	<div class="flex j-c-sb a-i-c">
 		<h4>Booking details</h4>
 
@@ -66,7 +66,7 @@
 		<ng-container *ngIf="data.requireLogin">
                 <span class="flex row a-i-c text-field mt-16" style="gap: 12px">
                     <cw-svg-icon svg="checked"></cw-svg-icon>
-                    Require Captionworks login
+                    Require CaptionWorks login
                 </span>
 		</ng-container>
 	</fieldset>

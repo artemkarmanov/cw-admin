@@ -53,7 +53,7 @@ h5 {
 }
 
 a {
-	text-decoration: none;
+	text-decoration: none !important;
 
 	&:visited {
 		color: $blue-50;

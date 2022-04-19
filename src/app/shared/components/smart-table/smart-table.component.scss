@@ -19,36 +19,36 @@ cwb-smart-table {
 	height: 100%;
 }
 
-.selector {
-	margin-top: 14px !important;
-	max-height: 44px;
-	border: none;
-	outline: none;
-	font-size: 16px !important;
-	font-weight: 600 !important;
-	color: $blue-50 !important;
-	background: $gray-20;
-	border-radius: 4px;
-}
-
 ng2-smart-table {
+	font-size: unset !important;
 
 	table {
 		thead {
 			@extend %border;
 			background: $gray-20;
 
+			select {
+				height: 28px;
+				outline: none;
+				border-radius: 8px;
+				padding: 4px !important;
+				border: 1px solid #adc8ff;
+				box-shadow: inset 0 1px 2px rgb(0 0 0 / 8%);
+				background: white;
+				color: gray !important;
+			}
 
-			.ng2-smart-sort,
-			.ng2-smart-sort-link.sort {
-				color: $gray-80;
-				font-size: 14px;
-				font-weight: 600;
-				line-height: 24px;
-				text-decoration: none;
+			.ng2-smart-sort-link {
+				&.sort {
+					text-decoration: none;
+					color: $gray-80;
+					font-size: 14px;
+					font-weight: 600;
+					line-height: 24px;
 
-				&:hover {
-					color: $blue-50;
+					&:hover {
+						color: $blue-50;
+					}
 				}
 			}
 
@@ -88,11 +88,9 @@ ng2-smart-table {
 
 	ng2-smart-table-pager {
 		ul.ng2-smart-pagination {
-			display: flex;
-			font-size: 16px;
 			line-height: 24px;
 			gap: 32px;
-			margin-bottom: 0;
+			margin: 0;
 
 			li.ng2-smart-page-item {
 				a {

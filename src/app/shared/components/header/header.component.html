@@ -9,7 +9,7 @@
 		<cwb-menu></cwb-menu>
 	</ng-container>
 	<ng-template #unauthorized_logo>
-		<div class="flex col a-i-c j-c-c logo">
+		<div class="flex col a-i-fs j-c-c logo">
 			<img [routerLink]="''" alt="CaptionWorks" height="48" src="../../../../assets/logo.svg"
 			     width="172">
 		</div>
@@ -17,7 +17,7 @@
 	<div>
 		<div
 			*ngIf="isLoggedIn; else unauthorized"
-			class="flex j-c-sb gap right"
+			class="flex row a-i-c j-c-fe gap right"
 		>
 			<cwb-user-info></cwb-user-info>
 			<cwb-logout-button></cwb-logout-button>

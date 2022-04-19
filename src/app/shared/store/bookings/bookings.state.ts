@@ -44,9 +44,11 @@ export class BookingsState {
 	@Action(GetBookingSummaryResponse)
 	private getBookingSummaryResponse(
 		{patchState}: StateContext<BookingStateModel>,
-		{data}: GetBookingSummaryResponse
+		{data, code, error}: GetBookingSummaryResponse
 	) {
-		return patchState({bookings: data.bookings.reverse()})
+		return code === 200
+			? patchState({bookings: data.bookings.reverse()})
+			: this.snack.open(error)
 	}
 
 	@Action(GetBookingsResponse)
@@ -84,7 +86,7 @@ export class BookingsState {
 		{dispatch}: StateContext<BookingStateModel>,
 		{code, error}: CreateBookingResponse
 	) {
-		code === 200
+		return code === 200
 			? dispatch(new Navigate(['/']))
 			: this.snack.open(error)
 	}

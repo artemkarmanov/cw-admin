@@ -1,24 +1,26 @@
 @import '_colors';
 
 button {
-	background-color: $blue-50;
+	background-color: $blue-60;
 	border-radius: 8px;
 	border: 0;
 	color: $white;
 	cursor: pointer;
 	font-weight: 600;
-	font-size: 16px;
+	font-size: 17px;
 	line-height: 24px;
 	height: 56px;
-	width: 448px;
+	width: 100%;
+	max-width: 448px;
 	transition: background-color 200ms ease-in;
 	display: flex;
 	flex-flow: row nowrap;
 	justify-content: center;
 	align-items: center;
+	padding: 8px 16px;
 
 	&:hover {
-		background-color: $blue-60;
+		background-color: $blue-70;
 		transition: background-color 200ms ease-in;
 	}
 
