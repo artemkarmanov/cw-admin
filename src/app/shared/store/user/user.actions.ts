@@ -1,4 +1,6 @@
 import {IUser} from "@interfaces/user.interfaces";
+import {ResponseType} from "@constants/response-type";
+import {HttpStatusCode} from "@angular/common/http";
 
 export class Login {
 	static readonly type = '[User] Login'
@@ -25,10 +27,21 @@ export class GetUserSettings {
 }
 
 export class GetStripeClientSecretResponse {
-	static readonly type = 'getStripeClientSecretResp'
+	static readonly type = ResponseType.GetStripeClientSecretResponse
 
 	constructor(
 		public data: {stripeClientSecret: string}
+	) {
+	}
+}
+
+export class UpdateUserResponse {
+	static readonly type = ResponseType.UpdateUserResponse
+
+	constructor(
+		public code: HttpStatusCode,
+		public p: number,
+		public error: string
 	) {
 	}
 }

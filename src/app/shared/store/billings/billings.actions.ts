@@ -1,8 +1,9 @@
 import {IBilling, IBillingDetails} from "@interfaces/billing.interfaces";
 import {HttpStatusCode} from "@angular/common/http";
+import {ResponseType} from "@constants/response-type";
 
 export class GetBillingResultsResponse {
-	static readonly type = 'getBillingResultsResp'
+	static readonly type = ResponseType.GetBillingResultsResponse
 
 	constructor(
 		public data: {billing_results: IBilling[]},
@@ -14,7 +15,7 @@ export class GetBillingResultsResponse {
 }
 
 export class GetBillingDetailsResponse {
-	static readonly type = 'getBillingDetailsResp'
+	static readonly type = ResponseType.GetBillingDetailsResponse
 
 	constructor(
 		public data: {billing_details: IBillingDetails},

@@ -1,7 +1,6 @@
 import {HttpStatusCode} from '@angular/common/http'
 import {ResponseType} from '@constants/response-type'
 import {IRegions, IUserSettings} from "@interfaces/user.interfaces";
-import {ISession} from "@interfaces/session.interfaces";
 
 export class NewUserResponse {
 	static readonly type = ResponseType.NewUserResponse
@@ -103,17 +102,6 @@ export class GetTimeZoneCitiesResponse {
 
 	constructor(
 		public data: {cities: string[]},
-		public code: HttpStatusCode,
-		public p: number,
-		public error?: string
-	) {}
-}
-
-export class GetSessionStatusResponse {
-	static readonly type = ResponseType.GetSessionStatusResponse
-
-	constructor(
-		public data: ISession,
 		public code: HttpStatusCode,
 		public p: number,
 		public error?: string

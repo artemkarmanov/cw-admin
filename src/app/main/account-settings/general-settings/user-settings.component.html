@@ -40,7 +40,7 @@
 
 		<cw-small-button
 			(click)="save()"
-			[buttonDisabled]="form.invalid || form.untouched"
+			[buttonDisabled]="form.invalid || form.pristine"
 			buttonText="Save"
 			class="flex mt-16 j-c-fs"
 		></cw-small-button>

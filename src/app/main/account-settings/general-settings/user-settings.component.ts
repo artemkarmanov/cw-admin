@@ -11,6 +11,7 @@ import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
 import {environment} from "@env";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
 import {ClearBreadcrumbs, SetBreadcrumbs} from "@store/breadcrumbs.actions";
+import {Navigate} from "@ngxs/router-plugin";
 
 @Component({
     selector: 'cwb-user-settings',
@@ -61,13 +62,16 @@ export class UserSettingsComponent implements OnInit {
         }
     }
 
+    @Dispatch()
     save() {
         const newData = {...this.userSettings, ...this.form.value}
         if (environment.role !== 'admin') {
-            delete newData.userId
+            delete newData.email
         }
 
         this.usersService.update$(newData)
+
+        return new Navigate(['/', 'bookings'])
     }
 
     @Dispatch()

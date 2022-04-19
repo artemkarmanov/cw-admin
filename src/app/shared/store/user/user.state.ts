@@ -7,7 +7,8 @@ import {
 	GetUserSettings,
 	Login,
 	Logout,
-	Relogin
+	Relogin,
+	UpdateUserResponse
 } from './user.actions'
 import {
 	ChangePasswordResponse,
@@ -189,6 +190,16 @@ export class UserState {
 		}
 	}
 
+	@Action(UpdateUserResponse)
+	private updateUserResponse(
+		{dispatch}: StateContext<UserStateModel>,
+		{code, error}: UpdateUserResponse
+	) {
+		return code === 200
+			? dispatch(new GetUserSettings())
+			: this.snack.open(error)
+	}
+
 	@Action(Logout)
 	private logout({dispatch}: StateContext<UserStateModel>) {
 		return dispatch(new Send({type: MessageType.LogOut}))
@@ -235,7 +246,6 @@ export class UserState {
 		{patchState}: StateContext<UserStateModel>,
 		{data}: GetStripeClientSecretResponse
 	) {
-		console.log()
 		return patchState({stripeClientSecret: data.stripeClientSecret})
 	}
 }

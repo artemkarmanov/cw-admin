@@ -23,8 +23,6 @@ export enum MessageType {
 	GetTimeZoneRegions = 'getTimeZoneRegions',
 	/** { regionId } */
 	GetTimeZoneCities = 'getTimeZoneCities',
-	/** { sessionId } */
-	GetSessionStatus = 'getSessionStatus',
 	UpdateSession = 'updateSession',
 	CancelSession = 'cancelSession',
 	AddSession = 'addSession',

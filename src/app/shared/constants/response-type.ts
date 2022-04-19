@@ -19,8 +19,6 @@ export enum ResponseType {
 	GetTimeZoneRegionsResponse = 'getTimeZoneRegionsResp',
 	/** { regionId, cities: [ <string> ]}*/
 	GetTimeZoneCitiesResponse = 'getTimeZoneCitiesResp',
-	/** { title, startEpoch, sessionDurationMins, sessionLive, sessionCaptioning, connectedCaptioners: [ userId ], autoCaptioningAvailable } */
-	GetSessionStatusResponse = 'getSessionStatusResp',
 	GetBookingSummaryResponse = 'getBookingSummaryResp',
 	GetBookingsResponse = 'getBookingsResp',
 	GetSessionViewerLogsResponse = 'getSessionViewerLogsResp',
@@ -29,4 +27,10 @@ export enum ResponseType {
 	CancelSessionResponse = 'cancelSessionResp',
 	CreateBookingResponse = 'createBookingResp',
   UpdateBookingResponse = 'updateBookingResp',
+	/** {} */
+	UpdateUserResponse = 'updateUserResp',
+	GetStripeClientSecretResponse = 'getStripeClientSecretResp',
+	GetUsersResponse = 'getUsersResp',
+	GetBillingResultsResponse = 'getBillingResultsResp',
+	GetBillingDetailsResponse = 'getBillingDetailsResp'
 }
