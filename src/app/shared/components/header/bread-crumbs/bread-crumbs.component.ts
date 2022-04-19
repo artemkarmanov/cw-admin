@@ -1,5 +1,10 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {BreadCrumbsService} from '@services/bread-crumbs.service';
+import {Select, Store} from "@ngxs/store";
+import {Breadcrumbs, BreadcrumbsState} from "@store/breadcrumbs.state";
+import {Observable} from "rxjs";
+import {NavigationStart, Router} from "@angular/router";
+import {filter} from "rxjs/operators";
+import {ClearBreadcrumbs} from "@store/breadcrumbs.actions";
 
 @Component({
     selector: 'cwb-bread-crumbs',
@@ -8,16 +13,22 @@ import {BreadCrumbsService} from '@services/bread-crumbs.service';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BreadCrumbsComponent implements OnInit {
-    public data$ = this.breadCrumbsService.path$.pipe(
+    @Select(BreadcrumbsState) public breadcrumbs$!: Observable<Breadcrumbs>
 
-    );
-
-    constructor(private breadCrumbsService: BreadCrumbsService) {
-
+    constructor(
+        private router: Router,
+        private store: Store
+    ) {
     }
 
-    ngOnInit(): void {
-
+    ngOnInit() {
+        this.router
+            .events
+            .pipe(
+                filter((event) => event instanceof NavigationStart),
+            )
+            .subscribe(
+                () => this.store.dispatch(new ClearBreadcrumbs())
+            )
     }
-
 }

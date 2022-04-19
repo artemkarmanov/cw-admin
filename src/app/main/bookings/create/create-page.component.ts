@@ -1,6 +1,4 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {Router} from '@angular/router';
-import {BreadCrumbsService} from '@services/bread-crumbs.service';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {environment} from "@env";
 import {Observable} from "rxjs";
@@ -13,6 +11,7 @@ import {Select} from "@ngxs/store";
 import {IUser} from "@interfaces/user.interfaces";
 import {UsersState} from "@store/users.state";
 import * as moment from "moment";
+import {SetBreadcrumbs} from "@store/breadcrumbs.actions";
 
 @Component({
 	selector: 'cwb-create',
@@ -48,24 +47,13 @@ export class CreatePageComponent {
 		authorisedViewersOnly: new FormControl(0)
 	});
 
-	constructor(
-		private router: Router,
-		private breadCrumbsService: BreadCrumbsService
-	) {
-	}
-
-	ngOnInit(): void {
+	@Dispatch()
+	ngOnInit() {
 		if (this.isAdmin) this.getUsers()
 
-		this.breadCrumbsService.set([
-			{
-				path: '/bookings',
-				title: 'Bookings'
-			},
-			{
-				title: 'New booking',
-				path: ['bookings', 'create'].join('/')
-			}
+		return new SetBreadcrumbs([
+			{title: 'Bookings', path: '/bookings'},
+			{title: 'New booking'}
 		])
 	}
 

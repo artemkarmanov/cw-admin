@@ -6,7 +6,6 @@ import {environment} from '@env';
 import {ApplicationErrorHandler} from '@services/application-error-handler';
 import {SimpleLayoutComponent} from './account/simple-layout/simple-layout.component';
 import {ErrorHandlerService} from "@services/error-handler.service";
-import {BreadCrumbsService} from "@services/bread-crumbs.service";
 import {UsersService} from "@services/users.service";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {DialogService} from "@services/dialog.service";
@@ -27,6 +26,7 @@ import {NgxsRouterPluginModule} from "@ngxs/router-plugin";
 import {SimpleHeaderComponent} from './account/simple-layout/simple-header/simple-header.component';
 import {SimpleFooterComponent} from './account/simple-layout/simple-footer/simple-footer.component';
 import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule} from "@angular/material/snack-bar";
+import {BreadcrumbsState} from "@store/breadcrumbs.state";
 
 function initialize(store: Store) {
 	return () => store.dispatch(new ConnectWebSocket())
@@ -46,12 +46,13 @@ function initialize(store: Store) {
 		OverlayModule,
 		MatSnackBarModule,
 		NgxsModule.forRoot([
-				BookingsState,
 				WebsocketState,
-				UserState,
 				SessionsState,
+				BookingsState,
+				UserState,
 				UsersState,
-				BillingsState
+				BillingsState,
+				BreadcrumbsState
 			],
 			{
 				developmentMode: !environment.production
@@ -62,9 +63,9 @@ function initialize(store: Store) {
 		}),
 		NgxsStoragePluginModule.forRoot({
 			key: [
+				WebsocketState,
 				BookingsState,
 				UserState,
-				WebsocketState,
 				UsersState,
 				BillingsState
 			],
@@ -93,7 +94,6 @@ function initialize(store: Store) {
 		},
 		DialogService,
 		ErrorHandlerService,
-		BreadCrumbsService,
 		UsersService
 	],
 	bootstrap: [AppComponent]

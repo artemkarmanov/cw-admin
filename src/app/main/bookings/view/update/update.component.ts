@@ -5,6 +5,8 @@ import {UpdateService} from './update.service';
 import {IBooking} from "@interfaces/booking.interfaces";
 import {BookingsState} from "@store/bookings.state";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {SetBreadcrumbs} from "@store/breadcrumbs.actions";
 
 @Component({
     selector: 'cwb-update',
@@ -35,7 +37,8 @@ export class UpdateComponent implements OnInit {
     constructor(private updateService: UpdateService) {
     }
 
-    ngOnInit(): void {
+    @Dispatch()
+    ngOnInit() {
         const {
             title,
             audioDetails,
@@ -66,6 +69,11 @@ export class UpdateComponent implements OnInit {
             viewerEmails,
             bookingCaptionerPasscode
         });
+
+        return new SetBreadcrumbs([
+            {title: 'Bookings', path: 'bookings'},
+            {title: 'Edit booking ' + this.booking.title}
+        ])
     }
 
     update() {

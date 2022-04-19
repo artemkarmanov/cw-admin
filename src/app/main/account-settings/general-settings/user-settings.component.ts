@@ -8,6 +8,9 @@ import {ConfirmationService} from "@services/confirmation.service";
 import {IUserSettings} from "@interfaces/user.interfaces";
 import {UserState} from "@store/user.state";
 import {SelectSnapshot} from "@ngxs-labs/select-snapshot";
+import {environment} from "@env";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {ClearBreadcrumbs, SetBreadcrumbs} from "@store/breadcrumbs.actions";
 
 @Component({
     selector: 'cwb-user-settings',
@@ -60,11 +63,25 @@ export class UserSettingsComponent implements OnInit {
 
     save() {
         const newData = {...this.userSettings, ...this.form.value}
+        if (environment.role !== 'admin') {
+            delete newData.userId
+        }
 
         this.usersService.update$(newData)
     }
 
+    @Dispatch()
     showPaymentSettingForm() {
         this.showCreditCardForm = true;
+        return new SetBreadcrumbs([
+            {title: 'Account Settings', path: '/account-settings'},
+            {title: 'Your Payment Settings'}
+        ])
+    }
+
+    @Dispatch()
+    toggleCreditCardForm() {
+        this.showCreditCardForm = false;
+        return new ClearBreadcrumbs()
     }
 }

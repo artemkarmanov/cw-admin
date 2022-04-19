@@ -1,13 +1,14 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Observable, of, switchMap} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
-import {map, tap} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 import {UsersService} from '@services/users.service';
-import {BreadCrumbsService} from '@services/bread-crumbs.service';
 import {IUser} from "@interfaces/user.interfaces";
-import {UntilDestroy} from "@ngneat/until-destroy";
+import {UntilDestroy, untilDestroyed} from "@ngneat/until-destroy";
 import {Select} from "@ngxs/store";
 import {UsersState} from "@store/users.state";
+import {Dispatch} from "@ngxs-labs/dispatch-decorator";
+import {SetBreadcrumbs} from "@store/breadcrumbs.actions";
 
 @UntilDestroy()
 @Component({
@@ -23,28 +24,31 @@ export class EditUserPageComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private usersService: UsersService,
-        private breadCrumbsService: BreadCrumbsService
+        private usersService: UsersService
     ) {
     }
 
-    ngOnInit(): void {
+    @Dispatch()
+    ngOnInit() {
         const {id} = this.route.snapshot.params
-        this.user$ = this.users$.pipe(
-            map(users => users.find(user => user.userId === Number(id))!),
-            tap((user) =>
-                this.breadCrumbsService.set([
-                    {
-                        path: '/users',
-                        title: 'Users'
-                    },
-                    {
-                        title: ['Edit', user.firstName, user.lastName].join(' '),
-                        path: ['users', user.userId].join('/')
-                    }
-                ])
+
+        this.user$ = this.users$
+            .pipe(
+                untilDestroyed(this),
+                map(
+                    users => users.find(
+                        user => user.userId === Number(id)
+                    )!
+                )
             )
-        )
+
+        return this.user$
+            .pipe(
+                switchMap((user: IUser) => of(new SetBreadcrumbs([
+                    {title: 'Users', path: '/users'},
+                    {title: ['Edit', user.firstName, user.lastName].join(' ')}
+                ])))
+            )
     }
 
     save(user: IUser) {

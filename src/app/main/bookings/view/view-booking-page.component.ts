@@ -1,8 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {Observable, switchMap} from 'rxjs';
-import {tap} from 'rxjs/operators';
-import {BreadCrumbsService} from '@services/bread-crumbs.service';
+import {Observable} from 'rxjs';
 import {IBooking} from "@interfaces/booking.interfaces";
 import {Select} from "@ngxs/store";
 import {Dispatch} from "@ngxs-labs/dispatch-decorator";
@@ -22,28 +20,11 @@ export class ViewBookingPageComponent implements OnInit {
 
     constructor(
         private route: ActivatedRoute,
-        private breadCrumbsService: BreadCrumbsService,
         private sessionsService: SessionsService
     ) {
     }
 
-    ngOnInit(): void {
-        this.route.params.pipe(
-            switchMap(() => this.booking$),
-            tap((booking: IBooking) => {
-                this.breadCrumbsService.set([
-                    {
-                        path: '/bookings',
-                        title: 'Bookings'
-                    },
-                    {
-                        title: booking.title,
-                        path: ['bookings', booking.bookingToken].join('/')
-                    }
-                ])
-            })
-        ).subscribe()
-
+    ngOnInit() {
         this.getBooking()
     }
 

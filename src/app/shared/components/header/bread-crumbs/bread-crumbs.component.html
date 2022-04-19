@@ -1,45 +1,22 @@
-<ng-container *ngIf="(data$ | async) as data else logo">
-	<div
-		*ngIf="data.length > 1; else logo"
-		class="flex row gap-16 j-c-c a-i-c"
-	>
-		<cw-small-button
-			routerLink="../"
-			buttonText="Back"
-			icon="chevron-left"
-			[inverted]="true"
-		></cw-small-button>
+<ng-container *ngIf="(breadcrumbs$ | async) as data else logo">
+	<div *ngIf="data.length === 2; else logo" class="flex row gap-16 j-c-c a-i-c">
+		<img
+			src="assets/logo-part.svg"
+			height="36px"
+			alt="home"
+			[routerLink]="['/']"
+			class="pointer"
+		/>
 
-		<nav
-			class="breadcrumb flex row gap j-c-c a-i-c"
-			aria-label="breadcrumb"
-		>
-			<ng-container *ngFor="let item of data; let last=last">
-                <span
-                    *ngIf="last; else link"
-                    class="breadcrumb-item active"
-                >
-                    {{item.title}}
-                </span>
-				<ng-template #link>
-                    <span class="breadcrumb-item">
-                        <a [routerLink]="item.path">
-	                        {{item.title}}
-                        </a>
-                    </span>
-					<span>/</span>
-				</ng-template>
-			</ng-container>
+		<nav aria-label="breadcrumbs" class="breadcrumb flex row gap-8 j-c-c a-i-c">
+				<a  class="breadcrumb" [routerLink]="data[0].path">{{data[0].title}}</a>
+				<span class="breadcrumb slash">/</span>
+				<span class="breadcrumb">{{data[1].title}}</span>
 		</nav>
 	</div>
 </ng-container>
 <ng-template #logo>
 	<div class="flex col a-i-c logo">
-		<img
-			[routerLink]="''"
-			alt="CaptionWorks"
-			height="48"
-			src="../../../../../assets/logo.svg" width="172"
-		/>
+		<img alt="CaptionWorks" height="48" routerLink="" src="assets/logo.svg" width="172"/>
 	</div>
 </ng-template>

@@ -1,4 +1,8 @@
 <ng-container *ngIf="showCreditCardForm; else showUserInfoForm">
+	<a (click)="toggleCreditCardForm()" class="flex row a-i-c pointer">
+		<cw-svg-icon svg="chevron-left"></cw-svg-icon>
+		<span>Back</span>
+	</a>
 	<h2>Payment settings</h2>
 	<cwb-payment></cwb-payment>
 </ng-container>

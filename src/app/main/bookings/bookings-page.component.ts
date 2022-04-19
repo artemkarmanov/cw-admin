@@ -1,7 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {BookingService} from './booking.service';
 import {Observable} from 'rxjs';
-import {BreadCrumbsService} from '@services/bread-crumbs.service';
 import {IBookingSummary} from "@interfaces/booking.interfaces";
 import {Title} from "@angular/platform-browser";
 import {bookingsTableConfig} from "./bookings.table.config";
@@ -21,7 +20,6 @@ export class BookingsPageComponent implements OnInit {
 
     constructor(
         private bookingService: BookingService,
-        private breadCrumbsService: BreadCrumbsService,
         private titleService: Title
     ) {
     }
@@ -29,7 +27,6 @@ export class BookingsPageComponent implements OnInit {
     ngOnInit(): void {
         this.titleService.setTitle('CaptionWorks | Bookings')
         this.bookingService.getBookings$()
-        this.breadCrumbsService.set([{path: '/bookings', title: 'Bookings'}]);
     }
 
     reload() {

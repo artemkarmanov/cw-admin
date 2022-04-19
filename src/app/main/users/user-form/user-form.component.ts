@@ -29,7 +29,6 @@ export class UserFormComponent {
 
     @Input()
     set data(user: IUser) {
-        console.log(user)
         if (user) {
             this.form.removeControl('password');
             this.form.removeControl('password2');
@@ -41,7 +40,6 @@ export class UserFormComponent {
     }
 
     save() {
-        console.log(this.form.value)
         if (this.form.valid) {
             const data = this.form.value;
             delete data.password2;

@@ -11,8 +11,4 @@ import {IBilling} from "@interfaces/billing.interfaces";
 export class BillingStatusComponent implements ViewCell {
   @Input() value: any
   @Input() rowData!: IBilling
-
-  constructor() {
-    console.log(this)
-  }
 }

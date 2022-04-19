@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import {Observable} from 'rxjs';
 import {SessionsService} from './sessions.service';
-import {BreadCrumbsService} from '@services/bread-crumbs.service';
 import {IAdminSessionRow} from "@interfaces/session.interfaces";
 import {Title} from "@angular/platform-browser";
 import {sessionsTableConfig} from "./sessions.table.config";
@@ -29,17 +28,12 @@ export class SessionsPageComponent implements OnInit, AfterViewInit {
 
 	constructor(
 		private sessionService: SessionsService,
-		private breadCrumbsService: BreadCrumbsService,
 		private titleService: Title
 	) {
 	}
 
 	ngOnInit(): void {
 		this.titleService.setTitle('CaptionWorks | Sessions')
-		this.breadCrumbsService.set([{
-			path: '/sessions',
-			title: 'Sessions'
-		}]);
 	}
 
 	ngAfterViewInit() {

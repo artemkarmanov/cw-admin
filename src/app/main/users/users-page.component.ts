@@ -1,7 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {UsersService} from '@services/users.service';
 import {Observable} from 'rxjs';
-import {BreadCrumbsService} from '@services/bread-crumbs.service';
 import {IUserRow} from "@interfaces/user.interfaces";
 import {usersTableConfig} from "./users.table.config";
 import {Title} from "@angular/platform-browser";
@@ -20,18 +19,13 @@ export class UsersPageComponent implements OnInit {
 
 	constructor(
 		private usersService: UsersService,
-		private breadCrumbsService: BreadCrumbsService,
 		private titleService: Title
 	) {
 	}
 
-	ngOnInit(): void {
+	ngOnInit() {
 		this.usersService.load$()
 		this.titleService.setTitle('CaptionWorks | Users')
-		this.breadCrumbsService.set([{
-			path: '/users',
-			title: 'Users'
-		}]);
 	}
 
 	reload() {

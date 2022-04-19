@@ -1,13 +1,11 @@
+@import 'colors';
+
 :host {
 	display: flex;
 	width: 315px;
 	overflow: visible;
 
-	.breadcrumb {
-		font-weight: 400;
-		font-size: 16px;
-		line-height: 24px;
-		color: #6A6A6A;
+	.breadcrumbs {
 		margin: 0;
 		white-space: nowrap;
 	}
@@ -17,4 +15,28 @@
 		width: 315px;
 		align-items: flex-start;
 	}
+
+	nav {
+		.breadcrumb {
+			font-weight: 400;
+			font-size: 12px;
+			line-height: 16px;
+		}
+
+		a {
+			color: $gray-60;
+		}
+
+		.slash {
+			color: $gray-40;
+		}
+
+		span {
+			color: $gray-80;
+		}
+	}
+}
+
+.gap-8 {
+	gap: 8px;
 }
