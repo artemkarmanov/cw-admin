@@ -1,0 +1,11 @@
+<label class="flex a-i-c fs-m pointer mb-20">
+  <input
+    type="checkbox"
+    [ngModel]="value"
+    (ngModelChange)="onModelChange(!!$event)"
+  />
+  <div class="border flex j-c-c a-i-c">
+    <div class="filling" [ngClass]="{ visible: value }"></div>
+  </div>
+  <ng-content></ng-content>
+</label>
