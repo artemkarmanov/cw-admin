@@ -22,3 +22,11 @@ router-outlet {
 	background: white;
 	border: 1px solid silver;
 }
+
+cwb-session-dialog {
+  .form-inline > cw-input {
+    input {
+      text-align: center;
+    }
+  }
+}

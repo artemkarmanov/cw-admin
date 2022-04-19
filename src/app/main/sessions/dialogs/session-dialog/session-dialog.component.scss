@@ -1,0 +1,46 @@
+@import 'src/scss/_colors.scss';
+
+:host {
+  min-width: 632px;
+  padding: 20px;
+}
+
+.modal-body {
+  form {
+    padding-top: 36px;
+
+    .flex {
+      column-gap: 16px;
+
+      cw-input {
+        flex: 1 0 auto;
+      }
+
+      &.form-inline {
+        label {
+          font-size: 20px;
+          color: $gray-80;
+          font-weight: 400;
+          padding: 0 0 18px 0;
+          align-items: center;
+          margin-bottom: 0;
+        }
+
+        cw-input {
+          width: 180px;
+          margin: 0px 16px;
+          vertical-align: middle;
+        }
+      }
+
+      textarea {
+        width: 100%;
+        font-family: 'InterVariable';
+      }
+    }
+  }
+}
+
+.modal-footer {
+  padding-top: 26px;
+}
