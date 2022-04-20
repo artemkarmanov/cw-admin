@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {CreateRoutingModule} from './create-routing.module';
 import {CreatePageComponent} from './create-page.component';
 import {SharedModule} from '../../../shared/shared.module';
-import {NgxDaterangepickerMd} from "ngx-daterangepicker-material";
 
 @NgModule({
     declarations: [
@@ -10,8 +9,7 @@ import {NgxDaterangepickerMd} from "ngx-daterangepicker-material";
     ],
     imports: [
         SharedModule,
-        CreateRoutingModule,
-        NgxDaterangepickerMd,
+        CreateRoutingModule
     ]
 })
 export class CreateModule {

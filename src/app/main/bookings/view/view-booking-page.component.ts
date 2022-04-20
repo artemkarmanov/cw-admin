@@ -37,6 +37,6 @@ export class ViewBookingPageComponent implements OnInit {
     }
 
     addSession() {
-        this.sessionsService.add$()
+        this.sessionsService.add$().subscribe()
     }
 }

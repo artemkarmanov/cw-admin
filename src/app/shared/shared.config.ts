@@ -1,4 +1,4 @@
-import { CheckboxComponent } from './components/checkbox/checkbox.component';
+import { CheckboxComponent } from '@cmp/checkbox/checkbox.component';
 import { RegionPipe } from '@pipes/region.pipe';
 import { CityPipe } from '@pipes/city.pipe';
 import { TimezonePipe } from '@pipes/timezone.pipe';

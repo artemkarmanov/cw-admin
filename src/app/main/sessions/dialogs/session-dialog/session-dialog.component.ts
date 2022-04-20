@@ -1,7 +1,7 @@
-import { IAdminSession } from './../../../../shared/interfaces/session.interfaces';
 import {
   ChangeDetectionStrategy,
   Component,
+  Inject,
   OnDestroy,
   OnInit,
 } from '@angular/core';
@@ -15,10 +15,7 @@ import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 import { environment } from '@env';
 import { ISession } from '@interfaces/session.interfaces';
-import { DialogRef } from '@services/dialog.service';
-
-import { SessionsState } from '@store/sessions.state';
-import { Select } from '@ngxs/store';
+import { DIALOG_DATA, DialogRef } from '@services/dialog.service';
 
 interface IFormData {
   startDate: string;
@@ -38,9 +35,6 @@ interface IFormData {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SessionDialogComponent implements OnInit, OnDestroy {
-  @Select(SessionsState.sessionData)
-  public session$!: Observable<IAdminSession>;
-
   private destroy$$: Subject<void> = new Subject<void>();
   public isAdmin = environment.role === 'admin';
   public inEditMode = false;
@@ -52,7 +46,10 @@ export class SessionDialogComponent implements OnInit, OnDestroy {
 
   public form!: FormGroup;
 
-  constructor(private modal: DialogRef) {
+  constructor(
+      private modal: DialogRef,
+      @Inject(DIALOG_DATA) private data: ISession
+  ) {
     const controls = {
       startDate: new FormControl(null, Validators.required),
       startTime: new FormControl('', Validators.required),
@@ -74,7 +71,9 @@ export class SessionDialogComponent implements OnInit, OnDestroy {
     }
     this.form = new FormGroup(controls);
 
-    this.session$.subscribe((data) => console.log(data));
+    if (this.data) {
+      this.data$$.next(this.data)
+    }
   }
 
   ngOnInit(): void {

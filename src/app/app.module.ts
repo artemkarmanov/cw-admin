@@ -1,4 +1,3 @@
-import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -81,8 +80,7 @@ function initialize(store: Store) {
     NgxsWebsocketPluginModule.forRoot({ url: environment.backend }),
     NgxsDispatchPluginModule.forRoot(),
     NgxsSelectSnapshotModule.forRoot(),
-    NgxsRouterPluginModule.forRoot(),
-    NgxDaterangepickerMd.forRoot(),
+    NgxsRouterPluginModule.forRoot()
   ],
   providers: [
     {

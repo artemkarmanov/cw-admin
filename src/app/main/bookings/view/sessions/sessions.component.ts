@@ -22,7 +22,7 @@ export class SessionsComponent {
 
     edit(session: ISession) {
         if (this.isAdmin) {
-            this.sessionService.edit$(session)
+            this.sessionService.edit$(session).subscribe()
         }
     }
 

@@ -28,7 +28,8 @@ import {CoreModule} from "./core/core.module";
 		...sharedConfig,
 		CoreModule,
 		AccordionModule,
-		CdkStepperModule
+		CdkStepperModule,
+		NgxDaterangepickerMd
 	]
 })
 export class SharedModule {

@@ -10,7 +10,6 @@ import { SessionLinkComponent } from './sessions-table/session-link/session-link
 import { SessionTableActionsComponent } from './sessions-table/session-table-actions/session-table-actions.component';
 import { SessionsService } from './sessions.service';
 import { SessionStatusBadgeComponent } from './sessions-table/session-status-badge/session-status-badge.component';
-import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 
 @NgModule({
   declarations: [
@@ -23,7 +22,10 @@ import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
     SessionTableActionsComponent,
     SessionStatusBadgeComponent,
   ],
-  imports: [SessionsRoutingModule, SharedModule, NgxDaterangepickerMd],
+  imports: [
+    SessionsRoutingModule,
+    SharedModule
+  ],
   providers: [SessionsService],
 })
 export class SessionsModule {}

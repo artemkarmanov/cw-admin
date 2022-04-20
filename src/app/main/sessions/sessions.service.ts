@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable, take, tap} from 'rxjs';
+import {Observable, of, switchMap, take, tap} from 'rxjs';
 import {SessionDialogComponent} from './dialogs/session-dialog/session-dialog.component';
 import {filter} from 'rxjs/operators';
 import {ConfirmationService} from '@services/confirmation.service';
@@ -26,10 +26,14 @@ export class SessionsService {
 	) {
 	}
 
-	public add$(): Observable<unknown> {
-		return this.dialog.open(SessionDialogComponent).afterClosed().pipe(
-			//filter(Boolean),
-		)
+	public add$() {
+		return this.dialog
+			.open(SessionDialogComponent)
+			.afterClosed()
+			.pipe(
+				filter(Boolean),
+				switchMap((data) => of(this.addSession$(data)))
+			)
 	}
 
 	public edit$(sessionData: ISession | IAdminSession): Observable<unknown> {
